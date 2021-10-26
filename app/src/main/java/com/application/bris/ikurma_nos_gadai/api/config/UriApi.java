@@ -342,7 +342,11 @@ public class UriApi {
 
     }
 
-
+    public class gadaiNOS{
+        public static final String listAplikasiGadai = "https://devdigitalform.bsm.co.id/GadaiEmasService/rest/Gadai/listAplikasiGadai";
+        public static final String detailAplikasiGadai = "https://devdigitalform.bsm.co.id/GadaiEmasService/rest/Gadai/DetailAplikasiGadai";
+        public static final String sendAplikasiGadai = "https://devdigitalform.bsm.co.id/GadaiEmasService/rest/Gadai/FotoUlangAgunanEmas";
+    }
 }
 
 

@@ -1,0 +1,592 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorWhite"
+    android:fitsSystemWindows="true">
+
+    <include
+        android:id="@+id/toolbar_nosearch"
+        layout="@layout/toolbar_nosearch" />
+
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="50dp"
+        android:fitsSystemWindows="true"
+        android:scrollbars="none">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/colorWhite"
+                android:orientation="vertical"
+                android:paddingTop="10dp">
+
+                <!--Cabang-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_cabang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Cabang"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_cabang"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--Nama Nasabah-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_nama_nasabah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Nama Nasabah"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_nama_nasabah"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--Nomor Aplikasi Gadai-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_nomer_applikasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Nomor Aplikasi Gadai"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_nomer_applikasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--Nomor KTP-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_ktp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Nomor KTP"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_ktp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--Jangka Waktu Gadai-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_jangka_waktu"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Jangka Waktu Gadai"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_jangka_waktu"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--Tanggal Transaksi-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_tgl_transaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Tanggal Transaksi"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_tgl_transaksi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--Tanggal Jatuh Tempo-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_tgl_jatoh_tempo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Tanggal Jatuh Tempo"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_tgl_jatoh_tempo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--Title Foto Bersama Nasabah-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/muli_b"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Foto Bersama Nasabah"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <!--Foto Bersama Nasabah-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_bersama_nasabah"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:padding="10dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/iv_bersama_nasabah"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:scaleType="center"
+                                android:src="@mipmap/ico_img_for_upload"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:riv_border_color="#f1efef"
+                                app:riv_border_width="1dip"
+                                app:riv_corner_radius="8dip" />
+
+                            <ImageView
+                                android:id="@+id/btn_bersama_nasabah"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/photo_rounded_blue"
+                                android:padding="8dp"
+                                android:src="@mipmap/ico_upload"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!--Title Foto Agunan-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/muli_b"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Foto Agunan"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <!--Foto Agunan-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_foto_agunan"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:padding="10dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/iv_foto_agunan"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:scaleType="center"
+                                android:src="@mipmap/ico_img_for_upload"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:riv_border_color="#f1efef"
+                                app:riv_border_width="1dip"
+                                app:riv_corner_radius="8dip" />
+
+                            <ImageView
+                                android:id="@+id/btn_foto_agunan"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/photo_rounded_blue"
+                                android:padding="8dp"
+                                android:src="@mipmap/ico_upload"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!--Title Foto KTP-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:fontFamily="@font/muli_b"
+                    android:paddingLeft="10dp"
+                    android:paddingBottom="10dp"
+                    android:text="Foto KTP"
+                    android:textAlignment="center"
+                    android:textSize="16sp" />
+
+                <!--Upload Foto KTP-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_foto_ktp"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:padding="10dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/iv_foto_ktp"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:scaleType="center"
+                                android:src="@mipmap/ico_img_for_upload"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent"
+                                app:riv_border_color="#f1efef"
+                                app:riv_border_width="1dip"
+                                app:riv_corner_radius="8dip" />
+
+                            <ImageView
+                                android:id="@+id/btn_foto_ktp"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/photo_rounded_blue"
+                                android:padding="8dp"
+                                android:src="@mipmap/ico_upload"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <!--Title Additional-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--Additional 1-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="0dp">
+                        <!--Title Foto Additional 1-->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/muli_b"
+                            android:paddingLeft="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Foto Additional 1"
+                            android:textAlignment="center"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <!--Additional 2-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="0dp">
+                        <!--Title Foto Additional 2-->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/muli_b"
+                            android:paddingLeft="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Foto Additional 2"
+                            android:textAlignment="center"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <!--Upload Additional-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <!--Additional 1-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="0dp">
+
+                        <!--Foto Additional 1-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:id="@+id/rl_additional1"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:padding="10dp">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="200dp">
+
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        android:id="@+id/iv_additional1"
+                                        android:layout_width="0dp"
+                                        android:layout_height="0dp"
+                                        android:scaleType="center"
+                                        android:src="@mipmap/ico_img_for_upload"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toRightOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:riv_border_color="#f1efef"
+                                        app:riv_border_width="1dip"
+                                        app:riv_corner_radius="8dip" />
+
+                                    <ImageView
+                                        android:id="@+id/btn_additional1"
+                                        android:layout_width="45dp"
+                                        android:layout_height="45dp"
+                                        android:layout_marginRight="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:background="@drawable/photo_rounded_blue"
+                                        android:padding="8dp"
+                                        android:src="@mipmap/ico_upload"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintRight_toRightOf="parent" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                    <!--Additional 2-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center"
+                        android:padding="0dp">
+                        <!--Foto Additional 2-->
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <RelativeLayout
+                                android:id="@+id/rl_additional2"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="1"
+                                android:padding="10dp">
+
+                                <androidx.constraintlayout.widget.ConstraintLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="200dp">
+
+                                    <com.makeramen.roundedimageview.RoundedImageView
+                                        android:id="@+id/iv_additional2"
+                                        android:layout_width="0dp"
+                                        android:layout_height="0dp"
+                                        android:scaleType="center"
+                                        android:src="@mipmap/ico_img_for_upload"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintLeft_toLeftOf="parent"
+                                        app:layout_constraintRight_toRightOf="parent"
+                                        app:layout_constraintTop_toTopOf="parent"
+                                        app:riv_border_color="#f1efef"
+                                        app:riv_border_width="1dip"
+                                        app:riv_corner_radius="8dip" />
+
+                                    <ImageView
+                                        android:id="@+id/btn_additional2"
+                                        android:layout_width="45dp"
+                                        android:layout_height="45dp"
+                                        android:layout_marginRight="10dp"
+                                        android:layout_marginBottom="10dp"
+                                        android:background="@drawable/photo_rounded_blue"
+                                        android:padding="8dp"
+                                        android:src="@mipmap/ico_upload"
+                                        app:layout_constraintBottom_toBottomOf="parent"
+                                        app:layout_constraintRight_toRightOf="parent" />
+
+                                </androidx.constraintlayout.widget.ConstraintLayout>
+                            </RelativeLayout>
+                        </LinearLayout>
+                    </RelativeLayout>
+
+                </LinearLayout>
+
+                <!--Button Simpan-->
+                <LinearLayout
+                    android:id="@+id/ll_btn_send"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorWhite">
+
+                    <Button
+                        android:id="@+id/btn_send"
+                        style="@style/Bordered.Button.Custom"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:padding="8dp"
+                        android:text="Simpan" />
+                </LinearLayout>
+            </LinearLayout>
+        </FrameLayout>
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

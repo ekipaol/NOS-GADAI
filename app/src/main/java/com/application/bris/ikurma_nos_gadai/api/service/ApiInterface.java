@@ -8,12 +8,14 @@ import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseArrAgunan;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseArrAgunanByCif;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseDataDukcapil;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseDataInstansi;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGmapsV3;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseSaldo;
 import com.application.bris.ikurma_nos_gadai.api.model.request.EmptyRequest;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqFollowUpFlpp;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqKodeProvinsi;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqKodeWilayah;
+import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUid;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUidLong;
 import com.application.bris.ikurma_nos_gadai.api.model.request.agunan.ReqAgunan;
@@ -701,5 +703,15 @@ public interface ApiInterface {
 
     @POST(UriApi.flpp.sendDataPipelineKprFlpp)
     Call<ParseResponse> sendDataPipelineKprFlpp(@Body KonsumerKPRInputPipeline inputPipeline);
+
+    //List Gadai
+    @POST(UriApi.gadaiNOS.listAplikasiGadai)
+    Call<ParseResponseGadai> sendDataListApplikasi(@Body ReqListGadai ReqListGadai);
+
+    @POST(UriApi.gadaiNOS.detailAplikasiGadai)
+    Call<ParseResponseAgunan> sendDetailAplikasiGadai(@Body ReqListGadai ReqListGadai);
+
+    @POST(UriApi.gadaiNOS.sendAplikasiGadai)
+    Call<ParseResponseAgunan> sendDataCaptureGadai(@Body ReqListGadai ReqListGadai);
 }
 
