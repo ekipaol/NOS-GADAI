@@ -472,18 +472,18 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
                 public void onClick(SweetAlertDialog sweetAlertDialog) {
                     logout.dismissWithAnimation();
 //                    getActivity().finish();
-                    if(appPreferences.getNama().equalsIgnoreCase("developer")){
+//                    if(appPreferences.getNama().equalsIgnoreCase("developer")){
                         Intent intent=new Intent(getContext(), LoginActivity2.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
                         startActivity(intent);
-                    }
-                    else{
-                        Intent intent=new Intent(getContext(), LoginActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-
-                        startActivity(intent);
-                    }
+//                    }
+//                    else{
+//                        Intent intent=new Intent(getContext(), LoginActivity.class);
+//                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+//
+//                        startActivity(intent);
+//                    }
 
                 }
             });
