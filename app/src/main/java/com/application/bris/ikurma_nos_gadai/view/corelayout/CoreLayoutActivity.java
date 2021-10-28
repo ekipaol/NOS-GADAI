@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.appcompat.app.AppCompatActivity;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
@@ -101,8 +102,8 @@ public class CoreLayoutActivity extends AppCompatActivity implements BottomNavig
                 fragment = new FragmentHome();
                 break;
             case R.id.navigation_dashboard:
-//                Toast.makeText(this, "Segera Tersedia", Toast.LENGTH_SHORT).show();
-                fragment = new FragmentRanking();
+                Toast.makeText(this, "Segera Tersedia", Toast.LENGTH_SHORT).show();
+//                fragment = new FragmentRanking();
                 break;
             case R.id.navigation_notifications:
                 fragment = new FragmentUser();

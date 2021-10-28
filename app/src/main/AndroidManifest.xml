@@ -14,6 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:allowBackup">
+        <activity android:name=".page_aom.view.gadai.capture_agunan.ListAgunanActivity"/>
+        <activity android:name=".page_aom.view.gadai.capture_agunan.CaptureAgunanActivity"/>
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.prapen.d4_verifikasi_otor.verif_hutang.TambahHutangVerifikatorActivity"></activity>
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.prapen.g1_akad_dan_asesoir.field_ojk_bi.ActivityFieldOjkBI" />
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.prapen.g3_upload_dokumen.ActivityUploadDokumen" />
@@ -41,11 +43,7 @@
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.prapen.d3_confirm_validasi_engine.data_hutang.TambahDataHutangActivity" />
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.prapen.d3_confirm_validasi_engine.data_hutang.DataHutangActivity" />
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.prapen.DetilAplikasiActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.prapen.d1_data_entry.data_marketing.DataMarketingActivity" />
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.prapen.d1_data_entry.data_nasabah.DataNasabahPrapenActivity" />
@@ -115,7 +113,9 @@
         </activity>
         <activity
             android:name="com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize" >
+
+        </activity>
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.pipeline.CeknasabahActivity" />
         <activity android:name="com.application.bris.ikurma_nos_gadai.view.corelayout.CoreLayoutActivity" />
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.hotprospek.HotprospekActivity" />
@@ -144,7 +144,13 @@
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.hotprospek.agunan.AgunanKendaraanInputActivity" />
         <activity android:name="com.application.bris.ikurma_nos_gadai.view.corelayout.activation.WelcomeActivity" />
         <activity android:name="com.application.bris.ikurma_nos_gadai.view.corelayout.activation.ScanActivity" />
-        <activity android:name="com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity2" />
+        <activity android:name="com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity2" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.hotprospek.prescreening.remaksslik.RemaksSlikActivity" />
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.hotprospek.prescreening.remaksslik.RemaksSlikEditActivity" />
 

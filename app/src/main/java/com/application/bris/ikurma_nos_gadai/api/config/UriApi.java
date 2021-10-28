@@ -10,7 +10,7 @@ public class UriApi {
     
     public static class Baseurl{
 //        public static final String URLDEV = "http://10.1.25.55:8080/MobileBRISIAPI-EKI/webresources/"; //DEV
-        public static final String URLDEV = "http://10.0.1.210:8080/MobileBRISIAPI/webresources/"; //DEV BSI
+        public static final String URLDEV = "http://10.0.116.37:8054/"; //DEV
         public static final String URLPROD = "https://intel.brisyariah.co.id:55056/MobileBRISIAPI/webresources/"; //PROD
 //        public static final String URLPROD = "https://intel.brisyariah.co.id:55056/MobileBRISIAPI-EKI/webresources/"; //PROD EKI
 
@@ -21,9 +21,9 @@ public class UriApi {
 
     public class general {
         public static final String searchAddress = "generic/pencarianKodePos";
-        public static final String login = "generic/login";
+        public static final String login = "user-service/logins";
         public static final String simpanFeedback = "generic/simpanFeedback";
-        public static final String login2 = "generic/loginn";
+        public static final String login2 = "user-service/logins";
         public static final String home = "generic/dashboardKmg";
         public static final String getProduct = "generic/getProduk";
         public static final String getKategSektorEkonomii = "generic/mikro/hotprospek/datapembiayaan/kategoriSektorEkonomi";
@@ -343,9 +343,9 @@ public class UriApi {
     }
 
     public class gadaiNOS{
-        public static final String listAplikasiGadai = "https://devdigitalform.bsm.co.id/GadaiEmasService/rest/Gadai/listAplikasiGadai";
-        public static final String detailAplikasiGadai = "https://devdigitalform.bsm.co.id/GadaiEmasService/rest/Gadai/DetailAplikasiGadai";
-        public static final String sendAplikasiGadai = "https://devdigitalform.bsm.co.id/GadaiEmasService/rest/Gadai/FotoUlangAgunanEmas";
+        public static final String listAplikasiGadai = "GadaiEmasService/rest/Gadai/listAplikasiGadai";
+        public static final String detailAplikasiGadai = "GadaiEmasService/rest/Gadai/DetailAplikasiGadai";
+        public static final String sendAplikasiGadai = "GadaiEmasService/rest/Gadai/FotoUlangAgunanEmas";
     }
 }
 

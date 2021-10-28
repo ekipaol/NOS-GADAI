@@ -154,12 +154,12 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Initialize
-        apiClientAdapter = new ApiClientAdapter(this);
+        apiClientAdapter = new ApiClientAdapter(this,"https://10.0.116.105/");
         appPreferences = new AppPreferences(this);
-        initilize();
         binding = ActivityCaptureAgunanBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
         setContentView(binding.getRoot());
+        initilize();
         //setclick
         setClickListener();
         //disableText
@@ -181,6 +181,7 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
     }
 
     private void initilize() {
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
         obj1.addProperty("FilterNoAplikasi", getIntent().getStringExtra("NoAplikasi"));
 //        obj1.addProperty("FilterNoAplikasi", "GDE2021102200002");
@@ -196,6 +197,7 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
             public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
                 try {
                     if (response.isSuccessful()) {
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
                         if (response.body().getStatus().equalsIgnoreCase("00")) {
                             String listDataString = response.body().getData().toString();
                             Gson gson = new Gson();
@@ -210,6 +212,7 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
                             AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     } else {
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
                         Error error = ParseResponseError.confirmEror(response.errorBody());
                         AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), error.getMessage());
                     }
@@ -220,6 +223,7 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onFailure(Call<ParseResponseAgunan> call, Throwable t) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
                 AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
         });

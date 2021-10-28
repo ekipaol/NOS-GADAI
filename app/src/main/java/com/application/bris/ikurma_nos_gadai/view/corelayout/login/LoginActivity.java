@@ -25,6 +25,7 @@ import com.application.bris.ikurma_nos_gadai.page_aom.dialog.CustomDialog;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.ConfirmListener;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.application.bris.ikurma_nos_gadai.util.Constants;
+import com.application.bris.ikurma_nos_gadai.util.magiccrypt.MagicCrypt;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.CoreLayoutActivity;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.activation.WelcomeActivity;
 import com.bumptech.glide.Glide;
@@ -124,6 +125,9 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
                     .into(iv_avatarlogin);
         }
 
+        if(appPreferences.getNama().isEmpty()){
+            appPreferences.setNama(AppUtil.encrypt("User"));
+        }
         String title = "Welcome <b>"+appPreferences.getNama()+"</b>,";
         String subtitle = "Login to <b> Continue </b>";
         tv_titlelogin.setText(Html.fromHtml(title));

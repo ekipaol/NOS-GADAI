@@ -14,6 +14,7 @@ import com.application.bris.ikurma_nos_gadai.page_aom.model.HotprospekKpr;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.PipelineKpr;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.appraisal.AppraisalActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.feedback.FeedbackActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanActivity;
 import com.application.bris.ikurma_nos_gadai.page_monitoring.monitoring_pencairan.MonitoringPencairanActivity;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity2;
@@ -181,11 +182,6 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
             iv_morehotprospek.setOnClickListener(this);
         }
 
-//        swipeRefreshLayout.setOnRefreshListener(this);
-
-
-//        appPreferences.setUpdateNotification("true");
-
 
         //ubah nilai versi notifikasi disini dengan nilai baru, jika ada notifikasi baru/update baru
         //update 1.3.0 versi notifikasi 1 ( ubah jadi 2 atau nilai lain di versi selanjutnya
@@ -196,16 +192,8 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
         }
 
 
-        if(appPreferences.isUpdateNotificationOn().equalsIgnoreCase("true")){
-
-            //MENAMPILKAN CHANGELOG UNTUK UPDATE TERBARU KORMA
-            CustomDialog.DialogUpdateInformation(getContext(), "Fitur Terbaru i-Kurma Konsumer","- Penyesuaian di halaman pipeline, data lengkap, dan prescreening untuk pengecekan dukcapil");
-        }
-
-
-
         loadProfil();
-        loadData();
+//        loadData();
         initializeMenu();
         initializePipelineHome();
         initializeHotprospekHome();
@@ -232,38 +220,6 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void loadProfil() {
-
-        if (appPreferences.getImageProfilBase64().equalsIgnoreCase("")){
-            String urlPhoto = UriApi.Baseurl.URL+UriApi.foto.urlPhotoProfil+appPreferences.getNik();
-            Glide
-                    .with(getContext())
-                    .asBitmap()
-                    .load(urlPhoto)
-                    .centerCrop()
-                    .placeholder(R.drawable.banner_placeholder)
-                    .into(new CustomTarget<Bitmap>() {
-                        @Override
-                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            iv_profilpicture.setImageBitmap(resource);
-                            appPreferences.setImageProfilBase64(AppUtil.encodeImageTobase64(resource));
-                        }
-
-                        @Override
-                        public void onLoadCleared(@Nullable Drawable placeholder) {
-
-                        }
-                    });
-        }
-        else{
-            Glide
-                    .with(getContext())
-                    .asBitmap()
-                    .load(AppUtil.decodeImageTobase64(appPreferences.getImageProfilBase64()))
-                    .centerCrop()
-                    .placeholder(R.drawable.banner_placeholder)
-                    .into(iv_profilpicture);
-        }
-
         tv_nama.setText(appPreferences.getNama());
         tv_username.setText(appPreferences.getJabatan()+", "+appPreferences.getNamaKantor());
     }
@@ -466,14 +422,11 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
     @Override
     public void onMenuClick(String menu) {
 
-        if (menu.equalsIgnoreCase(getString(R.string.menu_pipeline))){
-//            Intent it = new Intent(getContext(), KonsumerKMGPipelineActivity.class);
-//            startActivity(it);
-            Intent intent=new Intent(getContext(),MenuPutusanKonsumerActivity.class);
-            intent.putExtra("jenisMenu","pipeline");
+        if (menu.equalsIgnoreCase(getString(R.string.menu_capture_agunan))){
+            Intent intent=new Intent(getContext(), ListAgunanActivity.class);
             startActivity(intent);
         }
-        else if (menu.equalsIgnoreCase(getString(R.string.menu_hotprospek))){
+        else if (menu.equalsIgnoreCase(getString(R.string.menu_uji_kualitas))){
 //            Intent it = new Intent(getContext(), HotprospekActivity.class);
 //            startActivity(it);
 
@@ -546,7 +499,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
             @Override
             public void onStateChanged(AppBarLayout appBarLayout, State state) {
                 if (state.name().equalsIgnoreCase("COLLAPSED") || state.name().equalsIgnoreCase("IDLE")){
-                    tv_toolbartitle.setText("i-Kurma Konsumer");
+                    tv_toolbartitle.setText("NOS GADAI");
                     backgroundStatusBar(state.name());
                     swipeRefreshLayout.setEnabled(false);
                 }
@@ -630,13 +583,13 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onRefresh() {
         initializeMenu();
         swipeRefreshLayout.setRefreshing(false);
-        sm_placeholder_hotprospek.setVisibility(View.VISIBLE);
-        sm_placeholder_pipeline.setVisibility(View.VISIBLE);
+//        sm_placeholder_hotprospek.setVisibility(View.VISIBLE);
+//        sm_placeholder_pipeline.setVisibility(View.VISIBLE);
         rv_hotprospek.setVisibility(View.GONE);
         rv_pipeline.setVisibility(View.GONE);
         checkCollapse();
         loadProfil();
-        loadData();
+//        loadData();
 //        initializeMenu();
         initializePipelineHome();
         initializeHotprospekHome();

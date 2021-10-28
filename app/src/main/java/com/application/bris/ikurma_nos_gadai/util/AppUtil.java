@@ -57,6 +57,7 @@ import java.io.InputStream;
 import java.math.BigInteger;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.text.DecimalFormat;
@@ -870,6 +871,28 @@ public class AppUtil {
             e.printStackTrace();
         }
         return strfix;
+    }
+
+    public static String hashSha256(String text){
+
+        try{
+            MessageDigest digest = MessageDigest.getInstance("SHA-256");
+            digest.reset();
+
+            byte[] byteData = digest.digest(text.getBytes(StandardCharsets.UTF_8));
+            StringBuffer sb = new StringBuffer();
+
+            for (int i = 0; i < byteData.length; i++){
+                sb.append(Integer.toString((byteData[i] & 0xff) + 0x100, 16).substring(1));
+            }
+            return sb.toString();
+        }
+        catch(NoSuchAlgorithmException e){
+            logSecure("ALGO EXEPTION","no such algorithm");
+            return "";
+        }
+
+
     }
 
     public void showFragmentDialog(FragmentManager fragmentManager, String title, List<MGenericModel> mGenericModel, GenericListenerOnSelect listenerOnSelect){

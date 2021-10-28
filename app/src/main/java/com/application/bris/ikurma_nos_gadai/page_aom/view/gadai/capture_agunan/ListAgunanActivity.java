@@ -62,7 +62,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
         //Sdk untuk background toolbar
         backgroundStatusBar();
         //initialize List
-        apiClientAdapter = new ApiClientAdapter(this);
+        apiClientAdapter = new ApiClientAdapter(this,"https://10.0.116.105/");
         appPreferences = new AppPreferences(this);
         try {
             setData();
@@ -73,6 +73,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
 
     }
     private void setData() throws JSONException {
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
             JsonObject obj1 = new JsonObject();
             obj1.addProperty("FilterKodeCabang", "ID0010212");
             obj1.addProperty("FilterNoAplikasi", "NONE");
@@ -92,7 +93,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
             obj1.addProperty("FilterHasilIDE", "NONE");
             obj1.addProperty("FilterSlotPenempatan", "NONE");
             ReqListGadai req = new ReqListGadai();
-            req.setkchannel("Web");
+            req.setkchannel("Mobile");
             req.setdata(obj1);
             Call<ParseResponseGadai> call = apiClientAdapter.getApiInterface().sendDataListApplikasi(req);
             call.enqueue(new Callback<ParseResponseGadai>() {
@@ -100,7 +101,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
                 public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
                     try {
                         if(response.isSuccessful()){
-
+                            binding.loading.progressbarLoading.setVisibility(View.GONE);
                             if(response.body().getStatus().equalsIgnoreCase("00")){
                                 String listDataString = response.body().getData().toString();
                                 Gson gson = new Gson();
@@ -108,7 +109,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
                                 dataAgunan = gson.fromJson(listDataString, type);
                                 if (dataAgunan.size() > 0){
                                     binding.llEmptydata.setVisibility(View.GONE);
-                                    listAgunanAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanAdapter(ListAgunanActivity.this,dataAgunan,ListAgunanActivity.this);
+                                    listAgunanAdapter = new ListAgunanAdapter(ListAgunanActivity.this,dataAgunan,ListAgunanActivity.this);
                                     binding.rvListAgunan.setLayoutManager(new LinearLayoutManager(ListAgunanActivity.this));
                                     binding.rvListAgunan.setItemAnimator(new DefaultItemAnimator());
                                     binding.rvListAgunan.setAdapter(listAgunanAdapter);
@@ -122,6 +123,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
                             }
                         }
                         else{
+                            binding.loading.progressbarLoading.setVisibility(View.GONE);
                             Error error = ParseResponseError.confirmEror(response.errorBody());
                             AppUtil.notiferror(ListAgunanActivity.this, findViewById(android.R.id.content), error.getMessage());
                         }
@@ -133,6 +135,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
 
                 @Override
                 public void onFailure(Call<ParseResponseGadai> call, Throwable t) {
+                    binding.loading.progressbarLoading.setVisibility(View.GONE);
                     AppUtil.notiferror(ListAgunanActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
                 }
             });

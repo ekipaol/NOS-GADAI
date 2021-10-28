@@ -239,13 +239,14 @@
                             android:id="@+id/tv_pipeline"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Pipeline"
-                            android:textSize="18dp"
-                            android:paddingLeft="10dp"
-                            android:textColor="@color/colorBlackHeader"
                             android:fontFamily="@font/muli_b"
+                            android:paddingLeft="10dp"
+                            android:text="Capture Agunan"
+                            android:textColor="@color/colorBlackHeader"
+                            android:textSize="18dp"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"/>
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:layout_editor_absoluteX="8dp" />
 
                         <ImageView
                             android:id="@+id/iv_morepipeline"
@@ -265,6 +266,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
+                        android:visibility="gone"
                         app:shimmer_duration="800">
 
                         <LinearLayout
@@ -326,6 +328,7 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/ll_pipeline"
                     android:animateLayoutChanges="true"
+                    android:visibility="gone"
                     android:orientation="vertical">
 
                     <androidx.constraintlayout.widget.ConstraintLayout
@@ -343,7 +346,7 @@
                             android:id="@+id/tv_hotprospek"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Hotprospek"
+                            android:text="Capture Agunan"
                             android:textSize="18dp"
                             android:paddingLeft="10dp"
                             android:textColor="@color/colorBlackHeader"
@@ -369,6 +372,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:orientation="vertical"
+                        android:visibility="gone"
                         app:shimmer_duration="800">
 
                         <LinearLayout
