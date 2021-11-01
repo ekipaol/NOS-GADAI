@@ -346,6 +346,10 @@ public class UriApi {
         public static final String listAplikasiGadai = "GadaiEmasService/rest/Gadai/listAplikasiGadai";
         public static final String detailAplikasiGadai = "GadaiEmasService/rest/Gadai/DetailAplikasiGadai";
         public static final String sendAplikasiGadai = "GadaiEmasService/rest/Gadai/SubmitFotoAgunanEmas";
+        public static final String sendBrankasInfo = "GadaiEmasService/rest/Gadai/BrankasInfo";
+        public static final String listTanggalOpname = "GadaiEmasService/rest/Gadai/ListRequestAksesBrankas";
+        public static final String listIsiLaci = "GadaiEmasService/rest/Gadai/InquiryListBrankasOpname";
+        public static final String updateIsiLaci = "GadaiEmasService/rest/Gadai/ujiStockOpname";
     }
 }
 
