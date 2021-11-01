@@ -74,8 +74,9 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
     }
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+        AppPreferences appPreferences=new AppPreferences(this);
             JsonObject obj1 = new JsonObject();
-            obj1.addProperty("FilterKodeCabang", "ID0010212");
+            obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
             obj1.addProperty("FilterNoAplikasi", "NONE");
             obj1.addProperty("FilterNoKTP", "NONE");
             obj1.addProperty("FilterPengusul", "NONE");

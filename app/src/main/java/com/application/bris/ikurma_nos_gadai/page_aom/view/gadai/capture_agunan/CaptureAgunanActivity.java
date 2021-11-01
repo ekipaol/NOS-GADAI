@@ -11,6 +11,7 @@ import android.provider.MediaStore;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -110,16 +111,22 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
     }
 
     private void SendData(){
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
         obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
 //        obj1.addProperty("NoAplikasi", "GDE2021092800002");
         obj1.addProperty("kodeCabang", binding.etCabang.getText().toString());
-        obj1.addProperty("PhotoNasabah", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
-        obj1.addProperty("PhotoAgunan",  AppUtil.encodeImageTobase64(bitmap_agunan).toString());
-        obj1.addProperty("PhotoKTP",  AppUtil.encodeImageTobase64(bitmap_ktp).toString());
-        obj1.addProperty("PhotoAdd1",  AppUtil.encodeImageTobase64(bitmap_additional1).toString());
-        obj1.addProperty("PhotoAdd2",  AppUtil.encodeImageTobase64(bitmap_additional2).toString());
-        obj1.addProperty("userSubmit", "11110011");
+        obj1.addProperty("photoNasabah", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
+        obj1.addProperty("photoAgunan",  AppUtil.encodeImageTobase64(bitmap_agunan).toString());
+        obj1.addProperty("photoKTP",  AppUtil.encodeImageTobase64(bitmap_ktp).toString());
+
+        if(bitmap_additional1!=null){
+            obj1.addProperty("photoAdd1",  AppUtil.encodeImageTobase64(bitmap_additional1).toString());
+        }
+        if(bitmap_additional2!=null){
+            obj1.addProperty("photoAdd2",  AppUtil.encodeImageTobase64(bitmap_additional2).toString());
+        }
+        obj1.addProperty("userSubmit", appPreferences.getKodeAo());
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
         req.setdata(obj1);
@@ -129,8 +136,11 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
             public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
                 try {
                     if (response.isSuccessful()) {
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
                         if (response.body().getStatus().equalsIgnoreCase("00")) {
-                            AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), "Berhasil Update");
+                            AppUtil.notifsuccess(CaptureAgunanActivity.this, findViewById(android.R.id.content), "Berhasil Update");
+                            Toast.makeText(CaptureAgunanActivity.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
+                            finish();
                         } else {
                             AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
@@ -145,6 +155,7 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
 
             @Override
             public void onFailure(Call<ParseResponseAgunan> call, Throwable t) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
                 AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
         });

@@ -285,7 +285,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         appPreferences.setNama(AppUtil.encrypt(dataLoginBsi.getName()));
         appPreferences.setJabatan(AppUtil.encrypt(dataLoginBsi.getRole().getRoleName()));
         appPreferences.setNamaKantor(AppUtil.encrypt(dataLoginBsi.getBranch().getBranch_name()));
-        appPreferences.setKodeKantor(AppUtil.encrypt(String.valueOf(dataLoginBsi.getBranch().getId())));
+        appPreferences.setKodeKantor(AppUtil.encrypt(String.valueOf(dataLoginBsi.getBranch().getBranch_code())));
         appPreferences.setKodeKanwil((AppUtil.encrypt(String.valueOf(dataLoginBsi.getBranch().getId()))));
         appPreferences.setFidRole(AppUtil.encrypt(String.valueOf(dataLoginBsi.getRole().getId())));
         appPreferences.setUid(AppUtil.encrypt(String.valueOf(dataLoginBsi.getId())));
