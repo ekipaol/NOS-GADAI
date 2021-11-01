@@ -1,12 +1,17 @@
 package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -51,6 +56,7 @@ public class ListIsiLaciActivity extends AppCompatActivity implements GenericLis
     private List<ListIsiLaci> isilaci =new ArrayList<>();
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
+    private SearchView searchView;
     List<MGenericModel> dataLaci = new ArrayList<>();
 
 
@@ -59,6 +65,7 @@ public class ListIsiLaciActivity extends AppCompatActivity implements GenericLis
         super.onCreate(savedInstanceState);
         //binding View
         binding= ActivityListIsiLaciOpnameBinding.inflate(getLayoutInflater());
+        setSupportActionBar(binding.toolbarNosearch.tbRegular);
         setContentView(binding.getRoot());
         //Button Click
         setclickable();
@@ -81,6 +88,60 @@ public class ListIsiLaciActivity extends AppCompatActivity implements GenericLis
         initialize();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setQueryHint("Nama , Nomor LD, Nomor Applikasi ...");
+        searchUjiOpname();
+        return true;
+
+    }
+
+    private void searchUjiOpname(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                try {
+                    ListIsiLaciAdapter.getFilter().filter(query);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                try {
+                    ListIsiLaciAdapter.getFilter().filter(query);
+                    return false;
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                return true;
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
     private void initData()throws JSONException{
         ListIsiLaci dd = new ListIsiLaci();
         dd.setAgunanPembiayaan("Gadai Emas");

@@ -10,7 +10,7 @@ public class UriApi {
     
     public static class Baseurl{
 //        public static final String URLDEV = "http://10.1.25.55:8080/MobileBRISIAPI-EKI/webresources/"; //DEV
-        public static final String URLDEV = "http://10.0.116.37:8054/"; //DEV
+        public static final String URLDEV = "https://devdigitalform.bsm.co.id/"; //DEV
         public static final String URLPROD = "https://intel.brisyariah.co.id:55056/MobileBRISIAPI/webresources/"; //PROD
 //        public static final String URLPROD = "https://intel.brisyariah.co.id:55056/MobileBRISIAPI-EKI/webresources/"; //PROD EKI
 
@@ -344,12 +344,12 @@ public class UriApi {
 
     public class gadaiNOS{
         public static final String listAplikasiGadai = "GadaiEmasService/rest/Gadai/listAplikasiGadai";
-        public static final String detailAplikasiGadai = "GadaiEmasService/rest/Gadai/DetailAplikasiGadai";
-        public static final String sendAplikasiGadai = "GadaiEmasService/rest/Gadai/SubmitFotoAgunanEmas";
-        public static final String sendBrankasInfo = "GadaiEmasService/rest/Gadai/BrankasInfo";
-        public static final String listTanggalOpname = "GadaiEmasService/rest/Gadai/ListRequestAksesBrankas";
-        public static final String listIsiLaci = "GadaiEmasService/rest/Gadai/InquiryListBrankasOpname";
-        public static final String updateIsiLaci = "GadaiEmasService/rest/Gadai/ujiStockOpname";
+        public static final String detailAplikasiGadai = "GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
+        public static final String sendAplikasiGadai = "GadaiEmasService/rest/Activity/SubmitFotoAgunanEmas";
+        public static final String sendBrankasInfo = "GadaiEmasService/rest/Vault/BrankasInfo";
+        public static final String listTanggalOpname = "GadaiEmasService/rest/Vault/ListRequestAksesBrankas";
+        public static final String listIsiLaci = "GadaiEmasService/rest/Vault/InquiryListBrankasOpname";
+        public static final String updateIsiLaci = "GadaiEmasService/rest/Activity/ujiStockOpname";
     }
 }
 

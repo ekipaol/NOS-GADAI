@@ -1,12 +1,17 @@
 package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -19,6 +24,7 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListUjiOpnameBinding;
+import com.application.bris.ikurma_nos_gadai.page_aom.listener.ConfirmListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
@@ -40,19 +46,21 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListUjiOpnameActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler {
+public class ListUjiOpnameActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler , ConfirmListener {
     ActivityListUjiOpnameBinding binding;
-    private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter listAgunanAdapter;
+    private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter ListUjiOpnameAdapter;
 
     public static int idAplikasi=0;
     private List<ListOpname> dataAgunan =new ArrayList<>();
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
+    private SearchView searchView;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //binding View
         binding= ActivityListUjiOpnameBinding.inflate(getLayoutInflater());
+        setSupportActionBar(binding.toolbarReguler.tbRegular);
         setContentView(binding.getRoot());
         //Button Click
         setclickable();
@@ -64,6 +72,7 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
         //initialize List
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
+        binding.tvCabang.setText("Kode Cabang : "+ appPreferences.getNamaKantor());
         try {
             setData();
         } catch (JSONException e) {
@@ -72,9 +81,64 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
         initialize();
 
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.search_menu, menu);
+        SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
+        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
+        searchView.setMaxWidth(Integer.MAX_VALUE);
+        searchView.setQueryHint("Tanggal ...");
+        searchUjiOpname();
+        return true;
+
+    }
+
+    private void searchUjiOpname(){
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                try {
+                    ListUjiOpnameAdapter.getFilter().filter(query);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String query) {
+                try {
+                    ListUjiOpnameAdapter.getFilter().filter(query);
+                    return false;
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                    return false;
+                }
+            }
+        });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                return true;
+            case android.R.id.home:
+                this.finish();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+    
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
+//        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
         obj1.addProperty("FilterKodeCabang", "ID001211");
         obj1.addProperty("FilterKodeAgunan", "NONE");
         obj1.addProperty("FilterIdRequest", "NONE");
@@ -101,12 +165,11 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
                             Type type = new TypeToken<List<ListOpname>>() {}.getType();
                             dataAgunan = gson.fromJson(listDataString, type);
                             if (dataAgunan.size() > 0){
-                                binding.tvCabang.setText("Kode Cabang : "+dataAgunan.get(0).getKodeCabang());
                                 binding.llEmptydata.setVisibility(View.GONE);
-                                listAgunanAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter(ListUjiOpnameActivity.this,dataAgunan,ListUjiOpnameActivity.this);
+                                ListUjiOpnameAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter(ListUjiOpnameActivity.this,dataAgunan,ListUjiOpnameActivity.this);
                                 binding.rvListOpname.setLayoutManager(new LinearLayoutManager(ListUjiOpnameActivity.this));
                                 binding.rvListOpname.setItemAnimator(new DefaultItemAnimator());
-                                binding.rvListOpname.setAdapter(listAgunanAdapter);
+                                binding.rvListOpname.setAdapter(ListUjiOpnameAdapter);
                             }
                             else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
@@ -139,10 +202,10 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
     public void initialize(){
         binding.rvListOpname.setVisibility(View.VISIBLE);
         binding.rvListOpname.setHasFixedSize(true);
-        listAgunanAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter(this, dataAgunan,this);
+        ListUjiOpnameAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter(this, dataAgunan,this);
         binding.rvListOpname.setLayoutManager(new LinearLayoutManager(this));
         binding.rvListOpname.setItemAnimator(new DefaultItemAnimator());
-        binding.rvListOpname.setAdapter(listAgunanAdapter);
+        binding.rvListOpname.setAdapter(ListUjiOpnameAdapter);
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
         binding.refresh.setEnabled(false);
@@ -156,8 +219,8 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
     }
 
     public void customToolbar(){
-        binding.toolbarNosearch.tvPageTitle.setText("List Capture Jaminan");
-        binding.toolbarNosearch.btnBack.setOnClickListener(new View.OnClickListener() {
+        binding.toolbarReguler.tvPageTitle.setText("List Uji Opname");
+        binding.toolbarReguler.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 onBackPressed();
@@ -191,6 +254,16 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
 
     @Override
     public void onDropdownRecyclerClick(int position, String title) {
+
+    }
+
+    @Override
+    public void success(boolean val) {
+
+    }
+
+    @Override
+    public void confirm(boolean val) {
 
     }
 }

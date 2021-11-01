@@ -62,9 +62,9 @@ public class ListLaciActivity extends AppCompatActivity implements GenericListen
         //Sdk untuk background toolbar
         backgroundStatusBar();
         //initialize List
-        binding.tvCabang.setText("Kode Cabang : "+ getIntent().getStringExtra("KodeCabang"));
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
+        binding.tvCabang.setText("Kode Cabang : "+ appPreferences.getNamaKantor());
         addData();
         initialize();
     }

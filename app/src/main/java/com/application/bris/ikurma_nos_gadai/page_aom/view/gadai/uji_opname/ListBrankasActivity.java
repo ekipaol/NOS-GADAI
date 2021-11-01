@@ -18,6 +18,7 @@ import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
+import com.application.bris.ikurma_nos_gadai.databinding.ActivityListBrankasOpnameBinding;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListUjiOpnameBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
@@ -41,7 +42,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ListBrankasActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler {
-    ActivityListUjiOpnameBinding binding;
+    ActivityListBrankasOpnameBinding binding;
     private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListBrankasAdapter listBrankasAdapter;
 
     public static int idAplikasi=0;
@@ -52,7 +53,7 @@ public class ListBrankasActivity extends AppCompatActivity implements GenericLis
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //binding View
-        binding= ActivityListUjiOpnameBinding.inflate(getLayoutInflater());
+        binding= ActivityListBrankasOpnameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //Button Click
         setclickable();
@@ -62,9 +63,10 @@ public class ListBrankasActivity extends AppCompatActivity implements GenericLis
         //Sdk untuk background toolbar
         backgroundStatusBar();
         //initialize List
-        binding.tvCabang.setText("Kode Cabang : "+ getIntent().getStringExtra("kodeCabang"));
+
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
+        binding.tvCabang.setText("Kode Cabang : "+ appPreferences.getNamaKantor());
         try {
             setData();
         } catch (JSONException e) {
@@ -76,7 +78,8 @@ public class ListBrankasActivity extends AppCompatActivity implements GenericLis
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("kodeCabang", getIntent().getStringExtra("kodeCabang"));
+//        obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
+        obj1.addProperty("kodeCabang", "ID001211");
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
         req.setdata(obj1);
@@ -95,9 +98,9 @@ public class ListBrankasActivity extends AppCompatActivity implements GenericLis
                             if (dataBrankas.size() > 0){
                                 binding.llEmptydata.setVisibility(View.GONE);
                                 listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListBrankasAdapter(ListBrankasActivity.this,getIntent().getStringExtra("ReffNoAktifitas"),dataBrankas,getIntent().getStringExtra("kodeCabang"),ListBrankasActivity.this);
-                                binding.rvListOpname.setLayoutManager(new LinearLayoutManager(ListBrankasActivity.this));
-                                binding.rvListOpname.setItemAnimator(new DefaultItemAnimator());
-                                binding.rvListOpname.setAdapter(listBrankasAdapter);
+                                binding.rvListBerangkas.setLayoutManager(new LinearLayoutManager(ListBrankasActivity.this));
+                                binding.rvListBerangkas.setItemAnimator(new DefaultItemAnimator());
+                                binding.rvListBerangkas.setAdapter(listBrankasAdapter);
                             }
                             else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
@@ -128,12 +131,12 @@ public class ListBrankasActivity extends AppCompatActivity implements GenericLis
     }
 
     public void initialize(){
-        binding.rvListOpname.setVisibility(View.VISIBLE);
-        binding.rvListOpname.setHasFixedSize(true);
+        binding.rvListBerangkas.setVisibility(View.VISIBLE);
+        binding.rvListBerangkas.setHasFixedSize(true);
         listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListBrankasAdapter(this,getIntent().getStringExtra("ReffNoAktifitas"), dataBrankas,getIntent().getStringExtra("kodeCabang"),this);
-        binding.rvListOpname.setLayoutManager(new LinearLayoutManager(this));
-        binding.rvListOpname.setItemAnimator(new DefaultItemAnimator());
-        binding.rvListOpname.setAdapter(listBrankasAdapter);
+        binding.rvListBerangkas.setLayoutManager(new LinearLayoutManager(this));
+        binding.rvListBerangkas.setItemAnimator(new DefaultItemAnimator());
+        binding.rvListBerangkas.setAdapter(listBrankasAdapter);
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
         binding.refresh.setEnabled(false);

@@ -6,7 +6,7 @@
     android:layout_height="match_parent">
 
     <include
-        android:id="@+id/toolbar_nosearch"
+        android:id="@+id/toolbar_reguler"
         layout="@layout/toolbar_regular" />
     <include android:id="@+id/loading" layout="@layout/loading">
 
