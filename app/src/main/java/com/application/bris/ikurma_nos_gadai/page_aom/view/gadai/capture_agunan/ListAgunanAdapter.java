@@ -6,27 +6,35 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListAgunanBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
+import com.bumptech.glide.Glide;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.MenuViewHolder> {
+public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.MenuViewHolder> implements Filterable {
 
     private List<CaptureAgunan> data;
     private Context context;
     private ItemListAgunanBinding binding;
+    private List<CaptureAgunan> datafiltered;
     private DropdownRecyclerListener dropdownRecyclerListener;
+    private AppPreferences appPreferences;
 
-    public ListAgunanAdapter(Context context, List<CaptureAgunan> mdata,DropdownRecyclerListener dropdownRecyclerListener1) {
+    public ListAgunanAdapter(Context context, List<CaptureAgunan> mdata, DropdownRecyclerListener dropdownRecyclerListener1) {
         this.context = context;
         this.data = mdata;
+        this.datafiltered = mdata;
     }
 
     @NonNull
@@ -35,6 +43,7 @@ public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.Me
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         binding = ItemListAgunanBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
+        appPreferences = new AppPreferences(context);
         return new MenuViewHolder(view);
     }
 
@@ -42,25 +51,25 @@ public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.Me
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
         //never user BINDING ON ON BIND VIEW HOLDER DUDE!!!, USE HOLDER INSTEAD
         //NEVER, IT GONNA F UP YOUR DATA ORDER
-        holder.tvCabang.setText(data.get(position).getCabang());
-        holder.tvNamaNasabah.setText(data.get(position).getNamaNasabah());
-        holder.tvNomorApplikasi.setText(data.get(position).getNomorAplikasiGadai());
-        holder.tvTanggalTransaksi.setText(data.get(position).getTanggalTransaksi());
-        holder.tvTanggalJatohTempo.setText(data.get(position).getTanggalJatuhTempo());
+        final CaptureAgunan datas = datafiltered.get(position);
 
-        onClicks(position,holder);
-
+        holder.tvCabang.setText(appPreferences.getNamaKantor());
+        holder.tvNamaNasabah.setText(datas.getNamaNasabah());
+        holder.tvNomorApplikasi.setText(datas.getNomorAplikasiGadai());
+        holder.tvTanggalTransaksi.setText(datas.getTanggalTransaksi());
+        holder.tvTanggalJatohTempo.setText(datas.getTanggalJatuhTempo());
+        onClicks(position, holder);
 
 
     }
 
-    private void onClicks(int currentPosition,@NonNull MenuViewHolder holder){
+    private void onClicks(int currentPosition, @NonNull MenuViewHolder holder) {
 
         holder.btnCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(context , CaptureAgunanActivity.class);
-                intent.putExtra("NoAplikasi",data.get(currentPosition).getNomorAplikasiGadai());
+                Intent intent = new Intent(context, CaptureAgunanActivity.class);
+                intent.putExtra("NoAplikasi", data.get(currentPosition).getNomorAplikasiGadai());
                 context.startActivity(intent);
             }
         });
@@ -69,22 +78,56 @@ public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.Me
 
     @Override
     public int getItemCount() {
-        return data.size();
+        if (datafiltered == null) {
+            return 0;
+        } else {
+            return datafiltered.size();
+        }
+    }
+
+    @Override
+    public Filter getFilter() {
+        return new Filter() {
+            @Override
+            protected FilterResults performFiltering(CharSequence charSequence) {
+                String charString = charSequence.toString();
+                if (charString.isEmpty()) {
+                    datafiltered = data;
+                } else {
+                    List<CaptureAgunan> filteredList = new ArrayList<>();
+                    for (CaptureAgunan row : data) {
+                        if (row.getNamaNasabah().toLowerCase().contains(charString.toLowerCase())
+                                || row.getNomorAplikasiGadai().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
+                        }
+                    }
+                    datafiltered = filteredList;
+                }
+                FilterResults filterResults = new FilterResults();
+                filterResults.values = datafiltered;
+                return filterResults;
+            }
+
+            @Override
+            protected void publishResults(CharSequence constraint, FilterResults filterResults) {
+                datafiltered = (ArrayList<CaptureAgunan>) filterResults.values;
+                notifyDataSetChanged();
+            }
+        };
     }
 
 
-
     public class MenuViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCabang,tvNamaNasabah,tvNomorApplikasi,tvTanggalTransaksi,tvTanggalJatohTempo;
+        TextView tvCabang, tvNamaNasabah, tvNomorApplikasi, tvTanggalTransaksi, tvTanggalJatohTempo;
         Button btnCapture;
 
         public MenuViewHolder(View itemView) {
             super(itemView);
-            tvCabang =binding.tvCabang;
-            tvNamaNasabah=binding.tvNamaNasabah;
-            tvNomorApplikasi=binding.tvNomorApplikasi;
-            tvTanggalTransaksi=binding.tvTanggalTransaksi;
-            tvTanggalJatohTempo=binding.tvTanggalJatuhTempo;
+            tvCabang = binding.tvCabang;
+            tvNamaNasabah = binding.tvNamaNasabah;
+            tvNomorApplikasi = binding.tvNomorApplikasi;
+            tvTanggalTransaksi = binding.tvTanggalTransaksi;
+            tvTanggalJatohTempo = binding.tvTanggalJatuhTempo;
             btnCapture = binding.btnCaptureAgunan;
 
         }

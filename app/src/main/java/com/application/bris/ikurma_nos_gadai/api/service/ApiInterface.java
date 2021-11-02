@@ -713,5 +713,17 @@ public interface ApiInterface {
 
     @POST(UriApi.gadaiNOS.sendAplikasiGadai)
     Call<ParseResponseAgunan> sendDataCaptureGadai(@Body ReqListGadai ReqListGadai);
+
+    @POST(UriApi.gadaiNOS.sendBrankasInfo)
+    Call<ParseResponse> sendDataBrankasInfo(@Body ReqListGadai ReqListGadai);
+
+    @POST(UriApi.gadaiNOS.listTanggalOpname)
+    Call<ParseResponseGadai> listTanggalOpname(@Body ReqListGadai ReqListGadai);
+
+    @POST(UriApi.gadaiNOS.listIsiLaci)
+    Call<ParseResponse> listIsiLaci(@Body ReqListGadai ReqListGadai);
+
+    @POST(UriApi.gadaiNOS.updateIsiLaci)
+    Call<ParseResponse> UpdateIsiLaci(@Body ReqListGadai ReqListGadai);
 }
 
