@@ -86,7 +86,7 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
                 if (holder.btnCapture.getText().toString().equalsIgnoreCase("MULAI")) {
                     sendDataUji(currentPosition, holder, view);
                 } else {
-                    DialogConfirmation(context, "Konfirmasi", "Apakah anda yakin ?", currentPosition,holder);
+                    DialogConfirmation(context, "Konfirmasi", "Apakah anda yakin ?", currentPosition, holder);
                 }
             }
         });
@@ -98,13 +98,19 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
         if (holder.btnCapture.getText().toString().equalsIgnoreCase("MULAI")) {
             obj1.addProperty("UserSubmit", appPreferences.getKodeAo());
             obj1.addProperty("ReffNoAktifitas", data.get(currentPosition).getKodeRequest());
-            obj1.addProperty("DescriptionAktifitas", "Opname " + data.get(currentPosition).getTanggalAksesBrankas());
-            obj1.addProperty("Action", "MULAI/SELESAI");
+//            obj1.addProperty("KodeCabang", data.get(currentPosition).getKodeCabang());
+            obj1.addProperty("KodeCabang", "ID001211");
+            obj1.addProperty("KodeAgunan", "");
+            obj1.addProperty("Status", "");
+            obj1.addProperty("Action", "MULAI");
         } else {
             obj1.addProperty("UserSubmit", appPreferences.getKodeAo());
             obj1.addProperty("ReffNoAktifitas", data.get(currentPosition).getKodeRequest());
-            obj1.addProperty("DescriptionAktifitas", "Opname " + data.get(currentPosition).getTanggalAksesBrankas());
-            obj1.addProperty("Action", "MULAI/SELESAI");
+//            obj1.addProperty("KodeCabang", data.get(currentPosition).getKodeCabang());
+            obj1.addProperty("KodeCabang", "ID001211");
+            obj1.addProperty("KodeAgunan", "");
+            obj1.addProperty("Status", "");
+            obj1.addProperty("Action", "SELESAI");
         }
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
@@ -117,14 +123,14 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
                     if (response.isSuccessful()) {
                         binding2.loading.progressbarLoading.setVisibility(View.GONE);
 //                        if (response.body().getStatus().equalsIgnoreCase("00")) {
-                            if (holder.btnCapture.getText().toString().equalsIgnoreCase("MULAI")) {
-                                Intent intent = new Intent(context, ListBrankasActivity.class);
-                                intent.putExtra("ReffNoAktifitas", data.get(currentPosition).getKodeRequest());
-                                context.startActivity(intent);
-                                holder.btnCapture.setText("SELESAI");
-                            } else {
-                                holder.btnCapture.setText("MULAI");
-                            }
+                        if (holder.btnCapture.getText().toString().equalsIgnoreCase("MULAI")) {
+                            Intent intent = new Intent(context, ListBrankasActivity.class);
+                            intent.putExtra("ReffNoAktifitas", data.get(currentPosition).getKodeRequest());
+                            context.startActivity(intent);
+                            holder.btnCapture.setText("SELESAI");
+                        } else {
+                            holder.btnCapture.setText("MULAI");
+                        }
 //                        } else {
 //                            AppUtil.notiferror(context, view.findViewById(android.R.id.content), response.body().getMessage());
 //                        }
@@ -200,7 +206,7 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
     }
 
 
-    public void DialogConfirmation(Context context, String header, String message,int currentPosition,ListUjiOpnameAdapter.MenuViewHolder holder) {
+    public void DialogConfirmation(Context context, String header, String message, int currentPosition, ListUjiOpnameAdapter.MenuViewHolder holder) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         View view = layoutInflater.inflate(R.layout.custom_dialog_confirm, null);
         Button btn_send = (Button) view.findViewById(R.id.btn_send);

@@ -725,5 +725,8 @@ public interface ApiInterface {
 
     @POST(UriApi.gadaiNOS.updateIsiLaci)
     Call<ParseResponse> UpdateIsiLaci(@Body ReqListGadai ReqListGadai);
+
+    @POST(UriApi.gadaiNOS.updatehasilpenjualan)
+    Call<ParseResponse> UpdatehasilPenjualan(@Body ReqListGadai ReqListGadai);
 }
 
