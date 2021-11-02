@@ -344,8 +344,8 @@ public class UriApi {
 
     public class gadaiNOS{
         public static final String listAplikasiGadai = "GadaiEmasService/rest/Gadai/listAplikasiGadai";
-        public static final String detailAplikasiGadai = "GadaiEmasService/rest/Gadai/DetailAplikasiGadai";
-        public static final String sendAplikasiGadai = "GadaiEmasService/rest/Gadai/SubmitFotoAgunanEmas";
+        public static final String detailAplikasiGadai = "GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
+        public static final String sendAplikasiGadai = "GadaiEmasService/rest/Activity/SubmitFotoAgunanEmas";
     }
 }
 
