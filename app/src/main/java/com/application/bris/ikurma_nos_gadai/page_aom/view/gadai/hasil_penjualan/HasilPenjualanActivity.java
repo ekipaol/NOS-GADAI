@@ -44,15 +44,16 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HasilPenjualanActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler {
+public class HasilPenjualanActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
     ActivityListHasilPenjualanBinding binding;
     private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan.HasilPenjualanAdapter listAgunanAdapter;
 
-    public static int idAplikasi=0;
-    private List<CaptureAgunan> dataAgunan =new ArrayList<>();
+    public static int idAplikasi = 0;
+    private List<CaptureAgunan> dataAgunan = new ArrayList<>();
     private ApiClientAdapter apiClientAdapter;
     private SearchView searchView;
     private AppPreferences appPreferences;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,19 +80,21 @@ public class HasilPenjualanActivity extends AppCompatActivity implements Generic
         initialize();
 
     }
+
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        AppPreferences appPreferences=new AppPreferences(this);
+        AppPreferences appPreferences = new AppPreferences(this);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("FilterKodeCabang", "NONE");
+        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
+//        obj1.addProperty("FilterKodeCabang", "NONE");
         obj1.addProperty("FilterNoAplikasi", "NONE");
         obj1.addProperty("FilterNoKTP", "NONE");
         obj1.addProperty("FilterPengusul", "NONE");
         obj1.addProperty("FilterReviewer", "NONE");
         obj1.addProperty("FilterPemutus", "NONE");
         obj1.addProperty("FilterAOPembiayaan", "NONE");
-//        obj1.addProperty("FilterWorkFlowStatus", "Dalam Proses Penjualan");
-        obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE");
+        obj1.addProperty("FilterWorkFlowStatus", "Dalam Proses Penjualan");
+//        obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE");
         obj1.addProperty("FilterNoCif", "NONE");
         obj1.addProperty("FilterSBGE", "NONE");
         obj1.addProperty("FilterKodeAgunan", "NONE");
@@ -109,35 +112,32 @@ public class HasilPenjualanActivity extends AppCompatActivity implements Generic
             @Override
             public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        if(response.body().getStatus().equalsIgnoreCase("00")){
+                        if (response.body().getStatus().equalsIgnoreCase("00")) {
                             String listDataString = response.body().getData().toString();
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<CaptureAgunan>>() {}.getType();
+                            Type type = new TypeToken<List<CaptureAgunan>>() {
+                            }.getType();
                             dataAgunan = gson.fromJson(listDataString, type);
-                            if (dataAgunan.size() > 0){
+                            if (dataAgunan.size() > 0) {
                                 binding.llEmptydata.setVisibility(View.GONE);
-                                listAgunanAdapter = new HasilPenjualanAdapter (HasilPenjualanActivity.this,dataAgunan,HasilPenjualanActivity.this);
+                                listAgunanAdapter = new HasilPenjualanAdapter(HasilPenjualanActivity.this, dataAgunan);
                                 binding.rvListPenjualan.setLayoutManager(new LinearLayoutManager(HasilPenjualanActivity.this));
                                 binding.rvListPenjualan.setItemAnimator(new DefaultItemAnimator());
                                 binding.rvListPenjualan.setAdapter(listAgunanAdapter);
-                            }
-                            else {
+                            } else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
                             }
-                        }
-                        else{
+                        } else {
                             AppUtil.notiferror(HasilPenjualanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
-                    }
-                    else{
+                    } else {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
                         Error error = ParseResponseError.confirmEror(response.errorBody());
                         AppUtil.notiferror(HasilPenjualanActivity.this, findViewById(android.R.id.content), error.getMessage());
                     }
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -151,10 +151,10 @@ public class HasilPenjualanActivity extends AppCompatActivity implements Generic
 
     }
 
-    public void initialize(){
+    public void initialize() {
         binding.rvListPenjualan.setVisibility(View.VISIBLE);
         binding.rvListPenjualan.setHasFixedSize(true);
-        listAgunanAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan.HasilPenjualanAdapter (HasilPenjualanActivity.this, dataAgunan,this);
+        listAgunanAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan.HasilPenjualanAdapter(HasilPenjualanActivity.this, dataAgunan);
         binding.rvListPenjualan.setLayoutManager(new LinearLayoutManager(HasilPenjualanActivity.this));
         binding.rvListPenjualan.setItemAnimator(new DefaultItemAnimator());
         binding.rvListPenjualan.setAdapter(listAgunanAdapter);
@@ -176,15 +176,15 @@ public class HasilPenjualanActivity extends AppCompatActivity implements Generic
 
     }
 
-    private void backgroundStatusBar(){
+    private void backgroundStatusBar() {
         Window window = getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.colorWhite));
         }
     }
 
-    public void customToolbar(){
-        binding.toolbarReguler.tvPageTitle.setText("List Hasil Penjualan");
+    public void customToolbar() {
+        binding.toolbarReguler.tvPageTitle.setText("LIST HASIL PENJUALAN");
         binding.toolbarReguler.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,18 +193,17 @@ public class HasilPenjualanActivity extends AppCompatActivity implements Generic
         });
     }
 
-    private void setclickable(){
+    private void setclickable() {
 
     }
 
-    private void searchAgunan(){
+    private void searchAgunan() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 try {
                     listAgunanAdapter.getFilter().filter(query);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 return false;
@@ -215,8 +214,7 @@ public class HasilPenjualanActivity extends AppCompatActivity implements Generic
                 try {
                     listAgunanAdapter.getFilter().filter(query);
                     return false;
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     return false;
                 }
@@ -244,21 +242,6 @@ public class HasilPenjualanActivity extends AppCompatActivity implements Generic
 
     @Override
     public void onRefresh() {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data) {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data, int position) {
-
-    }
-
-    @Override
-    public void onDropdownRecyclerClick(int position, String title) {
 
     }
 }

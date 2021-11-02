@@ -11,6 +11,10 @@ public class DetailCaptureAgunan {
     private String NamaSesuaiKTP;
     @SerializedName("NoKTP")
     private String NoKTP;
+    @SerializedName("TanggalPencairan")
+    private String TanggalPencairan;
+    @SerializedName("TanggalJatuhTempo")
+    private String TanggalJatuhTempo;
 
 
     public String getNoAplikasi() {
@@ -43,6 +47,22 @@ public class DetailCaptureAgunan {
 
     public void setNoKTP(String NoKTP) {
         this.NoKTP = NoKTP;
+    }
+
+    public String getTanggalPencairan() {
+        return TanggalPencairan;
+    }
+
+    public void setTanggalPencairan(String TanggalPencairan) {
+        this.TanggalPencairan = TanggalPencairan;
+    }
+
+    public String getTanggalJatuhTempo() {
+        return TanggalJatuhTempo;
+    }
+
+    public void setTanggalJatuhTempo(String TanggalJatuhTempo) {
+        this.TanggalJatuhTempo = TanggalJatuhTempo;
     }
 
 }

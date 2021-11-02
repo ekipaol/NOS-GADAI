@@ -28,10 +28,9 @@ public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.Me
     private Context context;
     private ItemListAgunanBinding binding;
     private List<CaptureAgunan> datafiltered;
-    private DropdownRecyclerListener dropdownRecyclerListener;
     private AppPreferences appPreferences;
 
-    public ListAgunanAdapter(Context context, List<CaptureAgunan> mdata, DropdownRecyclerListener dropdownRecyclerListener1) {
+    public ListAgunanAdapter(Context context, List<CaptureAgunan> mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;

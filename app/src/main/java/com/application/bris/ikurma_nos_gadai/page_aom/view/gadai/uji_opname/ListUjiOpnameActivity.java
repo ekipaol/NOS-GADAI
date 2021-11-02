@@ -138,8 +138,8 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-//        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
-        obj1.addProperty("FilterKodeCabang", "ID001211");
+        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
+//        obj1.addProperty("FilterKodeCabang", "ID001211");
         obj1.addProperty("FilterKodeAgunan", "NONE");
         obj1.addProperty("FilterIdRequest", "NONE");
         obj1.addProperty("FilterPengusul", "NONE");

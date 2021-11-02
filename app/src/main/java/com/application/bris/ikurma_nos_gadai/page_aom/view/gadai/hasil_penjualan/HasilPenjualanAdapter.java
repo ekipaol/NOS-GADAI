@@ -28,10 +28,9 @@ public class HasilPenjualanAdapter extends RecyclerView.Adapter<HasilPenjualanAd
     private Context context;
     private ItemListHasilPenjualanBinding binding;
     private List<CaptureAgunan> datafiltered;
-    private DropdownRecyclerListener dropdownRecyclerListener;
     private AppPreferences appPreferences;
 
-    public HasilPenjualanAdapter(Context context, List<CaptureAgunan> mdata, DropdownRecyclerListener dropdownRecyclerListener1) {
+    public HasilPenjualanAdapter(Context context, List<CaptureAgunan> mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
@@ -49,14 +48,14 @@ public class HasilPenjualanAdapter extends RecyclerView.Adapter<HasilPenjualanAd
 
     @Override
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
-//never user BINDING ON ON BIND VIEW HOLDER DUDE!!!, USE HOLDER INSTEAD
-//NEVER, IT GONNA F UP YOUR DATA ORDER
+        //never user BINDING ON ON BIND VIEW HOLDER DUDE!!!, USE HOLDER INSTEAD
+        //NEVER, IT GONNA F UP YOUR DATA ORDER
         final CaptureAgunan datas = datafiltered.get(position);
 
         holder.tvCabang.setText(appPreferences.getNamaKantor());
         holder.tvNamaNasabah.setText(datas.getNamaNasabah());
         holder.tvNomorSbge.setText(datas.getSBGENumber());
-        holder.tvNomorKontrak.setText(datas.getLDNumber());
+        holder.tvNomorKontrak.setText(datas.getNomorAplikasiGadai());
         holder.tvTotalKewajiban.setText(AppUtil.parseRupiah(datas.getPinjamanGadaiDiambil()));
         onClicks(position, holder);
 
@@ -132,8 +131,6 @@ public class HasilPenjualanAdapter extends RecyclerView.Adapter<HasilPenjualanAd
             tvNomorKontrak = binding.tvNomorKontrak;
             tvTotalKewajiban = binding.tvTotalKewajiban;
             btnDetail = binding.btnDetail;
-
         }
-
     }
 }

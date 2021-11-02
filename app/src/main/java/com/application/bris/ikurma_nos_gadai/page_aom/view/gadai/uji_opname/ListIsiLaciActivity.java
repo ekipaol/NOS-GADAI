@@ -185,7 +185,7 @@ public class ListIsiLaciActivity extends AppCompatActivity implements GenericLis
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("KodeCabang", "ID001211");
+        obj1.addProperty("KodeCabang", appPreferences.getKodeCabang());
         obj1.addProperty("ReffNoAktifitas", getIntent().getStringExtra("ReffNoAktifitas"));
         obj1.addProperty("seqBrankas", getIntent().getStringExtra("seqBrankas"));
         obj1.addProperty("seqLaci", String.valueOf(getIntent().getIntExtra("isilaci",0)));
@@ -299,10 +299,10 @@ public class ListIsiLaciActivity extends AppCompatActivity implements GenericLis
     private void UpdateData(int position,String desc){
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("KodeCabang", "ID001211");
-        obj1.addProperty("UserSubmit", "110145101");
+//        obj1.addProperty("KodeCabang", "ID001211");
+        obj1.addProperty("UserSubmit", appPreferences.getKodeAo());
         obj1.addProperty("ReffNoAktifitas", getIntent().getStringExtra("ReffNoAktifitas"));
-//        obj1.addProperty("KodeCabang", isilaci.get(position).getidCabangPemilik());
+        obj1.addProperty("KodeCabang", isilaci.get(position).getidCabangPemilik());
         obj1.addProperty("Status", isilaci.get(position).getStatusOpname());
         obj1.addProperty("Action", "UPDATE");
         obj1.addProperty("KodeAgunan", isilaci.get(position).getNoAplikasi());

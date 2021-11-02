@@ -76,7 +76,7 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
         //disableText
         setDisabledText();
         //initData
-initialize();
+        initialize();
         //Navbar
         customToolbar();
         //Sdk untuk background toolbar
@@ -85,7 +85,7 @@ initialize();
         setParameterDropdown();
     }
 
-    private void initialize(){
+    private void initialize() {
         binding.etStatusPenjualan.setText("Terjual");
         binding.etCabang.setText(getIntent().getStringExtra("KodeCabang"));
         binding.etNamaNasabah.setText(getIntent().getStringExtra("NamaNasabah"));
@@ -125,7 +125,7 @@ initialize();
     }
 
     public void customToolbar() {
-        binding.toolbarNosearch.tvPageTitle.setText("Hasil Penjualan");
+        binding.toolbarNosearch.tvPageTitle.setText("HASIL PENJUALAN");
         binding.toolbarNosearch.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -161,6 +161,7 @@ initialize();
             binding.etStatusPenjualan.setText(data.getDESC());
         }
     }
+
     private void endIconClick() {
         binding.tfStatusPenjualan.getEndIconImageButton().setOnClickListener(v -> DialogGenericDataFromService.display(getSupportFragmentManager(), binding.tfStatusPenjualan.getLabelText(), dataDropdownPenjualan, this));
     }
