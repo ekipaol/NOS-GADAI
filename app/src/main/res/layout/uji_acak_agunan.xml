@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
+    android:background="@color/colorWhite">
+
+    <include android:id="@+id/toolbar_nosearch" layout="@layout/toolbar_regular" />
+    <include android:id="@+id/loading" layout="@layout/loading" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none"
+        android:layout_marginTop="50dp"
+        android:fitsSystemWindows="true">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorWhite"
+                android:paddingTop="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/tf_jenis_agunan"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                app:endIcon="@drawable/ic_keyboard_arrow_down_black_24dp"
+                app:isResponsiveIconColor="true"
+                app:labelText="Sesuai Barang"
+                app:panelBackgroundColor="@color/colorBgEdittext"
+                app:primaryColor="@color/colorPrimary"
+                app:secondaryColor="@color/colorPrimary"
+                app:useDenseSpacing="true"
+                tools:ignore="DuplicateIds">
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/et_jenis_agunan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Pilih"
+                    tools:ignore="DuplicateIds" />
+
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+         </LinearLayout>
+
+                <EditText
+                    android:id="@+id/et_catatan_pensesuaian"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/forminput_cardwhite"
+                    android:hint="Keterangan Tidak Pensesuain"
+                    android:inputType="textMultiLine"
+                    android:maxLength="150"
+                    android:minLines="3"
+                    android:padding="10dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Foto Agunan"
+                    android:textSize="16sp"
+                    android:layout_marginTop="20dp"
+                    android:paddingLeft="10dp"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/muli_b"
+                    android:paddingBottom="5dp"/>
+
+                <!--Upload Foto Agunan-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_agunan"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:padding="10dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/iv_agunan"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:scaleType="center"
+                                android:src="@mipmap/ico_img_for_upload"
+                                app:riv_border_width="1dip"
+                                app:riv_border_color="#f1efef"
+                                app:riv_corner_radius="8dip"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/btn_agunan"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/photo_rounded_blue"
+                                android:padding="8dp"
+                                android:src="@mipmap/ico_upload"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Foto Saat Pengunjian"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/muli_b"
+                    android:paddingBottom="10dp"/>
+
+                <!--Upload Foto Saat Pengunjian-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_pengunjian"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:padding="10dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/iv_pengunjian"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:scaleType="center"
+                                android:src="@mipmap/ico_img_for_upload"
+                                app:riv_border_width="1dip"
+                                app:riv_border_color="#f1efef"
+                                app:riv_corner_radius="8dip"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/btn_pengunjian"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/photo_rounded_blue"
+                                android:padding="8dp"
+                                android:src="@mipmap/ico_upload"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Foto Agunan Tersegel"
+                    android:textSize="16sp"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="10dp"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/muli_b"
+                    android:paddingBottom="10dp"/>
+
+                <!--Upload Foto Agunan Tersegel-->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <RelativeLayout
+                        android:id="@+id/rl_agunan_tersegel"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_weight="1"
+                        android:padding="10dp">
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="200dp">
+
+                            <com.makeramen.roundedimageview.RoundedImageView
+                                android:id="@+id/iv_agunan_tersegel"
+                                android:layout_width="0dp"
+                                android:layout_height="0dp"
+                                android:scaleType="center"
+                                android:src="@mipmap/ico_img_for_upload"
+                                app:riv_border_width="1dip"
+                                app:riv_border_color="#f1efef"
+                                app:riv_corner_radius="8dip"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintLeft_toLeftOf="parent"
+                                app:layout_constraintRight_toRightOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <ImageView
+                                android:id="@+id/btn_agunan_tersegel"
+                                android:layout_width="45dp"
+                                android:layout_height="45dp"
+                                android:layout_marginRight="10dp"
+                                android:layout_marginBottom="10dp"
+                                android:background="@drawable/photo_rounded_blue"
+                                android:padding="8dp"
+                                android:src="@mipmap/ico_upload"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintRight_toRightOf="parent" />
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/ll_btn_uji_kualitas"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <Button
+                        android:id="@+id/btn_uji_kualitas"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/button_primary"
+                        android:text="SAVE"
+                        android:textAllCaps="false"
+                        android:textColor="@color/colorWhite"
+                        android:textSize="18dp" />
+
+                </LinearLayout>
+
+
+
+
+            </LinearLayout>
+        </FrameLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>

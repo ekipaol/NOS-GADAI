@@ -13,7 +13,6 @@ import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.application.bris.ikurma_nos_gadai.util.NullOnEmptyConverterFactory;
 import com.application.bris.ikurma_nos_gadai.util.service_encrypt.DESHelper;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity;
-import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity2;
 import com.google.gson.Gson;
 
 import java.io.IOException;
