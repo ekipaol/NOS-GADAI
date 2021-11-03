@@ -350,6 +350,7 @@ public class UriApi {
         public static final String listTanggalOpname = "GadaiEmasService/rest/Vault/ListRequestAksesBrankas";
         public static final String listIsiLaci = "GadaiEmasService/rest/Vault/InquiryListBrankasOpname";
         public static final String updateIsiLaci = "GadaiEmasService/rest/Activity/ujiStockOpname";
+        public static final String updatehasilpenjualan = "GadaiEmasService/rest/Lunas/KonfirmasiPenjualanAgunan";
     }
 }
 

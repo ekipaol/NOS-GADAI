@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,23 +14,23 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ItemListAgunanBinding;
+import com.application.bris.ikurma_nos_gadai.databinding.ItemListHasilPenjualanBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
-import com.bumptech.glide.Glide;
+import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.MenuViewHolder> implements Filterable {
+public class HasilPenjualanAdapter extends RecyclerView.Adapter<HasilPenjualanAdapter.MenuViewHolder> implements Filterable {
 
     private List<CaptureAgunan> data;
     private Context context;
-    private ItemListAgunanBinding binding;
+    private ItemListHasilPenjualanBinding binding;
     private List<CaptureAgunan> datafiltered;
     private AppPreferences appPreferences;
 
-    public ListAgunanAdapter(Context context, List<CaptureAgunan> mdata) {
+    public HasilPenjualanAdapter(Context context, List<CaptureAgunan> mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
@@ -40,7 +40,7 @@ public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.Me
     @Override
     public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        binding = ItemListAgunanBinding.inflate(layoutInflater, parent, false);
+        binding = ItemListHasilPenjualanBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
         appPreferences = new AppPreferences(context);
         return new MenuViewHolder(view);
@@ -54,9 +54,9 @@ public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.Me
 
         holder.tvCabang.setText(appPreferences.getNamaKantor());
         holder.tvNamaNasabah.setText(datas.getNamaNasabah());
-        holder.tvNomorApplikasi.setText(datas.getNomorAplikasiGadai());
-        holder.tvTanggalTransaksi.setText(datas.getTanggalTransaksi());
-        holder.tvTanggalJatohTempo.setText(datas.getTanggalJatuhTempo());
+        holder.tvNomorSbge.setText(datas.getSBGENumber());
+        holder.tvNomorKontrak.setText(datas.getNomorAplikasiGadai());
+        holder.tvTotalKewajiban.setText(AppUtil.parseRupiah(datas.getPinjamanGadaiDiambil()));
         onClicks(position, holder);
 
 
@@ -64,11 +64,13 @@ public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.Me
 
     private void onClicks(int currentPosition, @NonNull MenuViewHolder holder) {
 
-        holder.btnCapture.setOnClickListener(new View.OnClickListener() {
+        holder.btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, CaptureAgunanActivity.class);
+                Intent intent = new Intent(context, DetailHasilPenjualanActivity.class);
                 intent.putExtra("NoAplikasi", data.get(currentPosition).getNomorAplikasiGadai());
+                intent.putExtra("NamaNasabah", data.get(currentPosition).getNamaNasabah());
+                intent.putExtra("KodeCabang", data.get(currentPosition).getCabang());
                 context.startActivity(intent);
             }
         });
@@ -96,7 +98,8 @@ public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.Me
                     List<CaptureAgunan> filteredList = new ArrayList<>();
                     for (CaptureAgunan row : data) {
                         if (row.getNamaNasabah().toLowerCase().contains(charString.toLowerCase())
-                                || row.getNomorAplikasiGadai().toLowerCase().contains(charString.toLowerCase())) {
+                                || row.getSBGENumber().toLowerCase().contains(charString.toLowerCase())
+                                || row.getLDNumber().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
                     }
@@ -117,19 +120,17 @@ public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.Me
 
 
     public class MenuViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCabang, tvNamaNasabah, tvNomorApplikasi, tvTanggalTransaksi, tvTanggalJatohTempo;
-        Button btnCapture;
+        TextView tvCabang, tvNamaNasabah, tvNomorSbge, tvNomorKontrak, tvTotalKewajiban;
+        Button btnDetail;
 
         public MenuViewHolder(View itemView) {
             super(itemView);
             tvCabang = binding.tvCabang;
             tvNamaNasabah = binding.tvNamaNasabah;
-            tvNomorApplikasi = binding.tvNomorApplikasi;
-            tvTanggalTransaksi = binding.tvTanggalTransaksi;
-            tvTanggalJatohTempo = binding.tvTanggalJatuhTempo;
-            btnCapture = binding.btnCaptureAgunan;
-
+            tvNomorSbge = binding.tvNomorSbge;
+            tvNomorKontrak = binding.tvNomorKontrak;
+            tvTotalKewajiban = binding.tvTotalKewajiban;
+            btnDetail = binding.btnDetail;
         }
-
     }
 }

@@ -24,7 +24,6 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListAgunanBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.ConfirmListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
@@ -45,7 +44,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListAgunanActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler{
+public class ListAgunanActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, GenericListenerOnSelectRecycler{
 
     ActivityListAgunanBinding binding;
     private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanAdapter listAgunanAdapter;
@@ -92,7 +91,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
             obj1.addProperty("FilterReviewer", "NONE");
             obj1.addProperty("FilterPemutus", "NONE");
             obj1.addProperty("FilterAOPembiayaan", "NONE");
-            obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE");
+            obj1.addProperty("FilterWorkFlowStatus", "Capture Agunan");
             obj1.addProperty("FilterNoCif", "NONE");
             obj1.addProperty("FilterSBGE", "NONE");
             obj1.addProperty("FilterKodeAgunan", "NONE");
@@ -119,7 +118,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
                                 dataAgunan = gson.fromJson(listDataString, type);
                                 if (dataAgunan.size() > 0){
                                     binding.llEmptydata.setVisibility(View.GONE);
-                                    listAgunanAdapter = new ListAgunanAdapter(ListAgunanActivity.this,dataAgunan,ListAgunanActivity.this);
+                                    listAgunanAdapter = new ListAgunanAdapter(ListAgunanActivity.this,dataAgunan);
                                     binding.rvListAgunan.setLayoutManager(new LinearLayoutManager(ListAgunanActivity.this));
                                     binding.rvListAgunan.setItemAnimator(new DefaultItemAnimator());
                                     binding.rvListAgunan.setAdapter(listAgunanAdapter);
@@ -142,7 +141,6 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
                         e.printStackTrace();
                     }
                 }
-
                 @Override
                 public void onFailure(Call<ParseResponseGadai> call, Throwable t) {
                     binding.loading.progressbarLoading.setVisibility(View.GONE);
@@ -155,7 +153,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
     public void initialize(){
         binding.rvListAgunan.setVisibility(View.VISIBLE);
         binding.rvListAgunan.setHasFixedSize(true);
-        listAgunanAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanAdapter(ListAgunanActivity.this, dataAgunan,this);
+        listAgunanAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanAdapter(ListAgunanActivity.this, dataAgunan);
         binding.rvListAgunan.setLayoutManager(new LinearLayoutManager(ListAgunanActivity.this));
         binding.rvListAgunan.setItemAnimator(new DefaultItemAnimator());
         binding.rvListAgunan.setAdapter(listAgunanAdapter);
@@ -258,8 +256,4 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
 
     }
 
-    @Override
-    public void onDropdownRecyclerClick(int position, String title) {
-
-    }
 }

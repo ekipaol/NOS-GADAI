@@ -13,6 +13,13 @@ public class CaptureAgunan {
     private String TanggalTransaksi;
     @SerializedName("TanggalJatuhTempo")
     private String TanggalJatuhTempo;
+    @SerializedName("SBGENumber")
+    private String SBGENumber;
+    @SerializedName("PinjamanGadaiDiambil")
+    private String PinjamanGadaiDiambil;
+    @SerializedName("LDNumber")
+    private String LDNumber;
+
 
     public String getCabang() {
         return Cabang ;
@@ -48,6 +55,27 @@ public class CaptureAgunan {
     }
     public void setTanggalJatuhTempo(String tanggalJatuhTempo) {
         this.TanggalJatuhTempo = tanggalJatuhTempo;
+    }
+
+    public String getSBGENumber(){
+        return SBGENumber;
+    }
+    public void setSBGENumber(String SBGENumber) {
+        this.SBGENumber = SBGENumber;
+    }
+
+    public String getPinjamanGadaiDiambil(){
+        return PinjamanGadaiDiambil;
+    }
+    public void setPinjamanGadaiDiambil(String PinjamanGadaiDiambil) {
+        this.PinjamanGadaiDiambil = PinjamanGadaiDiambil;
+    }
+
+    public String getLDNumber(){
+        return LDNumber;
+    }
+    public void setLDNumber(String LDNumber) {
+        this.LDNumber = LDNumber;
     }
 
 }
