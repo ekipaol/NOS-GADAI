@@ -4,15 +4,15 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.application.bris.ikurma_nos_konsumer",
+  "applicationId": "com.application.bris.ikurma_nos_gadai",
   "variantName": "release",
   "elements": [
     {
       "type": "SINGLE",
       "filters": [],
       "properties": [],
-      "versionCode": 19,
-      "versionName": "1.5.1",
+      "versionCode": 1,
+      "versionName": "1.0.0",
       "enabled": true,
       "outputFile": "app-release.apk"
     }
