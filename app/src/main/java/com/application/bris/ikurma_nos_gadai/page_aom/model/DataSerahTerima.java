@@ -5,14 +5,14 @@ import com.google.gson.annotations.SerializedName;
 public class DataSerahTerima {
     @SerializedName("KodeCabang")
     private String Cabang;
-    @SerializedName("NamaSesuaiKTP")
+    @SerializedName("NamaNasabah")
     private String NamaNasabah;
     @SerializedName("NoAplikasi")
     private String NomorAplikasiGadai;
     @SerializedName("TanggalCair")
     private String TanggalTransaksi;
-    @SerializedName("TanggalJatuhTempo")
-    private String TanggalJatuhTempo;
+    @SerializedName("TanggalAktifitas")
+    private String TanggalAktifitas;
     @SerializedName("SBGENumber")
     private String SBGENumber;
     @SerializedName("PinjamanGadaiDiambil")
@@ -23,12 +23,16 @@ public class DataSerahTerima {
     private String fotoSerahTerima;
     @SerializedName("Description")
     private String description;
-    @SerializedName("Pemberi")
-    private String namaPemberi;
+    @SerializedName("IDPemberi")
+    private String IDPemberi;
+    @SerializedName("NamaPemberi")
+    private String NamaPemberi;
     @SerializedName("Aktifitas")
     private String aktifitas;
-    @SerializedName("Penerima")
-    private String namaPenerima;
+    @SerializedName("IDPenerima")
+    private String IDPenerima;
+    @SerializedName("NamaPenerima")
+    private String NamaPenerima;
     @SerializedName("konfirmasi")
     private String konfirmasi;
 
@@ -65,12 +69,12 @@ public class DataSerahTerima {
         this.TanggalTransaksi = tanggalTransaksi;
     }
 
-    public String getTanggalJatuhTempo() {
-        return TanggalJatuhTempo;
+    public String getTanggalAktifitas() {
+        return TanggalAktifitas;
     }
 
-    public void setTanggalJatuhTempo(String tanggalJatuhTempo) {
-        this.TanggalJatuhTempo = tanggalJatuhTempo;
+    public void setTanggalAktifitas(String TanggalAktifitas) {
+        this.TanggalAktifitas = TanggalAktifitas;
     }
 
     public String getSBGENumber() {
@@ -107,10 +111,17 @@ public class DataSerahTerima {
         return description;
     }
 
+    public String getIDPemberi(){
+        return IDPemberi;}
+    public void setPemberi(String IDPemberi){
+        this.IDPemberi = IDPemberi ;
+    }
+
+
     public String getNamaPemberi(){
-        return namaPemberi;}
-    public void setPemberi(String namaPemberi){
-        this.namaPemberi = namaPemberi ;
+        return NamaPemberi;}
+    public void sNamaPemberi(String NamaPemberi){
+        this.NamaPemberi = NamaPemberi ;
     }
 
 
@@ -119,10 +130,16 @@ public class DataSerahTerima {
         return aktifitas;
     }
 
+    public String getIDPenerima(){
+        return IDPenerima;}
+    public void setIDPenerima (String IDPemberi){
+        this.IDPenerima = IDPenerima ;
+    }
+
     public String getNamaPenerima(){
-        return namaPenerima;}
-    public void setNamaPenerima (String namaPemberi){
-        this.namaPenerima = namaPenerima ;
+        return NamaPenerima;}
+    public void setNamaPenerima (String NamaPenerima){
+        this.NamaPenerima = NamaPenerima ;
     }
 
     public String getKonfirmasi(){

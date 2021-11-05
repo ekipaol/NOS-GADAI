@@ -743,10 +743,10 @@ public interface ApiInterface {
     Call<ParseResponseUjiKualitas> sendUjiKualitas(@Body ReqUjiKualitas ReqUjiKualitas);
 
     @POST(UriApi.gadaiNOS.sendSerahTerima)
-    Call<ParseResponseListSerahTerima> sendSerahTerima(@Body ReqSerahTerima ReqSerahTerima);
+    Call<ParseResponseAgunan> sendSerahTerima(@Body ReqListGadai ReqListGadai);
 
     @POST(UriApi.gadaiNOS.listTandaTerima)
-    Call<ParseResponseListSerahTerima> sendListSerahTerima(@Body ReqListSerahTerima ReqSerahTerima);
+    Call<ParseResponseAgunan> sendListSerahTerima(@Body ReqListGadai ReqListGadai);
 
 }
 

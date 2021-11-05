@@ -90,7 +90,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Nomor SBGE"
+                android:text="LD Number"
                 android:layout_weight="1"
                 android:textSize="12sp"/>
 
@@ -98,7 +98,7 @@
                 android:id="@+id/tv_nomor_sbge"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="{Nomor SBGE}"
+                android:text="{LDNumber}"
                 android:textSize="13sp"
                 android:textColor="@color/colorBlackHeader"
                 android:layout_weight="1"
@@ -116,7 +116,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tanggal Jatuh Tempo"
+                android:text="Tanggal Aktifitas"
                 android:layout_weight="1"
                 android:textSize="12sp"/>
 

@@ -1,18 +1,24 @@
 package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.serah_terima;
 
+import android.app.SearchManager;
+import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
-import android.widget.SearchView;
+
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseAgunan;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
@@ -56,7 +62,7 @@ public class ListSerahTerimaActivity extends AppCompatActivity implements SwipeR
         customToolbar();
         backgroundStatusBar();
 
-        apiClientAdapter = new ApiClientAdapter(this, "https://10.0.116.105/");
+        apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
 
         try {
@@ -70,35 +76,26 @@ public class ListSerahTerimaActivity extends AppCompatActivity implements SwipeR
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("FilterKodeCabang","NONE");
+        obj1.addProperty("FilterKodeCabang",appPreferences.getKodeCabang());
         obj1.addProperty("FilterNoAplikasi", "NONE");
-        obj1.addProperty("FilterNoKTP", "NONE");
-        obj1.addProperty("FilterPengusul", "NONE");
-        obj1.addProperty("FilterReviewer", "NONE");
-        obj1.addProperty("FilterPemutus", "NONE");
-        obj1.addProperty("FilterAOPembiayaan", "NONE");
-        obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE");
-        obj1.addProperty("FilterNoCif", "NONE");
-        obj1.addProperty("FilterSBGE", "NONE");
-        obj1.addProperty("FilterKodeAgunan", "NONE");
         obj1.addProperty("FilterLDNumber", "NONE");
-        obj1.addProperty("FilterUjiKwalitasKapan", "NONE");
-        obj1.addProperty("FilterTanggalPencairan", "NONE");
-        obj1.addProperty("FilterTanggalJatuhTempo", "NONE");
-        obj1.addProperty("FilterHasilIDE", "NONE");
-        obj1.addProperty("FilterSlotPenempatan", "NONE");
+        obj1.addProperty("FilterKodeAgunan", "NONE");
+        obj1.addProperty("FilterAktifitas", "NONE");
+        obj1.addProperty("FilterKodeCabang", "NONE");
+        obj1.addProperty("FilterIDPemberi", "NONE");
+        obj1.addProperty("FilterIDPenerima", "NONE");
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
         req.setdata(obj1);
-        Call<ParseResponseGadai> call = apiClientAdapter.getApiInterface().sendDataListApplikasi(req);
-        call.enqueue(new Callback<ParseResponseGadai>() {
+        Call<ParseResponseAgunan> call = apiClientAdapter.getApiInterface().sendListSerahTerima(req);
+        call.enqueue(new Callback<ParseResponseAgunan>() {
             @Override
-            public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
+            public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
                 try {
                     if(response.isSuccessful()){
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
                         if(response.body().getStatus().equalsIgnoreCase("00")){
-                            String listDataString = response.body().getData().toString();
+                            String listDataString = response.body().getData().get("MaintenanceData").toString();
                             Gson gson = new Gson();
                             Type type = new TypeToken<List<DataSerahTerima>>() {}.getType();
                             data = gson.fromJson(listDataString, type);
@@ -129,7 +126,7 @@ public class ListSerahTerimaActivity extends AppCompatActivity implements SwipeR
             }
 
             @Override
-            public void onFailure(Call<ParseResponseGadai> call, Throwable t) {
+            public void onFailure(Call<ParseResponseAgunan> call, Throwable t) {
                 binding.loading.progressbarLoading.setVisibility(View.GONE);
                 AppUtil.notiferror(ListSerahTerimaActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
@@ -152,18 +149,18 @@ public class ListSerahTerimaActivity extends AppCompatActivity implements SwipeR
         binding.refresh.setEnabled(false);
     }
 
-    /*@Override
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.search_menu, menu);
         SearchManager searchManager = (SearchManager) getSystemService(Context.SEARCH_SERVICE);
-        searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
+        searchView = (androidx.appcompat.widget.SearchView) menu.findItem(R.id.action_search).getActionView();
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setMaxWidth(Integer.MAX_VALUE);
-        searchView.setQueryHint("Nama Nasabah, Nomor Aplikasi, dll ..");
+        searchView.setQueryHint("Nama Nasabah, Nomor SBGE, dll ..");
         searchAgunan();
         return true;
 
-    }*/
+    }
 
     public void customToolbar() {
         binding.toolbarReguler.tvPageTitle.setText("List Serah Terima");
@@ -184,7 +181,7 @@ public class ListSerahTerimaActivity extends AppCompatActivity implements SwipeR
         }
     }
 
-    /*private void searchAgunan(){
+    private void searchAgunan(){
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -209,14 +206,14 @@ public class ListSerahTerimaActivity extends AppCompatActivity implements SwipeR
                 }
             }
         });
-    }*/
+    }
 
     @Override
     public void onClick(View v) {
 
     }
 
-    /*@Override
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_search:
@@ -228,7 +225,7 @@ public class ListSerahTerimaActivity extends AppCompatActivity implements SwipeR
                 return super.onOptionsItemSelected(item);
         }
     }
-*/
+
     @Override
     public void onRefresh() {
 

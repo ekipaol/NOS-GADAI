@@ -54,46 +54,22 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
     Call<ParseResponseAgunan> call;
     String clicker;
 
-    private Uri uri_ktp, uri_nasabah, uri_agunan, uri_additional1, uri_additional2;
-    private Bitmap bitmap_ktp, bitmap_nasabah, bitmap_agunan, bitmap_additional1, bitmap_additional2;
+    private Uri uri_nasabah;
+    private Bitmap bitmap_nasabah;
 
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
 
-     DataSerahTerima dataSerahTerima;
+    DataSerahTerima dataSerahTerima;
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_additional1:
-            case R.id.rl_additional1:
-            case R.id.iv_additional1:
-                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(),this,"Foto Tambahan");
-                clicker = "additional1";
-                break;
-            case R.id.btn_additional2:
-            case R.id.rl_additional2:
-            case R.id.iv_additional2:
-                clicker = "additional2";
-                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(),this,"Foto Tambahan");
-                break;
-            case R.id.btn_foto_agunan:
-            case R.id.rl_foto_agunan:
-            case R.id.iv_foto_agunan:
-                clicker = "agunan";
-                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this,"Foto Agunan");
-                break;
             case R.id.btn_bersama_nasabah:
             case R.id.rl_bersama_nasabah:
             case R.id.iv_bersama_nasabah:
                 clicker = "nasabah";
-                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this,"Foto Nasabah");
-                break;
-            case R.id.btn_foto_ktp:
-            case R.id.rl_foto_ktp:
-            case R.id.iv_foto_ktp:
-                clicker = "ktp";
-                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this,"Foto KTP");
+                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this, "Foto Nasabah");
                 break;
             case R.id.btn_send:
             case R.id.ll_btn_send:
@@ -101,30 +77,24 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
         }
     }
 
-    private void SendData(){
+    private void SendData() {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
         obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
-//        obj1.addProperty("NoAplikasi", "GDE2021092800002");
-        obj1.addProperty("kodeCabang", binding.etCabang.getText().toString());
-        obj1.addProperty("photoNasabah", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
-        obj1.addProperty("photoAgunan",  AppUtil.encodeImageTobase64(bitmap_agunan).toString());
-        obj1.addProperty("photoKTP",  AppUtil.encodeImageTobase64(bitmap_ktp).toString());
-
-        if(bitmap_additional1!=null){
-            obj1.addProperty("photoAdd1",  AppUtil.encodeImageTobase64(bitmap_additional1).toString());
-        }
-        if(bitmap_additional2!=null){
-            obj1.addProperty("photoAdd2",  AppUtil.encodeImageTobase64(bitmap_additional2).toString());
-        }
-        obj1.addProperty("userSubmit", appPreferences.getKodeAo());
+        obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
+        obj1.addProperty("konfirmasi", "YA");
+        obj1.addProperty("Pemberi", getIntent().getStringExtra("IDPemberi"));
+        obj1.addProperty("Penerima", getIntent().getStringExtra("IDPenerima"));
+        obj1.addProperty("FotoSerahTerima", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
+        obj1.addProperty("Description", binding.etDeskripsi.getText().toString());
+        obj1.addProperty("Aktifitas","SerahTerimaKeNasabah");
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
 /*
         req.setrrn("001100323129");
 */
         req.setdata(obj1);
-        call = apiClientAdapter.getApiInterface().sendDetailAplikasiGadai(req);
+        call = apiClientAdapter.getApiInterface().sendSerahTerima(req);
         call.enqueue(new Callback<ParseResponseAgunan>() {
             @Override
             public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
@@ -133,7 +103,7 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
                         if (response.body().getStatus().equalsIgnoreCase("00")) {
                             AppUtil.notifsuccess(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), "Berhasil Update");
-                            Toast.makeText(DetailSerahTerimaActivity.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
+                            Toast.makeText(DetailSerahTerimaActivity.this, "Berhasil Serah Terima", Toast.LENGTH_SHORT).show();
                             finish();
                         } else {
                             AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), response.body().getMessage());
@@ -154,7 +124,6 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
             }
         });
     }
-
 
 
     @Override
@@ -182,66 +151,14 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
     }
 
     private void initilize() {
-        JsonObject obj1 = new JsonObject();
-        obj1.addProperty("NoAplikasi", "NONE");
-        obj1.addProperty("FilterLDNumber", "NONE");
-        obj1.addProperty("kodeAgunan", "NONE");
-        obj1.addProperty("FilterAktifitas", "NONE");
-        obj1.addProperty("FilterKodeCabang", "ID001211");
-        obj1.addProperty("FilterIDPemberi", "NONE");
-        obj1.addProperty("FilterIDPenerima", "NONE");
-        ReqSerahTerima req = new ReqSerahTerima();
-        req.setkchannel("Mobile");
-        req.setrrn("001100323129");
-        req.setdata(obj1);
-        Call<ParseResponseListSerahTerima> call = apiClientAdapter.getApiInterface().sendSerahTerima(req);
-        call.enqueue(new Callback<ParseResponseListSerahTerima>() {
-            @Override
-            public void onResponse(Call<ParseResponseListSerahTerima> call, Response<ParseResponseListSerahTerima> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        if (response.body().getStatus().equalsIgnoreCase("00")) {
-                            String listDataString = response.body().getData().toString();
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<DataSerahTerima>() {
-                            }.getType();
-                            dataSerahTerima = gson.fromJson(listDataString, type);
-                            binding.etNomerApplikasi.setText(dataSerahTerima.getNomorAplikasiGadai());
-                            binding.etCabang.setText(dataSerahTerima.getCabang());
-                            binding.etNamaNasabah.setText(dataSerahTerima.getNamaNasabah());
-                            binding.etNamaPemberi.setText(dataSerahTerima.getNamaPemberi());
-                            binding.etNamaPenerima.setText(dataSerahTerima.getNamaPenerima());
-                        } else {
-                            AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), response.body().getMessage());
-                        }
-                    } else {
-                        binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), error.getMessage());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
 
-            @Override
-            public void onFailure(Call<ParseResponseListSerahTerima> call, Throwable t) {
-                binding.loading.progressbarLoading.setVisibility(View.GONE);
-                AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
-            }
-        });
-    }
-
-
-
-    /*private void initialize(){
-        binding.etCabang.setText(getIntent().getStringExtra("KodeCabang"));
-        binding.etNamaNasabah.setText(getIntent().getStringExtra("NamaNasabah"));
         binding.etNomerApplikasi.setText(getIntent().getStringExtra("NoAplikasi"));
+        binding.etCabang.setText(appPreferences.getNamaKantor());
+        binding.etNamaNasabah.setText(getIntent().getStringExtra("NamaNasabah"));
         binding.etNamaPemberi.setText(getIntent().getStringExtra("NamaPemberi"));
         binding.etNamaPenerima.setText(getIntent().getStringExtra("NamaPenerima"));
 
-    }*/
+    }
 
     private void setDisabledText() {
         binding.etCabang.setFocusable(false);
@@ -253,21 +170,9 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
 
     private void setClickListener() {
         //Image Click
-        binding.btnAdditional1.setOnClickListener(this);
-        binding.btnAdditional2.setOnClickListener(this);
-        binding.btnFotoAgunan.setOnClickListener(this);
         binding.btnBersamaNasabah.setOnClickListener(this);
-        binding.btnFotoKtp.setOnClickListener(this);
-        binding.rlAdditional1.setOnClickListener(this);
-        binding.rlAdditional2.setOnClickListener(this);
-        binding.rlFotoAgunan.setOnClickListener(this);
         binding.rlBersamaNasabah.setOnClickListener(this);
-        binding.rlFotoKtp.setOnClickListener(this);
-        binding.ivAdditional1.setOnClickListener(this);
-        binding.ivAdditional2.setOnClickListener(this);
-        binding.ivFotoAgunan.setOnClickListener(this);
         binding.ivBersamaNasabah.setOnClickListener(this);
-        binding.ivFotoKtp.setOnClickListener(this);
         //Button Click
         binding.btnSend.setOnClickListener(this);
         binding.llBtnSend.setOnClickListener(this);
@@ -299,37 +204,18 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
     public void onSelectMenuCamera(String idMenu) {
         switch (idMenu) {
             case "Take Photo":
-                if (clicker.equalsIgnoreCase("nasabah")) {
-                    openCamera(TAKE_PICTURE_NASABAH, "Nasabah");
-                } else if (clicker.equalsIgnoreCase("ktp")) {
-                    openCamera(TAKE_PICTURE_KTP, "ktp");
-                } else if (clicker.equalsIgnoreCase("agunan")) {
-                    openCamera(TAKE_PICTURE_AGUNAN, "agunan");
-                } else if (clicker.equalsIgnoreCase("additional1")) {
-                    openCamera(TAKE_PICTURE_ADDITIONAL1, "additional1");
-                } else if (clicker.equalsIgnoreCase("additional2")) {
-                    openCamera(TAKE_PICTURE_ADDITIONAL2, "additional2");
-                }
+                openCamera(TAKE_PICTURE_NASABAH, "Nasabah");
+
                 break;
             case "Pick Photo":
-                if (clicker.equalsIgnoreCase("nasabah")) {
-                    openGalery(PICK_PICTURE_NASABAH);
-                } else if (clicker.equalsIgnoreCase("ktp")) {
-                    openGalery(PICK_PICTURE_KTP);
-                } else if (clicker.equalsIgnoreCase("agunan")) {
-                    openGalery(PICK_PICTURE_AGUNAN);
-                } else if (clicker.equalsIgnoreCase("additional1")) {
-                    openGalery(PICK_PICTURE_ADDITIONAL1);
-                } else if (clicker.equalsIgnoreCase("additional2")) {
-                    openGalery(PICK_PICTURE_ADDITIONAL2);
-                }
+                openGalery(PICK_PICTURE_NASABAH);
                 break;
         }
 
     }
 
-    private final int TAKE_PICTURE_NASABAH = 1, TAKE_PICTURE_AGUNAN = 3, TAKE_PICTURE_KTP = 5, TAKE_PICTURE_ADDITIONAL1 = 7, TAKE_PICTURE_ADDITIONAL2 = 9;
-    private final int PICK_PICTURE_NASABAH = 2, PICK_PICTURE_AGUNAN = 4, PICK_PICTURE_KTP = 6, PICK_PICTURE_ADDITIONAL1 = 8, PICK_PICTURE_ADDITIONAL2 = 10;
+    private final int TAKE_PICTURE_NASABAH = 1;
+    private final int PICK_PICTURE_NASABAH = 2;
 
     private void openCamera(int cameraCode, String namaFoto) {
         checkCameraPermission(cameraCode, namaFoto);
@@ -365,22 +251,6 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
             case PICK_PICTURE_NASABAH:
                 setDataImage(uri_nasabah, bitmap_nasabah, binding.ivBersamaNasabah, imageReturnedIntent, "nasabah");
                 break;
-            case TAKE_PICTURE_AGUNAN:
-            case PICK_PICTURE_AGUNAN:
-                setDataImage(uri_agunan, bitmap_agunan, binding.ivFotoAgunan, imageReturnedIntent, "agunan");
-                break;
-            case TAKE_PICTURE_KTP:
-            case PICK_PICTURE_KTP:
-                setDataImage(uri_ktp, bitmap_ktp, binding.ivFotoKtp, imageReturnedIntent, "ktp");
-                break;
-            case TAKE_PICTURE_ADDITIONAL1:
-            case PICK_PICTURE_ADDITIONAL1:
-                setDataImage(uri_additional1, bitmap_additional1, binding.ivAdditional1, imageReturnedIntent, "additional1");
-                break;
-            case TAKE_PICTURE_ADDITIONAL2:
-            case PICK_PICTURE_ADDITIONAL2:
-                setDataImage(uri_additional2, bitmap_additional2, binding.ivAdditional2, imageReturnedIntent, "additional2");
-                break;
         }
     }
 
@@ -414,17 +284,7 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
                 bitmap = AppUtil.getResizedBitmap(bitmap, 1024);
                 bitmap = AppUtil.rotateImageIfRequired(this, bitmap, uri);
                 iv.setImageBitmap(bitmap);
-                if (clicker.equalsIgnoreCase("nasabah")) {
-                    bitmap_nasabah = bitmap;
-                } else if (clicker.equalsIgnoreCase("ktp")) {
-                    bitmap_ktp = bitmap;
-                } else if (clicker.equalsIgnoreCase("agunan")) {
-                    bitmap_agunan = bitmap;
-                } else if (clicker.equalsIgnoreCase("additional1")) {
-                    bitmap_additional1 = bitmap;
-                } else if (clicker.equalsIgnoreCase("additional2")) {
-                    bitmap_additional2 = bitmap;
-                }
+                bitmap_nasabah = bitmap;
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -172,7 +172,7 @@
                     android:fontFamily="@font/muli_b"
                     android:paddingLeft="10dp"
                     android:paddingBottom="10dp"
-                    android:text="Foto Bersama Nasabah"
+                    android:text="Foto Serah Terima"
                     android:textAlignment="center"
                     android:textSize="16sp" />
 
@@ -224,294 +224,31 @@
                     </RelativeLayout>
                 </LinearLayout>
 
-                <!--Title Foto Agunan-->
-                <TextView
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_deskripsi"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
-                    android:fontFamily="@font/muli_b"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="Foto Agunan"
-                    android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Deskripsi"
+                    app:panelBackgroundColor="@color/colorBgEdittext"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
 
-                <!--Foto Agunan-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:id="@+id/rl_foto_agunan"
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_deskripsi"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:padding="10dp">
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp">
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-                            <com.makeramen.roundedimageview.RoundedImageView
-                                android:id="@+id/iv_foto_agunan"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:scaleType="center"
-                                android:src="@mipmap/ico_img_for_upload"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:riv_border_color="#f1efef"
-                                app:riv_border_width="1dip"
-                                app:riv_corner_radius="8dip" />
-
-                            <ImageView
-                                android:id="@+id/btn_foto_agunan"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:background="@drawable/photo_rounded_blue"
-                                android:padding="8dp"
-                                android:src="@mipmap/ico_upload"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toRightOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <!--Title Foto KTP-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/muli_b"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="Foto KTP"
-                    android:textAlignment="center"
-                    android:textSize="16sp" />
-
-                <!--Upload Foto KTP-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <RelativeLayout
-                        android:id="@+id/rl_foto_ktp"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:layout_weight="1"
-                        android:padding="10dp">
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="200dp">
-
-                            <com.makeramen.roundedimageview.RoundedImageView
-                                android:id="@+id/iv_foto_ktp"
-                                android:layout_width="0dp"
-                                android:layout_height="0dp"
-                                android:scaleType="center"
-                                android:src="@mipmap/ico_img_for_upload"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintLeft_toLeftOf="parent"
-                                app:layout_constraintRight_toRightOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:riv_border_color="#f1efef"
-                                app:riv_border_width="1dip"
-                                app:riv_corner_radius="8dip" />
-
-                            <ImageView
-                                android:id="@+id/btn_foto_ktp"
-                                android:layout_width="45dp"
-                                android:layout_height="45dp"
-                                android:layout_marginRight="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:background="@drawable/photo_rounded_blue"
-                                android:padding="8dp"
-                                android:src="@mipmap/ico_upload"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintRight_toRightOf="parent" />
-
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-                    </RelativeLayout>
-                </LinearLayout>
-
-                <!--Title Additional-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!--Additional 1-->
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="0dp">
-                        <!--Title Foto Additional 1-->
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/muli_b"
-                            android:paddingLeft="10dp"
-                            android:paddingBottom="10dp"
-                            android:text="Foto Additional 1"
-                            android:textAlignment="center"
-                            android:textSize="16sp" />
-                    </RelativeLayout>
-
-                    <!--Additional 2-->
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="0dp">
-                        <!--Title Foto Additional 2-->
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="10dp"
-                            android:fontFamily="@font/muli_b"
-                            android:paddingLeft="10dp"
-                            android:paddingBottom="10dp"
-                            android:text="Foto Additional 2"
-                            android:textAlignment="center"
-                            android:textSize="16sp" />
-                    </RelativeLayout>
-
-                </LinearLayout>
-
-                <!--Upload Additional-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <!--Additional 1-->
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="0dp">
-
-                        <!--Foto Additional 1-->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <RelativeLayout
-                                android:id="@+id/rl_additional1"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="10dp"
-                                android:layout_weight="1"
-                                android:padding="10dp">
-
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="200dp">
-
-                                    <com.makeramen.roundedimageview.RoundedImageView
-                                        android:id="@+id/iv_additional1"
-                                        android:layout_width="0dp"
-                                        android:layout_height="0dp"
-                                        android:scaleType="center"
-                                        android:src="@mipmap/ico_img_for_upload"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintLeft_toLeftOf="parent"
-                                        app:layout_constraintRight_toRightOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:riv_border_color="#f1efef"
-                                        app:riv_border_width="1dip"
-                                        app:riv_corner_radius="8dip" />
-
-                                    <ImageView
-                                        android:id="@+id/btn_additional1"
-                                        android:layout_width="45dp"
-                                        android:layout_height="45dp"
-                                        android:layout_marginRight="10dp"
-                                        android:layout_marginBottom="10dp"
-                                        android:background="@drawable/photo_rounded_blue"
-                                        android:padding="8dp"
-                                        android:src="@mipmap/ico_upload"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintRight_toRightOf="parent" />
-
-                                </androidx.constraintlayout.widget.ConstraintLayout>
-                            </RelativeLayout>
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                    <!--Additional 2-->
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center"
-                        android:padding="0dp">
-                        <!--Foto Additional 2-->
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <RelativeLayout
-                                android:id="@+id/rl_additional2"
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginTop="10dp"
-                                android:layout_weight="1"
-                                android:padding="10dp">
-
-                                <androidx.constraintlayout.widget.ConstraintLayout
-                                    android:layout_width="match_parent"
-                                    android:layout_height="200dp">
-
-                                    <com.makeramen.roundedimageview.RoundedImageView
-                                        android:id="@+id/iv_additional2"
-                                        android:layout_width="0dp"
-                                        android:layout_height="0dp"
-                                        android:scaleType="center"
-                                        android:src="@mipmap/ico_img_for_upload"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintLeft_toLeftOf="parent"
-                                        app:layout_constraintRight_toRightOf="parent"
-                                        app:layout_constraintTop_toTopOf="parent"
-                                        app:riv_border_color="#f1efef"
-                                        app:riv_border_width="1dip"
-                                        app:riv_corner_radius="8dip" />
-
-                                    <ImageView
-                                        android:id="@+id/btn_additional2"
-                                        android:layout_width="45dp"
-                                        android:layout_height="45dp"
-                                        android:layout_marginRight="10dp"
-                                        android:layout_marginBottom="10dp"
-                                        android:background="@drawable/photo_rounded_blue"
-                                        android:padding="8dp"
-                                        android:src="@mipmap/ico_upload"
-                                        app:layout_constraintBottom_toBottomOf="parent"
-                                        app:layout_constraintRight_toRightOf="parent" />
-
-                                </androidx.constraintlayout.widget.ConstraintLayout>
-                            </RelativeLayout>
-                        </LinearLayout>
-                    </RelativeLayout>
-
-                </LinearLayout>
 
                 <!--Button Simpan-->
                 <LinearLayout

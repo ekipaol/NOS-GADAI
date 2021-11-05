@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,18 +16,19 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListSerahTerimaBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
+import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataSerahTerima;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.MenuViewHolder> /*implements Filterable */{
+public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.MenuViewHolder>  implements Filterable /*implements Filterable */{
     private List<DataSerahTerima> data;
     private Context context;
     private ItemListSerahTerimaBinding binding;
     private List<DataSerahTerima> datafiltered;
 
     private AppPreferences appPreferences;
-    private DropdownRecyclerListener dropdownRecyclerListener;
 
     public SerahTerimaAdapter(Context context, List<DataSerahTerima> mdata) {
         this.context = context;
@@ -50,11 +53,11 @@ public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.
         //NEVER, IT GONNA F UP YOUR DATA ORDER
         final DataSerahTerima data = datafiltered.get(position);
 
-        holder.tvCabang.setText(data.getCabang());
+        holder.tvCabang.setText(appPreferences.getNamaKantor());
         holder.tvNamaNasabah.setText(data.getNamaNasabah());
         holder.tvNomorAplikasi.setText(data.getNomorAplikasiGadai());
-        holder.tvNomorSbge.setText(data.getSBGENumber());
-        holder.tvTanggalJatuhTempo.setText(data.getTanggalJatuhTempo());
+        holder.tvNomorSbge.setText(data.getLDNumber());
+        holder.tvTanggalJatuhTempo.setText(data.getTanggalAktifitas());
         onClicks(position, holder);
 
     }
@@ -68,32 +71,27 @@ public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.
                 Intent intent = new Intent(context, DetailSerahTerimaActivity.class);
                 intent.putExtra("NoAplikasi", data.get(currentPosition).getNomorAplikasiGadai());
                 intent.putExtra("NamaNasabah", data.get(currentPosition).getNamaNasabah());
-                intent.putExtra("NomorSbge", data.get(currentPosition).getSBGENumber());
-                intent.putExtra("KodeCabang", data.get(currentPosition).getCabang());
-
+                intent.putExtra("LDNumber", data.get(currentPosition).getLDNumber());
+                intent.putExtra("NamaPemberi", data.get(currentPosition).getNamaPemberi());
+                intent.putExtra("IDPemberi", data.get(currentPosition).getIDPemberi());
+                intent.putExtra("NamaPenerima", data.get(currentPosition).getNamaPenerima());
+                intent.putExtra("IDPenerima", data.get(currentPosition).getIDPenerima());
                 context.startActivity(intent);
             }
         });
     }
 
 
-
     @Override
-    public int getItemCount() {
-        return data.size();
-    }
-
-
-    /*@Override
     public int getItemCount() {
         if (datafiltered == null) {
             return 0;
         } else {
             return datafiltered.size();
         }
-    }*/
+    }
 
-    /*@Override
+    @Override
     public Filter getFilter() {
         return new Filter() {
             @Override
@@ -106,7 +104,7 @@ public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.
                     for (DataSerahTerima row : data) {
                         if (row.getNamaNasabah().toLowerCase().contains(charString.toLowerCase())
                                 || row.getSBGENumber().toLowerCase().contains(charString.toLowerCase())
-                                || row.getLDNumber().toLowerCase().contains(charString.toLowerCase())) {
+                                || row.getNomorAplikasiGadai().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
                     }
@@ -123,7 +121,7 @@ public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.
                 notifyDataSetChanged();
             }
         };
-    }*/
+    }
 
 
     public class MenuViewHolder extends RecyclerView.ViewHolder {
