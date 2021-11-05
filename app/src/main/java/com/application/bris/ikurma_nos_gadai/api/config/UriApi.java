@@ -343,16 +343,24 @@ public class UriApi {
     }
 
     public class gadaiNOS{
-        public static final String listAplikasiGadai = "GadaiEmasService/rest/Gadai/listAplikasiGadai";
-        public static final String detailAplikasiGadai = "GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
+        //Gadai
+        public static final String listAplikasiGadai = "GadaiEmasService/rest/Gadai/ListAplikasiGadai";
+        //Activity
         public static final String sendAplikasiGadai = "GadaiEmasService/rest/Activity/SubmitFotoAgunanEmas";
-        public static final String sendBrankasInfo = "GadaiEmasService/rest/Vault/BrankasInfo";
-        public static final String listTanggalOpname = "GadaiEmasService/rest/Vault/ListRequestAksesBrankas";
-        public static final String listIsiLaci = "GadaiEmasService/rest/Vault/InquiryListBrankasOpname";
         public static final String updateIsiLaci = "GadaiEmasService/rest/Activity/ujiStockOpname";
-        public static final String updatehasilpenjualan = "GadaiEmasService/rest/Lunas/KonfirmasiPenjualanAgunan";
         public static final String ujiAcak = "GadaiEmasService/rest/Activity/UjiAcak";
         public static final String ujiKualitas = "GadaiEmasService/rest/Activity/UjiKualitas";
+        public static final String sendSerahTerima= "GadaiEmasService/rest/Activity/SubmitTandaTerima";
+        public static final String listTandaTerima= "GadaiEmasService/rest/Activity/ListTandaTerima";
+
+        //Disburse
+        public static final String detailAplikasiGadai = "GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
+        //Inquiry
+        public static final String listIsiLaci = "GadaiEmasService/rest/Vault/InquiryListBrankasOpname";
+        public static final String sendBrankasInfo = "GadaiEmasService/rest/Vault/BrankasInfo";
+        public static final String listTanggalOpname = "GadaiEmasService/rest/Vault/ListRequestAksesBrankas";
+        //Lunas
+        public static final String updatehasilpenjualan = "GadaiEmasService/rest/Lunas/KonfirmasiPenjualanAgunan";
 
     }
 }
