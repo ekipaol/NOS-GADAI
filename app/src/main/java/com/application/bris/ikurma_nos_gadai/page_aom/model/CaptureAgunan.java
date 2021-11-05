@@ -21,6 +21,7 @@ public class CaptureAgunan {
     private String LDNumber;
 
 
+
     public String getCabang() {
         return Cabang ;
     }
@@ -77,5 +78,7 @@ public class CaptureAgunan {
     public void setLDNumber(String LDNumber) {
         this.LDNumber = LDNumber;
     }
+
+
 
 }

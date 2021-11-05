@@ -12,34 +12,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.application.bris.ikurma_nos_gadai.R;
-import com.application.bris.ikurma_nos_gadai.api.model.Error;
-import com.application.bris.ikurma_nos_gadai.api.model.ParseResponse;
-import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
-import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListLaciOpnameBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.ListBrankas;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
-import com.application.bris.ikurma_nos_gadai.util.AppUtil;
-import com.google.gson.Gson;
-import com.google.gson.JsonObject;
-import com.google.gson.reflect.TypeToken;
-
-import org.json.JSONException;
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class ListLaciActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler {
+public class ListLaciActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener{
 
     ActivityListLaciOpnameBinding binding;
     private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListLaciAdapter listBrankasAdapter;
@@ -54,8 +33,6 @@ public class ListLaciActivity extends AppCompatActivity implements GenericListen
         //binding View
         binding= ActivityListLaciOpnameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //Button Click
-        setclickable();
 
         //Navbar
         customToolbar();
@@ -82,7 +59,7 @@ public class ListLaciActivity extends AppCompatActivity implements GenericListen
     public void initialize(){
         binding.rvListBerangkas.setVisibility(View.VISIBLE);
         binding.rvListBerangkas.setHasFixedSize(true);
-        listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListLaciAdapter(this,getIntent().getStringExtra("seqBrankas"),getIntent().getStringExtra("ReffNoAktifitas"), dataBrankas,this);
+        listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListLaciAdapter(this,getIntent().getStringExtra("seqBrankas"),getIntent().getStringExtra("ReffNoAktifitas"), dataBrankas);
         binding.rvListBerangkas.setLayoutManager(new LinearLayoutManager(this));
         binding.rvListBerangkas.setItemAnimator(new DefaultItemAnimator());
         binding.rvListBerangkas.setAdapter(listBrankasAdapter);
@@ -108,32 +85,8 @@ public class ListLaciActivity extends AppCompatActivity implements GenericListen
         });
     }
 
-    private void setclickable(){
-
-    }
-
-    @Override
-    public void onClick(View v) {
-
-    }
-
     @Override
     public void onRefresh() {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data) {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data, int position) {
-
-    }
-
-    @Override
-    public void onDropdownRecyclerClick(int position, String title) {
 
     }
 }

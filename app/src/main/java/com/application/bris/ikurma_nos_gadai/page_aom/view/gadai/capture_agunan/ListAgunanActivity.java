@@ -24,11 +24,7 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListAgunanBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -44,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListAgunanActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, GenericListenerOnSelectRecycler{
+public class ListAgunanActivity extends AppCompatActivity implements  SwipeRefreshLayout.OnRefreshListener, View.OnClickListener{
 
     ActivityListAgunanBinding binding;
     private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanAdapter listAgunanAdapter;
@@ -61,9 +57,6 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
         binding = ActivityListAgunanBinding.inflate(getLayoutInflater());
         setSupportActionBar(binding.toolbarReguler.tbRegular);
         setContentView(binding.getRoot());
-        //Button Click
-        setclickable();
-
         //Navbar
         customToolbar();
 
@@ -192,10 +185,6 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
         });
     }
 
-    private void setclickable(){
-
-    }
-
     private void searchAgunan(){
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -243,16 +232,6 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
 
     @Override
     public void onRefresh() {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data) {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data, int position) {
 
     }
 

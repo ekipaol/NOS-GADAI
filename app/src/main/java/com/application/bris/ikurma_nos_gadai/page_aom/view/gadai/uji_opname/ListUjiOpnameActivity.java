@@ -24,13 +24,7 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListUjiOpnameBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.ConfirmListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.ListOpname;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -46,7 +40,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListUjiOpnameActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler , ConfirmListener {
+public class ListUjiOpnameActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
     ActivityListUjiOpnameBinding binding;
     private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter ListUjiOpnameAdapter;
 
@@ -62,8 +56,6 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
         binding= ActivityListUjiOpnameBinding.inflate(getLayoutInflater());
         setSupportActionBar(binding.toolbarReguler.tbRegular);
         setContentView(binding.getRoot());
-        //Button Click
-        setclickable();
 
         //Navbar
         customToolbar();
@@ -166,7 +158,7 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
                             dataAgunan = gson.fromJson(listDataString, type);
                             if (dataAgunan.size() > 0){
                                 binding.llEmptydata.setVisibility(View.GONE);
-                                ListUjiOpnameAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter(ListUjiOpnameActivity.this,dataAgunan,ListUjiOpnameActivity.this);
+                                ListUjiOpnameAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter(ListUjiOpnameActivity.this,dataAgunan);
                                 binding.rvListOpname.setLayoutManager(new LinearLayoutManager(ListUjiOpnameActivity.this));
                                 binding.rvListOpname.setItemAnimator(new DefaultItemAnimator());
                                 binding.rvListOpname.setAdapter(ListUjiOpnameAdapter);
@@ -202,7 +194,7 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
     public void initialize(){
         binding.rvListOpname.setVisibility(View.VISIBLE);
         binding.rvListOpname.setHasFixedSize(true);
-        ListUjiOpnameAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter(this, dataAgunan,this);
+        ListUjiOpnameAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter(this, dataAgunan);
         binding.rvListOpname.setLayoutManager(new LinearLayoutManager(this));
         binding.rvListOpname.setItemAnimator(new DefaultItemAnimator());
         binding.rvListOpname.setAdapter(ListUjiOpnameAdapter);
@@ -228,9 +220,6 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
         });
     }
 
-    private void setclickable(){
-
-    }
 
     @Override
     public void onClick(View v) {
@@ -239,31 +228,6 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements GenericL
 
     @Override
     public void onRefresh() {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data) {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data, int position) {
-
-    }
-
-    @Override
-    public void onDropdownRecyclerClick(int position, String title) {
-
-    }
-
-    @Override
-    public void success(boolean val) {
-
-    }
-
-    @Override
-    public void confirm(boolean val) {
 
     }
 }

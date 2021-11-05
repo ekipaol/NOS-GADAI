@@ -12,8 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListLaciOpnameBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
-import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
 import java.util.List;
 
@@ -22,9 +20,8 @@ public class ListLaciAdapter extends RecyclerView.Adapter<ListLaciAdapter.MenuVi
     private Context context;
     private ItemListLaciOpnameBinding binding;
     private String b,ReffNoAktifitas;
-    private DropdownRecyclerListener dropdownRecyclerListener;
 
-    public ListLaciAdapter(Context context,String brankas ,String ReffNoAktifitas, List<Integer> mdata, DropdownRecyclerListener dropdownRecyclerListener1) {
+    public ListLaciAdapter(Context context,String brankas ,String ReffNoAktifitas, List<Integer> mdata) {
         this.context = context;
         this.data = mdata;
         this.b = brankas;

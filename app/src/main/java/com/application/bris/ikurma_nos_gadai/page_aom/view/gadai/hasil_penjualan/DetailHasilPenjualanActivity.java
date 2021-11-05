@@ -34,7 +34,6 @@ import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFr
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.CameraListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.prapen.d3_confirm_validasi_engine.dokumen_pendapatan.ActivityDokumenPendapatan;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.JsonObject;
 

@@ -195,7 +195,6 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
         obj1.addProperty("FilterNoAplikasi", getIntent().getStringExtra("NoAplikasi"));
-//        obj1.addProperty("FilterNoAplikasi", "GDE2021102200002");
         obj1.addProperty("FilterLDNumber", "NONE");
         obj1.addProperty("FilterSBGE", "NONE");
 
@@ -221,6 +220,7 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
                             binding.etNamaNasabah.setText(dataAgunan.getNamaSesuaiKTP());
                             binding.etTglTransaksi.setText(dataAgunan.getTanggalPencairan());
                             binding.etTglJatohTempo.setText(dataAgunan.getTanggalJatuhTempo());
+                            binding.etJangkaWaktu.setText(dataAgunan.getTenor());
                         } else {
                             AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
