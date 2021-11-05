@@ -81,7 +81,7 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
         obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
-        obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
+        obj1.addProperty("kodeCabang", appPreferences.getKodeKantor());
         obj1.addProperty("konfirmasi", "YA");
         obj1.addProperty("Pemberi", getIntent().getStringExtra("IDPemberi"));
         obj1.addProperty("Penerima", getIntent().getStringExtra("IDPenerima"));
