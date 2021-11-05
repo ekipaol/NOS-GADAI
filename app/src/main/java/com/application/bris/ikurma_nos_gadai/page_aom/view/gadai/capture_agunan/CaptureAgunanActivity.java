@@ -176,14 +176,14 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
         //disableText
         setDisabledText();
         //setTextValue
-//        binding.etTglTransaksi.setText(formattedDate.toString());
+        binding.etTglTransaksi.setText(formattedDate.toString());
 
 
         c1.add(android.icu.util.Calendar.MONTH, 4);
         df1 = new SimpleDateFormat("dd-MMM-yyyy");
         Date resultDate = c1.getTime();
         String dueDate = df1.format(resultDate);
-//        binding.etTglJatohTempo.setText(dueDate);
+        binding.etTglJatohTempo.setText(dueDate);
 
         //Navbar
         customToolbar();
@@ -218,8 +218,8 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
                             binding.etKtp.setText(dataAgunan.getNoKTP());
                             binding.etCabang.setText(dataAgunan.getKodeCabang());
                             binding.etNamaNasabah.setText(dataAgunan.getNamaSesuaiKTP());
-                            binding.etTglTransaksi.setText(dataAgunan.getTanggalPencairan());
-                            binding.etTglJatohTempo.setText(dataAgunan.getTanggalJatuhTempo());
+//                            binding.etTglTransaksi.setText(dataAgunan.getTanggalPencairan());
+//                            binding.etTglJatohTempo.setText(dataAgunan.getTanggalJatuhTempo());
                             binding.etJangkaWaktu.setText(dataAgunan.getTenor());
                         } else {
                             AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), response.body().getMessage());

@@ -78,13 +78,15 @@ public class ListAgunanActivity extends AppCompatActivity implements  SwipeRefre
         AppPreferences appPreferences=new AppPreferences(this);
             JsonObject obj1 = new JsonObject();
             obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
+//        obj1.addProperty("FilterKodeCabang","ID0010836");
             obj1.addProperty("FilterNoAplikasi", "NONE");
             obj1.addProperty("FilterNoKTP", "NONE");
             obj1.addProperty("FilterPengusul", "NONE");
             obj1.addProperty("FilterReviewer", "NONE");
             obj1.addProperty("FilterPemutus", "NONE");
             obj1.addProperty("FilterAOPembiayaan", "NONE");
-            obj1.addProperty("FilterWorkFlowStatus", "Capture Agunan");
+//            obj1.addProperty("FilterWorkFlowStatus", "Capture Agunan");
+            obj1.addProperty("FilterWorkFlowStatus", "Lolos IDE");
             obj1.addProperty("FilterNoCif", "NONE");
             obj1.addProperty("FilterSBGE", "NONE");
             obj1.addProperty("FilterKodeAgunan", "NONE");
