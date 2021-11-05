@@ -85,9 +85,9 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
         obj1.addProperty("konfirmasi", "YA");
         obj1.addProperty("Pemberi", getIntent().getStringExtra("IDPemberi"));
         obj1.addProperty("Penerima", getIntent().getStringExtra("IDPenerima"));
-        obj1.addProperty("FotoSerahTerima", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
         obj1.addProperty("Description", binding.etDeskripsi.getText().toString());
-        obj1.addProperty("Aktifitas","SerahTerimaKeNasabah");
+        obj1.addProperty("Aktifitas","Sudah Serah Terima Ke Pawning");
+        obj1.addProperty("FotoSerahTerima", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
 /*
