@@ -106,6 +106,7 @@
     <string name="menu_uji_kualitas">Uji Kualitas</string>
     <string name="menu_uji_acak">Uji Acak</string>
     <string name="menu_opname">Uji Opname</string>
+    <string name="menu_penjualan">Penjualan</string>
 
     <!--String Sub Menu Hotprospek-->
     <string name="submenu_hotprospek_prescreening">Prescreening</string>

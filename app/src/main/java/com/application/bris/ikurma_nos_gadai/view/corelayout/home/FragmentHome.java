@@ -15,6 +15,8 @@ import com.application.bris.ikurma_nos_gadai.page_aom.model.PipelineKpr;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.appraisal.AppraisalActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.feedback.FeedbackActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan.HasilPenjualanActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameActivity;
 import com.application.bris.ikurma_nos_gadai.page_monitoring.monitoring_pencairan.MonitoringPencairanActivity;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity2;
@@ -436,12 +438,12 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 
 
         }
-        else if (menu.equalsIgnoreCase(getString(R.string.menu_approved))){
-            Intent it = new Intent(getContext(), ApprovedActivity.class);
+        else if (menu.equalsIgnoreCase(getString(R.string.menu_opname))){
+            Intent it = new Intent(getContext(), ListUjiOpnameActivity.class);
             startActivity(it);
         }
-        else if (menu.equalsIgnoreCase(getString(R.string.menu_rejected))){
-            Intent it = new Intent(getContext(), RejectedActivity.class);
+        else if (menu.equalsIgnoreCase(getString(R.string.menu_penjualan))){
+            Intent it = new Intent(getContext(), HasilPenjualanActivity.class);
             startActivity(it);
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_appraisal))){

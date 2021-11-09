@@ -14,6 +14,12 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:allowBackup">
+        <activity android:name=".page_aom.view.gadai.hasil_penjualan.DetailHasilPenjualanActivity"/>
+        <activity android:name=".page_aom.view.gadai.hasil_penjualan.HasilPenjualanActivity"/>
+        <activity android:name=".page_aom.view.gadai.uji_opname.ListIsiLaciActivity"/>
+        <activity android:name=".page_aom.view.gadai.uji_opname.ListLaciActivity"/>
+        <activity android:name=".page_aom.view.gadai.uji_opname.ListBrankasActivity"/>
+        <activity android:name=".page_aom.view.gadai.uji_opname.ListUjiOpnameActivity"/>
         <activity android:name=".page_aom.view.gadai.capture_agunan.ListAgunanActivity"/>
         <activity android:name=".page_aom.view.gadai.capture_agunan.CaptureAgunanActivity"/>
         <activity android:name="com.application.bris.ikurma_nos_gadai.page_aom.view.prapen.d4_verifikasi_otor.verif_hutang.TambahHutangVerifikatorActivity"></activity>

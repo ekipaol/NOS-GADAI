@@ -25,7 +25,7 @@ public class Menu {
         menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_uji_acak), 0, 0, 0, 0));
         menu.add(new ListViewMenu(R.drawable.ico_rejected, context.getString(R.string.menu_opname), 0,0,0, 0));
 
-//        menu.add(new ListViewMenu(R.drawable.ico_appraisal, context.getString(R.string.menu_appraisal), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_appraisal, context.getString(R.string.menu_penjualan), 0, 0, 0, 0));
 //        menu.add(new ListViewMenu(R.drawable.ic_generalusericon, "Monitoring", 0, 0, 0, 0));
 //        menu.add(new ListViewMenu(R.drawable.ic_feedback, "Feedback", 0,0,0, 0));
         menu.add(new ListViewMenu(R.drawable.ic_logout_front, "Logout", 0,0,0, 0));

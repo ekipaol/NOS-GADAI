@@ -91,7 +91,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
             obj1.addProperty("FilterReviewer", "NONE");
             obj1.addProperty("FilterPemutus", "NONE");
             obj1.addProperty("FilterAOPembiayaan", "NONE");
-            obj1.addProperty("FilterWorkFlowStatus", "Capture Agunan");
+            obj1.addProperty("FilterWorkFlowStatus", "Lolos IDE|Override Emas Palsu");
             obj1.addProperty("FilterNoCif", "NONE");
             obj1.addProperty("FilterSBGE", "NONE");
             obj1.addProperty("FilterKodeAgunan", "NONE");
