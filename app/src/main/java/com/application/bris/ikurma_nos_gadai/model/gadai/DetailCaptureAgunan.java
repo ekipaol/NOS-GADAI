@@ -15,6 +15,8 @@ public class DetailCaptureAgunan {
     private String TanggalPencairan;
     @SerializedName("TanggalJatuhTempo")
     private String TanggalJatuhTempo;
+    @SerializedName("Tenor")
+    private String Tenor;
 
 
     public String getNoAplikasi() {
@@ -65,4 +67,11 @@ public class DetailCaptureAgunan {
         this.TanggalJatuhTempo = TanggalJatuhTempo;
     }
 
-}
+    public String getTenor(){
+        return Tenor;
+    }
+    public void setTenor(String Tenor) {
+        this.Tenor = Tenor;
+    }
+
+    }

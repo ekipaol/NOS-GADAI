@@ -17,18 +17,19 @@ public class ListIsiLaci {
     private String sizeSlot;
     @SerializedName("NamaPemilik")
     private String NamaPemilik;
-    @SerializedName("WorkFlowStatus")
-    private String WorkFlowStatus;
-    @SerializedName("AgunanPembiayaan")
-    private String AgunanPembiayaan;
-    @SerializedName("StatusOpname")
-    private String StatusOpname;
     @SerializedName("LDNumber")
     private String LDNumber;
     @SerializedName("TanggalPencairan")
     private String TanggalPencairan;
     @SerializedName("TanggalJatuhTempo")
     private String TanggalJatuhTempo;
+    @SerializedName("WorkFlowStatus")
+    private String WorkFlowStatus;
+    @SerializedName("AgunanPembiayaan")
+    private String AgunanPembiayaan;
+    @SerializedName("StatusOpname")
+    private String StatusOpname;
+
 
     public String getidSlot() {
         return idSlot ;

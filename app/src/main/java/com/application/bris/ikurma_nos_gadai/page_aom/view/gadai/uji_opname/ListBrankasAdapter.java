@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -13,7 +12,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListBrankasOpnameBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.ListBrankas;
 
 import java.util.List;
@@ -24,9 +22,8 @@ public class ListBrankasAdapter extends RecyclerView.Adapter<ListBrankasAdapter.
     private Context context;
     private String ReffNoAktifitas,KodeCabang;
     private ItemListBrankasOpnameBinding binding;
-    private DropdownRecyclerListener dropdownRecyclerListener;
 
-    public ListBrankasAdapter(Context context,String ReffNoAktifitas, List<ListBrankas> mdata,String KodeCabang, DropdownRecyclerListener dropdownRecyclerListener1) {
+    public ListBrankasAdapter(Context context,String ReffNoAktifitas, List<ListBrankas> mdata,String KodeCabang) {
         this.context = context;
         this.data = mdata;
         this.ReffNoAktifitas = ReffNoAktifitas;

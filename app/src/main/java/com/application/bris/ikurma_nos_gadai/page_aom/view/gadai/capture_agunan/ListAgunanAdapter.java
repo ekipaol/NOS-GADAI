@@ -15,9 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListAgunanBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
-import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -24,10 +24,6 @@ import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListUjiOpnameBinding;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListUjiOpnameBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.dialog.CustomDialog;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.ConfirmListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.ListOpname;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.JsonObject;
@@ -47,9 +43,7 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
     private ActivityListUjiOpnameBinding binding2;
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
-    private DropdownRecyclerListener dropdownRecyclerListener;
-
-    public ListUjiOpnameAdapter(Context context, List<ListOpname> mdata, DropdownRecyclerListener dropdownRecyclerListener1) {
+    public ListUjiOpnameAdapter(Context context, List<ListOpname> mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;

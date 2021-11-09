@@ -1,26 +1,19 @@
 package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname;
 
 import android.content.Context;
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
-import android.widget.LinearLayout;
 import android.widget.TextView;
-
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
-
-import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListIsiLaciOpnameBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.ListIsiLaci;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.ListOpname;
-
 import java.util.ArrayList;
 import java.util.List;
 

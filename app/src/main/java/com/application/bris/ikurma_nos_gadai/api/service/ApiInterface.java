@@ -10,14 +10,20 @@ import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseDataDukcapil
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseDataInstansi;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGmapsV3;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseListSerahTerima;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseSaldo;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseUjiAcak;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.api.model.request.EmptyRequest;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqFollowUpFlpp;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqKodeProvinsi;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqKodeWilayah;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
+import com.application.bris.ikurma_nos_gadai.api.model.request.ReqSerahTerima;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUid;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUidLong;
+import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiAcak;
+import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.api.model.request.agunan.ReqAgunan;
 import com.application.bris.ikurma_nos_gadai.api.model.request.agunan.ReqAgunanByCif;
 import com.application.bris.ikurma_nos_gadai.api.model.request.agunan.ReqAgunanData;
@@ -91,6 +97,7 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.monitoring.ReqSal
 import com.application.bris.ikurma_nos_gadai.api.model.request.pipeline.KonsumerKMGInputPipeline;
 import com.application.bris.ikurma_nos_gadai.api.model.request.pipeline.KonsumerKMGInquiryPipeline;
 import com.application.bris.ikurma_nos_gadai.api.model.request.pipeline.KonsumerKPRInputPipeline;
+import com.application.bris.ikurma_nos_gadai.api.model.request.pipeline.ReqListSerahTerima;
 import com.application.bris.ikurma_nos_gadai.api.model.request.pipeline.inputPipeline;
 import com.application.bris.ikurma_nos_gadai.api.model.request.pipeline.inquiryInstansi;
 import com.application.bris.ikurma_nos_gadai.api.model.request.pipeline.inquiryListKateg;
@@ -728,5 +735,18 @@ public interface ApiInterface {
 
     @POST(UriApi.gadaiNOS.updatehasilpenjualan)
     Call<ParseResponse> UpdatehasilPenjualan(@Body ReqListGadai ReqListGadai);
+
+    @POST(UriApi.gadaiNOS.ujiAcak)
+    Call<ParseResponseUjiAcak> sendUjiAcak(@Body ReqUjiAcak ReqUjiAcak);
+
+    @POST(UriApi.gadaiNOS.ujiKualitas)
+    Call<ParseResponseUjiKualitas> sendUjiKualitas(@Body ReqUjiKualitas ReqUjiKualitas);
+
+    @POST(UriApi.gadaiNOS.sendSerahTerima)
+    Call<ParseResponseAgunan> sendSerahTerima(@Body ReqListGadai ReqListGadai);
+
+    @POST(UriApi.gadaiNOS.listTandaTerima)
+    Call<ParseResponseAgunan> sendListSerahTerima(@Body ReqListGadai ReqListGadai);
+
 }
 

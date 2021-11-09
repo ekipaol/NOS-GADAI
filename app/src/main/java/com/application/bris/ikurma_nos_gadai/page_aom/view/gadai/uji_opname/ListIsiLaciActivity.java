@@ -27,7 +27,6 @@ import com.application.bris.ikurma_nos_gadai.databinding.ActivityListIsiLaciOpna
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListIsiLaciOpnameBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFromService;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.ListIsiLaci;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
@@ -46,7 +45,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListIsiLaciActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler {
+public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler {
     ActivityListIsiLaciOpnameBinding binding;
     ItemListIsiLaciOpnameBinding bindingIsi;
 
@@ -182,7 +181,7 @@ public class ListIsiLaciActivity extends AppCompatActivity implements GenericLis
         dataLaci.add(new MGenericModel("2", "Tidak Ada"));
     }
 
-    private void setData() throws JSONException {
+    private void setData()  {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
         obj1.addProperty("KodeCabang", appPreferences.getKodeCabang());
@@ -278,11 +277,6 @@ public class ListIsiLaciActivity extends AppCompatActivity implements GenericLis
 
     @Override
     public void onRefresh() {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data) {
 
     }
 

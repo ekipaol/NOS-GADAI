@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.serah_terima;
 
 import android.Manifest;
 import android.content.Intent;
@@ -22,44 +22,109 @@ import androidx.core.content.FileProvider;
 import com.application.bris.ikurma_nos_gadai.BuildConfig;
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
-import com.application.bris.ikurma_nos_gadai.api.model.ParseResponse;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseAgunan;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseListSerahTerima;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
+import com.application.bris.ikurma_nos_gadai.api.model.request.ReqSerahTerima;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ActivityDetailHasilPenjualanBinding;
-import com.application.bris.ikurma_nos_gadai.model.gadai.DetailCaptureAgunan;
+import com.application.bris.ikurma_nos_gadai.databinding.ActivityDetailSerahTerimaBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.BSBottomCamera;
-import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFromService;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.CameraListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
+import com.application.bris.ikurma_nos_gadai.page_aom.model.DataSerahTerima;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.lang.reflect.Type;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailHasilPenjualanActivity extends AppCompatActivity implements View.OnClickListener, CameraListener, GenericListenerOnSelect {
+public class DetailSerahTerimaActivity extends AppCompatActivity implements View.OnClickListener, CameraListener, GenericListenerOnSelect {
 
-    ActivityDetailHasilPenjualanBinding binding;
+    ActivityDetailSerahTerimaBinding binding;
 
-    Call<ParseResponse> call;
+    Call<ParseResponseAgunan> call;
     String clicker;
 
-    private Uri uri_dokumen;
-    private Bitmap bitmap_dokumen;
+    private Uri uri_nasabah;
+    private Bitmap bitmap_nasabah;
 
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
 
-    DetailCaptureAgunan dataAgunan;
-    List<MGenericModel> dataDropdownPenjualan = new ArrayList<>();
+    DataSerahTerima dataSerahTerima;
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_bersama_nasabah:
+            case R.id.rl_bersama_nasabah:
+            case R.id.iv_bersama_nasabah:
+                clicker = "nasabah";
+                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this, "Foto Nasabah");
+                break;
+            case R.id.btn_send:
+            case R.id.ll_btn_send:
+                SendData();
+        }
+    }
+
+    private void SendData() {
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+        JsonObject obj1 = new JsonObject();
+        obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
+        obj1.addProperty("kodeCabang", appPreferences.getKodeKantor());
+        obj1.addProperty("konfirmasi", "YA");
+        obj1.addProperty("Pemberi", getIntent().getStringExtra("IDPemberi"));
+        obj1.addProperty("Penerima", getIntent().getStringExtra("IDPenerima"));
+        obj1.addProperty("Description", binding.etDeskripsi.getText().toString());
+        obj1.addProperty("Aktifitas","Sudah Serah Terima Ke Pawning");
+        obj1.addProperty("FotoSerahTerima", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
+        ReqListGadai req = new ReqListGadai();
+        req.setkchannel("Mobile");
+/*
+        req.setrrn("001100323129");
+*/
+        req.setdata(obj1);
+        call = apiClientAdapter.getApiInterface().sendSerahTerima(req);
+        call.enqueue(new Callback<ParseResponseAgunan>() {
+            @Override
+            public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        if (response.body().getStatus().equalsIgnoreCase("00")) {
+                            AppUtil.notifsuccess(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), "Berhasil Update");
+                            Toast.makeText(DetailSerahTerimaActivity.this, "Berhasil Serah Terima", Toast.LENGTH_SHORT).show();
+                            finish();
+                        } else {
+                            AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                        }
+                    } else {
+                        Error error = ParseResponseError.confirmEror(response.errorBody());
+                        AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), error.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ParseResponseAgunan> call, Throwable t) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
+                AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+            }
+        });
+    }
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,53 +132,50 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
         //Initialize
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
-        binding = ActivityDetailHasilPenjualanBinding.inflate(getLayoutInflater());
+        binding = ActivityDetailSerahTerimaBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         //setclick
         setClickListener();
-        endIconClick();
         //disableText
         setDisabledText();
-        //initData
-        initialize();
+        //initialize
+        initilize();
         //Navbar
         customToolbar();
         //Sdk untuk background toolbar
         backgroundStatusBar();
         //Parameter Dropdown
-        setParameterDropdown();
+
+        apiClientAdapter = new ApiClientAdapter(this, "https://10.0.116.105/");
+        appPreferences = new AppPreferences(this);
     }
 
-    private void initialize() {
-        binding.etStatusPenjualan.setText("Terjual");
-        binding.etCabang.setText(getIntent().getStringExtra("KodeCabang"));
-        binding.etNamaNasabah.setText(getIntent().getStringExtra("NamaNasabah"));
+    private void initilize() {
+
         binding.etNomerApplikasi.setText(getIntent().getStringExtra("NoAplikasi"));
-    }
+        binding.etCabang.setText(appPreferences.getNamaKantor());
+        binding.etNamaNasabah.setText(getIntent().getStringExtra("NamaNasabah"));
+        binding.etNamaPemberi.setText(getIntent().getStringExtra("NamaPemberi"));
+        binding.etNamaPenerima.setText(getIntent().getStringExtra("NamaPenerima"));
 
-    private void setParameterDropdown() {
-        dataDropdownPenjualan.add(new MGenericModel("1", "Terjual"));
-        dataDropdownPenjualan.add(new MGenericModel("2", "Tidak Terjual"));
     }
 
     private void setDisabledText() {
         binding.etCabang.setFocusable(false);
         binding.etNamaNasabah.setFocusable(false);
         binding.etNomerApplikasi.setFocusable(false);
-        binding.etStatusPenjualan.setFocusable(false);
+        binding.etNamaPemberi.setFocusable(false);
+        binding.etNamaPenerima.setFocusable(false);
     }
 
     private void setClickListener() {
         //Image Click
-        binding.btnDokumen.setOnClickListener(this);
-        binding.rlDokumen.setOnClickListener(this);
-        binding.ivDokumen.setOnClickListener(this);
+        binding.btnBersamaNasabah.setOnClickListener(this);
+        binding.rlBersamaNasabah.setOnClickListener(this);
+        binding.ivBersamaNasabah.setOnClickListener(this);
         //Button Click
         binding.btnSend.setOnClickListener(this);
         binding.llBtnSend.setOnClickListener(this);
-        //Textediting Click
-        binding.etStatusPenjualan.setOnClickListener(this);
-        binding.tfStatusPenjualan.setOnClickListener(this);
     }
 
     private void backgroundStatusBar() {
@@ -124,7 +186,7 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
     }
 
     public void customToolbar() {
-        binding.toolbarNosearch.tvPageTitle.setText("HASIL PENJUALAN");
+        binding.toolbarNosearch.tvPageTitle.setText("Serah Terima Agunan");
         binding.toolbarNosearch.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -134,78 +196,8 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
     }
 
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-
-            case R.id.btn_dokumen:
-            case R.id.rl_dokumen:
-            case R.id.iv_dokumen:
-                clicker = "agunan";
-                BSBottomCamera.display(this.getSupportFragmentManager(), this);
-                break;
-            case R.id.btn_send:
-            case R.id.ll_btn_send:
-                SendData();
-                break;
-            case R.id.et_status_penjualan:
-            case R.id.tf_status_penjualan:
-                DialogGenericDataFromService.display(getSupportFragmentManager(), binding.tfStatusPenjualan.getLabelText(), dataDropdownPenjualan, this);
-                break;
-        }
-    }
-
     public void onSelect(String title, MGenericModel data) {
-        if (title.equalsIgnoreCase(binding.tfStatusPenjualan.getLabelText())) {
-            binding.etStatusPenjualan.setText(data.getDESC());
-        }
-    }
 
-    private void endIconClick() {
-        binding.tfStatusPenjualan.getEndIconImageButton().setOnClickListener(v -> DialogGenericDataFromService.display(getSupportFragmentManager(), binding.tfStatusPenjualan.getLabelText(), dataDropdownPenjualan, this));
-    }
-
-    private void SendData() {
-        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        JsonObject obj1 = new JsonObject();
-        obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
-//        obj1.addProperty("NoAplikasi", "GDE2021092800002");
-        obj1.addProperty("kodeCabang", binding.etCabang.getText().toString());
-        obj1.addProperty("FotoDokumentPenjualan", AppUtil.encodeImageTobase64(bitmap_dokumen).toString());
-        obj1.addProperty("StatusPenjualan", binding.etStatusPenjualan.getText().toString());
-        obj1.addProperty("UserSubmit", appPreferences.getKodeAo());
-        ReqListGadai req = new ReqListGadai();
-        req.setkchannel("Mobile");
-        req.setdata(obj1);
-        call = apiClientAdapter.getApiInterface().UpdatehasilPenjualan(req);
-        call.enqueue(new Callback<ParseResponse>() {
-            @Override
-            public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        if (response.body().getStatus().equalsIgnoreCase("00")) {
-                            AppUtil.notifsuccess(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), "Berhasil Update");
-                            Toast.makeText(DetailHasilPenjualanActivity.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
-                            AppUtil.notiferror(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
-                        }
-                    } else {
-                        Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), error.getMessage());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ParseResponse> call, Throwable t) {
-                binding.loading.progressbarLoading.setVisibility(View.GONE);
-                AppUtil.notiferror(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
-            }
-        });
     }
 
     @Override
@@ -213,6 +205,7 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
         switch (idMenu) {
             case "Take Photo":
                 openCamera(TAKE_PICTURE_NASABAH, "Nasabah");
+
                 break;
             case "Pick Photo":
                 openGalery(PICK_PICTURE_NASABAH);
@@ -256,7 +249,8 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
         switch (requestCode) {
             case TAKE_PICTURE_NASABAH:
             case PICK_PICTURE_NASABAH:
-                setDataImage(uri_dokumen, bitmap_dokumen, binding.ivDokumen, imageReturnedIntent, "dokumen-penjualan");
+                setDataImage(uri_nasabah, bitmap_nasabah, binding.ivBersamaNasabah, imageReturnedIntent, "nasabah");
+                break;
         }
     }
 
@@ -290,9 +284,7 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
                 bitmap = AppUtil.getResizedBitmap(bitmap, 1024);
                 bitmap = AppUtil.rotateImageIfRequired(this, bitmap, uri);
                 iv.setImageBitmap(bitmap);
-
-                bitmap_dokumen = bitmap;
-
+                bitmap_nasabah = bitmap;
             } catch (Exception e) {
                 e.printStackTrace();
             }

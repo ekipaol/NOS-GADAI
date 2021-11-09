@@ -19,13 +19,7 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListBrankasOpnameBinding;
-import com.application.bris.ikurma_nos_gadai.databinding.ActivityListUjiOpnameBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.ListBrankas;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.ListBrankas;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -41,7 +35,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListBrankasActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler {
+public class ListBrankasActivity extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener{
     ActivityListBrankasOpnameBinding binding;
     private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListBrankasAdapter listBrankasAdapter;
 
@@ -55,8 +49,6 @@ public class ListBrankasActivity extends AppCompatActivity implements GenericLis
         //binding View
         binding= ActivityListBrankasOpnameBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //Button Click
-        setclickable();
 
         //Navbar
         customToolbar();
@@ -97,7 +89,7 @@ public class ListBrankasActivity extends AppCompatActivity implements GenericLis
                             dataBrankas = gson.fromJson(listDataString, type);
                             if (dataBrankas.size() > 0){
                                 binding.llEmptydata.setVisibility(View.GONE);
-                                listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListBrankasAdapter(ListBrankasActivity.this,getIntent().getStringExtra("ReffNoAktifitas"),dataBrankas,getIntent().getStringExtra("kodeCabang"),ListBrankasActivity.this);
+                                listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListBrankasAdapter(ListBrankasActivity.this,getIntent().getStringExtra("ReffNoAktifitas"),dataBrankas,getIntent().getStringExtra("kodeCabang"));
                                 binding.rvListBerangkas.setLayoutManager(new LinearLayoutManager(ListBrankasActivity.this));
                                 binding.rvListBerangkas.setItemAnimator(new DefaultItemAnimator());
                                 binding.rvListBerangkas.setAdapter(listBrankasAdapter);
@@ -133,7 +125,7 @@ public class ListBrankasActivity extends AppCompatActivity implements GenericLis
     public void initialize(){
         binding.rvListBerangkas.setVisibility(View.VISIBLE);
         binding.rvListBerangkas.setHasFixedSize(true);
-        listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListBrankasAdapter(this,getIntent().getStringExtra("ReffNoAktifitas"), dataBrankas,getIntent().getStringExtra("kodeCabang"),this);
+        listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListBrankasAdapter(this,getIntent().getStringExtra("ReffNoAktifitas"), dataBrankas,getIntent().getStringExtra("kodeCabang"));
         binding.rvListBerangkas.setLayoutManager(new LinearLayoutManager(this));
         binding.rvListBerangkas.setItemAnimator(new DefaultItemAnimator());
         binding.rvListBerangkas.setAdapter(listBrankasAdapter);
@@ -159,10 +151,6 @@ public class ListBrankasActivity extends AppCompatActivity implements GenericLis
         });
     }
 
-    private void setclickable(){
-
-    }
-
     @Override
     public void onClick(View v) {
 
@@ -170,21 +158,6 @@ public class ListBrankasActivity extends AppCompatActivity implements GenericLis
 
     @Override
     public void onRefresh() {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data) {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data, int position) {
-
-    }
-
-    @Override
-    public void onDropdownRecyclerClick(int position, String title) {
 
     }
 }

@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.serah_terima;
 
 import android.content.Context;
 import android.content.Intent;
@@ -14,32 +14,34 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ItemListHasilPenjualanBinding;
+import com.application.bris.ikurma_nos_gadai.databinding.ItemListSerahTerimaBinding;
+import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
-import com.application.bris.ikurma_nos_gadai.util.AppUtil;
+import com.application.bris.ikurma_nos_gadai.page_aom.model.DataSerahTerima;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class HasilPenjualanAdapter extends RecyclerView.Adapter<HasilPenjualanAdapter.MenuViewHolder> implements Filterable {
-
-    private List<CaptureAgunan> data;
+public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.MenuViewHolder>  implements Filterable /*implements Filterable */{
+    private List<DataSerahTerima> data;
     private Context context;
-    private ItemListHasilPenjualanBinding binding;
-    private List<CaptureAgunan> datafiltered;
+    private ItemListSerahTerimaBinding binding;
+    private List<DataSerahTerima> datafiltered;
+
     private AppPreferences appPreferences;
 
-    public HasilPenjualanAdapter(Context context, List<CaptureAgunan> mdata) {
+    public SerahTerimaAdapter(Context context, List<DataSerahTerima> mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
     }
 
+
     @NonNull
     @Override
     public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        binding = ItemListHasilPenjualanBinding.inflate(layoutInflater, parent, false);
+        binding = ItemListSerahTerimaBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
         appPreferences = new AppPreferences(context);
         return new MenuViewHolder(view);
@@ -49,27 +51,31 @@ public class HasilPenjualanAdapter extends RecyclerView.Adapter<HasilPenjualanAd
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
         //never user BINDING ON ON BIND VIEW HOLDER DUDE!!!, USE HOLDER INSTEAD
         //NEVER, IT GONNA F UP YOUR DATA ORDER
-        final CaptureAgunan datas = datafiltered.get(position);
+        final DataSerahTerima data = datafiltered.get(position);
 
         holder.tvCabang.setText(appPreferences.getNamaKantor());
-        holder.tvNamaNasabah.setText(datas.getNamaNasabah());
-        holder.tvNomorSbge.setText(datas.getSBGENumber());
-        holder.tvNomorKontrak.setText(datas.getNomorAplikasiGadai());
-        holder.tvTotalKewajiban.setText(AppUtil.parseRupiah(datas.getPinjamanGadaiDiambil()));
+        holder.tvNamaNasabah.setText(data.getNamaNasabah());
+        holder.tvNomorAplikasi.setText(data.getNomorAplikasiGadai());
+        holder.tvNomorSbge.setText(data.getLDNumber());
+        holder.tvTanggalJatuhTempo.setText(data.getTanggalAktifitas());
         onClicks(position, holder);
 
-
     }
+
 
     private void onClicks(int currentPosition, @NonNull MenuViewHolder holder) {
 
         holder.btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, DetailHasilPenjualanActivity.class);
+                Intent intent = new Intent(context, DetailSerahTerimaActivity.class);
                 intent.putExtra("NoAplikasi", data.get(currentPosition).getNomorAplikasiGadai());
                 intent.putExtra("NamaNasabah", data.get(currentPosition).getNamaNasabah());
-                intent.putExtra("KodeCabang", data.get(currentPosition).getCabang());
+                intent.putExtra("LDNumber", data.get(currentPosition).getLDNumber());
+                intent.putExtra("NamaPemberi", data.get(currentPosition).getNamaPemberi());
+                intent.putExtra("IDPemberi", data.get(currentPosition).getIDPemberi());
+                intent.putExtra("NamaPenerima", data.get(currentPosition).getNamaPenerima());
+                intent.putExtra("IDPenerima", data.get(currentPosition).getIDPenerima());
                 context.startActivity(intent);
             }
         });
@@ -94,11 +100,11 @@ public class HasilPenjualanAdapter extends RecyclerView.Adapter<HasilPenjualanAd
                 if (charString.isEmpty()) {
                     datafiltered = data;
                 } else {
-                    List<CaptureAgunan> filteredList = new ArrayList<>();
-                    for (CaptureAgunan row : data) {
+                    List<DataSerahTerima> filteredList = new ArrayList<>();
+                    for (DataSerahTerima row : data) {
                         if (row.getNamaNasabah().toLowerCase().contains(charString.toLowerCase())
                                 || row.getSBGENumber().toLowerCase().contains(charString.toLowerCase())
-                                || row.getLDNumber().toLowerCase().contains(charString.toLowerCase())) {
+                                || row.getNomorAplikasiGadai().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
                     }
@@ -111,7 +117,7 @@ public class HasilPenjualanAdapter extends RecyclerView.Adapter<HasilPenjualanAd
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults filterResults) {
-                datafiltered = (ArrayList<CaptureAgunan>) filterResults.values;
+                datafiltered = (ArrayList<DataSerahTerima>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
@@ -119,7 +125,7 @@ public class HasilPenjualanAdapter extends RecyclerView.Adapter<HasilPenjualanAd
 
 
     public class MenuViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCabang, tvNamaNasabah, tvNomorSbge, tvNomorKontrak, tvTotalKewajiban;
+        TextView tvCabang, tvNamaNasabah, tvNomorSbge, tvNomorAplikasi, tvTanggalJatuhTempo;
         Button btnDetail;
 
         public MenuViewHolder(View itemView) {
@@ -127,9 +133,11 @@ public class HasilPenjualanAdapter extends RecyclerView.Adapter<HasilPenjualanAd
             tvCabang = binding.tvCabang;
             tvNamaNasabah = binding.tvNamaNasabah;
             tvNomorSbge = binding.tvNomorSbge;
-            tvNomorKontrak = binding.tvNomorKontrak;
-            tvTotalKewajiban = binding.tvTotalKewajiban;
+            tvNomorAplikasi = binding.tvNomorAplikasi;
+            tvTanggalJatuhTempo = binding.tvTanggalJatuhTempo;
             btnDetail = binding.btnDetail;
+
         }
+
     }
 }
