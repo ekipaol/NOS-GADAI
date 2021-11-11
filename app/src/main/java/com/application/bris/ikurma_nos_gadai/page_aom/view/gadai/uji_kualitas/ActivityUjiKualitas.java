@@ -84,7 +84,7 @@ public class ActivityUjiKualitas extends AppCompatActivity implements View.OnCli
         obj1.addProperty("Description", "OK");
         ReqUjiKualitas req = new ReqUjiKualitas();
         req.setchannel("Mobile");
-        req.setRrn("01100323129");
+        req.setRrn(AppUtil.getRandomReferenceNumber());
         req.setdata(obj1);
         call = apiClientAdapter.getApiInterface().sendUjiKualitas(req);
         call.enqueue(new Callback<ParseResponseUjiKualitas>() {

@@ -16,6 +16,9 @@ import com.application.bris.ikurma_nos_gadai.page_aom.view.appraisal.AppraisalAc
 import com.application.bris.ikurma_nos_gadai.page_aom.view.feedback.FeedbackActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan.HasilPenjualanActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.menu_penjualan.MenuPenjualanActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_acak.ListUjiAcak;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ListUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameActivity;
 import com.application.bris.ikurma_nos_gadai.page_monitoring.monitoring_pencairan.MonitoringPencairanActivity;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity;
@@ -429,21 +432,19 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
             startActivity(intent);
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_uji_kualitas))){
-//            Intent it = new Intent(getContext(), HotprospekActivity.class);
-//            startActivity(it);
-
-            Intent intent=new Intent(getContext(),MenuPutusanKonsumerActivity.class);
-            intent.putExtra("jenisMenu","hotprospek");
+            Intent intent=new Intent(getContext(), ListUjiKualitas.class);
             startActivity(intent);
-
-
+        }
+        else if (menu.equalsIgnoreCase(getString(R.string.menu_uji_acak))){
+            Intent intent=new Intent(getContext(), ListUjiAcak.class);
+            startActivity(intent);
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_opname))){
             Intent it = new Intent(getContext(), ListUjiOpnameActivity.class);
             startActivity(it);
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_penjualan))){
-            Intent it = new Intent(getContext(), HasilPenjualanActivity.class);
+            Intent it = new Intent(getContext(), MenuPenjualanActivity.class);
             startActivity(it);
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_appraisal))){

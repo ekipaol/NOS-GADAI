@@ -2,7 +2,7 @@ package com.application.bris.ikurma_nos_gadai.page_aom.model;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DataUjiKualitas extends DataUjiAcak {
+public class DataUjiKualitas {
     @SerializedName("KodeCabang")
     private String Cabang;
     @SerializedName("NamaSesuaiKTP")

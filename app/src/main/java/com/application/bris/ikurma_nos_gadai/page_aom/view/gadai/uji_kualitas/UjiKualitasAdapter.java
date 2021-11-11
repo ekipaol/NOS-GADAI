@@ -52,7 +52,7 @@ public class UjiKualitasAdapter extends RecyclerView.Adapter<UjiKualitasAdapter.
     public void onBindViewHolder(@NonNull UjiKualitasAdapter.MenuViewHolder holder, int position) {
         //never user BINDING ON ON BIND VIEW HOLDER DUDE!!!, USE HOLDER INSTEAD
         //NEVER, IT GONNA F UP YOUR DATA ORDER
-        final DataUjiAcak data = datafiltered.get(position);
+        final DataUjiKualitas data = datafiltered.get(position);
 
         holder.tvCabang.setText(data.getCabang());
         holder.tvNamaNasabah.setText(data.getNamaNasabah());

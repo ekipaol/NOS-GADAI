@@ -895,6 +895,13 @@ public class AppUtil {
 
     }
 
+    public static String getRandomReferenceNumber(){
+        String date = String.valueOf(android.text.format.DateFormat.format("ddMMyyyy", new java.util.Date()));
+        Random rnd = new Random();
+        int n = 100000 + rnd.nextInt(900000);
+        return String.valueOf(date+n);
+    }
+
     public void showFragmentDialog(FragmentManager fragmentManager, String title, List<MGenericModel> mGenericModel, GenericListenerOnSelect listenerOnSelect){
         DialogGenericDataFromService.display(fragmentManager, title, mGenericModel, listenerOnSelect);
     }

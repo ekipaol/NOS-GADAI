@@ -74,7 +74,7 @@ public class ListUjiKualitas extends AppCompatActivity implements GenericListene
         initialize();
         onClicks();
         setclickable();
-        apiClientAdapter = new ApiClientAdapter(this,"http://10.0.116.105/");
+        apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
         try {
             setData();
@@ -88,14 +88,14 @@ public class ListUjiKualitas extends AppCompatActivity implements GenericListene
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("FilterKodeCabang","ID001211");
+        obj1.addProperty("FilterKodeCabang",appPreferences.getKodeKantor());
         obj1.addProperty("FilterNoAplikasi", "NONE");
         obj1.addProperty("FilterNoKTP", "NONE");
         obj1.addProperty("FilterPengusul", "NONE");
         obj1.addProperty("FilterReviewer", "NONE");
         obj1.addProperty("FilterPemutus", "NONE");
         obj1.addProperty("FilterAOPembiayaan", "NONE");
-        obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE");
+        obj1.addProperty("FilterWorkFlowStatus", "DDE Sudah Otor|Akses Brankas Uji Kualitas");
         obj1.addProperty("FilterNoCif", "NONE");
         obj1.addProperty("FilterSBGE", "NONE");
         obj1.addProperty("FilterKodeAgunan", "NONE");
