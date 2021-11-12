@@ -79,12 +79,12 @@ public class ActivityUjiKualitas extends AppCompatActivity implements View.OnCli
         obj1.addProperty("NoAplikasi", idAplikasi);
         obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
         obj1.addProperty("UjiKwalitasHariIni", "SEKARANG");
-//        obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
-//        obj1.addProperty("FotoPengujian",  AppUtil.encodeImageTobase64(bitmap_pengunjian).toString());
-//        obj1.addProperty("FotoAgunanTersegel",  AppUtil.encodeImageTobase64(bitmap_agunan_tersegel).toString());
-        obj1.addProperty("FotoAgunan", "");
-        obj1.addProperty("FotoPengujian","");
-        obj1.addProperty("FotoAgunanTersegel", "");
+        obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
+        obj1.addProperty("FotoPengujian",  AppUtil.encodeImageTobase64(bitmap_pengunjian).toString());
+        obj1.addProperty("FotoAgunanTersegel",  AppUtil.encodeImageTobase64(bitmap_agunan_tersegel).toString());
+//        obj1.addProperty("FotoAgunan", "");
+//        obj1.addProperty("FotoPengujian","");
+//        obj1.addProperty("FotoAgunanTersegel", "");
         obj1.addProperty("StatusAgunan", binding.etJenisAgunan.getText().toString());
         obj1.addProperty("Description", "OK");
         ReqUjiKualitas req = new ReqUjiKualitas();

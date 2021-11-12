@@ -141,6 +141,9 @@ public class ActivitySegelAgunan extends AppCompatActivity implements View.OnCli
                 clicker = "agunantersegel";
                 BSBottomCamera.displayWithTitle(ActivitySegelAgunan.this.getSupportFragmentManager(), this, "Upload Segel Agunan");
                 break;
+            case R.id.btn_segel_agunan:
+                SendData();
+                break;
         }
 
 
