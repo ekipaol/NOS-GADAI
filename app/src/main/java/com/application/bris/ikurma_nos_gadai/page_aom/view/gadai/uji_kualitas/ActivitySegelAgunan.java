@@ -45,6 +45,7 @@ public class ActivitySegelAgunan extends AppCompatActivity implements View.OnCli
     private Uri uri_agunan_tersegel;
     private Bitmap bitmap_agunan_tersegel;
     String clicker;
+    private String idAplikasi;
 
     Call<ParseResponseUjiKualitas> call;
     private ApiClientAdapter apiClientAdapter;
@@ -56,6 +57,7 @@ public class ActivitySegelAgunan extends AppCompatActivity implements View.OnCli
         super.onCreate(savedInstanceState);
         binding = UjiKualitasGadaiNantiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        idAplikasi=getIntent().getStringExtra("idAplikasi");
         customToolbar();
         setClicker();
 
@@ -66,9 +68,9 @@ public class ActivitySegelAgunan extends AppCompatActivity implements View.OnCli
     private void SendData(){
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        /*obj1.addProperty("userSubmit", appPreferences.getKodeAo());
-        obj1.addProperty("NoAplikasi", "GDE2021101900020");
-        obj1.addProperty("kodeCabang", "ID001211");*/
+        obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
+        obj1.addProperty("NoAplikasi", idAplikasi);
+        obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
         obj1.addProperty("UjiKwalitasHariIni", "NANTI");
         /*obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
         obj1.addProperty("FotoPengunjian",  AppUtil.encodeImageTobase64(bitmap_pengunjian).toString());*/
@@ -77,7 +79,7 @@ public class ActivitySegelAgunan extends AppCompatActivity implements View.OnCli
         obj1.addProperty("Description", "OK");*/
         ReqUjiKualitas req = new ReqUjiKualitas();
         req.setchannel("Mobile");
-        req.setRrn("01100323129");
+        req.setRrn(AppUtil.getRandomReferenceNumber());
         req.setdata(obj1);
         call = apiClientAdapter.getApiInterface().sendUjiKualitas(req);
         call.enqueue(new Callback<ParseResponseUjiKualitas>() {

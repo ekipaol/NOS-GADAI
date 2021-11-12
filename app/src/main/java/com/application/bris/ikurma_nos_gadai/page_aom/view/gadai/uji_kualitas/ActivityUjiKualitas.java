@@ -48,6 +48,7 @@ public class ActivityUjiKualitas extends AppCompatActivity implements View.OnCli
 
     private Uri uri_agunan, uri_pengunjian, uri_agunan_tersegel;
     private Bitmap bitmap_agunan, bitmap_pengunjian, bitmap_agunan_tersegel;
+    private String idAplikasi;
     String clicker;
 
     Call<ParseResponseUjiKualitas> call;
@@ -60,6 +61,7 @@ public class ActivityUjiKualitas extends AppCompatActivity implements View.OnCli
         binding = UjiKualitasGadaiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.etCatatanPensesuaian.setVisibility(View.GONE);
+        idAplikasi=getIntent().getStringExtra("idAplikasi");
         setDropdownData();
         customToolbar();
         allOnclick();
@@ -73,14 +75,17 @@ public class ActivityUjiKualitas extends AppCompatActivity implements View.OnCli
     private void SendData(){
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        /*obj1.addProperty("userSubmit", appPreferences.getKodeAo());
-        obj1.addProperty("NoAplikasi", "GDE2021101900020");
-        obj1.addProperty("kodeCabang", "ID001211");*/
+        obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
+        obj1.addProperty("NoAplikasi", idAplikasi);
+        obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
         obj1.addProperty("UjiKwalitasHariIni", "SEKARANG");
-        obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
-        obj1.addProperty("FotoPengunjian",  AppUtil.encodeImageTobase64(bitmap_pengunjian).toString());
-        obj1.addProperty("FotoAgunanTersegel",  AppUtil.encodeImageTobase64(bitmap_agunan_tersegel).toString());
-        obj1.addProperty("StatusAgunan", "SESUAI");
+//        obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
+//        obj1.addProperty("FotoPengujian",  AppUtil.encodeImageTobase64(bitmap_pengunjian).toString());
+//        obj1.addProperty("FotoAgunanTersegel",  AppUtil.encodeImageTobase64(bitmap_agunan_tersegel).toString());
+        obj1.addProperty("FotoAgunan", "");
+        obj1.addProperty("FotoPengujian","");
+        obj1.addProperty("FotoAgunanTersegel", "");
+        obj1.addProperty("StatusAgunan", binding.etJenisAgunan.getText().toString());
         obj1.addProperty("Description", "OK");
         ReqUjiKualitas req = new ReqUjiKualitas();
         req.setchannel("Mobile");

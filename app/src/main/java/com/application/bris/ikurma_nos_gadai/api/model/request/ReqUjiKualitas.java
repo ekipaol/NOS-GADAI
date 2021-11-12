@@ -16,5 +16,5 @@ public class ReqUjiKualitas{
 
 	public void setchannel(String channel) { this.channel = channel;}
 	public void setdata(JsonObject data) { this.data = data;}
-	public void setRrn(String setRrn) { this.data = data;}
+	public void setRrn(String setRrn) { this.rrn = setRrn;}
 }

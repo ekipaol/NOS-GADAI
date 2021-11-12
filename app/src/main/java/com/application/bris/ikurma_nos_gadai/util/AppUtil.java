@@ -896,7 +896,7 @@ public class AppUtil {
     }
 
     public static String getRandomReferenceNumber(){
-        String date = String.valueOf(android.text.format.DateFormat.format("ddMMyyyy", new java.util.Date()));
+        String date = String.valueOf(android.text.format.DateFormat.format("yyyyMMdd", new java.util.Date()));
         Random rnd = new Random();
         int n = 100000 + rnd.nextInt(900000);
         return String.valueOf(date+n);

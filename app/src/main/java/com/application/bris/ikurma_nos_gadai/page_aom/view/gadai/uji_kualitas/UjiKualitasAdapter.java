@@ -71,6 +71,7 @@ public class UjiKualitasAdapter extends RecyclerView.Adapter<UjiKualitasAdapter.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ActivityUjiKualitas.class);
+                intent.putExtra("idAplikasi",data.get(position).getNomorAplikasiGadai());
                 context.startActivity(intent);
 
             }
@@ -79,6 +80,7 @@ public class UjiKualitasAdapter extends RecyclerView.Adapter<UjiKualitasAdapter.
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ActivitySegelAgunan.class);
+                intent.putExtra("idAplikasi",data.get(position).getNomorAplikasiGadai());
                 context.startActivity(intent);
             }
         });

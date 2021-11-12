@@ -291,8 +291,8 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         appPreferences.setUid(AppUtil.encrypt(String.valueOf(dataLoginBsi.getId())));
         //appPreferences.setNik(AppUtil.encrypt(dataLoginBsi.getOfficer_code()));
         appPreferences.setKodeAo(AppUtil.encrypt(dataLoginBsi.getOfficer_code()));
-        appPreferences.setKodeCabang(AppUtil.encrypt(String.valueOf(dataLoginBsi.getBranch().getId())));
-        appPreferences.setToken(AppUtil.encrypt(dataLoginBsi.getToken()));
+        appPreferences.setKodeCabang(AppUtil.encrypt(String.valueOf(dataLoginBsi.getBranch().getBranch_code())));
+        appPreferences.setToken((dataLoginBsi.getToken()));
     }
 
     @Override
