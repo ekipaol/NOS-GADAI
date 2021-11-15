@@ -43,7 +43,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListUjiKualitas extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler {
+public class ListUjiKualitas extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener{
     private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.UjiKualitasAdapter ujiKualitasAdapter;
 
     private List<DataUjiKualitas> dataUjiKualitas = new ArrayList<>();
@@ -69,9 +69,6 @@ public class ListUjiKualitas extends AppCompatActivity implements GenericListene
         backgroundStatusBar();
 
         //initialize status
-
-        setDropdownData();
-        initialize();
         onClicks();
         setclickable();
         apiClientAdapter = new ApiClientAdapter(this);
@@ -88,14 +85,14 @@ public class ListUjiKualitas extends AppCompatActivity implements GenericListene
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("FilterKodeCabang",appPreferences.getKodeKantor());
+        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
         obj1.addProperty("FilterNoAplikasi", "NONE");
         obj1.addProperty("FilterNoKTP", "NONE");
         obj1.addProperty("FilterPengusul", "NONE");
         obj1.addProperty("FilterReviewer", "NONE");
         obj1.addProperty("FilterPemutus", "NONE");
         obj1.addProperty("FilterAOPembiayaan", "NONE");
-        obj1.addProperty("FilterWorkFlowStatus", "DDE Sudah Otor|Akses Brankas Uji Kualitas");
+        obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE|Akses Brankas Uji Kualitas");
         obj1.addProperty("FilterNoCif", "NONE");
         obj1.addProperty("FilterSBGE", "NONE");
         obj1.addProperty("FilterKodeAgunan", "NONE");
@@ -113,35 +110,32 @@ public class ListUjiKualitas extends AppCompatActivity implements GenericListene
             @Override
             public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        if(response.body().getStatus().equalsIgnoreCase("00")){
+                        if (response.body().getStatus().equalsIgnoreCase("00")) {
                             String listDataString = response.body().getData().toString();
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<DataUjiKualitas>>() {}.getType();
+                            Type type = new TypeToken<List<DataUjiKualitas>>() {
+                            }.getType();
                             dataUjiKualitas = gson.fromJson(listDataString, type);
-                            if (dataUjiKualitas.size() > 0){
+                            if (dataUjiKualitas.size() > 0) {
                                 binding.llEmptydata.setVisibility(View.GONE);
-                                ujiKualitasAdapter = new UjiKualitasAdapter(ListUjiKualitas.this,dataUjiKualitas,ListUjiKualitas.this);
+                                ujiKualitasAdapter = new UjiKualitasAdapter(ListUjiKualitas.this, dataUjiKualitas);
                                 binding.rvListUjiKualitas.setLayoutManager(new LinearLayoutManager(ListUjiKualitas.this));
                                 binding.rvListUjiKualitas.setItemAnimator(new DefaultItemAnimator());
                                 binding.rvListUjiKualitas.setAdapter(ujiKualitasAdapter);
-                            }
-                            else {
+                            } else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
                             }
-                        }
-                        else{
+                        } else {
                             AppUtil.notiferror(ListUjiKualitas.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
-                    }
-                    else{
+                    } else {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
                         Error error = ParseResponseError.confirmEror(response.errorBody());
                         AppUtil.notiferror(ListUjiKualitas.this, findViewById(android.R.id.content), error.getMessage());
                     }
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -163,7 +157,7 @@ public class ListUjiKualitas extends AppCompatActivity implements GenericListene
     public void initialize() {
         binding.rvListUjiKualitas.setVisibility(View.VISIBLE);
         binding.rvListUjiKualitas.setHasFixedSize(true);
-        ujiKualitasAdapter = new UjiKualitasAdapter(ListUjiKualitas.this, dataUjiKualitas, this);
+        ujiKualitasAdapter = new UjiKualitasAdapter(ListUjiKualitas.this, dataUjiKualitas);
         binding.rvListUjiKualitas.setLayoutManager(new LinearLayoutManager(ListUjiKualitas.this));
         binding.rvListUjiKualitas.setItemAnimator(new DefaultItemAnimator());
         binding.rvListUjiKualitas.setAdapter(ujiKualitasAdapter);
@@ -195,7 +189,7 @@ public class ListUjiKualitas extends AppCompatActivity implements GenericListene
         }
     }
 
-    public void customToolbar(){
+    public void customToolbar() {
         binding.toolbarReguler.tvPageTitle.setText("List Uji Kualitas");
         binding.toolbarReguler.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -205,18 +199,17 @@ public class ListUjiKualitas extends AppCompatActivity implements GenericListene
         });
     }
 
-    private void setclickable(){
+    private void setclickable() {
 
     }
 
-    private void searchAgunan(){
+    private void searchAgunan() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 try {
                     ujiKualitasAdapter.getFilter().filter(query);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 return false;
@@ -227,8 +220,7 @@ public class ListUjiKualitas extends AppCompatActivity implements GenericListene
                 try {
                     ujiKualitasAdapter.getFilter().filter(query);
                     return false;
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     return false;
                 }
@@ -246,30 +238,4 @@ public class ListUjiKualitas extends AppCompatActivity implements GenericListene
 
     }
 
-    private void setDropdownData() {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel dataModel, int position) {
-/*        if (title.equalsIgnoreCase(bindingNamaField.tfDpKualitas.getLabelText())) {
-            data.get(position).setPilihanData(dataModel.getDESC());
-            AppUtil.logSecure("setsuperdata", "set posisi : " + String.valueOf(position) + " dengan nilai : " + dataModel.getDESC());
-            dataUjiKualitas.notifyDataSetChanged();
-
-        }*/
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data) {
-
-    }
-
-    @Override
-    public void onDropdownRecyclerClick(int position, String title) {
-/*DialogGenericDataFromService.displayByPosition((getSupportFragmentManager()),bindingNamaField.tfDpKualitas.getLabelText(),dataDropdownUKS, ListUjiKualitas.this,position);
-
-}*/
-
-    }
 }

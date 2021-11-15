@@ -17,7 +17,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListUjiKualitasBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiAcak;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiKualitas;
 
 import java.util.ArrayList;
@@ -27,14 +26,12 @@ public class UjiKualitasAdapter extends RecyclerView.Adapter<UjiKualitasAdapter.
     private List<DataUjiKualitas> data;
     private Context context;
     private ItemListUjiKualitasBinding binding;
-    private DropdownRecyclerListener dropdownRecyclerListener;
     private List<DataUjiKualitas> datafiltered;
     private AppPreferences appPreferences;
 
-    public UjiKualitasAdapter(Context context, List<DataUjiKualitas> mdata, DropdownRecyclerListener dropdownRecyclerListener1) {
+    public UjiKualitasAdapter(Context context, List<DataUjiKualitas> mdata) {
         this.context = context;
         this.data = mdata;
-        this.dropdownRecyclerListener = dropdownRecyclerListener1;
         this.datafiltered = mdata;
     }
 
@@ -54,7 +51,7 @@ public class UjiKualitasAdapter extends RecyclerView.Adapter<UjiKualitasAdapter.
         //NEVER, IT GONNA F UP YOUR DATA ORDER
         final DataUjiKualitas data = datafiltered.get(position);
 
-        holder.tvCabang.setText(data.getCabang());
+        holder.tvCabang.setText(appPreferences.getNamaKantor());
         holder.tvNamaNasabah.setText(data.getNamaNasabah());
         holder.tvNomorApplikasi.setText(data.getNomorAplikasiGadai());
         holder.tvTanggalTransaksi.setText(data.getTanggalTransaksi());
@@ -70,7 +67,7 @@ public class UjiKualitasAdapter extends RecyclerView.Adapter<UjiKualitasAdapter.
         binding.btnSekarang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ActivityUjiKualitas.class);
+                Intent intent = new Intent(context, ActivityUjiSekarang.class);
                 intent.putExtra("idAplikasi",data.get(position).getNomorAplikasiGadai());
                 context.startActivity(intent);
 
@@ -79,7 +76,7 @@ public class UjiKualitasAdapter extends RecyclerView.Adapter<UjiKualitasAdapter.
         binding.btnNanti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, ActivitySegelAgunan.class);
+                Intent intent = new Intent(context, ActivityUjiNanti.class);
                 intent.putExtra("idAplikasi",data.get(position).getNomorAplikasiGadai());
                 context.startActivity(intent);
             }

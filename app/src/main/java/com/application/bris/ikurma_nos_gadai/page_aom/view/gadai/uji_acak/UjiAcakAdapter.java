@@ -14,8 +14,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListUjiAcakBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiAcak;
 
 import java.util.ArrayList;
@@ -23,18 +23,16 @@ import java.util.List;
 
 public class UjiAcakAdapter extends RecyclerView.Adapter<UjiAcakAdapter.MenuViewHolder> implements Filterable {
 
-    private List<DataUjiAcak> DataUjiAcak = new ArrayList<>();
     private List<DataUjiAcak> data;
     private Context context;
     private List<DataUjiAcak> datafiltered;
+    private AppPreferences appPreferences;
 
     private ItemListUjiAcakBinding binding;
-    private DropdownRecyclerListener dropdownRecyclerListener;
 
-    public UjiAcakAdapter(Context context, List<DataUjiAcak> mdata, DropdownRecyclerListener dropdownRecyclerListener1) {
+    public UjiAcakAdapter(Context context, List<DataUjiAcak> mdata) {
         this.context = context;
         this.data = mdata;
-        this.dropdownRecyclerListener = dropdownRecyclerListener1;
         this.datafiltered = mdata;
 
     }
@@ -45,6 +43,7 @@ public class UjiAcakAdapter extends RecyclerView.Adapter<UjiAcakAdapter.MenuView
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         binding = ItemListUjiAcakBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
+        appPreferences = new AppPreferences(context);
         return new UjiAcakAdapter.MenuViewHolder(view);
     }
 
@@ -54,7 +53,7 @@ public class UjiAcakAdapter extends RecyclerView.Adapter<UjiAcakAdapter.MenuView
         //NEVER, IT GONNA F UP YOUR DATA ORDER
         final DataUjiAcak data = datafiltered.get(position);
 
-        holder.tvCabang.setText(data.getCabang());
+        holder.tvCabang.setText(appPreferences.getNamaKantor());
         holder.tvNamaNasabah.setText(data.getNamaNasabah());
         holder.tvNomorApplikasi.setText(data.getNomorAplikasiGadai());
         holder.tvTanggalTransaksi.setText(data.getTanggalTransaksi());
@@ -71,6 +70,7 @@ public class UjiAcakAdapter extends RecyclerView.Adapter<UjiAcakAdapter.MenuView
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ActivityUjiAcak.class);
+                intent.putExtra("idAplikasi",data.get(position).getNomorAplikasiGadai());
                 context.startActivity(intent);
 
             }

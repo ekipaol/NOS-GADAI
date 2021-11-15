@@ -21,7 +21,9 @@ import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseUjiAcak;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseUjiAcak;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiAcak;
+import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.UjiAcakAgunanBinding;
@@ -51,6 +53,7 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
     String clicker;
 
     Call<ParseResponseUjiAcak> call;
+    private String idAplikasi;
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
 
@@ -60,6 +63,7 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
         binding = UjiAcakAgunanBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.etCatatanPensesuaian.setVisibility(View.GONE);
+        idAplikasi=getIntent().getStringExtra("idAplikasi");
         setDropdownData();
         customToolbar();
         allOnclick();
@@ -70,53 +74,54 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
         appPreferences = new AppPreferences(this);
 
     }
-        private void SendData(){
-            binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-            JsonObject obj1 = new JsonObject();
-            /*obj1.addProperty("userSubmit", appPreferences.getKodeAo());
-            obj1.addProperty("NoAplikasi", "GDE2021101900020");
-            obj1.addProperty("kodeCabang", "ID001211");*/
-            obj1.addProperty("UjiKwalitasHariIni", "SEKARANG");
-            obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
-            obj1.addProperty("FotoPengunjian",  AppUtil.encodeImageTobase64(bitmap_pengunjian).toString());
-            obj1.addProperty("FotoAgunanTersegel",  AppUtil.encodeImageTobase64(bitmap_agunan_tersegel).toString());
-            obj1.addProperty("StatusAgunan", "SESUAI");
-            obj1.addProperty("Description", "OK");
-            ReqUjiAcak req = new ReqUjiAcak();
-            req.setchannel("Mobile");
-            req.setRrn("01100323129");
-            req.setdata(obj1);
-            call = apiClientAdapter.getApiInterface().sendUjiAcak(req);
-            call.enqueue(new Callback<ParseResponseUjiAcak>() {
-                @Override
-                public void onResponse(Call<ParseResponseUjiAcak> call, Response<ParseResponseUjiAcak> response) {
-                    try {
-                        if (response.isSuccessful()) {
-                            binding.loading.progressbarLoading.setVisibility(View.GONE);
-                            if (response.body().getStatus().equalsIgnoreCase("00")) {
-                                AppUtil.notifsuccess(ActivityUjiAcak.this, findViewById(android.R.id.content), "Berhasil Update");
-                                Toast.makeText(ActivityUjiAcak.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
-                                AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), response.body().getMessage());
-                            }
+    private void SendData(){
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+        JsonObject obj1 = new JsonObject();
+        obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
+        obj1.addProperty("NoAplikasi", idAplikasi);
+        obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
+        obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
+        obj1.addProperty("FotoPengujian",  AppUtil.encodeImageTobase64(bitmap_pengunjian).toString());
+        obj1.addProperty("FotoAgunanTersegel",  AppUtil.encodeImageTobase64(bitmap_agunan_tersegel).toString());
+//        obj1.addProperty("FotoAgunan", "");
+//        obj1.addProperty("FotoPengujian","");
+//        obj1.addProperty("FotoAgunanTersegel", "");
+        obj1.addProperty("StatusAgunan", binding.etJenisAgunan.getText().toString());
+        obj1.addProperty("Description", "OK");
+        ReqUjiAcak req = new ReqUjiAcak();
+        req.setchannel("Mobile");
+        req.setRrn(AppUtil.getRandomReferenceNumber());
+        req.setdata(obj1);
+        call = apiClientAdapter.getApiInterface().sendUjiAcak(req);
+        call.enqueue(new Callback<ParseResponseUjiAcak>() {
+            @Override
+            public void onResponse(Call<ParseResponseUjiAcak> call, Response<ParseResponseUjiAcak> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        if (response.body().getStatus().equalsIgnoreCase("00")) {
+                            AppUtil.notifsuccess(ActivityUjiAcak.this, findViewById(android.R.id.content), "Berhasil Update");
+                            Toast.makeText(ActivityUjiAcak.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
+                            finish();
                         } else {
-                            Error error = ParseResponseError.confirmEror(response.errorBody());
-                            AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), error.getMessage());
+                            AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
-                    } catch (Exception e) {
-                        e.printStackTrace();
+                    } else {
+                        Error error = ParseResponseError.confirmEror(response.errorBody());
+                        AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), error.getMessage());
                     }
+                } catch (Exception e) {
+                    e.printStackTrace();
                 }
+            }
 
-                @Override
-                public void onFailure(Call<ParseResponseUjiAcak> call, Throwable t) {
-                    binding.loading.progressbarLoading.setVisibility(View.GONE);
-                    AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
-                }
-            });
-        }
-
+            @Override
+            public void onFailure(Call<ParseResponseUjiAcak> call, Throwable t) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
+                AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+            }
+        });
+    }
 
 
 
@@ -175,8 +180,8 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.et_jenis_agunan_xbrl:
-            case R.id.tf_jenis_agunan_xbrl:
+            case R.id.et_jenis_agunan:
+            case R.id.tf_jenis_agunan:
                 DialogGenericDataFromService.display(getSupportFragmentManager(), binding.tfJenisAgunan.getLabelText(), dataDropdownSB, ActivityUjiAcak.this);
                 break;
             case R.id.iv_agunan:
