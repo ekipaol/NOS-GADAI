@@ -51,8 +51,8 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
 
     private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListIsiLaciAdapter ListIsiLaciAdapter;
 
-    public static int idAplikasi=0;
-    private List<ListIsiLaci> isilaci =new ArrayList<>();
+    public static int idAplikasi = 0;
+    private List<ListIsiLaci> isilaci = new ArrayList<>();
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
     private SearchView searchView;
@@ -63,7 +63,7 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //binding View
-        binding= ActivityListIsiLaciOpnameBinding.inflate(getLayoutInflater());
+        binding = ActivityListIsiLaciOpnameBinding.inflate(getLayoutInflater());
         setSupportActionBar(binding.toolbarNosearch.tbRegular);
         setContentView(binding.getRoot());
         //Button Click
@@ -78,12 +78,9 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
 
-        try {
-//            setData();
-            initData();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        setData();
+//            initData();
+
         initialize();
 
     }
@@ -101,14 +98,13 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
 
     }
 
-    private void searchUjiOpname(){
+    private void searchUjiOpname() {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
                 try {
                     ListIsiLaciAdapter.getFilter().filter(query);
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
                 return false;
@@ -119,8 +115,7 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
                 try {
                     ListIsiLaciAdapter.getFilter().filter(query);
                     return false;
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                     return false;
                 }
@@ -141,7 +136,7 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
         }
     }
 
-    private void initData()throws JSONException{
+    private void initData() throws JSONException {
         ListIsiLaci dd = new ListIsiLaci();
         dd.setAgunanPembiayaan("Gadai Emas");
         dd.setidBrankas("1");
@@ -181,13 +176,13 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
         dataLaci.add(new MGenericModel("2", "Tidak Ada"));
     }
 
-    private void setData()  {
+    private void setData() {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
         obj1.addProperty("KodeCabang", appPreferences.getKodeCabang());
         obj1.addProperty("ReffNoAktifitas", getIntent().getStringExtra("ReffNoAktifitas"));
         obj1.addProperty("seqBrankas", getIntent().getStringExtra("seqBrankas"));
-        obj1.addProperty("seqLaci", String.valueOf(getIntent().getIntExtra("isilaci",0)));
+        obj1.addProperty("seqLaci", String.valueOf(getIntent().getIntExtra("isilaci", 0)));
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
         req.setdata(obj1);
@@ -196,35 +191,32 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
             @Override
             public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        if(response.body().getStatus().equalsIgnoreCase("00")){
+                        if (response.body().getStatus().equalsIgnoreCase("00")) {
                             String listDataString = response.body().getData().get("isiBrankas").toString();
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<ListIsiLaci>>() {}.getType();
+                            Type type = new TypeToken<List<ListIsiLaci>>() {
+                            }.getType();
                             isilaci = gson.fromJson(listDataString, type);
-                            if (isilaci.size() > 0){
+                            if (isilaci.size() > 0) {
                                 binding.llEmptydata.setVisibility(View.GONE);
-                                ListIsiLaciAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListIsiLaciAdapter(ListIsiLaciActivity.this ,isilaci,ListIsiLaciActivity.this);
+                                ListIsiLaciAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListIsiLaciAdapter(ListIsiLaciActivity.this, isilaci, ListIsiLaciActivity.this);
                                 binding.rvListIsiLaci.setLayoutManager(new LinearLayoutManager(ListIsiLaciActivity.this));
                                 binding.rvListIsiLaci.setItemAnimator(new DefaultItemAnimator());
                                 binding.rvListIsiLaci.setAdapter(ListIsiLaciAdapter);
-                            }
-                            else {
+                            } else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
                             }
-                        }
-                        else{
+                        } else {
                             AppUtil.notiferror(ListIsiLaciActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
-                    }
-                    else{
+                    } else {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
                         Error error = ParseResponseError.confirmEror(response.errorBody());
                         AppUtil.notiferror(ListIsiLaciActivity.this, findViewById(android.R.id.content), error.getMessage());
                     }
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -237,10 +229,10 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
         });
     }
 
-    public void initialize(){
+    public void initialize() {
         binding.rvListIsiLaci.setVisibility(View.VISIBLE);
         binding.rvListIsiLaci.setHasFixedSize(true);
-        ListIsiLaciAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListIsiLaciAdapter(this, isilaci,this);
+        ListIsiLaciAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListIsiLaciAdapter(this, isilaci, this);
         binding.rvListIsiLaci.setLayoutManager(new LinearLayoutManager(this));
         binding.rvListIsiLaci.setItemAnimator(new DefaultItemAnimator());
         binding.rvListIsiLaci.setAdapter(ListIsiLaciAdapter);
@@ -249,15 +241,15 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
         binding.refresh.setEnabled(false);
     }
 
-    private void backgroundStatusBar(){
+    private void backgroundStatusBar() {
         Window window = getWindow();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.colorWhite));
         }
     }
 
-    public void customToolbar(){
-        binding.toolbarNosearch.tvPageTitle.setText("Opname Laci " + String.valueOf(getIntent().getIntExtra("isilaci",0)) + " Brankas "+getIntent().getStringExtra("seqBrankas"));
+    public void customToolbar() {
+        binding.toolbarNosearch.tvPageTitle.setText("Opname Laci " + String.valueOf(getIntent().getIntExtra("isilaci", 0)) + " Brankas " + getIntent().getStringExtra("seqBrankas"));
         binding.toolbarNosearch.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -266,7 +258,7 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
         });
     }
 
-    private void setclickable(){
+    private void setclickable() {
 
     }
 
@@ -285,12 +277,12 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
         if (title.equalsIgnoreCase("Stok Opname")) {
             isilaci.get(position).setStatusOpname(data.getDESC());
             ListIsiLaciAdapter.notifyDataSetChanged();
-            UpdateData(position,data.getDESC());
+            UpdateData(position, data.getDESC());
         }
     }
 
 
-    private void UpdateData(int position,String desc){
+    private void UpdateData(int position, String desc) {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
 //        obj1.addProperty("KodeCabang", "ID001211");
@@ -309,22 +301,19 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
             @Override
             public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        if(response.body().getStatus().equalsIgnoreCase("00")){
-                            AppUtil.notifsuccess(ListIsiLaciActivity.this,findViewById(android.R.id.content),"Data Telah Berubah");
-                        }
-                        else{
+                        if (response.body().getStatus().equalsIgnoreCase("00")) {
+                            AppUtil.notifsuccess(ListIsiLaciActivity.this, findViewById(android.R.id.content), "Data Telah Berubah");
+                        } else {
                             AppUtil.notiferror(ListIsiLaciActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
-                    }
-                    else{
+                    } else {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
                         Error error = ParseResponseError.confirmEror(response.errorBody());
                         AppUtil.notiferror(ListIsiLaciActivity.this, findViewById(android.R.id.content), error.getMessage());
                     }
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -339,6 +328,6 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
 
     @Override
     public void onDropdownRecyclerClick(int position, String title) {
-        DialogGenericDataFromService.displayByPosition((getSupportFragmentManager()),"Stok Opname",dataLaci, ListIsiLaciActivity.this,position);
+        DialogGenericDataFromService.displayByPosition((getSupportFragmentManager()), "Stok Opname", dataLaci, ListIsiLaciActivity.this, position);
     }
 }

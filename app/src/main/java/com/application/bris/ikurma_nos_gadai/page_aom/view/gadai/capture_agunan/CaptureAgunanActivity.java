@@ -110,62 +110,67 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
         }
     }
 
-    private void SendData(){
-        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        JsonObject obj1 = new JsonObject();
-        obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
+    private void SendData() {
+        if (bitmap_nasabah == null || bitmap_agunan == null || bitmap_ktp == null) {
+            AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content),"Foto Tidak Lengkap, Mohon Lengkapi Terbebih Dahulu");
+        } else {
+            binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+            JsonObject obj1 = new JsonObject();
+            obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
 //        obj1.addProperty("NoAplikasi", "GDE2021092800002");
-        obj1.addProperty("kodeCabang", binding.etCabang.getText().toString());
-        obj1.addProperty("photoNasabah", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
-        obj1.addProperty("photoAgunan",  AppUtil.encodeImageTobase64(bitmap_agunan).toString());
-        obj1.addProperty("photoKTP",  AppUtil.encodeImageTobase64(bitmap_ktp).toString());
+            obj1.addProperty("kodeCabang", binding.etCabang.getText().toString());
 
-        if(bitmap_additional1!=null){
-            obj1.addProperty("photoAdd1",  AppUtil.encodeImageTobase64(bitmap_additional1).toString());
-        }
-        if(bitmap_additional2!=null){
-            obj1.addProperty("photoAdd2",  AppUtil.encodeImageTobase64(bitmap_additional2).toString());
-        }
-        obj1.addProperty("userSubmit", appPreferences.getKodeAo());
-        ReqListGadai req = new ReqListGadai();
-        req.setkchannel("Mobile");
-        req.setdata(obj1);
-        call = apiClientAdapter.getApiInterface().sendDataCaptureGadai(req);
-        call.enqueue(new Callback<ParseResponseAgunan>() {
-            @Override
-            public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        if (response.body().getStatus().equalsIgnoreCase("00")) {
-                            AppUtil.notifsuccess(CaptureAgunanActivity.this, findViewById(android.R.id.content), "Berhasil Update");
-                            Toast.makeText(CaptureAgunanActivity.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
-                            finish();
+            obj1.addProperty("photoNasabah", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
+            obj1.addProperty("photoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
+            obj1.addProperty("photoKTP", AppUtil.encodeImageTobase64(bitmap_ktp).toString());
+
+            if (bitmap_additional1 != null) {
+                obj1.addProperty("photoAdd1", AppUtil.encodeImageTobase64(bitmap_additional1).toString());
+            }
+            if (bitmap_additional2 != null) {
+                obj1.addProperty("photoAdd2", AppUtil.encodeImageTobase64(bitmap_additional2).toString());
+            }
+            obj1.addProperty("userSubmit", appPreferences.getKodeAo());
+            ReqListGadai req = new ReqListGadai();
+            req.setkchannel("Mobile");
+            req.setdata(obj1);
+            call = apiClientAdapter.getApiInterface().sendDataCaptureGadai(req);
+            call.enqueue(new Callback<ParseResponseAgunan>() {
+                @Override
+                public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            binding.loading.progressbarLoading.setVisibility(View.GONE);
+                            if (response.body().getStatus().equalsIgnoreCase("00")) {
+                                AppUtil.notifsuccess(CaptureAgunanActivity.this, findViewById(android.R.id.content), "Berhasil Update");
+                                Toast.makeText(CaptureAgunanActivity.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                            }
                         } else {
-                            AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                            Error error = ParseResponseError.confirmEror(response.errorBody());
+                            AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), error.getMessage());
                         }
-                    } else {
-                        Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), error.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ParseResponseAgunan> call, Throwable t) {
-                binding.loading.progressbarLoading.setVisibility(View.GONE);
-                AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
-            }
-        });
+                @Override
+                public void onFailure(Call<ParseResponseAgunan> call, Throwable t) {
+                    binding.loading.progressbarLoading.setVisibility(View.GONE);
+                    AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                }
+            });
+        }
     }
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Initialize
-        apiClientAdapter = new ApiClientAdapter(this,"https://10.0.116.105/");
+        apiClientAdapter = new ApiClientAdapter(this, "https://10.0.116.105/");
         appPreferences = new AppPreferences(this);
         binding = ActivityCaptureAgunanBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
