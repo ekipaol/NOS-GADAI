@@ -24,11 +24,7 @@ import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityUjiAcakListBinding;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListUjiAcakBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiAcak;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -44,10 +40,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListUjiAcak extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, DropdownRecyclerListener, GenericListenerOnSelectRecycler {
+public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
     private com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_acak.UjiAcakAdapter ujiAcakAdapter;
 
-    private List<DataUjiAcak> DataUjiAcak = new ArrayList<>();
+    private List<DataUjiAcak> dataUjiAcak = new ArrayList<>();
     ActivityUjiAcakListBinding binding;
     ItemListUjiAcakBinding bindingNamaField;
 
@@ -58,19 +54,14 @@ public class ListUjiAcak extends AppCompatActivity implements GenericListenerOnS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityUjiAcakListBinding.inflate(getLayoutInflater());
-        bindingNamaField = ItemListUjiAcakBinding.inflate(getLayoutInflater());
-        setSupportActionBar(binding.toolbarReguler.tbRegular);
+        binding = ActivityUjiAcakListBinding.inflate(getLayoutInflater());setSupportActionBar(binding.toolbarReguler.tbRegular);
         //ini binding buat ngambil nama fieldnya aja
         setContentView(binding.getRoot());
-
         //pantekan status untuk testing
         customToolbar();
         backgroundStatusBar();
 
         //initialize status
-
-        setDropdownData();
         initialize();
         onClicks();
         setclickable();
@@ -84,17 +75,17 @@ public class ListUjiAcak extends AppCompatActivity implements GenericListenerOnS
         initialize();
     }
 
-    private void setData()throws JSONException {
+    private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("FilterKodeCabang","ID001211");
+        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
         obj1.addProperty("FilterNoAplikasi", "NONE");
         obj1.addProperty("FilterNoKTP", "NONE");
         obj1.addProperty("FilterPengusul", "NONE");
         obj1.addProperty("FilterReviewer", "NONE");
         obj1.addProperty("FilterPemutus", "NONE");
         obj1.addProperty("FilterAOPembiayaan", "NONE");
-        obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE");
+        obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE|Sudah Serah Terima Ke RBC");
         obj1.addProperty("FilterNoCif", "NONE");
         obj1.addProperty("FilterSBGE", "NONE");
         obj1.addProperty("FilterKodeAgunan", "NONE");
@@ -112,35 +103,32 @@ public class ListUjiAcak extends AppCompatActivity implements GenericListenerOnS
             @Override
             public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
                 try {
-                    if(response.isSuccessful()){
+                    if (response.isSuccessful()) {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        if(response.body().getStatus().equalsIgnoreCase("00")){
+                        if (response.body().getStatus().equalsIgnoreCase("00")) {
                             String listDataString = response.body().getData().toString();
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<DataUjiAcak>>() {}.getType();
-                            DataUjiAcak = gson.fromJson(listDataString, type);
-                            if (DataUjiAcak.size() > 0){
+                            Type type = new TypeToken<List<DataUjiAcak>>() {
+                            }.getType();
+                            dataUjiAcak = gson.fromJson(listDataString, type);
+                            if (dataUjiAcak.size() > 0) {
                                 binding.llEmptydata.setVisibility(View.GONE);
-                                ujiAcakAdapter = new UjiAcakAdapter(ListUjiAcak.this,DataUjiAcak,ListUjiAcak.this);
+                                ujiAcakAdapter = new UjiAcakAdapter(ListUjiAcak.this, dataUjiAcak);
                                 binding.rvListUjiAcak.setLayoutManager(new LinearLayoutManager(ListUjiAcak.this));
                                 binding.rvListUjiAcak.setItemAnimator(new DefaultItemAnimator());
                                 binding.rvListUjiAcak.setAdapter(ujiAcakAdapter);
-                            }
-                            else {
+                            } else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
                             }
-                        }
-                        else{
+                        } else {
                             AppUtil.notiferror(ListUjiAcak.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
-                    }
-                    else{
+                    } else {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
                         Error error = ParseResponseError.confirmEror(response.errorBody());
                         AppUtil.notiferror(ListUjiAcak.this, findViewById(android.R.id.content), error.getMessage());
                     }
-                }
-                catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
             }
@@ -154,13 +142,15 @@ public class ListUjiAcak extends AppCompatActivity implements GenericListenerOnS
 
     }
 
+
+
     private void onClicks() {
     }
 
     public void initialize() {
         binding.rvListUjiAcak.setVisibility(View.VISIBLE);
         binding.rvListUjiAcak.setHasFixedSize(true);
-        ujiAcakAdapter = new UjiAcakAdapter(ListUjiAcak.this, DataUjiAcak, this);
+        ujiAcakAdapter = new UjiAcakAdapter(ListUjiAcak.this, dataUjiAcak);
         binding.rvListUjiAcak.setLayoutManager(new LinearLayoutManager(ListUjiAcak.this));
         binding.rvListUjiAcak.setItemAnimator(new DefaultItemAnimator());
         binding.rvListUjiAcak.setAdapter(ujiAcakAdapter);
@@ -255,33 +245,6 @@ public class ListUjiAcak extends AppCompatActivity implements GenericListenerOnS
 
     @Override
     public void onRefresh() {
-
-    }
-
-    private void setDropdownData() {
-
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel dataModel, int position) {
-/*        if (title.equalsIgnoreCase(bindingNamaField.tfDpKualitas.getLabelText())) {
-            data.get(position).setPilihanData(dataModel.getDESC());
-            AppUtil.logSecure("setsuperdata", "set posisi : " + String.valueOf(position) + " dengan nilai : " + dataModel.getDESC());
-            data.notifyDataSetChanged();
-
-        }*/
-    }
-
-    @Override
-    public void onSelect(String title, MGenericModel data) {
-
-    }
-
-    @Override
-    public void onDropdownRecyclerClick(int position, String title) {
-/*DialogGenericDataFromService.displayByPosition((getSupportFragmentManager()),bindingNamaField.tfDpKualitas.getLabelText(),dataDropdownUKS, ListUjiKualitas.this,position);
-
-}*/
 
     }
 }

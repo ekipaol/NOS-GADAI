@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListAgunanBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
+import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,18 +56,18 @@ public class ListAgunanAdapter extends RecyclerView.Adapter<ListAgunanAdapter.Me
         holder.tvNomorApplikasi.setText(datas.getNomorAplikasiGadai());
         holder.tvTanggalTransaksi.setText(datas.getTanggalTransaksi());
         holder.tvTanggalJatohTempo.setText(datas.getTanggalJatuhTempo());
-        onClicks(position, holder);
+        onClicks(holder);
 
 
     }
 
-    private void onClicks(int currentPosition, @NonNull MenuViewHolder holder) {
-
+    private void onClicks(@NonNull MenuViewHolder holder) {
+        AppUtil.logSecure("logM", holder.tvNomorApplikasi.getText().toString());
         holder.btnCapture.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, CaptureAgunanActivity.class);
-                intent.putExtra("NoAplikasi", data.get(currentPosition).getNomorAplikasiGadai());
+                intent.putExtra("NoAplikasi", holder.tvNomorApplikasi.getText().toString());
                 context.startActivity(intent);
             }
         });
