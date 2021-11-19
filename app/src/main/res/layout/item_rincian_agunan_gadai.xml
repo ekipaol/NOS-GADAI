@@ -1,0 +1,96 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="8dp"
+    android:paddingBottom="8dp"
+    android:background="@drawable/bordertextbox_info"
+    android:layout_marginBottom="20dp"
+    >
+
+    <ImageView
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:src="@drawable/ic_info_outline_secondary_24dp"
+        android:tint="@color/colorBlackHeader"
+        android:layout_marginLeft="6dp"
+        android:layout_marginRight="6dp"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+
+        <TextView
+            android:id="@+id/tv_nomor_agunan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Agunan 1 : "
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlackHeader"
+            android:fontFamily="@font/muli_b"/>
+
+        <TextView
+            android:id="@+id/tv_rincian_agunan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Agunan 1 : "
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlackHeader"
+            android:fontFamily="@font/muli_b"/>
+
+        <TextView
+            android:id="@+id/tv_jumlah_agunan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Jumlah Agunan : "
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlackHeader"
+            android:fontFamily="@font/muli_b"/>
+
+
+
+        <TextView
+            android:id="@+id/tv_karatase_agunan"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Karatase : "
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlackHeader"
+            android:fontFamily="@font/muli_b"/>
+
+        <TextView
+            android:id="@+id/tv_berat_bersih"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Berat Bersih : "
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlackHeader"
+            android:fontFamily="@font/muli_b"/>
+
+    </LinearLayout>
+
+
+
+</LinearLayout>

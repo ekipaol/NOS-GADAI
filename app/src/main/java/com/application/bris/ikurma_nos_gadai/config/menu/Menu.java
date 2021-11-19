@@ -31,6 +31,11 @@ public class Menu {
         menu.add(new ListViewMenu(R.drawable.ic_logout_front, "Logout", 0,0,0, 0));
     }
 
+    public static void mainMenuPemutus(Context context, List<ListViewMenu> menu) {
+        menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_putusan), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ic_logout_front, "Logout", 0,0,0, 0));
+    }
+
     public static void mainMenuAONpf(Context context, List<ListViewMenu> menu) {
         menu.add(new ListViewMenu(R.drawable.ic_generalusericon, "Monitoring", 0, 0, 0, 0));
         menu.add(new ListViewMenu(R.drawable.ic_feedback, "Feedback", 0,0,0, 0));

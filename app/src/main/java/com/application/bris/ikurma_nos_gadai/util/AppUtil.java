@@ -308,6 +308,71 @@ public class AppUtil {
         return kursIDN.format(amountDouble);
     }
 
+    public static String parseRupiahTitik(String amount){
+        Double amountDouble = Double.valueOf(amount);
+        DecimalFormat kursIDN = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols formatRP = new DecimalFormatSymbols();
+        formatRP.setCurrencySymbol("Rp. ");
+        formatRP.setMonetaryDecimalSeparator('.');
+        formatRP.setGroupingSeparator('.');
+        kursIDN.setDecimalFormatSymbols(formatRP);
+        return kursIDN.format(amountDouble);
+    }
+
+    public static boolean checkIsPengusul(int fidRole){
+
+//     PAWNING_APRAISAL = 137;
+//        PAWNING_TELLER = 138;
+//        PAWNING_CS = 139;
+//       PAWNING_SALES_OFFICER = 140;
+//        PAWNING_SUPERVISOR = 141;
+//        BACK_OFFICE = 142;
+        switch (fidRole){
+            case 137:
+            case 138:
+            case 139:
+            case 140:
+            case 141:
+            case 142:
+                return true;
+            default:
+                return false;
+
+
+        }
+    }
+
+    public static boolean checkIsPemutus(int fidRole){
+
+//     PAWNING_APRAISAL = 137;
+//        PAWNING_TELLER = 138;
+//        PAWNING_CS = 139;
+//       PAWNING_SALES_OFFICER = 140;
+//        PAWNING_SUPERVISOR = 141;
+//        BACK_OFFICE = 142;
+        switch (fidRole){
+            case 76:
+            case 170:
+            case 171:
+                return true;
+            default:
+                return false;
+
+
+        }
+    }
+
+    public static String parseRupiahNoSymbolWithTitik(String amount){
+        Double amountDouble = Double.valueOf(amount);
+        DecimalFormat kursIDN = (DecimalFormat) DecimalFormat.getCurrencyInstance();
+        DecimalFormatSymbols formatRP = new DecimalFormatSymbols();
+        formatRP.setCurrencySymbol("");
+        formatRP.setMonetaryDecimalSeparator('.');
+        formatRP.setGroupingSeparator('.');
+        kursIDN.setDecimalFormatSymbols(formatRP);
+        return kursIDN.format(amountDouble);
+    }
+
     public static Bitmap getBitmapFromURL(String src){
         try {
             URL url = new URL(src);
@@ -904,6 +969,12 @@ public class AppUtil {
 
     public void showFragmentDialog(FragmentManager fragmentManager, String title, List<MGenericModel> mGenericModel, GenericListenerOnSelect listenerOnSelect){
         DialogGenericDataFromService.display(fragmentManager, title, mGenericModel, listenerOnSelect);
+    }
+
+    public static String generateRandom6DigitNumber(){
+        Random rnd = new Random();
+        int n = 100000 + rnd.nextInt(900000);
+        return String.valueOf(n);
     }
 
 

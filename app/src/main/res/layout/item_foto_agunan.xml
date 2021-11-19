@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/rl_agunan"
+    android:layout_marginTop="10dp"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/tv_label_foto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Foto Agunan : 1"
+        android:textAlignment="center"
+        android:elevation="5dp"
+        />
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:layout_below="@id/tv_label_foto"
+            android:layout_marginTop="7dp"
+            >
+
+            <com.application.bris.ikurma_nos_gadai.util.BitmapImageViewRounded
+            android:id="@+id/img_agunan"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:background="@drawable/edittext_bg_white_border_orange"
+            android:scaleType="centerCrop"
+            android:src="@mipmap/ico_img_for_upload"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+<!--            <com.jsibbold.zoomage.ZoomageView-->
+<!--                android:id="@+id/img_agunan"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_height="0dp"-->
+<!--                app:layout_constraintBottom_toBottomOf="parent"-->
+<!--                app:layout_constraintLeft_toLeftOf="parent"-->
+<!--                app:layout_constraintRight_toRightOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:zoomage_restrictBounds="false"-->
+<!--                app:zoomage_animateOnReset="true"-->
+<!--                android:src="@drawable/banner_placeholder"-->
+<!--                android:scaleType="fitCenter"-->
+<!--                app:zoomage_autoCenter="true"/>-->
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</RelativeLayout>

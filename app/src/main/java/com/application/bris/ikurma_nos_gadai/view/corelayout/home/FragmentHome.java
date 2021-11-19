@@ -21,6 +21,7 @@ import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_acak.ListUj
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ListUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameActivity;
 import com.application.bris.ikurma_nos_gadai.page_monitoring.monitoring_pencairan.MonitoringPencairanActivity;
+import com.application.bris.ikurma_nos_gadai.page_putusan_gadai.PutusanGadaiActivity;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity2;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.menu.MenuFlppActivity;
@@ -392,8 +393,11 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 
         //kalau ao NPF, hanya bisa akses menu untuk monitoring saja
 //        Log.d("logfidrole",String.valueOf(appPreferences.getFidRole()));
-        if(appPreferences.getFidRole()==123){
-            Menu.mainMenuAONpf(getContext(), menu);
+        if(AppUtil.checkIsPemutus(appPreferences.getFidRole())){
+            Menu.mainMenuPemutus(getContext(), menu);
+        }
+        else if(AppUtil.checkIsPengusul(appPreferences.getFidRole())){
+            Menu.mainMenuAO(getContext(), menu);
         }
         else{
             Menu.mainMenuAO(getContext(), menu);
@@ -449,6 +453,10 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_appraisal))){
             Intent it = new Intent(getContext(), AppraisalActivity.class);
+            startActivity(it);
+        }
+        else if (menu.equalsIgnoreCase(getString(R.string.menu_putusan))){
+            Intent it = new Intent(getContext(), PutusanGadaiActivity.class);
             startActivity(it);
         }
         else if (menu.equalsIgnoreCase("monitoring")){

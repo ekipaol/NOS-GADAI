@@ -366,6 +366,12 @@ public class UriApi {
         public static final String updatehasilpenjualan = "GadaiEmasService/rest/Lunas/KonfirmasiPenjualanAgunan";
 
     }
+    public class Gadai {
+        public static final String listAplikasiGadai = "GadaiEmasService/rest/Gadai/ListAplikasiGadai";
+        public static final String detailAplikasiGadai = "GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
+        public static final String inquiryListFoto = "GadaiEmasService/rest/Gadai/InquiryListFoto";
+        public static final String submitTaksiranPemutus = "GadaiEmasService/rest/Disburse/SubmitSimulasiTaksiranPemutus";
+    }
 }
 
 

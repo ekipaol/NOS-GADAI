@@ -48,6 +48,8 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.flpp.ReqRumahFlpp
 import com.application.bris.ikurma_nos_gadai.api.model.request.flpp.ReqSimpanFollowUpFlpp;
 import com.application.bris.ikurma_nos_gadai.api.model.request.flpp.ReqSimpanKonfirmasiFlpp;
 import com.application.bris.ikurma_nos_gadai.api.model.request.flpp.ReqSimpanUpdateIdLokasi;
+import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqChannelAplikasiGadai;
+import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqChannelDataApprove;
 import com.application.bris.ikurma_nos_gadai.api.model.request.general.Activation;
 import com.application.bris.ikurma_nos_gadai.api.model.request.general.Checkupdate;
 import com.application.bris.ikurma_nos_gadai.api.model.request.general.ListDeviasi;
@@ -747,6 +749,19 @@ public interface ApiInterface {
 
     @POST(UriApi.gadaiNOS.listTandaTerima)
     Call<ParseResponseAgunan> sendListSerahTerima(@Body ReqListGadai ReqListGadai);
+
+    //GADAI
+    @POST(UriApi.Gadai.listAplikasiGadai)
+    Call<ParseResponseArr> listAplikasiGadai (@Body ReqChannelAplikasiGadai ReqChannelAplikasiGadai);
+
+    @POST(UriApi.Gadai.detailAplikasiGadai)
+    Call<ParseResponse> detailAplikasiGadai (@Body ReqChannelAplikasiGadai ReqChannelAplikasiGadai);
+
+    @POST(UriApi.Gadai.inquiryListFoto)
+    Call<ParseResponseArr> inquiryListFoto (@Body ReqChannelAplikasiGadai ReqChannelAplikasiGadai);
+
+    @POST(UriApi.Gadai.submitTaksiranPemutus)
+    Call<ParseResponse> submitTaksiranPemutus (@Body ReqChannelDataApprove ReqChannelDataApprove);
 
 }
 

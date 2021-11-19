@@ -14,6 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:allowBackup">
+        <activity android:name=".page_putusan_gadai.detail_putusan_gadai.DetailPutusanGadaiActivity"/>
+        <activity android:name=".page_putusan_gadai.PutusanGadaiActivity"/>
         <activity android:name=".page_aom.view.gadai.menu_penjualan.MenuPenjualanActivity"></activity>
         <activity android:name=".page_aom.view.gadai.uji_kualitas.ListUjiKualitas" />
         <activity android:name=".page_aom.view.gadai.uji_kualitas.ActivityUjiKualitas" />

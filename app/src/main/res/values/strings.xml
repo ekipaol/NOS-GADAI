@@ -107,6 +107,7 @@
     <string name="menu_uji_acak">Uji Acak</string>
     <string name="menu_opname">Uji Opname</string>O
     <string name="menu_penjualan">Penjualan</string>
+    <string name="menu_putusan">Putusan</string>
 
     <!--String Sub Menu Hotprospek-->
     <string name="submenu_hotprospek_prescreening">Prescreening</string>

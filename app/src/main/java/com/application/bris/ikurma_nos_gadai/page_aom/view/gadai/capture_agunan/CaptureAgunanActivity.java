@@ -64,7 +64,7 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
     String clicker;
 
     private Uri uri_ktp, uri_nasabah, uri_agunan, uri_additional1, uri_additional2;
-    private Bitmap bitmap_ktp, bitmap_nasabah, bitmap_agunan, bitmap_additional1, bitmap_additional2;
+    private Bitmap bitmap_ktp=null, bitmap_nasabah, bitmap_agunan=null, bitmap_additional1, bitmap_additional2;
 
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
