@@ -112,7 +112,7 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
 
     private void SendData() {
         if (bitmap_nasabah == null || bitmap_agunan == null || bitmap_ktp == null) {
-            AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content),"Foto Tidak Lengkap, Mohon Lengkapi Terbebih Dahulu");
+            AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), "Foto Tidak Lengkap, Mohon Lengkapi Terbebih Dahulu");
         } else {
             binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
             JsonObject obj1 = new JsonObject();
@@ -181,14 +181,14 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
         //disableText
         setDisabledText();
         //setTextValue
-        binding.etTglTransaksi.setText(formattedDate.toString());
+//        binding.etTglTransaksi.setText(formattedDate.toString());
 
 
-        c1.add(android.icu.util.Calendar.MONTH, 4);
-        df1 = new SimpleDateFormat("dd-MMM-yyyy");
-        Date resultDate = c1.getTime();
-        String dueDate = df1.format(resultDate);
-        binding.etTglJatohTempo.setText(dueDate);
+//        c1.add(android.icu.util.Calendar.MONTH, 4);
+//        df1 = new SimpleDateFormat("dd-MMM-yyyy");
+//        Date resultDate = c1.getTime();
+//        String dueDate = df1.format(resultDate);
+//        binding.etTglJatohTempo.setText(dueDate);
 
         //Navbar
         customToolbar();
@@ -223,8 +223,8 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
                             binding.etKtp.setText(dataAgunan.getNoKTP());
                             binding.etCabang.setText(dataAgunan.getKodeCabang());
                             binding.etNamaNasabah.setText(dataAgunan.getNamaSesuaiKTP());
-//                            binding.etTglTransaksi.setText(dataAgunan.getTanggalPencairan());
-//                            binding.etTglJatohTempo.setText(dataAgunan.getTanggalJatuhTempo());
+                            binding.etTglTransaksi.setText(AppUtil.parseTanggalGeneral(dataAgunan.getTanggalPencairan(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
+                            binding.etTglJatohTempo.setText(AppUtil.parseTanggalGeneral(dataAgunan.getTanggalJatuhTempo(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
                             binding.etJangkaWaktu.setText(dataAgunan.getTenor());
                         } else {
                             AppUtil.notiferror(CaptureAgunanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
@@ -363,27 +363,31 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
 
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
-        switch (requestCode) {
-            case TAKE_PICTURE_NASABAH:
-            case PICK_PICTURE_NASABAH:
-                setDataImage(uri_nasabah, bitmap_nasabah, binding.ivBersamaNasabah, imageReturnedIntent, "nasabah");
-                break;
-            case TAKE_PICTURE_AGUNAN:
-            case PICK_PICTURE_AGUNAN:
-                setDataImage(uri_agunan, bitmap_agunan, binding.ivFotoAgunan, imageReturnedIntent, "agunan");
-                break;
-            case TAKE_PICTURE_KTP:
-            case PICK_PICTURE_KTP:
-                setDataImage(uri_ktp, bitmap_ktp, binding.ivFotoKtp, imageReturnedIntent, "ktp");
-                break;
-            case TAKE_PICTURE_ADDITIONAL1:
-            case PICK_PICTURE_ADDITIONAL1:
-                setDataImage(uri_additional1, bitmap_additional1, binding.ivAdditional1, imageReturnedIntent, "additional1");
-                break;
-            case TAKE_PICTURE_ADDITIONAL2:
-            case PICK_PICTURE_ADDITIONAL2:
-                setDataImage(uri_additional2, bitmap_additional2, binding.ivAdditional2, imageReturnedIntent, "additional2");
-                break;
+//        AppUtil.logSecure("AADLOG", String.valueOf(resultCode));
+//        AppUtil.logSecure("AADLOG", String.valueOf(imageReturnedIntent));
+        if (resultCode != 0) {
+            switch (requestCode) {
+                case TAKE_PICTURE_NASABAH:
+                case PICK_PICTURE_NASABAH:
+                    setDataImage(uri_nasabah, bitmap_nasabah, binding.ivBersamaNasabah, imageReturnedIntent, "nasabah");
+                    break;
+                case TAKE_PICTURE_AGUNAN:
+                case PICK_PICTURE_AGUNAN:
+                    setDataImage(uri_agunan, bitmap_agunan, binding.ivFotoAgunan, imageReturnedIntent, "agunan");
+                    break;
+                case TAKE_PICTURE_KTP:
+                case PICK_PICTURE_KTP:
+                    setDataImage(uri_ktp, bitmap_ktp, binding.ivFotoKtp, imageReturnedIntent, "ktp");
+                    break;
+                case TAKE_PICTURE_ADDITIONAL1:
+                case PICK_PICTURE_ADDITIONAL1:
+                    setDataImage(uri_additional1, bitmap_additional1, binding.ivAdditional1, imageReturnedIntent, "additional1");
+                    break;
+                case TAKE_PICTURE_ADDITIONAL2:
+                case PICK_PICTURE_ADDITIONAL2:
+                    setDataImage(uri_additional2, bitmap_additional2, binding.ivAdditional2, imageReturnedIntent, "additional2");
+                    break;
+            }
         }
     }
 
