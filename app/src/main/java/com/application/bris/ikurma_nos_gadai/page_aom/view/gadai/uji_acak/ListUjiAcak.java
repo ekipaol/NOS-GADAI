@@ -25,6 +25,7 @@ import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityUjiAcakListBinding;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListUjiAcakBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiAcak;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ListUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -54,7 +55,8 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityUjiAcakListBinding.inflate(getLayoutInflater());setSupportActionBar(binding.toolbarReguler.tbRegular);
+        binding = ActivityUjiAcakListBinding.inflate(getLayoutInflater());
+        setSupportActionBar(binding.toolbarReguler.tbRegular);
         //ini binding buat ngambil nama fieldnya aja
         setContentView(binding.getRoot());
         //pantekan status untuk testing
@@ -76,16 +78,18 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
     }
 
     private void setData() throws JSONException {
+        binding.rvListUjiAcak.setVisibility(View.GONE);
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
+//        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
+        obj1.addProperty("FilterKodeCabang", "NONE");
         obj1.addProperty("FilterNoAplikasi", "NONE");
         obj1.addProperty("FilterNoKTP", "NONE");
         obj1.addProperty("FilterPengusul", "NONE");
         obj1.addProperty("FilterReviewer", "NONE");
         obj1.addProperty("FilterPemutus", "NONE");
         obj1.addProperty("FilterAOPembiayaan", "NONE");
-        obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE|Sudah Serah Terima Ke RBC");
+        obj1.addProperty("FilterWorkFlowStatus", "Sudah Serah Terima Ke RBC");
         obj1.addProperty("FilterNoCif", "NONE");
         obj1.addProperty("FilterSBGE", "NONE");
         obj1.addProperty("FilterKodeAgunan", "NONE");
@@ -104,6 +108,7 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
             public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
                 try {
                     if (response.isSuccessful()) {
+                        binding.rvListUjiAcak.setVisibility(View.VISIBLE);
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
                         if (response.body().getStatus().equalsIgnoreCase("00")) {
                             String listDataString = response.body().getData().toString();
@@ -158,8 +163,6 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
 
-        //disable dlu smenetara
-        binding.refresh.setEnabled(false);
     }
 
 
@@ -245,6 +248,23 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
 
     @Override
     public void onRefresh() {
+        binding.refresh.setRefreshing(false);
+        binding.rvListUjiAcak.setVisibility(View.VISIBLE);
+        try {
+            setData();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void refreshData() throws JSONException {
+        setData();
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ListUjiAcak.this.recreate();
     }
 }

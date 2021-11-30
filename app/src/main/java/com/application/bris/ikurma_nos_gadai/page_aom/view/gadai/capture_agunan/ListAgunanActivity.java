@@ -63,8 +63,6 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
         setContentView(binding.getRoot());
         //Button Click
         setclickable();
-        binding.refresh.setOnRefreshListener(this);
-        binding.refresh.setDistanceToTriggerSync(220);
         //Navbar
         customToolbar();
 
@@ -82,6 +80,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
 
     }
     private void setData() throws JSONException {
+        binding.rvListAgunan.setVisibility(View.GONE);
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         AppPreferences appPreferences=new AppPreferences(this);
             JsonObject obj1 = new JsonObject();
@@ -92,7 +91,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
             obj1.addProperty("FilterReviewer", "NONE");
             obj1.addProperty("FilterPemutus", "NONE");
             obj1.addProperty("FilterAOPembiayaan", "NONE");
-            obj1.addProperty("FilterWorkFlowStatus", "Lolos IDE|Override Emas Palsu");
+            obj1.addProperty("FilterWorkFlowStatus", "Sudah Serah Terima Ke Pawning");
             obj1.addProperty("FilterNoCif", "NONE");
             obj1.addProperty("FilterSBGE", "NONE");
             obj1.addProperty("FilterKodeAgunan", "NONE");
@@ -112,6 +111,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
                     try {
                         if(response.isSuccessful()){
                             binding.loading.progressbarLoading.setVisibility(View.GONE);
+                            binding.rvListAgunan.setVisibility(View.VISIBLE);
                             if(response.body().getStatus().equalsIgnoreCase("00")){
                                 String listDataString = response.body().getData().toString();
                                 Gson gson = new Gson();
@@ -160,7 +160,8 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
         binding.rvListAgunan.setAdapter(listAgunanAdapter);
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
-        binding.refresh.setEnabled(false);
+
+
     }
 
     @Override
@@ -245,13 +246,18 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
     @Override
     public void onRefresh() {
         binding.refresh.setRefreshing(false);
-        binding.rvListAgunan.setVisibility(View.GONE);
+        binding.rvListAgunan.setVisibility(View.VISIBLE);
         try {
             setData();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
+
+    public void refreshData() throws JSONException {
+        setData();
+    }
+
 
     @Override
     protected void onRestart() {

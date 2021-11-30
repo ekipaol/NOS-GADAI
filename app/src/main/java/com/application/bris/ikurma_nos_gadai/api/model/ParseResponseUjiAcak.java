@@ -5,6 +5,21 @@ import com.google.gson.annotations.SerializedName;
 
 public class ParseResponseUjiAcak {
 
+    @SerializedName("statusMsg")
+    private String statusMsg;
+
+    @SerializedName("data")
+    private JsonObject data;
+
+    @SerializedName("channel")
+    private String channel;
+
+    @SerializedName("status")
+    private String status;
+
+    @SerializedName("rrn")
+    private String rrn;
+
     @SerializedName("NoAplikasi")
     private String noAplikasi;
 
@@ -32,21 +47,6 @@ public class ParseResponseUjiAcak {
     public String getKodeCabang(){
         return kodeCabang;
     }
-
-    @SerializedName("statusMsg")
-    private String statusMsg;
-
-    @SerializedName("data")
-    private JsonObject data;
-
-    @SerializedName("channel")
-    private String channel;
-
-    @SerializedName("status")
-    private String status;
-
-    @SerializedName("rrn")
-    private String rrn;
 
     public String getStatusMsg() {
         return statusMsg;

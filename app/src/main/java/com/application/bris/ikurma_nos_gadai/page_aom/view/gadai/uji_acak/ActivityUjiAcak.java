@@ -32,6 +32,7 @@ import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFr
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.CameraListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ActivityUjiSekarang;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.JsonObject;
 
@@ -74,55 +75,60 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
         appPreferences = new AppPreferences(this);
 
     }
-    private void SendData(){
+    private void SendData() {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
-        obj1.addProperty("NoAplikasi", idAplikasi);
-        obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
-        obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
-        obj1.addProperty("FotoPengujian",  AppUtil.encodeImageTobase64(bitmap_pengunjian).toString());
-        obj1.addProperty("FotoAgunanTersegel",  AppUtil.encodeImageTobase64(bitmap_agunan_tersegel).toString());
+        if (bitmap_agunan == null || bitmap_agunan_tersegel == null || bitmap_pengunjian == null) {
+            AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), "Foto Tidak Lengkap, Mohon Lengkapi Terbebih Dahulu");
+        } else {
+            obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
+            obj1.addProperty("NoAplikasi", idAplikasi);
+            obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
+            obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
+            obj1.addProperty("FotoPengujian", AppUtil.encodeImageTobase64(bitmap_pengunjian).toString());
+            obj1.addProperty("FotoAgunanTersegel", AppUtil.encodeImageTobase64(bitmap_agunan_tersegel).toString());
 //        obj1.addProperty("FotoAgunan", "");
 //        obj1.addProperty("FotoPengujian","");
 //        obj1.addProperty("FotoAgunanTersegel", "");
-        obj1.addProperty("StatusAgunan", binding.etJenisAgunan.getText().toString());
-        obj1.addProperty("Description", "OK");
-        ReqUjiAcak req = new ReqUjiAcak();
-        req.setchannel("Mobile");
-        req.setRrn(AppUtil.getRandomReferenceNumber());
-        req.setdata(obj1);
-        call = apiClientAdapter.getApiInterface().sendUjiAcak(req);
-        call.enqueue(new Callback<ParseResponseUjiAcak>() {
-            @Override
-            public void onResponse(Call<ParseResponseUjiAcak> call, Response<ParseResponseUjiAcak> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        if (response.body().getStatus().equalsIgnoreCase("00")) {
-                            AppUtil.notifsuccess(ActivityUjiAcak.this, findViewById(android.R.id.content), "Berhasil Update");
-                            Toast.makeText(ActivityUjiAcak.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
-                            finish();
+            obj1.addProperty("StatusAgunan", binding.etJenisAgunan.getText().toString());
+            obj1.addProperty("Description", "OK");
+            ReqUjiAcak req = new ReqUjiAcak();
+            req.setchannel("Mobile");
+            req.setRrn(AppUtil.getRandomReferenceNumber());
+            req.setdata(obj1);
+            call = apiClientAdapter.getApiInterface().sendUjiAcak(req);
+            call.enqueue(new Callback<ParseResponseUjiAcak>() {
+                @Override
+                public void onResponse(Call<ParseResponseUjiAcak> call, Response<ParseResponseUjiAcak> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            binding.loading.progressbarLoading.setVisibility(View.GONE);
+                            if (response.body().getStatus().equalsIgnoreCase("00")) {
+                                AppUtil.notifsuccess(ActivityUjiAcak.this, findViewById(android.R.id.content), "Berhasil Update");
+                                Toast.makeText(ActivityUjiAcak.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), response.body().getMessage());
+                            }
                         } else {
-                            AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), response.body().getMessage());
+                            Error error = ParseResponseError.confirmEror(response.errorBody());
+                            AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), error.getMessage());
                         }
-                    } else {
-                        Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), error.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ParseResponseUjiAcak> call, Throwable t) {
-                binding.loading.progressbarLoading.setVisibility(View.GONE);
-                AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
-            }
-        });
+                @Override
+                public void onFailure(Call<ParseResponseUjiAcak> call, Throwable t) {
+                    binding.loading.progressbarLoading.setVisibility(View.GONE);
+                    AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+
+                }
+
+            });
+        }
     }
-
 
 
     public void customToolbar() {

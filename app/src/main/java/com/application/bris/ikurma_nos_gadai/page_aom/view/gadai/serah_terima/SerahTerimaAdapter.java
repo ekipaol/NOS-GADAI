@@ -18,11 +18,13 @@ import com.application.bris.ikurma_nos_gadai.databinding.ItemListSerahTerimaBind
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataSerahTerima;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanAdapter;
+import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.MenuViewHolder>  implements Filterable /*implements Filterable */{
+public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.MenuViewHolder>  implements Filterable{
     private List<DataSerahTerima> data;
     private Context context;
     private ItemListSerahTerimaBinding binding;
@@ -44,8 +46,7 @@ public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.
         binding = ItemListSerahTerimaBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
         appPreferences = new AppPreferences(context);
-        return new MenuViewHolder(view);
-    }
+        return new MenuViewHolder(view);    }
 
     @Override
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
@@ -54,28 +55,30 @@ public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.
         final DataSerahTerima data = datafiltered.get(position);
 
         holder.tvCabang.setText(appPreferences.getNamaKantor());
-        holder.tvNamaNasabah.setText(data.getNamaNasabah());
-        holder.tvNomorAplikasi.setText(data.getNomorAplikasiGadai());
-        holder.tvNomorSbge.setText(data.getLDNumber());
-        holder.tvTanggalJatuhTempo.setText(data.getTanggalAktifitas());
-        onClicks(position, holder);
+        holder.tvNamaNasabah.setText(data.getNamaSesuaiKTP());
+        holder.tvNomorAplikasi.setText(data.getNoAplikasi());
+        holder.tvNomorLd.setText(data.getlDNumber());
+        holder.tvTanggalJatuhTempo.setText(data.getTanggalJatuhTempo());
+//        holder.tvTanggalJatuhTempo.setText(data.getTanggalAktifitas());
+        onClicks(holder);
 
     }
 
 
-    private void onClicks(int currentPosition, @NonNull MenuViewHolder holder) {
-
+    private void onClicks( @NonNull MenuViewHolder holder) {
+        AppUtil.logSecure("logM", holder.tvNomorAplikasi.getText().toString());
         holder.btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailSerahTerimaActivity.class);
-                intent.putExtra("NoAplikasi", data.get(currentPosition).getNomorAplikasiGadai());
-                intent.putExtra("NamaNasabah", data.get(currentPosition).getNamaNasabah());
-                intent.putExtra("LDNumber", data.get(currentPosition).getLDNumber());
-                intent.putExtra("NamaPemberi", data.get(currentPosition).getNamaPemberi());
-                intent.putExtra("IDPemberi", data.get(currentPosition).getIDPemberi());
-                intent.putExtra("NamaPenerima", data.get(currentPosition).getNamaPenerima());
-                intent.putExtra("IDPenerima", data.get(currentPosition).getIDPenerima());
+                intent.putExtra("NoAplikasi", holder.tvNomorAplikasi.getText().toString());
+//                intent.putExtra("NoAplikasi", data.get(currentPosition).getNomorAplikasiGadai());
+//                intent.putExtra("NamaNasabah", data.get(currentPosition).getNamaNasabah());
+//                intent.putExtra("LDNumber", data.get(currentPosition).getLDNumber());
+//                intent.putExtra("NamaPemberi", data.get(currentPosition).getNamaPemberi());
+//                intent.putExtra("IDPemberi", data.get(currentPosition).getIDPemberi());
+//                intent.putExtra("NamaPenerima", data.get(currentPosition).getNamaPenerima());
+//                intent.putExtra("IDPenerima", data.get(currentPosition).getIDPenerima());
                 context.startActivity(intent);
             }
         });
@@ -102,9 +105,9 @@ public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.
                 } else {
                     List<DataSerahTerima> filteredList = new ArrayList<>();
                     for (DataSerahTerima row : data) {
-                        if (row.getNamaNasabah().toLowerCase().contains(charString.toLowerCase())
-                                || row.getSBGENumber().toLowerCase().contains(charString.toLowerCase())
-                                || row.getNomorAplikasiGadai().toLowerCase().contains(charString.toLowerCase())) {
+                        if (row.getNamaSesuaiKTP().toLowerCase().contains(charString.toLowerCase())
+                                || row.getlDNumber().toLowerCase().contains(charString.toLowerCase())
+                                || row.getNoAplikasi().toLowerCase().contains(charString.toLowerCase())) {
                             filteredList.add(row);
                         }
                     }
@@ -125,14 +128,14 @@ public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.
 
 
     public class MenuViewHolder extends RecyclerView.ViewHolder {
-        TextView tvCabang, tvNamaNasabah, tvNomorSbge, tvNomorAplikasi, tvTanggalJatuhTempo;
+        TextView tvCabang, tvNamaNasabah, tvNomorLd, tvNomorAplikasi, tvTanggalJatuhTempo;
         Button btnDetail;
 
         public MenuViewHolder(View itemView) {
             super(itemView);
             tvCabang = binding.tvCabang;
             tvNamaNasabah = binding.tvNamaNasabah;
-            tvNomorSbge = binding.tvNomorSbge;
+            tvNomorLd = binding.tvNomorLd;
             tvNomorAplikasi = binding.tvNomorAplikasi;
             tvTanggalJatuhTempo = binding.tvTanggalJatuhTempo;
             btnDetail = binding.btnDetail;

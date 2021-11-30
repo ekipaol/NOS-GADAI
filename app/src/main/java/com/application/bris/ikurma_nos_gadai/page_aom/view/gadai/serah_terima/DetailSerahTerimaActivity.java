@@ -30,11 +30,13 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.ReqSerahTerima;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityDetailSerahTerimaBinding;
+import com.application.bris.ikurma_nos_gadai.model.gadai.DetailCaptureAgunan;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.BSBottomCamera;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.CameraListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataSerahTerima;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.CaptureAgunanActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -50,16 +52,12 @@ import retrofit2.Response;
 public class DetailSerahTerimaActivity extends AppCompatActivity implements View.OnClickListener, CameraListener, GenericListenerOnSelect {
 
     ActivityDetailSerahTerimaBinding binding;
-
     Call<ParseResponseAgunan> call;
     String clicker;
-
     private Uri uri_nasabah;
     private Bitmap bitmap_nasabah;
-
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
-
     DataSerahTerima dataSerahTerima;
 
     @Override
@@ -86,7 +84,7 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
         obj1.addProperty("Pemberi", getIntent().getStringExtra("IDPemberi"));
         obj1.addProperty("Penerima", getIntent().getStringExtra("IDPenerima"));
         obj1.addProperty("Description", binding.etDeskripsi.getText().toString());
-        obj1.addProperty("Aktifitas","Sudah Serah Terima Ke Pawning");
+        obj1.addProperty("Aktifitas","SerahTerimaKeNasabah");
         obj1.addProperty("FotoSerahTerima", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
@@ -151,21 +149,62 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
     }
 
     private void initilize() {
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+        JsonObject obj1 = new JsonObject();
+        obj1.addProperty("FilterNoAplikasi", getIntent().getStringExtra("NoAplikasi"));
+        obj1.addProperty("FilterLDNumber", "NONE");
+        obj1.addProperty("FilterSBGE", "NONE");
 
-        binding.etNomerApplikasi.setText(getIntent().getStringExtra("NoAplikasi"));
-        binding.etCabang.setText(appPreferences.getNamaKantor());
-        binding.etNamaNasabah.setText(getIntent().getStringExtra("NamaNasabah"));
-        binding.etNamaPemberi.setText(getIntent().getStringExtra("NamaPemberi"));
-        binding.etNamaPenerima.setText(getIntent().getStringExtra("NamaPenerima"));
+        ReqListGadai req = new ReqListGadai();
+        req.setkchannel("Mobile");
+        req.setdata(obj1);
+        call = apiClientAdapter.getApiInterface().sendDetailAplikasiGadai(req);
+        call.enqueue(new Callback<ParseResponseAgunan>() {
+            @Override
+            public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        if (response.body().getStatus().equalsIgnoreCase("00")) {
+                            String listDataString = response.body().getData().toString();
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<DataSerahTerima>() {
+                            }.getType();
+                            dataSerahTerima = gson.fromJson(listDataString, type);
+                            binding.etNomerApplikasi.setText(dataSerahTerima.getNoAplikasi());
+                            binding.etCabang.setText(dataSerahTerima.getKodeCabang());
+                            binding.etNamaNasabah.setText(dataSerahTerima.getNamaSesuaiKTP());
+                            binding.etNomerLd.setText(dataSerahTerima.getlDNumber());
+                            binding.etTglAktifitas.setText(AppUtil.parseTanggalGeneral(dataSerahTerima.getTanggalJatuhTempo(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
+                        } else {
+                            AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                        }
+                    } else {
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        Error error = ParseResponseError.confirmEror(response.errorBody());
+                        AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), error.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
 
+            @Override
+            public void onFailure(Call<ParseResponseAgunan> call, Throwable t) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
+                AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+            }
+        });
     }
 
     private void setDisabledText() {
         binding.etCabang.setFocusable(false);
         binding.etNamaNasabah.setFocusable(false);
         binding.etNomerApplikasi.setFocusable(false);
-        binding.etNamaPemberi.setFocusable(false);
-        binding.etNamaPenerima.setFocusable(false);
+        binding.etTglAktifitas.setFocusable(false);
+        binding.etNomerLd.setFocusable(false);
+//        binding.etNamaPemberi.setFocusable(false);
+//        binding.etNamaPenerima.setFocusable(false);
     }
 
     private void setClickListener() {
