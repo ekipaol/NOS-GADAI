@@ -92,7 +92,7 @@ public class ListUjiKualitas extends AppCompatActivity implements SwipeRefreshLa
         obj1.addProperty("FilterReviewer", "NONE");
         obj1.addProperty("FilterPemutus", "NONE");
         obj1.addProperty("FilterAOPembiayaan", "NONE");
-        obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE|Akses Brankas Uji Kualitas");
+        obj1.addProperty("FilterWorkFlowStatus", "DDE Sudah Otor|Akses Brankas Uji Kualitas");
         obj1.addProperty("FilterNoCif", "NONE");
         obj1.addProperty("FilterSBGE", "NONE");
         obj1.addProperty("FilterKodeAgunan", "NONE");
@@ -102,6 +102,7 @@ public class ListUjiKualitas extends AppCompatActivity implements SwipeRefreshLa
         obj1.addProperty("FilterTanggalJatuhTempo", "NONE");
         obj1.addProperty("FilterHasilIDE", "NONE");
         obj1.addProperty("FilterSlotPenempatan", "NONE");
+        obj1.addProperty("FilterAktifitas", "NONE");
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
         req.setdata(obj1);

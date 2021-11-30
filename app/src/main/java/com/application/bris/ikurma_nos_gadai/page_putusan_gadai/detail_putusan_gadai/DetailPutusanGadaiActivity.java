@@ -225,7 +225,7 @@ public class DetailPutusanGadaiActivity extends AppCompatActivity implements Vie
         reqDataApprove.setActionPemutus(jenisPutusan);
         reqDataApprove.setKodeCabang(appPreferences.getKodeKantor());
         reqDataApprove.setNoAplikasi(noAplikasi);
-        reqDataApprove.setPejabatPemutus(Integer.toString(appPreferences.getUid()));
+        reqDataApprove.setPejabatPemutus((appPreferences.getNik()));
 
         if(jenisPutusan.equalsIgnoreCase("tolak")){
             reqDataApprove.setReasonPenolakan(binding.bottomSheet.etCatatan.getText().toString());

@@ -18,8 +18,8 @@
         <activity android:name=".page_putusan_gadai.PutusanGadaiActivity"/>
         <activity android:name=".page_aom.view.gadai.menu_penjualan.MenuPenjualanActivity"></activity>
         <activity android:name=".page_aom.view.gadai.uji_kualitas.ListUjiKualitas" />
-        <activity android:name=".page_aom.view.gadai.uji_kualitas.ActivityUjiKualitas" />
-        <activity android:name=".page_aom.view.gadai.uji_kualitas.ActivitySegelAgunan" />
+        <activity android:name=".page_aom.view.gadai.uji_kualitas.ActivityUjiSekarang" />
+        <activity android:name=".page_aom.view.gadai.uji_kualitas.ActivityUjiNanti" />
         <activity android:name=".page_aom.view.gadai.uji_acak.ListUjiAcak" />
         <activity android:name=".page_aom.view.gadai.uji_acak.ActivityUjiAcak" />
         <activity android:name=".page_aom.view.gadai.serah_terima.DetailSerahTerimaActivity" />
