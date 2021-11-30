@@ -255,6 +255,40 @@ public class DataDetailGadai {
     @Expose
     private String iDLinkJaminan;
 
+    @SerializedName("NamaPengusul")
+    @Expose
+    private String NamaPengusul;
+    @SerializedName("NamaPemutus")
+    @Expose
+    private String NamaPemutus;
+    @SerializedName("NamaReviewer")
+    @Expose
+    private String NamaReviewer;
+
+    public String getNamaPengusul() {
+        return NamaPengusul;
+    }
+
+    public void setNamaPengusul(String namaPengusul) {
+        NamaPengusul = namaPengusul;
+    }
+
+    public String getNamaPemutus() {
+        return NamaPemutus;
+    }
+
+    public void setNamaPemutus(String namaPemutus) {
+        NamaPemutus = namaPemutus;
+    }
+
+    public String getNamaReviewer() {
+        return NamaReviewer;
+    }
+
+    public void setNamaReviewer(String namaReviewer) {
+        NamaReviewer = namaReviewer;
+    }
+
     public List<PortfolioPawning> getPortofolioPawning() {
         return PortofolioPawning;
     }

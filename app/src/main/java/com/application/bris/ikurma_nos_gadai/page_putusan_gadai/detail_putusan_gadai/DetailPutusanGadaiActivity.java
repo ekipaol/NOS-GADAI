@@ -307,8 +307,8 @@ public class DetailPutusanGadaiActivity extends AppCompatActivity implements Vie
         binding.etNoRekening.setText(dataDetailGadai.getNoRekeningPencairan());
 
         //PENGUSUL DAN REVIEWER
-        binding.etNamaNipPengusul.setText(dataDetailGadai.getPejabatPengusul());
-        binding.etNamaNipReviewer.setText(dataDetailGadai.getPejabatReviewer());
+        binding.etNamaNipPengusul.setText(dataDetailGadai.getNamaPengusul()+"/"+dataDetailGadai.getPejabatPengusul());
+        binding.etNamaNipReviewer.setText(dataDetailGadai.getNamaReviewer()+"/"+dataDetailGadai.getPejabatReviewer());
 
         //FASILITAS DIBERIKAN
         binding.etNilaiTaksiran.setText(AppUtil.parseRupiahNoSymbolWithTitik(dataDetailGadai.getTotalTaksiran()));
