@@ -89,6 +89,45 @@
             android:textColor="@color/colorBlackHeader"
             android:fontFamily="@font/muli_b"/>
 
+        <TextView
+            android:id="@+id/tv_berat_jenis"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Berat Jenis : "
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlackHeader"
+            android:fontFamily="@font/muli_b"/>
+
+        <TextView
+            android:id="@+id/tv_eq_ujroh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Equivalen Ujroh : "
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlackHeader"
+            android:fontFamily="@font/muli_b"/>
+
+        <TextView
+            android:id="@+id/tv_persentase_ujroh"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="4dp"
+            android:paddingRight="4dp"
+            android:text="Persentasse Ujroh dari Taksiran : "
+            android:textAlignment="textStart"
+            android:layout_gravity="start"
+            android:textSize="12sp"
+            android:textColor="@color/colorBlackHeader"
+            android:fontFamily="@font/muli_b"/>
+
     </LinearLayout>
 
 

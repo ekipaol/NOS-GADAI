@@ -42,7 +42,10 @@ public class RincianAgunanAdapter extends RecyclerView.Adapter<RincianAgunanAdap
         holder.tvRincianAgunan.setText("Rincian Agunan :  "+datas.getRincianAgunan());
         holder.tvJumlahAgunan.setText("Jumlah Agunan :  "+datas.getJumlahEmas());
         holder.tvKaratase.setText("Karatase :  "+datas.getKaratase());
-        holder.tvBeratBersih.setText("Berat Bersih :  "+datas.getBeratBersih());
+        holder.tvBeratBersih.setText("Berat Bersih :  "+datas.getBeratBersih()+ " Gram");
+        holder.tvBeratJenis.setText("Berat Jenis :  "+datas.getBeratJenis()+ " Gram");
+        holder.tvEquivalenUjroh.setText("Equivalen Ujroh :  "+datas.getEqv()+ " %");
+        holder.tvPersentaseUjroh.setText("Persentase Ujroh :  "+datas.getProsentaseUjroh()+ " %");
     }
 
     @Override
@@ -58,7 +61,7 @@ public class RincianAgunanAdapter extends RecyclerView.Adapter<RincianAgunanAdap
 
     public class MenuViewHolder extends RecyclerView.ViewHolder {
 
-        TextView tvRincianAgunan,tvJumlahAgunan,tvKaratase,tvBeratBersih,tvNomorAgunan;
+        TextView tvRincianAgunan,tvJumlahAgunan,tvKaratase,tvBeratBersih,tvNomorAgunan,tvBeratJenis,tvEquivalenUjroh,tvPersentaseUjroh;
 
         public MenuViewHolder(View itemView) {
             super(itemView);
@@ -68,6 +71,9 @@ public class RincianAgunanAdapter extends RecyclerView.Adapter<RincianAgunanAdap
             tvKaratase=binding.tvKarataseAgunan;
             tvBeratBersih=binding.tvBeratBersih;
             tvNomorAgunan=binding.tvNomorAgunan;
+            tvBeratJenis=binding.tvBeratJenis;
+            tvEquivalenUjroh=binding.tvEqUjroh;
+            tvPersentaseUjroh=binding.tvPersentaseUjroh;
         }
 
     }
