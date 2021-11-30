@@ -246,11 +246,6 @@ public class DetailPutusanGadaiActivity extends AppCompatActivity implements Vie
         reqChannelDataApprove.setData(reqDataApprove);
         reqChannelDataApprove.setDataChanges(reqDataChanges);
         reqChannelDataApprove.setChangeIndicator("FALSE");
-
-
-
-
-
         Call<ParseResponse> call;
 
         call = apiClientAdapter.getApiInterface().submitTaksiranPemutus(reqChannelDataApprove);
