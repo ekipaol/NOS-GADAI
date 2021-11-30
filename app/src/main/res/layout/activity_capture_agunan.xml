@@ -12,7 +12,9 @@
         android:id="@+id/toolbar_nosearch"
         layout="@layout/toolbar_nosearch" />
 
-    <include android:id="@+id/loading" layout="@layout/loading" />
+    <include
+        android:id="@+id/loading"
+        layout="@layout/loading" />
 
     <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -218,17 +220,46 @@
 
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-                <!--Title Foto Bersama Nasabah-->
-                <TextView
+
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/muli_b"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="Foto Bersama Nasabah"
-                    android:textAlignment="center"
-                    android:textSize="16sp" />
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal">
+                    <!--Title Foto Bersama Nasabah-->
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/muli_b"
+                            android:paddingLeft="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Foto Bersama Nasabah"
+                            android:textAlignment="center"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1">
+                        <!--Title Foto Agunan-->
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:fontFamily="@font/muli_b"
+                            android:paddingLeft="10dp"
+                            android:paddingBottom="10dp"
+                            android:text="Foto Agunan"
+                            android:textAlignment="center"
+                            android:textSize="16sp" />
+                    </RelativeLayout>
+                </LinearLayout>
 
                 <!--Foto Bersama Nasabah-->
                 <LinearLayout
@@ -276,25 +307,6 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </RelativeLayout>
-                </LinearLayout>
-
-                <!--Title Foto Agunan-->
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/muli_b"
-                    android:paddingLeft="10dp"
-                    android:paddingBottom="10dp"
-                    android:text="Foto Agunan"
-                    android:textAlignment="center"
-                    android:textSize="16sp" />
-
-                <!--Foto Agunan-->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
 
                     <RelativeLayout
                         android:id="@+id/rl_foto_agunan"
@@ -352,16 +364,18 @@
 
                 <!--Upload Foto KTP-->
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:paddingHorizontal="100dp">
 
                     <RelativeLayout
                         android:id="@+id/rl_foto_ktp"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
-                        android:layout_weight="1"
+                        android:layout_weight="2"
+                        android:textAlignment="center"
                         android:padding="10dp">
 
                         <androidx.constraintlayout.widget.ConstraintLayout

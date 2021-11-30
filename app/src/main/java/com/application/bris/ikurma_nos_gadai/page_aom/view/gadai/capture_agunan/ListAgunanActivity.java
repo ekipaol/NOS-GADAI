@@ -63,7 +63,8 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
         setContentView(binding.getRoot());
         //Button Click
         setclickable();
-
+        binding.refresh.setOnRefreshListener(this);
+        binding.refresh.setDistanceToTriggerSync(220);
         //Navbar
         customToolbar();
 
@@ -243,7 +244,19 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
 
     @Override
     public void onRefresh() {
+        binding.refresh.setRefreshing(false);
+        binding.rvListAgunan.setVisibility(View.GONE);
+        try {
+            setData();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ListAgunanActivity.this.recreate();
     }
 
     @Override
