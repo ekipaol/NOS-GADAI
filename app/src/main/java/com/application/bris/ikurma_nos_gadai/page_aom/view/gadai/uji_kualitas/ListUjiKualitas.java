@@ -28,6 +28,7 @@ import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOn
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -83,16 +84,19 @@ public class ListUjiKualitas extends AppCompatActivity implements SwipeRefreshLa
     }
 
     private void setData() throws JSONException {
+        binding.rvListUjiKualitas.setVisibility(View.GONE);
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
+//        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
+        obj1.addProperty("FilterKodeCabang", "NONE");
         obj1.addProperty("FilterNoAplikasi", "NONE");
         obj1.addProperty("FilterNoKTP", "NONE");
         obj1.addProperty("FilterPengusul", "NONE");
         obj1.addProperty("FilterReviewer", "NONE");
         obj1.addProperty("FilterPemutus", "NONE");
         obj1.addProperty("FilterAOPembiayaan", "NONE");
-        obj1.addProperty("FilterWorkFlowStatus", "DDE Sudah Otor|Akses Brankas Uji Kualitas");
+//        obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE|Akses Brankas Uji Kualitas");
+        obj1.addProperty("FilterWorkFlowStatus", "DDE Sudah Otor");
         obj1.addProperty("FilterNoCif", "NONE");
         obj1.addProperty("FilterSBGE", "NONE");
         obj1.addProperty("FilterKodeAgunan", "NONE");
@@ -102,7 +106,6 @@ public class ListUjiKualitas extends AppCompatActivity implements SwipeRefreshLa
         obj1.addProperty("FilterTanggalJatuhTempo", "NONE");
         obj1.addProperty("FilterHasilIDE", "NONE");
         obj1.addProperty("FilterSlotPenempatan", "NONE");
-        obj1.addProperty("FilterAktifitas", "NONE");
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
         req.setdata(obj1);
@@ -113,6 +116,7 @@ public class ListUjiKualitas extends AppCompatActivity implements SwipeRefreshLa
                 try {
                     if (response.isSuccessful()) {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        binding.rvListUjiKualitas.setVisibility(View.VISIBLE);
                         if (response.body().getStatus().equalsIgnoreCase("00")) {
                             String listDataString = response.body().getData().toString();
                             Gson gson = new Gson();
@@ -166,8 +170,6 @@ public class ListUjiKualitas extends AppCompatActivity implements SwipeRefreshLa
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
 
-        //disable dlu smenetara
-        binding.refresh.setEnabled(false);
     }
 
     @Override
@@ -236,7 +238,24 @@ public class ListUjiKualitas extends AppCompatActivity implements SwipeRefreshLa
 
     @Override
     public void onRefresh() {
+        binding.refresh.setRefreshing(false);
+        binding.rvListUjiKualitas.setVisibility(View.VISIBLE);
+        try {
+            setData();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
 
+    public void refreshData() throws JSONException {
+        setData();
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        ListUjiKualitas.this.recreate();
     }
 
 }

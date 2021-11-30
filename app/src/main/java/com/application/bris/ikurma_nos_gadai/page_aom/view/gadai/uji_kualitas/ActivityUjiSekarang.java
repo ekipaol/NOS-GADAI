@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -19,21 +20,28 @@ import androidx.core.content.FileProvider;
 
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseAgunan;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseUjiKualitas;
+import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.UjiKualitasGadaiBinding;
+import com.application.bris.ikurma_nos_gadai.model.gadai.DetailCaptureAgunan;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.BSBottomCamera;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFromService;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.CameraListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.CaptureAgunanActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -55,74 +63,77 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
 
+    private void SendData() {
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+        JsonObject obj1 = new JsonObject();
+        if (bitmap_agunan == null || bitmap_agunan_tersegel == null || bitmap_pengunjian == null) {
+            AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), "Foto Tidak Lengkap, Mohon Lengkapi Terbebih Dahulu");
+        } else {
+            obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
+            obj1.addProperty("NoAplikasi", idAplikasi);
+            obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
+            obj1.addProperty("UjiKwalitasHariIni", "SEKARANG");
+            obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
+            obj1.addProperty("FotoPengujian", AppUtil.encodeImageTobase64(bitmap_pengunjian).toString());
+            obj1.addProperty("FotoAgunanTersegel", AppUtil.encodeImageTobase64(bitmap_agunan_tersegel).toString());
+//        obj1.addProperty("FotoAgunan", "");
+//        obj1.addProperty("FotoPengujian","");
+//        obj1.addProperty("FotoAgunanTersegel", "");
+            obj1.addProperty("StatusAgunan", binding.etJenisAgunan.getText().toString());
+            obj1.addProperty("Description", "OK");
+            ReqUjiKualitas req = new ReqUjiKualitas();
+            req.setRrn(AppUtil.getRandomReferenceNumber());
+            req.setchannel("Mobile");
+            req.setdata(obj1);
+            call = apiClientAdapter.getApiInterface().sendUjiKualitas(req);
+            call.enqueue(new Callback<ParseResponseUjiKualitas>() {
+                @Override
+                public void onResponse(Call<ParseResponseUjiKualitas> call, Response<ParseResponseUjiKualitas> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            binding.loading.progressbarLoading.setVisibility(View.GONE);
+                            if (response.body().getStatus().equalsIgnoreCase("00")) {
+                                AppUtil.notifsuccess(ActivityUjiSekarang.this, findViewById(android.R.id.content), "Berhasil Update");
+                                Toast.makeText(ActivityUjiSekarang.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), response.body().getMessage());
+                            }
+                        } else {
+                            Error error = ParseResponseError.confirmEror(response.errorBody());
+                            AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), error.getMessage());
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onFailure(Call<ParseResponseUjiKualitas> call, Throwable t) {
+                    binding.loading.progressbarLoading.setVisibility(View.GONE);
+                    AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                }
+            });
+        }
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = UjiKualitasGadaiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         binding.etCatatanPensesuaian.setVisibility(View.GONE);
-        idAplikasi=getIntent().getStringExtra("idAplikasi");
+        idAplikasi = getIntent().getStringExtra("idAplikasi");
         setDropdownData();
         customToolbar();
         allOnclick();
         onClickEndIcon();
         onclickSelectDialog();
 
-        apiClientAdapter = new ApiClientAdapter(this);
+        apiClientAdapter = new ApiClientAdapter(this, "https://10.0.116.105/");
         appPreferences = new AppPreferences(this);
 
     }
-    private void SendData(){
-        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        JsonObject obj1 = new JsonObject();
-        obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
-        obj1.addProperty("NoAplikasi", idAplikasi);
-        obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
-        obj1.addProperty("UjiKwalitasHariIni", "SEKARANG");
-        obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
-        obj1.addProperty("FotoPengujian",  AppUtil.encodeImageTobase64(bitmap_pengunjian).toString());
-        obj1.addProperty("FotoAgunanTersegel",  AppUtil.encodeImageTobase64(bitmap_agunan_tersegel).toString());
-//        obj1.addProperty("FotoAgunan", "");
-//        obj1.addProperty("FotoPengujian","");
-//        obj1.addProperty("FotoAgunanTersegel", "");
-        obj1.addProperty("StatusAgunan", binding.etJenisAgunan.getText().toString());
-        obj1.addProperty("Description", "OK");
-        ReqUjiKualitas req = new ReqUjiKualitas();
-        req.setchannel("Mobile");
-        req.setRrn(AppUtil.getRandomReferenceNumber());
-        req.setdata(obj1);
-        call = apiClientAdapter.getApiInterface().sendUjiKualitas(req);
-        call.enqueue(new Callback<ParseResponseUjiKualitas>() {
-            @Override
-            public void onResponse(Call<ParseResponseUjiKualitas> call, Response<ParseResponseUjiKualitas> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        if (response.body().getStatus().equalsIgnoreCase("00")) {
-                            AppUtil.notifsuccess(ActivityUjiSekarang.this, findViewById(android.R.id.content), "Berhasil Update");
-                            Toast.makeText(ActivityUjiSekarang.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
-                            finish();
-                        } else {
-                            AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), response.body().getMessage());
-                        }
-                    } else {
-                        Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), error.getMessage());
-                    }
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ParseResponseUjiKualitas> call, Throwable t) {
-                binding.loading.progressbarLoading.setVisibility(View.GONE);
-                AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
-            }
-        });
-    }
-
-
 
     public void customToolbar() {
         binding.toolbarNosearch.tvPageTitle.setText("Uji Sekarang");
@@ -282,6 +293,7 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
 
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
+        if (resultCode != 0) {
         switch (requestCode) {
             case TAKE_PICTURE_AGUNAN:
             case PICK_PICTURE_AGUNAN:
@@ -297,6 +309,7 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
                 break;
         }
     }
+}
 
     private Uri getCaptureImageOutputUri(String namaFoto) {
         Uri outputFileUri = null;

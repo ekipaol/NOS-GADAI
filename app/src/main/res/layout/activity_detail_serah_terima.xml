@@ -114,8 +114,9 @@
 
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
+                <!--Nomor Aplikasi Gadai-->
                 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                    android:id="@+id/tf_nama_pemberi"
+                    android:id="@+id/tf_nomer_LD"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -123,14 +124,14 @@
                     android:paddingRight="20dp"
                     app:iconSignifier="@drawable/ic_segmen"
                     app:isResponsiveIconColor="true"
-                    app:labelText="Nama Pemberi"
+                    app:labelText="Nomor LD"
                     app:panelBackgroundColor="@color/colorDisableEdit"
                     app:primaryColor="@color/colorPrimary"
                     app:secondaryColor="@color/colorPrimary"
                     app:useDenseSpacing="true">
 
                     <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                        android:id="@+id/et_nama_pemberi"
+                        android:id="@+id/et_nomer_ld"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType=""
@@ -139,8 +140,9 @@
 
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
+                <!--Tanggal Jatuh Tempo-->
                 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                    android:id="@+id/tf_nama_penerima"
+                    android:id="@+id/tf_tgl_aktifitas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -148,14 +150,14 @@
                     android:paddingRight="20dp"
                     app:iconSignifier="@drawable/ic_segmen"
                     app:isResponsiveIconColor="true"
-                    app:labelText="Nama Penerima"
+                    app:labelText="Tanggal Aktifitas"
                     app:panelBackgroundColor="@color/colorDisableEdit"
                     app:primaryColor="@color/colorPrimary"
                     app:secondaryColor="@color/colorPrimary"
                     app:useDenseSpacing="true">
 
                     <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                        android:id="@+id/et_nama_penerima"
+                        android:id="@+id/et_tgl_aktifitas"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType=""

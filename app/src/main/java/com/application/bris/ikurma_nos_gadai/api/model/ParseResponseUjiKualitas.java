@@ -1,46 +1,40 @@
 package com.application.bris.ikurma_nos_gadai.api.model;
 
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 
 public class ParseResponseUjiKualitas {
 
     @SerializedName("statusMsg")
-    private String statusMsg;
-
+    private String message;
     @SerializedName("data")
     private JsonObject data;
-
+    @SerializedName("listPoto")
+    private JsonArray listPoto;
     @SerializedName("channel")
     private String channel;
-
     @SerializedName("status")
     private String status;
-
     @SerializedName("rrn")
     private String rrn;
 
-    public String getStatusMsg() {
-        return statusMsg;
+    public String getStatus() {
+        return status;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public JsonObject getData() {
         return data;
     }
 
-    public String getChannel() {
-        return channel;
+    public JsonArray getListPoto() {
+        return listPoto;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public String getRrn() {
-        return rrn;
-    }
-
-    public String getMessage() {
-        return null;
+    public String getRrn() { return rrn;
     }
 }
