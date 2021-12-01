@@ -55,7 +55,7 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
     List<MGenericModel> dataDropdownSB = new ArrayList<>();
 
     private Uri uri_agunan, uri_pengunjian, uri_agunan_tersegel;
-    private Bitmap bitmap_agunan, bitmap_pengunjian, bitmap_agunan_tersegel;
+    private Bitmap bitmap_agunan = null, bitmap_pengunjian = null, bitmap_agunan_tersegel = null;
     private String idAplikasi;
     String clicker;
 
@@ -64,11 +64,11 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
     private AppPreferences appPreferences;
 
     private void SendData() {
-        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        JsonObject obj1 = new JsonObject();
-        if (bitmap_agunan == null || bitmap_agunan_tersegel == null || bitmap_pengunjian == null) {
-            AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), "Foto Tidak Lengkap, Mohon Lengkapi Terbebih Dahulu");
-        } else {
+            if (bitmap_agunan == null || bitmap_agunan_tersegel == null || bitmap_pengunjian == null) {
+                AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), "Foto tidak lengkap, mohon lengkapi terbebih dahulu");
+            } else {
+            binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+            JsonObject obj1 = new JsonObject();
             obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
             obj1.addProperty("NoAplikasi", idAplikasi);
             obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());

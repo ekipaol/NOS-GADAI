@@ -68,11 +68,11 @@ public class ActivityUjiNanti extends AppCompatActivity implements View.OnClickL
 
 }
     private void SendData() {
-        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        JsonObject obj1 = new JsonObject();
-        if (bitmap_agunan_tersegel == null) {
-            AppUtil.notiferror(ActivityUjiNanti.this, findViewById(android.R.id.content), "Foto Tidak Lengkap, Mohon Lengkapi Terbebih Dahulu");
-        } else {
+            if (bitmap_agunan_tersegel == null) {
+                AppUtil.notiferror(ActivityUjiNanti.this, findViewById(android.R.id.content), "Foto Tidak Lengkap, Mohon Lengkapi Terbebih Dahulu");
+            } else {
+            binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+            JsonObject obj1 = new JsonObject();
             obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
             obj1.addProperty("NoAplikasi", idAplikasi);
             obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());

@@ -37,6 +37,7 @@ import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOn
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataSerahTerima;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.CaptureAgunanActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ActivityUjiNanti;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -76,51 +77,55 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
     }
 
     private void SendData() {
-        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        JsonObject obj1 = new JsonObject();
-        obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
-        obj1.addProperty("kodeCabang", appPreferences.getKodeKantor());
-        obj1.addProperty("konfirmasi", "YA");
-        obj1.addProperty("Pemberi", getIntent().getStringExtra("IDPemberi"));
-        obj1.addProperty("Penerima", getIntent().getStringExtra("IDPenerima"));
-        obj1.addProperty("Description", binding.etDeskripsi.getText().toString());
-        obj1.addProperty("Aktifitas","SerahTerimaKeNasabah");
-        obj1.addProperty("FotoSerahTerima", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
-        ReqListGadai req = new ReqListGadai();
-        req.setkchannel("Mobile");
+        if (bitmap_nasabah == null) {
+            AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), "Foto tidak lengkap, mohon lengkapi lerbebih dahulu");
+        } else {
+            binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+            JsonObject obj1 = new JsonObject();
+            obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
+            obj1.addProperty("kodeCabang", appPreferences.getKodeKantor());
+            obj1.addProperty("konfirmasi", "YA");
+            obj1.addProperty("Pemberi", getIntent().getStringExtra("IDPemberi"));
+            obj1.addProperty("Penerima", getIntent().getStringExtra("IDPenerima"));
+            obj1.addProperty("Description", binding.etDeskripsi.getText().toString());
+            obj1.addProperty("Aktifitas", "SerahTerimaKeNasabah");
+            obj1.addProperty("FotoSerahTerima", AppUtil.encodeImageTobase64(bitmap_nasabah).toString());
+            ReqListGadai req = new ReqListGadai();
+            req.setkchannel("Mobile");
 /*
         req.setrrn("001100323129");
 */
-        req.setdata(obj1);
-        call = apiClientAdapter.getApiInterface().sendSerahTerima(req);
-        call.enqueue(new Callback<ParseResponseAgunan>() {
-            @Override
-            public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        if (response.body().getStatus().equalsIgnoreCase("00")) {
-                            AppUtil.notifsuccess(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), "Berhasil Update");
-                            Toast.makeText(DetailSerahTerimaActivity.this, "Berhasil Serah Terima", Toast.LENGTH_SHORT).show();
-                            finish();
+            req.setdata(obj1);
+            call = apiClientAdapter.getApiInterface().sendSerahTerima(req);
+            call.enqueue(new Callback<ParseResponseAgunan>() {
+                @Override
+                public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            binding.loading.progressbarLoading.setVisibility(View.GONE);
+                            if (response.body().getStatus().equalsIgnoreCase("00")) {
+                                AppUtil.notifsuccess(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), "Berhasil Update");
+                                Toast.makeText(DetailSerahTerimaActivity.this, "Berhasil Serah Terima", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                            }
                         } else {
-                            AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                            Error error = ParseResponseError.confirmEror(response.errorBody());
+                            AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), error.getMessage());
                         }
-                    } else {
-                        Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), error.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ParseResponseAgunan> call, Throwable t) {
-                binding.loading.progressbarLoading.setVisibility(View.GONE);
-                AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
-            }
-        });
+                @Override
+                public void onFailure(Call<ParseResponseAgunan> call, Throwable t) {
+                    binding.loading.progressbarLoading.setVisibility(View.GONE);
+                    AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                }
+            });
+        }
     }
 
 
