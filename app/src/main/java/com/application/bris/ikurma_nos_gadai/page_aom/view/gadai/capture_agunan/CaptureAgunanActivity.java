@@ -130,7 +130,7 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
             if (bitmap_additional2 != null) {
                 obj1.addProperty("photoAdd2", AppUtil.encodeImageTobase64(bitmap_additional2).toString());
             }
-            obj1.addProperty("userSubmit", appPreferences.getKodeAo());
+            obj1.addProperty("userSubmit", appPreferences.getNik());
             ReqListGadai req = new ReqListGadai();
             req.setkchannel("Mobile");
             req.setdata(obj1);

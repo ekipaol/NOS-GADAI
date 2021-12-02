@@ -9,6 +9,8 @@ public class DataUjiKualitas {
     private String NamaNasabah;
     @SerializedName("NoAplikasi")
     private String NomorAplikasiGadai;
+    @SerializedName("TanggalPencairan")
+    private String TanggalPencairan;
     @SerializedName("TanggalCair")
     private String TanggalTransaksi;
     @SerializedName("TanggalJatuhTempo")
@@ -48,6 +50,14 @@ public class DataUjiKualitas {
     }
     public void setTanggalJatuhTempo(String tanggalJatuhTempo) {
         this.TanggalJatuhTempo = tanggalJatuhTempo;
+    }
+
+    public String getTanggalPencairan() {
+        return TanggalPencairan;
+    }
+
+    public void setTanggalPencairan(String tanggalPencairan) {
+        TanggalPencairan = tanggalPencairan;
     }
 
 }

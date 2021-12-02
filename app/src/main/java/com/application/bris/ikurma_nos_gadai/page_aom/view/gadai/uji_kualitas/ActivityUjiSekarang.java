@@ -33,6 +33,8 @@ import com.application.bris.ikurma_nos_gadai.page_aom.dialog.BSBottomCamera;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFromService;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.CameraListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
+import com.application.bris.ikurma_nos_gadai.page_aom.model.DataSerahTerima;
+import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.CaptureAgunanActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
@@ -42,8 +44,12 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.BuildConfig;
 import retrofit2.Call;
@@ -53,24 +59,87 @@ import retrofit2.Response;
 public class ActivityUjiSekarang extends AppCompatActivity implements View.OnClickListener, GenericListenerOnSelect, CameraListener {
     UjiKualitasGadaiBinding binding;
     List<MGenericModel> dataDropdownSB = new ArrayList<>();
+    Date c = Calendar.getInstance().getTime();
+    View view;
+    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+    String formattedDate = df.format(c);
+    Date date = new Date();
+    Call <ParseResponseUjiKualitas> call;
+    SimpleDateFormat df1 = new SimpleDateFormat("YYYY-MM-dd");
+    Calendar c1 = Calendar.getInstance();
+    String currentDate = df1.format(date);
 
     private Uri uri_agunan, uri_pengunjian, uri_agunan_tersegel;
     private Bitmap bitmap_agunan = null, bitmap_pengunjian = null, bitmap_agunan_tersegel = null;
     private String idAplikasi;
     String clicker;
+    DataUjiKualitas dataUjiKualitas;
 
-    Call<ParseResponseUjiKualitas> call;
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.et_jenis_agunan:
+            case R.id.tf_jenis_agunan:
+                DialogGenericDataFromService.display(getSupportFragmentManager(), binding.tfJenisAgunan.getLabelText(), dataDropdownSB, ActivityUjiSekarang.this);
+                break;
+            case R.id.iv_agunan:
+            case R.id.rl_agunan:
+            case R.id.btn_agunan:
+                clicker = "agunan";
+                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this, "Foto Agunan");
+                break;
+            case R.id.rl_pengunjian:
+            case R.id.iv_pengunjian:
+            case R.id.btn_pengunjian:
+                clicker = "pengunjian";
+                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this, "Foto Saat Pengunjian");
+                break;
+            case R.id.iv_agunan_tersegel:
+            case R.id.btn_agunan_tersegel:
+            case R.id.rl_agunan_tersegel:
+                clicker = "agunantersegel";
+                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this, "Foto Segel Agunan");
+                break;
+            case R.id.btn_uji_kualitas:
+            case R.id.ll_btn_uji_kualitas:
+                SendData();
+                break;
+
+        }
+
+    }
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        apiClientAdapter = new ApiClientAdapter(this, "https://10.0.116.105/");
+        appPreferences = new AppPreferences(this);
+        binding = UjiKualitasGadaiBinding.inflate(getLayoutInflater());
+        idAplikasi = getIntent().getStringExtra("idAplikasi");
+        view = binding.getRoot();
+        setContentView(binding.getRoot());
+        binding.etCatatanPensesuaian.setVisibility(View.GONE);
+        initilize();
+        setDropdownData();
+        customToolbar();
+        allOnclick();
+        onClickEndIcon();
+        onclickSelectDialog();
+    }
+
     private void SendData() {
-            if (bitmap_agunan == null || bitmap_agunan_tersegel == null || bitmap_pengunjian == null) {
-                AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), "Foto tidak lengkap, mohon lengkapi terbebih dahulu");
-            } else {
+        if (bitmap_agunan == null || bitmap_agunan_tersegel == null || bitmap_pengunjian == null) {
+            AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), "Foto tidak lengkap, mohon lengkapi terbebih dahulu");
+        } else if (binding.etCatatanPensesuaian.getText().toString().equalsIgnoreCase("") && binding.etJenisAgunan.getText().toString().equalsIgnoreCase("Tidak Sesuai")) {
+            AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), "Isi Catatan Terlebih Dahulu");
+        } else {
             binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
             JsonObject obj1 = new JsonObject();
             obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
-            obj1.addProperty("NoAplikasi", idAplikasi);
+//            obj1.addProperty("NoAplikasi", idAplikasi);
+            obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
             obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
             obj1.addProperty("UjiKwalitasHariIni", "SEKARANG");
             obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
@@ -80,7 +149,11 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
 //        obj1.addProperty("FotoPengujian","");
 //        obj1.addProperty("FotoAgunanTersegel", "");
             obj1.addProperty("StatusAgunan", binding.etJenisAgunan.getText().toString());
-            obj1.addProperty("Description", "OK");
+            if (binding.etJenisAgunan.getText().toString().equalsIgnoreCase("Tidak Sesuai")){
+                obj1.addProperty("Description", binding.etCatatanPensesuaian.getText().toString());
+            }else{
+                obj1.addProperty("Description", "OK");
+            }
             ReqUjiKualitas req = new ReqUjiKualitas();
             req.setRrn(AppUtil.getRandomReferenceNumber());
             req.setchannel("Mobile");
@@ -117,26 +190,58 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
         }
     }
 
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = UjiKualitasGadaiBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        binding.etCatatanPensesuaian.setVisibility(View.GONE);
-        idAplikasi = getIntent().getStringExtra("idAplikasi");
-        setDropdownData();
-        customToolbar();
-        allOnclick();
-        onClickEndIcon();
-        onclickSelectDialog();
 
-        apiClientAdapter = new ApiClientAdapter(this, "https://10.0.116.105/");
-        appPreferences = new AppPreferences(this);
+    private void initilize() {
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+        JsonObject obj1 = new JsonObject();
+        obj1.addProperty("FilterNoAplikasi", getIntent().getStringExtra("NoAplikasi"));
+        obj1.addProperty("FilterLDNumber", "NONE");
+        obj1.addProperty("FilterSBGE", "NONE");
 
+        ReqListGadai req = new ReqListGadai();
+        req.setkchannel("Mobile");
+        req.setdata(obj1);
+        Call <ParseResponseAgunan> call = apiClientAdapter.getApiInterface().sendDetailAplikasiGadai(req);
+        call.enqueue(new Callback<ParseResponseAgunan>() {
+            @Override
+            public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        if (response.body().getStatus().equalsIgnoreCase("00")) {
+                            String listDataString = response.body().getData().toString();
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<DataUjiKualitas>() {
+                            }.getType();
+                            dataUjiKualitas = gson.fromJson(listDataString, type);
+                            binding.etNomerApplikasi.setText(dataUjiKualitas.getNomorAplikasiGadai());
+                            binding.etCabang.setText(dataUjiKualitas.getCabang());
+                            binding.etNamaNasabah.setText(dataUjiKualitas.getNamaNasabah());
+                            binding.etTglTransaksi.setText(AppUtil.parseTanggalGeneral(dataUjiKualitas.getTanggalPencairan(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
+                            binding.etTglJatohTempo.setText(AppUtil.parseTanggalGeneral(dataUjiKualitas.getTanggalJatuhTempo(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
+                        } else {
+                            AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), response.body().getMessage());
+                        }
+                    } else {
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        Error error = ParseResponseError.confirmEror(response.errorBody());
+                        AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), error.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ParseResponseAgunan> call, Throwable t) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
+                AppUtil.notiferror(ActivityUjiSekarang.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+            }
+        });
     }
 
     public void customToolbar() {
-        binding.toolbarNosearch.tvPageTitle.setText("Uji Sekarang");
+        binding.toolbarNosearch.tvPageTitle.setText("Uji Kualitas Sekarang");
 
         binding.toolbarNosearch.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +284,11 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
         binding.tfJenisAgunan.setOnClickListener(this);
         binding.etJenisAgunan.setOnClickListener(this);
         //disable
+        binding.etCabang.setFocusable(false);
+        binding.etNamaNasabah.setFocusable(false);
+        binding.etNomerApplikasi.setFocusable(false);
+        binding.etTglJatohTempo.setFocusable(false);
+        binding.etTglTransaksi.setFocusable(false);
         binding.etJenisAgunan.setFocusable(false);
     }
 
@@ -188,42 +298,9 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
     }
 
     @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.et_jenis_agunan:
-            case R.id.tf_jenis_agunan:
-                DialogGenericDataFromService.display(getSupportFragmentManager(), binding.tfJenisAgunan.getLabelText(), dataDropdownSB, ActivityUjiSekarang.this);
-                break;
-            case R.id.iv_agunan:
-            case R.id.rl_agunan:
-            case R.id.btn_agunan:
-                clicker = "agunan";
-                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this,"Foto Agunan");
-                break;
-            case R.id.rl_pengunjian:
-            case R.id.iv_pengunjian:
-            case R.id.btn_pengunjian:
-                clicker = "pengunjian";
-                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this,"Foto Saat Pengunjian");
-                break;
-            case R.id.iv_agunan_tersegel:
-            case R.id.btn_agunan_tersegel:
-            case R.id.rl_agunan_tersegel:
-                clicker = "agunantersegel";
-                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this, "Foto Segel Agunan");
-                break;
-            case R.id.btn_uji_kualitas:
-            case R.id.ll_btn_uji_kualitas:
-                SendData();
-                break;
-
-        }
-
-    }
-
-    @Override
     public void onSelect(String title, MGenericModel data) {
-        title.equalsIgnoreCase(binding.tfJenisAgunan.getLabelText());{
+        title.equalsIgnoreCase(binding.tfJenisAgunan.getLabelText());
+        {
             binding.etJenisAgunan.setText(data.getDESC());
         }
         if (data.getDESC().equalsIgnoreCase("Sesuai")) {
@@ -231,7 +308,7 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
 
         } else if (data.getDESC().equalsIgnoreCase("Tidak Sesuai")) {
             {
-             binding.etCatatanPensesuaian.setVisibility(View.VISIBLE);
+                binding.etCatatanPensesuaian.setVisibility(View.VISIBLE);
             }
         }
     }
@@ -294,22 +371,22 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
     protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent) {
         super.onActivityResult(requestCode, resultCode, imageReturnedIntent);
         if (resultCode != 0) {
-        switch (requestCode) {
-            case TAKE_PICTURE_AGUNAN:
-            case PICK_PICTURE_AGUNAN:
-                setDataImage(uri_agunan, bitmap_agunan, binding.ivAgunan, imageReturnedIntent, "agunan");
-                break;
-            case TAKE_PICTURE_PENGUNJIAN:
-            case PICK_PICTURE_PENGUNJIAN:
-                setDataImage(uri_pengunjian, bitmap_pengunjian, binding.ivPengunjian, imageReturnedIntent, "pengunjian");
-                break;
-            case TAKE_PICTURE_AGUNAN_TERSEGEL:
-            case PICK_PICTURE_AGUNAN_TERSEGEL:
-                setDataImage(uri_agunan_tersegel, bitmap_agunan_tersegel, binding.ivAgunanTersegel, imageReturnedIntent, "agunantersegel");
-                break;
+            switch (requestCode) {
+                case TAKE_PICTURE_AGUNAN:
+                case PICK_PICTURE_AGUNAN:
+                    setDataImage(uri_agunan, bitmap_agunan, binding.ivAgunan, imageReturnedIntent, "agunan");
+                    break;
+                case TAKE_PICTURE_PENGUNJIAN:
+                case PICK_PICTURE_PENGUNJIAN:
+                    setDataImage(uri_pengunjian, bitmap_pengunjian, binding.ivPengunjian, imageReturnedIntent, "pengunjian");
+                    break;
+                case TAKE_PICTURE_AGUNAN_TERSEGEL:
+                case PICK_PICTURE_AGUNAN_TERSEGEL:
+                    setDataImage(uri_agunan_tersegel, bitmap_agunan_tersegel, binding.ivAgunanTersegel, imageReturnedIntent, "agunantersegel");
+                    break;
+            }
         }
     }
-}
 
     private Uri getCaptureImageOutputUri(String namaFoto) {
         Uri outputFileUri = null;
@@ -342,11 +419,11 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
                 bitmap = AppUtil.rotateImageIfRequired(this, bitmap, uri);
                 iv.setImageBitmap(bitmap);
                 if (clicker.equalsIgnoreCase("agunan")) {
-                    bitmap_agunan= bitmap;
+                    bitmap_agunan = bitmap;
                 } else if (clicker.equalsIgnoreCase("pengunjian")) {
                     bitmap_pengunjian = bitmap;
                 } else if (clicker.equalsIgnoreCase("agunantersegel")) {
-                    bitmap_agunan_tersegel= bitmap;
+                    bitmap_agunan_tersegel = bitmap;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
