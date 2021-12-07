@@ -90,18 +90,18 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
         JsonObject obj1 = new JsonObject();
         binding2.loading.progressbarLoading.setVisibility(View.VISIBLE);
         if (holder.btnCapture.getText().toString().equalsIgnoreCase("MULAI")) {
-            obj1.addProperty("UserSubmit", appPreferences.getKodeAo());
+            obj1.addProperty("UserSubmit", appPreferences.getNik());
             obj1.addProperty("ReffNoAktifitas", data.get(currentPosition).getKodeRequest());
-//            obj1.addProperty("KodeCabang", data.get(currentPosition).getKodeCabang());
-            obj1.addProperty("KodeCabang", "ID001211");
+            obj1.addProperty("KodeCabang", appPreferences.getKodeCabang());
+//            obj1.addProperty("KodeCabang", "ID001211");
             obj1.addProperty("KodeAgunan", "");
             obj1.addProperty("Status", "");
             obj1.addProperty("Action", "MULAI");
         } else {
-            obj1.addProperty("UserSubmit", appPreferences.getKodeAo());
+            obj1.addProperty("UserSubmit", appPreferences.getNik());
             obj1.addProperty("ReffNoAktifitas", data.get(currentPosition).getKodeRequest());
-//            obj1.addProperty("KodeCabang", data.get(currentPosition).getKodeCabang());
-            obj1.addProperty("KodeCabang", "ID001211");
+            obj1.addProperty("KodeCabang", appPreferences.getKodeCabang());
+//            obj1.addProperty("KodeCabang", "ID001211");
             obj1.addProperty("KodeAgunan", "");
             obj1.addProperty("Status", "");
             obj1.addProperty("Action", "SELESAI");

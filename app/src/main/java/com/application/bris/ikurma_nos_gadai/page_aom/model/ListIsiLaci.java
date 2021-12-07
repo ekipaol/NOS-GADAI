@@ -27,9 +27,18 @@ public class ListIsiLaci {
     private String WorkFlowStatus;
     @SerializedName("AgunanPembiayaan")
     private String AgunanPembiayaan;
-    @SerializedName("StatusOpname")
+    @SerializedName("StatusStockOpname")
     private String StatusOpname;
+    @SerializedName("KodeAgunan")
+    private String KodeAgunan;
 
+    public String getKodeAgunan() {
+        return KodeAgunan;
+    }
+
+    public void setKodeAgunan(String kodeAgunan) {
+        KodeAgunan = kodeAgunan;
+    }
 
     public String getidSlot() {
         return idSlot ;

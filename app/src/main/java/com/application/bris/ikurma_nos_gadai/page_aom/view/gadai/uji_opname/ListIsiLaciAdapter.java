@@ -4,9 +4,11 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -59,6 +61,7 @@ public class ListIsiLaciAdapter extends RecyclerView.Adapter<ListIsiLaciAdapter.
         holder.etopname.setFocusable(false);
         holder.etopname.setText(datas.getStatusOpname());
         onClicks(position, holder);
+        defaultView(holder);
     }
 
     private void onClicks(int currentPosition, @NonNull ListIsiLaciAdapter.MenuViewHolder holder) {
@@ -82,6 +85,38 @@ public class ListIsiLaciAdapter extends RecyclerView.Adapter<ListIsiLaciAdapter.
                 dropdownRecyclerListener.onDropdownRecyclerClick(currentPosition, "Stok Opname");
             }
         });
+
+        holder.btShow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.llNomorAplikasi.setVisibility(View.VISIBLE);
+                holder.llSizeSlot.setVisibility(View.VISIBLE);
+                holder.llTanggalJatuhTempo.setVisibility(View.VISIBLE);
+                holder.llTanggalPencairan.setVisibility(View.VISIBLE);
+                holder.btCollapse.setVisibility(View.VISIBLE);
+                holder.btShow.setVisibility(View.GONE);
+            }
+        });
+
+        holder.btCollapse.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                holder.llNomorAplikasi.setVisibility(View.GONE);
+                holder.llSizeSlot.setVisibility(View.GONE);
+                holder.llTanggalJatuhTempo.setVisibility(View.GONE);
+                holder.llTanggalPencairan.setVisibility(View.GONE);
+                holder.btShow.setVisibility(View.VISIBLE);
+                holder.btCollapse.setVisibility(View.GONE);
+            }
+        });
+    }
+
+    private void defaultView( ListIsiLaciAdapter.MenuViewHolder holder){
+        holder.llNomorAplikasi.setVisibility(View.GONE);
+        holder.llSizeSlot.setVisibility(View.GONE);
+        holder.llTanggalJatuhTempo.setVisibility(View.GONE);
+        holder.llTanggalPencairan.setVisibility(View.GONE);
+        holder.btCollapse.setVisibility(View.GONE);
     }
 
 
@@ -129,6 +164,8 @@ public class ListIsiLaciAdapter extends RecyclerView.Adapter<ListIsiLaciAdapter.
 
     public class MenuViewHolder extends RecyclerView.ViewHolder {
         TextView tvIdCabangPemilik, tvKodeSlot, tvSizeSlot, tvLdNumber, tvNamaNasabah, tvNomorApplikasi, tvTglJatuhTempo, tvTglPencairan;
+        Button btShow,btCollapse;
+        LinearLayout llNomorAplikasi,llSizeSlot,llTanggalPencairan,llTanggalJatuhTempo;
         TextFieldBoxes tfopname;
         EditText etopname;
 
@@ -144,6 +181,12 @@ public class ListIsiLaciAdapter extends RecyclerView.Adapter<ListIsiLaciAdapter.
             tvNomorApplikasi = binding.tvNomorApplikasi;
             tvTglJatuhTempo = binding.tvTglJatuhTempo;
             tvTglPencairan = binding.tvTglPencairan;
+            btShow=binding.btShow;
+            btCollapse=binding.btCollapse;
+            llNomorAplikasi=binding.llIdAplikasi;
+            llSizeSlot=binding.llSizeSlot;
+            llTanggalPencairan=binding.llTanggalPencairan;
+            llTanggalJatuhTempo=binding.llTanggalJatuhTempo;
         }
 
     }

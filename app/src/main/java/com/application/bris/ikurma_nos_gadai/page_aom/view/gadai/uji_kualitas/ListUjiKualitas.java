@@ -87,8 +87,8 @@ public class ListUjiKualitas extends AppCompatActivity implements SwipeRefreshLa
         binding.rvListUjiKualitas.setVisibility(View.GONE);
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-//        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
-        obj1.addProperty("FilterKodeCabang", "NONE");
+        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeCabang());
+//        obj1.addProperty("FilterKodeCabang", "NONE");
         obj1.addProperty("FilterNoAplikasi", "NONE");
         obj1.addProperty("FilterNoKTP", "NONE");
         obj1.addProperty("FilterPengusul", "NONE");

@@ -18,6 +18,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.application.bris.ikurma_nos_gadai.BuildConfig;
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseAgunan;
@@ -43,7 +44,6 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-import cn.pedant.SweetAlert.BuildConfig;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;

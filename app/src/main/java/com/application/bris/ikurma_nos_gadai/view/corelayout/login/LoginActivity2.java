@@ -1,5 +1,7 @@
 package com.application.bris.ikurma_nos_gadai.view.corelayout.login;
 
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import androidx.appcompat.app.AppCompatActivity;
@@ -34,6 +36,8 @@ import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import org.w3c.dom.Text;
+
 import java.lang.reflect.Type;
 import java.util.HashMap;
 
@@ -60,6 +64,8 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
     Button btn_login;
     @BindView(R.id.progressbar_loading)
     RelativeLayout loading;
+    @BindView(R.id.tv_version)
+    TextView tv_version;
 
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
@@ -67,6 +73,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
     private DataLoginBsi dataUserBsi;
 
     public static int counter = 0;
+    private PackageInfo packageInfo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,17 +85,18 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         appPreferences.setNama(AppUtil.encrypt("Developer"));
         backgroundStatusBar();
         Bundle extras = getIntent().getExtras();
-//        if (extras != null){
-//            if (extras.getString("type").equalsIgnoreCase("bdwelcome")){
-//                loadProfilWelcome();
-//            }
-//            else{
-//                loadProfilLogin();
-//            }
 //        }
         loadProfilLogin();
         btn_login.setOnClickListener(this);
         iv_avatarlogin.setOnClickListener(this);
+
+        try {
+            packageInfo = getPackageManager().getPackageInfo(getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+
+        tv_version.setText("Version "+packageInfo.versionName);
 
         expiredToken=getIntent().getBooleanExtra("expiredToken",false);
 
@@ -115,37 +123,6 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
         }
-    }
-
-    private void loadProfilWelcome(){
-        try {
-            if (appPreferences.getImageProfilBase64().equalsIgnoreCase("")){
-                Glide.
-                        with(this)
-                        .load(R.drawable.ic_generalusericon)
-                        .diskCacheStrategy(DiskCacheStrategy.NONE)
-                        .skipMemoryCache(true)
-                        .into(iv_avatarlogin);
-            }
-            else{
-                Glide
-                        .with(this)
-                        .asBitmap()
-                        .load(AppUtil.decodeImageTobase64(appPreferences.getImageProfilBase64()))
-                        .centerCrop()
-                        .placeholder(R.drawable.banner_placeholder)
-                        .into(iv_avatarlogin);
-            }
-            String title = "Welcome <b> Developer</b>";
-            String subtitle = "Login to <b> Continue </b>";
-            tv_titlelogin.setText(Html.fromHtml(title));
-            tv_subtitlelogin.setText(Html.fromHtml(subtitle));
-        }
-        catch (Exception e){
-            e.printStackTrace();
-        }
-
-
     }
 
 
@@ -201,7 +178,16 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
     private void doLogin() {
         loading.setVisibility(View.VISIBLE);
         MagicCryptHelper encryptor=new MagicCryptHelper();
-        login req = new login(et_username.getText().toString().trim(), encryptor.encrypt("12345678"), getDeviceId(), "NOS_GADAI");
+        login req;
+
+//        if(et_username.getText().toString().isEmpty()){
+            req = new login(et_username.getText().toString().trim(), encryptor.encrypt("12345678"), getDeviceId(), "NOS_GADAI");
+//        }
+//        else{
+//            //kalo password diisi, maka ga pake password default
+//            req = new login(et_username.getText().toString().trim(), encryptor.encrypt("12345678"), getDeviceId(), "NOS_GADAI");
+//            req.setPassword(encryptor.encrypt(et_password.getText().toString()));
+//        }
 //        req.setPassword(encryptor.encrypt(et_password.getText().toString()));
         Call<ParseResponse> call = apiClientAdapter.getApiInterface().login2(req);
         call.enqueue(new Callback<ParseResponse>() {

@@ -286,12 +286,12 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
 //        obj1.addProperty("KodeCabang", "ID001211");
-        obj1.addProperty("UserSubmit", appPreferences.getKodeAo());
+        obj1.addProperty("UserSubmit", appPreferences.getNik());
         obj1.addProperty("ReffNoAktifitas", getIntent().getStringExtra("ReffNoAktifitas"));
         obj1.addProperty("KodeCabang", isilaci.get(position).getidCabangPemilik());
         obj1.addProperty("Status", isilaci.get(position).getStatusOpname());
         obj1.addProperty("Action", "UPDATE");
-        obj1.addProperty("KodeAgunan", isilaci.get(position).getNoAplikasi());
+        obj1.addProperty("KodeAgunan", isilaci.get(position).getKodeAgunan());
         obj1.addProperty("Status", desc);
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");

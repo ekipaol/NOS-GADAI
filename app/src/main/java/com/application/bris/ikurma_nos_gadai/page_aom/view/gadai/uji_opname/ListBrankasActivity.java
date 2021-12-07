@@ -70,8 +70,8 @@ public class ListBrankasActivity extends AppCompatActivity implements SwipeRefre
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-//        obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
-        obj1.addProperty("kodeCabang", "ID001211");
+        obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
+//        obj1.addProperty("kodeCabang", "ID001211");
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
         req.setdata(obj1);
