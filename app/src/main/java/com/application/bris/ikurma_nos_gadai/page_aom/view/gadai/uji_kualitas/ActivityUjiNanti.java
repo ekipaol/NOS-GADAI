@@ -30,10 +30,18 @@ import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.UjiKualitasGadaiNantiBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.BSBottomCamera;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.CameraListener;
+import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
+import com.google.gson.Gson;
 import com.google.gson.JsonObject;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
+import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.BuildConfig;
 import retrofit2.Call;
@@ -43,38 +51,31 @@ import retrofit2.Response;
 
 public class ActivityUjiNanti extends AppCompatActivity implements View.OnClickListener, CameraListener {
     UjiKualitasGadaiNantiBinding binding;
-
+    Date c = Calendar.getInstance().getTime();
+    View view;
+    SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy", Locale.getDefault());
+    String formattedDate = df.format(c);
+    Date date = new Date();
+    Call <ParseResponseUjiKualitas> call;
+    SimpleDateFormat df1 = new SimpleDateFormat("YYYY-MM-dd");
+    Calendar c1 = Calendar.getInstance();
+    String currentDate = df1.format(date);
     private Uri uri_agunan_tersegel;
     private Bitmap bitmap_agunan_tersegel;
     String clicker;
     private String idAplikasi;
-
-    Call<ParseResponseUjiKualitas> call;
+    DataUjiKualitas dataUjiKualitas;
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
 
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        binding = UjiKualitasGadaiNantiBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-        idAplikasi=getIntent().getStringExtra("idAplikasi");
-        customToolbar();
-        setClicker();
-
-        apiClientAdapter = new ApiClientAdapter(this);
-        appPreferences = new AppPreferences(this);
-
-}
     private void SendData() {
-        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        JsonObject obj1 = new JsonObject();
         if (bitmap_agunan_tersegel == null) {
-            AppUtil.notiferror(ActivityUjiNanti.this, findViewById(android.R.id.content), "Foto Tidak Lengkap, Mohon Lengkapi Terbebih Dahulu");
+            AppUtil.notiferror(ActivityUjiNanti.this, findViewById(android.R.id.content), "Foto tidak lengkap, mohon lengkapi terbebih dahulu");
         } else {
+            binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+            JsonObject obj1 = new JsonObject();
             obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
-            obj1.addProperty("NoAplikasi", idAplikasi);
+            obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
             obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
             obj1.addProperty("UjiKwalitasHariIni", "NANTI");
             /*obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
@@ -118,8 +119,72 @@ public class ActivityUjiNanti extends AppCompatActivity implements View.OnClickL
         }
     }
 
+
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        apiClientAdapter = new ApiClientAdapter(this, "https://10.0.116.105/");
+        appPreferences = new AppPreferences(this);
+        binding = UjiKualitasGadaiNantiBinding.inflate(getLayoutInflater());
+        view = binding.getRoot();
+        setContentView(binding.getRoot());
+        idAplikasi = getIntent().getStringExtra("idAplikasi");
+        customToolbar();
+        setClicker();
+        initilize();
+}
+
+    private void initilize() {
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+        JsonObject obj1 = new JsonObject();
+        obj1.addProperty("FilterNoAplikasi", getIntent().getStringExtra("NoAplikasi"));
+        obj1.addProperty("FilterLDNumber", "NONE");
+        obj1.addProperty("FilterSBGE", "NONE");
+
+        ReqListGadai req = new ReqListGadai();
+        req.setkchannel("Mobile");
+        req.setdata(obj1);
+        Call <ParseResponseAgunan> call = apiClientAdapter.getApiInterface().sendDetailAplikasiGadai(req);
+        call.enqueue(new Callback<ParseResponseAgunan>() {
+            @Override
+            public void onResponse(Call<ParseResponseAgunan> call, Response<ParseResponseAgunan> response) {
+                try {
+                    if (response.isSuccessful()) {
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        if (response.body().getStatus().equalsIgnoreCase("00")) {
+                            String listDataString = response.body().getData().toString();
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<DataUjiKualitas>() {
+                            }.getType();
+                            dataUjiKualitas = gson.fromJson(listDataString, type);
+                            binding.etNomerApplikasi.setText(dataUjiKualitas.getNomorAplikasiGadai());
+                            binding.etCabang.setText(dataUjiKualitas.getCabang());
+                            binding.etNamaNasabah.setText(dataUjiKualitas.getNamaNasabah());
+                            binding.etTglTransaksi.setText(AppUtil.parseTanggalGeneral(dataUjiKualitas.getTanggalPencairan(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
+                            binding.etTglJatohTempo.setText(AppUtil.parseTanggalGeneral(dataUjiKualitas.getTanggalJatuhTempo(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
+                        } else {
+                            AppUtil.notiferror(ActivityUjiNanti.this, findViewById(android.R.id.content), response.body().getMessage());
+                        }
+                    } else {
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        Error error = ParseResponseError.confirmEror(response.errorBody());
+                        AppUtil.notiferror(ActivityUjiNanti.this, findViewById(android.R.id.content), error.getMessage());
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ParseResponseAgunan> call, Throwable t) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
+                AppUtil.notiferror(ActivityUjiNanti.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+            }
+        });
+    }
+
     public void customToolbar() {
-        binding.toolbarNosearch.tvPageTitle.setText("Uji Nanti");
+        binding.toolbarNosearch.tvPageTitle.setText("Uji Kualitas Nanti");
 
         binding.toolbarNosearch.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -135,6 +200,12 @@ public class ActivityUjiNanti extends AppCompatActivity implements View.OnClickL
         binding.btnAgunanTersegel.setOnClickListener(this);
         binding.btnSegelAgunan.setOnClickListener(this);
         binding.llBtnSegelAgunan.setOnClickListener(this);
+        //disable
+        binding.etNamaNasabah.setFocusable(false);
+        binding.etTglJatohTempo.setFocusable(false);
+        binding.etCabang.setFocusable(false);
+        binding.etNomerApplikasi.setFocusable(false);
+        binding.etTglTransaksi.setFocusable(false);
     }
 
 

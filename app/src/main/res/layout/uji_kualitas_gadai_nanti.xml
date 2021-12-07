@@ -31,6 +31,135 @@
                 android:orientation="vertical"
                 android:paddingTop="10dp">
 
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_cabang"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Cabang"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_cabang"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--Nama Nasabah-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_nama_nasabah"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Nama Nasabah"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_nama_nasabah"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--Nomor Aplikasi Gadai-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_nomer_applikasi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Nomor Aplikasi Gadai"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_nomer_applikasi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--Tanggal Transaksi-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_tgl_transaksi"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Tanggal Transaksi"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_tgl_transaksi"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--Tanggal Jatuh Tempo-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_tgl_jatoh_tempo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Tanggal Jatuh Tempo"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_tgl_jatoh_tempo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

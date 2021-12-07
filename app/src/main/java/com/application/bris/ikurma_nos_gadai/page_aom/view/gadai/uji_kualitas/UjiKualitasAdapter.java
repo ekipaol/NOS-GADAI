@@ -18,6 +18,8 @@ import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListUjiKualitasBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiKualitas;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.CaptureAgunanActivity;
+import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,20 +66,21 @@ public class UjiKualitasAdapter extends RecyclerView.Adapter<UjiKualitasAdapter.
     }
 
     private void onClicks(int position, MenuViewHolder holder) {
-        binding.btnSekarang.setOnClickListener(new View.OnClickListener() {
+        AppUtil.logSecure("logM", holder.tvNomorApplikasi.getText().toString());
+        holder.btnSekarang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ActivityUjiSekarang.class);
-                intent.putExtra("idAplikasi",data.get(position).getNomorAplikasiGadai());
+                intent.putExtra("NoAplikasi", holder.tvNomorApplikasi.getText().toString());
                 context.startActivity(intent);
-
             }
         });
-        binding.btnNanti.setOnClickListener(new View.OnClickListener() {
+        AppUtil.logSecure("logM", holder.tvNomorApplikasi.getText().toString());
+        holder.btnNanti.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ActivityUjiNanti.class);
-                intent.putExtra("idAplikasi",data.get(position).getNomorAplikasiGadai());
+                intent.putExtra("NoAplikasi", holder.tvNomorApplikasi.getText().toString());
                 context.startActivity(intent);
             }
         });
