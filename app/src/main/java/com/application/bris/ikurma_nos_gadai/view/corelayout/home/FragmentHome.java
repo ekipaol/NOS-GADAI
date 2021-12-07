@@ -1,40 +1,46 @@
 package com.application.bris.ikurma_nos_gadai.view.corelayout.home;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.NonNull;
+
 import androidx.annotation.Nullable;
 
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseArr;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
+import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
+import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqAplikasiGadai;
+import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqChannelAplikasiGadai;
 import com.application.bris.ikurma_nos_gadai.database.pojo.PesanDashboardPojo;
-import com.application.bris.ikurma_nos_gadai.page_aom.dialog.CustomDialog;
+import com.application.bris.ikurma_nos_gadai.model.gadai.DataGadai;
+import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.HotprospekKpr;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.PipelineKpr;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.appraisal.AppraisalActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.feedback.FeedbackActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan.HasilPenjualanActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanAdapter;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.menu_penjualan.MenuPenjualanActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_acak.ListUjiAcak;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ListUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameActivity;
 import com.application.bris.ikurma_nos_gadai.page_monitoring.monitoring_pencairan.MonitoringPencairanActivity;
 import com.application.bris.ikurma_nos_gadai.page_putusan_gadai.PutusanGadaiActivity;
-import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity;
+import com.application.bris.ikurma_nos_gadai.page_putusan_gadai.PutusanGadaiAdapter;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity2;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.menu.MenuFlppActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.fragment.app.Fragment;
 import androidx.core.view.ViewCompat;
+import androidx.recyclerview.widget.DefaultItemAnimator;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,7 +53,6 @@ import android.widget.TextView;
 
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.adapter.hotprospek.HotprospekHomeAdapater;
-import com.application.bris.ikurma_nos_gadai.api.config.UriApi;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponse;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
@@ -61,19 +66,17 @@ import com.application.bris.ikurma_nos_gadai.model.menu.ListViewMenu;
 import com.application.bris.ikurma_nos_gadai.adapter.pipeline.PipelineHomeAdapater;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.HotprospekListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.PipelineListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.approved.ApprovedActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.hotprospek.HotprospekDetailActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.pipeline.KonsumerKMGPipelineDetailActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.rejected.RejectedActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppBarStateChangedListener;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.menu.MenuPutusanKonsumerActivity;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.target.CustomTarget;
-import com.bumptech.glide.request.transition.Transition;
 import com.facebook.shimmer.ShimmerFrameLayout;
 import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
+
+import org.json.JSONException;
 
 import java.lang.reflect.Type;
 import java.util.ArrayList;
@@ -104,20 +107,28 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
     TextView tv_toolbartitle;
     @BindView(R.id.rv_menu)
     RecyclerView rv_menu;
-    @BindView(R.id.rv_pipeline)
-    RecyclerView rv_pipeline;
+    @BindView(R.id.rv_capture_agunan)
+    RecyclerView rv_capture_agunan;
     @BindView(R.id.rv_hotprospek)
     RecyclerView rv_hotprospek;
+    @BindView(R.id.rv_putusan)
+    RecyclerView rv_putusan;
     @BindView(R.id.progress_menu)
     RelativeLayout progress_menu;
     @BindView(R.id.sm_placeholder_pipeline)
     ShimmerFrameLayout sm_placeholder_pipeline;
     @BindView(R.id.sm_placeholder_hotprospek)
     ShimmerFrameLayout sm_placeholder_hotprospek;
+    @BindView(R.id.sm_placeholder_putusan)
+    ShimmerFrameLayout sm_placeholder_putusan;
     @BindView(R.id.ll_emptydata_pipeline)
     LinearLayout ll_emptydata_pipeline;
+    @BindView(R.id.ll_emptydata_putusan)
+    LinearLayout ll_emptydata_putusan;
     @BindView(R.id.ll_pipeline)
     LinearLayout ll_pipeline;
+    @BindView(R.id.ll_putusan)
+    LinearLayout ll_putusan;
     @BindView(R.id.ll_hotprospek)
     LinearLayout ll_hotprospek;
     @BindView(R.id.ll_pesan_dashboard)
@@ -128,6 +139,8 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
     ImageView iv_morepipeline;
     @BindView(R.id.iv_morehotprospek)
     ImageView iv_morehotprospek;
+    @BindView(R.id.iv_moreputusan)
+    ImageView iv_moreputusan;
     @BindView(R.id.iv_profilpicture)
     ImageView iv_profilpicture;
     @BindView(R.id.tv_nama)
@@ -155,6 +168,8 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
     private LinearLayoutManager layoutHotprospekHome;
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
+    private List<DataGadai> dataGadai;
+    private CaptureAgunanFrontAdapter adapterListAplikasi;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -188,21 +203,19 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
             iv_morehotprospek.setOnClickListener(this);
         }
 
-
-        //ubah nilai versi notifikasi disini dengan nilai baru, jika ada notifikasi baru/update baru
-        //update 1.3.0 versi notifikasi 1 ( ubah jadi 2 atau nilai lain di versi selanjutnya
-        String versiNotifikasi="6";
-        if(!appPreferences.getNotificationVersion().equalsIgnoreCase(versiNotifikasi)){
-            appPreferences.setNotificationVersion(versiNotifikasi);
-            appPreferences.setUpdateNotification("true");
+        if(AppUtil.checkIsPengusul(appPreferences.getFidRole())){
+            ll_putusan.setVisibility(View.GONE);
+            ll_pipeline.setVisibility(View.VISIBLE);
+            loadDataCapture();
+        }
+        else{
+            ll_putusan.setVisibility(View.VISIBLE);
+            ll_pipeline.setVisibility(View.GONE);
+            loadDataPutusan();
         }
 
-
         loadProfil();
-//        loadData();
         initializeMenu();
-        initializePipelineHome();
-        initializeHotprospekHome();
         return view;
     }
 
@@ -245,7 +258,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
             @Override
             public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {
                 rv_hotprospek.setVisibility(View.VISIBLE);
-                rv_pipeline.setVisibility(View.VISIBLE);
+                rv_capture_agunan.setVisibility(View.VISIBLE);
                 progress_menu.setVisibility(View.GONE);
                 sm_placeholder_pipeline.stopShimmer();
                 sm_placeholder_pipeline.setVisibility(View.GONE);
@@ -378,6 +391,134 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 
     }
 
+    private void loadDataCapture() {
+        rv_capture_agunan.setVisibility(View.GONE);
+        sm_placeholder_pipeline.startShimmer();
+        JsonObject obj1 = new JsonObject();
+        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
+        obj1.addProperty("FilterNoAplikasi", "NONE");
+        obj1.addProperty("FilterNoKTP", "NONE");
+        obj1.addProperty("FilterPengusul", "NONE");
+        obj1.addProperty("FilterReviewer", "NONE");
+        obj1.addProperty("FilterPemutus", "NONE");
+        obj1.addProperty("FilterAOPembiayaan", "NONE");
+        obj1.addProperty("FilterWorkFlowStatus", "Lolos IDE|Override Emas Palsu");
+        obj1.addProperty("FilterNoCif", "NONE");
+        obj1.addProperty("FilterSBGE", "NONE");
+        obj1.addProperty("FilterKodeAgunan", "NONE");
+        obj1.addProperty("FilterLDNumber", "NONE");
+        obj1.addProperty("FilterUjiKwalitasKapan", "NONE");
+        obj1.addProperty("FilterTanggalPencairan", "NONE");
+        obj1.addProperty("FilterTanggalJatuhTempo", "NONE");
+        obj1.addProperty("FilterHasilIDE", "NONE");
+        obj1.addProperty("FilterSlotPenempatan", "NONE");
+        ReqListGadai req = new ReqListGadai();
+        req.setkchannel("Mobile");
+        req.setdata(obj1);
+        Call<ParseResponseGadai> call = apiClientAdapter.getApiInterface().sendDataListApplikasi(req);
+        call.enqueue(new Callback<ParseResponseGadai>() {
+            @Override
+            public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
+                try {
+                    if(response.isSuccessful()){
+                      sm_placeholder_pipeline.setVisibility(View.GONE);
+                       rv_capture_agunan.setVisibility(View.VISIBLE);
+                        if(response.body().getStatus().equalsIgnoreCase("00")){
+                            String listDataString = response.body().getData().toString();
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<List<DataGadai>>() {}.getType();
+                            dataGadai = gson.fromJson(listDataString, type);
+                            if (dataGadai.size() > 0){
+                                ll_emptydata_pipeline.setVisibility(View.GONE);
+                                adapterListAplikasi = new CaptureAgunanFrontAdapter(getActivity(),dataGadai,true);
+                               rv_capture_agunan.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+                                rv_capture_agunan.setItemAnimator(new DefaultItemAnimator());
+                                rv_capture_agunan.setAdapter(adapterListAplikasi);
+                                ViewCompat.setNestedScrollingEnabled(rv_capture_agunan, false);
+                            }
+                            else {
+                                ll_emptydata_pipeline.setVisibility(View.VISIBLE);
+                            }
+                        }
+                        else{
+                            AppUtil.notiferror(getContext(), getActivity().findViewById(android.R.id.content), response.body().getMessage());
+                        }
+                    }
+                    else{
+                       sm_placeholder_pipeline.setVisibility(View.GONE);
+                        Error error = ParseResponseError.confirmEror(response.errorBody());
+                        AppUtil.notiferror(getContext(), getActivity().findViewById(android.R.id.content), error.getMessage());
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+            @Override
+            public void onFailure(Call<ParseResponseGadai> call, Throwable t) {
+               sm_placeholder_pipeline.setVisibility(View.GONE);
+                AppUtil.notiferror(getContext(), getActivity().findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+            }
+        });
+
+    }
+
+    public void loadDataPutusan() {
+        //  dataUser = getListUser();
+        sm_placeholder_putusan.setVisibility(View.VISIBLE);
+        ReqAplikasiGadai reqGadai=new ReqAplikasiGadai();
+        ReqChannelAplikasiGadai req = new ReqChannelAplikasiGadai();
+
+
+        //pantekan kode cabang
+        reqGadai.setFilterKodeCabang(appPreferences.getKodeKantor());
+
+        //reqGadai.setFilterKodeCabang(appPreferences.getKodeCabang());
+        reqGadai.setFilterWorkFlowStatus("Waiting Review Pemutus");
+        reqGadai.setFilterPemutus(appPreferences.getNik());
+        reqGadai.setPemutusBeradaDiTempat("Tidak");
+
+        req.setData(reqGadai);
+        Call<ParseResponseArr> call = apiClientAdapter.getApiInterface().listAplikasiGadai(req);
+        call.enqueue(new Callback<ParseResponseArr>() {
+            @Override
+            public void onResponse(Call<ParseResponseArr> call, Response<ParseResponseArr> response) {
+              sm_placeholder_putusan.setVisibility(View.GONE);
+               rv_putusan.setVisibility(View.VISIBLE);
+                if (response.isSuccessful()) {
+                    if (response.body().getStatus().equalsIgnoreCase("00")) {
+                        String listDataString = response.body().getData().toString();
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<List<DataGadai>>() {
+                        }.getType();
+
+                        dataGadai = gson.fromJson(listDataString, type);
+                        adapterListAplikasi = new CaptureAgunanFrontAdapter(getContext(), dataGadai,false);
+                        rv_putusan.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+                        rv_putusan.setItemAnimator(new DefaultItemAnimator());
+                        rv_putusan.setAdapter(adapterListAplikasi);
+
+
+                        if (dataGadai.size() == 0) {
+                          ll_emptydata_putusan.setVisibility(View.VISIBLE);
+
+                        } else {
+                         ll_emptydata_putusan.setVisibility(View.GONE);
+
+                        }
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ParseResponseArr> call, Throwable t) {
+               sm_placeholder_putusan.setVisibility(View.GONE);
+                AppUtil.notiferror(getContext(), getActivity().findViewById(android.R.id.content), "Terjadi kesalahan");
+                Log.d("LOG D", t.getMessage());
+            }
+        });
+    }
+
     public void initializeMenu(){
         rv_menu.setHasFixedSize(true);
         dataMenu = getListMenu();
@@ -408,9 +549,9 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
     public void initializePipelineHome(){
         adapaterPipeline = new PipelineHomeAdapater(getContext(), dataPipeline, this);
         layoutPipelineHome = new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL, false);
-        rv_pipeline.setLayoutManager(layoutPipelineHome);
-        rv_pipeline.setAdapter(adapaterPipeline);
-        ViewCompat.setNestedScrollingEnabled(rv_pipeline, false);
+        rv_capture_agunan.setLayoutManager(layoutPipelineHome);
+        rv_capture_agunan.setAdapter(adapaterPipeline);
+        ViewCompat.setNestedScrollingEnabled(rv_capture_agunan, false);
 
         if (dataPipeline == null){
             ll_emptydata_pipeline.setVisibility(View.VISIBLE);
@@ -597,7 +738,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 //        sm_placeholder_hotprospek.setVisibility(View.VISIBLE);
 //        sm_placeholder_pipeline.setVisibility(View.VISIBLE);
         rv_hotprospek.setVisibility(View.GONE);
-        rv_pipeline.setVisibility(View.GONE);
+        rv_capture_agunan.setVisibility(View.GONE);
         checkCollapse();
         loadProfil();
 //        loadData();
