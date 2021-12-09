@@ -25,6 +25,7 @@ public class Constants {
 		public static final String NAMA = "nama";
 		public static final String KODE_AO = "kode_ao";
 		public static final String CB_AMANAH = "cb_amanah";
+		public static final String ID_CABANG = "id_cabang";
 	}
 
 	public static class Preferences{
@@ -48,6 +49,7 @@ public class Constants {
 		public static final String UPDATE_NOTIFICATION = "update_notification";
 		public static final String NOTIFICATION_VERSION = "notification_version";
 		public static final String ID_APLIKASI = "id_aplikasi";
+		public static final String MENU_CLICK = "menu_click";
 	}
 
 }

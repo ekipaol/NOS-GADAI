@@ -19,6 +19,16 @@ public class ListOpname {
     private String KodeRequest;
     @SerializedName("Catatan")
     private String Catatan;
+    @SerializedName("namaCabang")
+    private String namaCabang;
+
+    public String getNamaCabang() {
+        return namaCabang;
+    }
+
+    public void setNamaCabang(String namaCabang) {
+        this.namaCabang = namaCabang;
+    }
 
     public String getId() {
         return Id ;

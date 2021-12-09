@@ -50,6 +50,15 @@ public class AppPreferences {
         spEditor.commit();
     }
 
+    public String getMenuClick (){
+        return AppUtil.decrypt(sharedPref.getString(Constants.Preferences.MENU_CLICK, AppUtil.encrypt("menu")));
+    }
+
+    public void setMenuClick (String data){
+        spEditor.putString(Constants.Preferences.MENU_CLICK, AppUtil.encrypt(data));
+        spEditor.commit();
+    }
+
     public String getNamaKantor (){
         return AppUtil.decrypt(sharedPref.getString(Constants.Login.NAMA_KANTOR, "nama_kantor"));
     }
@@ -69,7 +78,16 @@ public class AppPreferences {
     }
 
     public String getNamaKanwil (){
-        return AppUtil.decrypt(sharedPref.getString(Constants.Login.NAMA_KANWIL, "nama_kanwil"));
+        return AppUtil.decrypt(sharedPref.getString(Constants.Login.NAMA_KANWIL, AppUtil.encrypt("nama_kanwil")));
+    }
+
+    public void setIdCabang (String data){
+        spEditor.putString(Constants.Login.ID_CABANG, data);
+        spEditor.commit();
+    }
+
+    public String getIdCabang (){
+        return AppUtil.decrypt(sharedPref.getString(Constants.Login.ID_CABANG, AppUtil.encrypt("id_cabang")));
     }
 
     public void setKodeKanwil (String data){

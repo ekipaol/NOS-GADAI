@@ -33,7 +33,6 @@ import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.model.monitoring.AoRanking;
 import com.application.bris.ikurma_nos_gadai.model.monitoring.RataRataMonitoring;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.pipeline.KonsumerKMGPipelineActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.gson.Gson;
@@ -377,8 +376,6 @@ public class FragmentRanking extends Fragment implements View.OnClickListener{
     public void onClick(View v) {
         switch (v.getId()){
             case R.id.iv_morepipeline:
-                Intent it = new Intent(getContext(), KonsumerKMGPipelineActivity.class);
-                startActivity(it);
                 break;
             case R.id.cv_banner_top10_ao:
                 if(ll_content_top10_ao.getVisibility()==View.GONE){
@@ -445,8 +442,9 @@ public class FragmentRanking extends Fragment implements View.OnClickListener{
 
         //real data
         ReqRankingAo req = new ReqRankingAo();
-        Call<ParseResponseArr> call = apiClientAdapter.getApiInterface().getRankingAoTop(req);
+//        Call<ParseResponseArr> call = apiClientAdapter.getApiInterface().getRankingAoTop(req);
         req.setFidRole(fidRole);
+        Call<ParseResponseArr> call=null;
         call.enqueue(new Callback<ParseResponseArr>() {
             @Override
             public void onResponse(Call<ParseResponseArr> call, Response<ParseResponseArr> response) {
@@ -561,7 +559,8 @@ public class FragmentRanking extends Fragment implements View.OnClickListener{
 
         //real data
         ReqRankingAo req = new ReqRankingAo();
-        Call<ParseResponseArr> call = apiClientAdapter.getApiInterface().getRankingAoBottom(req);
+//        Call<ParseResponseArr> call = apiClientAdapter.getApiInterface().getRankingAoBottom(req);
+        Call<ParseResponseArr> call=null;
         req.setFidRole(fidRole);
         call.enqueue(new Callback<ParseResponseArr>() {
             @Override
@@ -661,7 +660,9 @@ public class FragmentRanking extends Fragment implements View.OnClickListener{
 
         //real data
 
-        Call<ParseResponse> call = apiClientAdapter.getApiInterface().getRataRata(new EmptyRequest());
+
+//        Call<ParseResponse> call = apiClientAdapter.getApiInterface().getRataRata(new EmptyRequest());
+        Call<ParseResponse> call=null;
         call.enqueue(new Callback<ParseResponse>() {
             @Override
             public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {

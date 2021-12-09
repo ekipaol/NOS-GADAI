@@ -34,7 +34,6 @@ import com.application.bris.ikurma_nos_gadai.baseapp.RouteApp;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.CustomDialog;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.ConfirmListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.hotprospek.datalengkap.DataLengkapActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.application.bris.ikurma_nos_gadai.util.Constants;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.activation.WelcomeActivity;
@@ -118,14 +117,6 @@ public class SplashScreen extends AppCompatActivity implements ConfirmListener{
 
         }
 
-        tv_version.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-                Intent intent=new Intent(SplashScreen.this, DataLengkapActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
     }
 
     private void checkAvailableUpdate() {

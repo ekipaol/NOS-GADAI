@@ -20,12 +20,15 @@ public class ListLaciAdapter extends RecyclerView.Adapter<ListLaciAdapter.MenuVi
     private Context context;
     private ItemListLaciOpnameBinding binding;
     private String b,ReffNoAktifitas;
+    private String namaCabang,kodeCabang;
 
-    public ListLaciAdapter(Context context,String brankas ,String ReffNoAktifitas, List<Integer> mdata) {
+    public ListLaciAdapter(Context context,String brankas ,String ReffNoAktifitas, List<Integer> mdata,String namaCabang,String kodeCabang) {
         this.context = context;
         this.data = mdata;
         this.b = brankas;
         this.ReffNoAktifitas = ReffNoAktifitas;
+        this.namaCabang=namaCabang;
+        this.kodeCabang=kodeCabang;
     }
 
     @NonNull
@@ -53,6 +56,9 @@ public class ListLaciAdapter extends RecyclerView.Adapter<ListLaciAdapter.MenuVi
                 intent.putExtra("ReffNoAktifitas",ReffNoAktifitas);
                 intent.putExtra("seqBrankas", b);
                 intent.putExtra("isilaci", currentPosition+1);
+                intent.putExtra("namaCabang", namaCabang);
+                intent.putExtra("kodeCabang", kodeCabang);
+
                 context.startActivity(intent);
             }
         });

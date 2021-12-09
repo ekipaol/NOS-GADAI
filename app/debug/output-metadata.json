@@ -12,7 +12,7 @@
       "filters": [],
       "properties": [],
       "versionCode": 1,
-      "versionName": "0.2.4",
+      "versionName": "0.3.0",
       "enabled": true,
       "outputFile": "app-debug.apk"
     }

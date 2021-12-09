@@ -5,7 +5,6 @@ import android.os.Build;
 import android.os.Bundle;
 import androidx.annotation.Nullable;
 
-import com.application.bris.ikurma_nos_gadai.page_aom.view.pipeline.KonsumerKMGPipelineActivity;
 import com.google.android.material.appbar.AppBarLayout;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import androidx.fragment.app.Fragment;
@@ -33,7 +32,7 @@ import butterknife.ButterKnife;
  * Created by idong on 05/28/2019.
  */
 
-public class FragmentUser extends Fragment implements View.OnClickListener{
+public class FragmentUser extends Fragment{
     private View view;
 
     @BindView(R.id.appbar)
@@ -103,13 +102,13 @@ public class FragmentUser extends Fragment implements View.OnClickListener{
 
 
     private void setData() {
-        String urlPhoto = UriApi.Baseurl.URL+UriApi.foto.urlPhotoProfil+appPreferences.getNik();
-        Glide
-                .with(getContext())
-                .load(urlPhoto)
-                .centerCrop()
-                .placeholder(R.drawable.banner_placeholder)
-                .into(iv_profile);
+//        String urlPhoto = UriApi.Baseurl.URL+UriApi.foto.urlPhotoProfil+appPreferences.getNik();
+//        Glide
+//                .with(getContext())
+//                .load(urlPhoto)
+//                .centerCrop()
+//                .placeholder(R.drawable.banner_placeholder)
+//                .into(iv_profile);
 
         tv_nama.setText(appPreferences.getNama());
         tv_nik_kodeao.setText(appPreferences.getJabatan()+", "+appPreferences.getNamaKantor());
@@ -117,13 +116,6 @@ public class FragmentUser extends Fragment implements View.OnClickListener{
         tv_kantor.setText(appPreferences.getKodeAo());
     }
 
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.iv_morepipeline:
-                Intent it = new Intent(getContext(), KonsumerKMGPipelineActivity.class);
-                startActivity(it);
-                break;
-        }
-    }
+
+
 }

@@ -12,7 +12,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.application.bris.ikurma_nos_gadai.R;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.hotprospek.data_finansial.DataFinansialKmgActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
@@ -54,15 +53,6 @@ public class FragmentWelcome extends Fragment implements Step{
         tv_welcome_title.setText("Simple dan Mudah");
         tv_welcome_desc.setText("Ayo input pembiayaanmu disini");
 
-        iv_welcome.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View v) {
-//                Intent intent=new Intent(getActivity(), DataLengkapActivity.class); //data lengkap
-                Intent intent=new Intent(getActivity(), DataFinansialKmgActivity.class);
-                startActivity(intent);
-                return true;
-            }
-        });
         return view;
     }
 

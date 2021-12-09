@@ -10,6 +10,16 @@ public class ListBrankas {
     private String IdBrankas;
     @SerializedName("IsiLaci")
     private JsonArray IsiLaci;
+    @SerializedName("namaCabang")
+    private String namaCabang;
+
+    public String getNamaCabang() {
+        return namaCabang;
+    }
+
+    public void setNamaCabang(String namaCabang) {
+        this.namaCabang = namaCabang;
+    }
 
     public String getCabang() {
         return Cabang ;

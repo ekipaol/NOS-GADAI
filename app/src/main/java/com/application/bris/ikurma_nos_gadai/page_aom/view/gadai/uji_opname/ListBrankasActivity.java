@@ -43,6 +43,8 @@ public class ListBrankasActivity extends AppCompatActivity implements SwipeRefre
     private List<ListBrankas> dataBrankas =new ArrayList<>();
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
+    private String namaCabang,kodeCabang;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,7 +60,16 @@ public class ListBrankasActivity extends AppCompatActivity implements SwipeRefre
 
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
-        binding.tvCabang.setText("Kode Cabang : "+ appPreferences.getNamaKantor());
+        namaCabang=appPreferences.getNamaKantor();
+        kodeCabang=appPreferences.getKodeCabang();
+
+        if(getIntent().hasExtra("kodeCabang")){
+            kodeCabang=getIntent().getStringExtra("kodeCabang");
+        }
+        if(getIntent().hasExtra("namaCabang")){
+            namaCabang=getIntent().getStringExtra("namaCabang");
+        }
+        binding.tvCabang.setText("Nama Cabang : "+ namaCabang);
         try {
             setData();
         } catch (JSONException e) {
@@ -70,7 +81,7 @@ public class ListBrankasActivity extends AppCompatActivity implements SwipeRefre
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
+        obj1.addProperty("kodeCabang", kodeCabang);
 //        obj1.addProperty("kodeCabang", "ID001211");
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
@@ -87,9 +98,14 @@ public class ListBrankasActivity extends AppCompatActivity implements SwipeRefre
                             Gson gson = new Gson();
                             Type type = new TypeToken<List<ListBrankas>>() {}.getType();
                             dataBrankas = gson.fromJson(listDataString, type);
+
+
                             if (dataBrankas.size() > 0){
+                                for (int i = 0; i <dataBrankas.size() ; i++) {
+                                    dataBrankas.get(i).setNamaCabang(namaCabang);
+                                }
                                 binding.llEmptydata.setVisibility(View.GONE);
-                                listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListBrankasAdapter(ListBrankasActivity.this,getIntent().getStringExtra("ReffNoAktifitas"),dataBrankas,getIntent().getStringExtra("kodeCabang"));
+                                listBrankasAdapter = new ListBrankasAdapter(ListBrankasActivity.this,getIntent().getStringExtra("ReffNoAktifitas"),dataBrankas,kodeCabang);
                                 binding.rvListBerangkas.setLayoutManager(new LinearLayoutManager(ListBrankasActivity.this));
                                 binding.rvListBerangkas.setItemAnimator(new DefaultItemAnimator());
                                 binding.rvListBerangkas.setAdapter(listBrankasAdapter);
@@ -128,7 +144,7 @@ public class ListBrankasActivity extends AppCompatActivity implements SwipeRefre
     public void initialize(){
         binding.rvListBerangkas.setVisibility(View.VISIBLE);
         binding.rvListBerangkas.setHasFixedSize(true);
-        listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListBrankasAdapter(this,getIntent().getStringExtra("ReffNoAktifitas"), dataBrankas,getIntent().getStringExtra("kodeCabang"));
+        listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListBrankasAdapter(this,getIntent().getStringExtra("ReffNoAktifitas"), dataBrankas,kodeCabang);
         binding.rvListBerangkas.setLayoutManager(new LinearLayoutManager(this));
         binding.rvListBerangkas.setItemAnimator(new DefaultItemAnimator());
         binding.rvListBerangkas.setAdapter(listBrankasAdapter);

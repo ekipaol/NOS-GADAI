@@ -17,6 +17,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponse;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
@@ -24,8 +25,9 @@ import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityUjiAcakListBinding;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListUjiAcakBinding;
+import com.application.bris.ikurma_nos_gadai.model.login_bsi.DataLoginBranch;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiAcak;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ListUjiKualitas;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -48,9 +50,12 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
     ActivityUjiAcakListBinding binding;
     ItemListUjiAcakBinding bindingNamaField;
 
+
     private SearchView searchView;
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
+    private String idCabang="0";
+    private String kodeCabang;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,27 +67,41 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
         //pantekan status untuk testing
         customToolbar();
         backgroundStatusBar();
+        apiClientAdapter = new ApiClientAdapter(this);
+        appPreferences = new AppPreferences(this);
+
+        kodeCabang=appPreferences.getKodeCabang();
+        idCabang=getIntent().getStringExtra("idCabang");
+
+        if(getIntent().hasExtra("kodeCabang")){
+            kodeCabang=getIntent().getStringExtra("kodeCabang");
+        }
 
         //initialize status
         initialize();
         onClicks();
         setclickable();
-        apiClientAdapter = new ApiClientAdapter(this);
-        appPreferences = new AppPreferences(this);
+
         try {
-            setData();
+            if(AppUtil.checkIsReviewer(appPreferences.getFidRole())){
+                loadDetailBranch();
+            }
+            else{
+                loadData();
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
         initialize();
     }
 
-    private void setData() throws JSONException {
+    private void loadData() throws JSONException {
         binding.rvListUjiAcak.setVisibility(View.GONE);
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
 //        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
-        obj1.addProperty("FilterKodeCabang", "NONE");
+        obj1.addProperty("FilterKodeCabang", kodeCabang);
         obj1.addProperty("FilterNoAplikasi", "NONE");
         obj1.addProperty("FilterNoKTP", "NONE");
         obj1.addProperty("FilterPengusul", "NONE");
@@ -144,6 +163,47 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
 
             @Override
             public void onFailure(Call<ParseResponseGadai> call, Throwable t) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
+                AppUtil.notiferror(ListUjiAcak.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+            }
+        });
+
+    }
+
+    private void loadDetailBranch() throws JSONException {
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+        Call<ParseResponse> call = apiClientAdapter.getApiInterface().getDetailBranch(idCabang);
+        call.enqueue(new Callback<ParseResponse>() {
+            @Override
+            public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {
+                try {
+                    if(response.isSuccessful()){
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        if(response.body().getStatus().equalsIgnoreCase("00")){
+                            String listDataString = response.body().getData().toString();
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<DataLoginBranch>() {}.getType();
+                            DataLoginBranch dataDetailBranch = gson.fromJson(listDataString, type);
+                            kodeCabang=dataDetailBranch.getBranch_code();
+                            loadData();
+                        }
+                        else{
+                            AppUtil.notiferror(ListUjiAcak.this, findViewById(android.R.id.content), response.body().getMessage());
+                        }
+                    }
+                    else{
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        Error error = ParseResponseError.confirmEror(response.errorBody());
+                        AppUtil.notiferror(ListUjiAcak.this, findViewById(android.R.id.content), error.getMessage());
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ParseResponse> call, Throwable t) {
                 binding.loading.progressbarLoading.setVisibility(View.GONE);
                 AppUtil.notiferror(ListUjiAcak.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
@@ -255,14 +315,14 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
         binding.refresh.setRefreshing(false);
         binding.rvListUjiAcak.setVisibility(View.VISIBLE);
         try {
-            setData();
+            loadData();
         } catch (JSONException e) {
             e.printStackTrace();
         }
     }
 
     public void refreshData() throws JSONException {
-        setData();
+        loadData();
     }
 
 

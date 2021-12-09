@@ -35,6 +35,13 @@ public class Menu {
         menu.add(new ListViewMenu(R.drawable.ic_logout_front, "Logout", 0,0,0, 0));
     }
 
+
+    public static void mainMenuPemutusArea(Context context, List<ListViewMenu> menu) {
+        menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_putusan), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_hotprospek, context.getString(R.string.menu_uji_kualitas), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ic_logout_front, "Logout", 0,0,0, 0));
+    }
+
     public static void mainMenuAll(Context context, List<ListViewMenu> menu) {
         menu.add(new ListViewMenu(R.drawable.ico_pipeline, context.getString(R.string.menu_capture_agunan), 0, 0, 0, 0));
         menu.add(new ListViewMenu(R.drawable.ico_appraisal, context.getString(R.string.menu_penjualan), 0, 0, 0, 0));

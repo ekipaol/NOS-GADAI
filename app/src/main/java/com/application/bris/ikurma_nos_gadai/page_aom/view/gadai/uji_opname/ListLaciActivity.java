@@ -27,6 +27,7 @@ public class ListLaciActivity extends AppCompatActivity implements SwipeRefreshL
     private List<Integer> dataBrankas =new ArrayList<>();
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
+    private String namaCabang,kodeCabang;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +42,17 @@ public class ListLaciActivity extends AppCompatActivity implements SwipeRefreshL
         //initialize List
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
-        binding.tvCabang.setText("Kode Cabang : "+ appPreferences.getNamaKantor());
+        namaCabang= appPreferences.getNamaKantor();
+        kodeCabang=appPreferences.getKodeCabang();
+
+        if(getIntent().hasExtra("kodeCabang")){
+            kodeCabang=getIntent().getStringExtra("kodeCabang");
+        }
+        if(getIntent().hasExtra("namaCabang")){
+            namaCabang=getIntent().getStringExtra("namaCabang");
+        }
+
+        binding.tvCabang.setText("Kode Cabang : "+ namaCabang);
         addData();
         initialize();
     }
@@ -59,7 +70,7 @@ public class ListLaciActivity extends AppCompatActivity implements SwipeRefreshL
     public void initialize(){
         binding.rvListBerangkas.setVisibility(View.VISIBLE);
         binding.rvListBerangkas.setHasFixedSize(true);
-        listBrankasAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListLaciAdapter(this,getIntent().getStringExtra("seqBrankas"),getIntent().getStringExtra("ReffNoAktifitas"), dataBrankas);
+        listBrankasAdapter = new ListLaciAdapter(this,getIntent().getStringExtra("seqBrankas"),getIntent().getStringExtra("ReffNoAktifitas"), dataBrankas,namaCabang,kodeCabang);
         binding.rvListBerangkas.setLayoutManager(new LinearLayoutManager(this));
         binding.rvListBerangkas.setItemAnimator(new DefaultItemAnimator());
         binding.rvListBerangkas.setAdapter(listBrankasAdapter);

@@ -18,12 +18,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponse;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListUjiOpnameBinding;
+import com.application.bris.ikurma_nos_gadai.model.login_bsi.DataLoginBranch;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.ListOpname;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
@@ -49,6 +51,10 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements SwipeRef
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
     private SearchView searchView;
+    private String idCabang="0";
+    private String kodeCabang="0";
+    private  DataLoginBranch dataDetailBranch;
+    private String namaCabang;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,9 +70,23 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements SwipeRef
         //initialize List
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
-        binding.tvCabang.setText("Kode Cabang : "+ appPreferences.getNamaKantor());
+
+        if(getIntent().hasExtra("idCabang")){
+            idCabang=getIntent().getStringExtra("idCabang");
+        }
+        kodeCabang=appPreferences.getKodeCabang();
+        namaCabang=appPreferences.getNamaKantor();
+
+        binding.tvCabang.setText("Nama Cabang : "+ namaCabang);
+
         try {
-            setData();
+            if(appPreferences.getFidRole()==132){
+                loadDetailBranch();
+            }
+            else{
+                loadData();
+            }
+
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -126,11 +146,54 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements SwipeRef
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private void loadDetailBranch() throws JSONException {
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+        Call<ParseResponse> call = apiClientAdapter.getApiInterface().getDetailBranch(idCabang);
+        call.enqueue(new Callback<ParseResponse>() {
+            @Override
+            public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {
+                try {
+                    if(response.isSuccessful()){
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        if(response.body().getStatus().equalsIgnoreCase("00")){
+                            String listDataString = response.body().getData().toString();
+                            Gson gson = new Gson();
+                            Type type = new TypeToken<DataLoginBranch>() {}.getType();
+                             dataDetailBranch = gson.fromJson(listDataString, type);
+                             kodeCabang=dataDetailBranch.getBranch_code();
+                             binding.tvCabang.setText("Nama Cabang : "+dataDetailBranch.getBranch_name());
+                             namaCabang=dataDetailBranch.getBranch_name();
+                          loadData();
+                        }
+                        else{
+                            AppUtil.notiferror(ListUjiOpnameActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                        }
+                    }
+                    else{
+                        binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        Error error = ParseResponseError.confirmEror(response.errorBody());
+                        AppUtil.notiferror(ListUjiOpnameActivity.this, findViewById(android.R.id.content), error.getMessage());
+                    }
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ParseResponse> call, Throwable t) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
+                AppUtil.notiferror(ListUjiOpnameActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+            }
+        });
+
+    }
     
-    private void setData() throws JSONException {
+    private void loadData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
+        obj1.addProperty("FilterKodeCabang", kodeCabang);
 //        obj1.addProperty("FilterKodeCabang", "ID001211");
         obj1.addProperty("FilterKodeAgunan", "NONE");
         obj1.addProperty("FilterIdRequest", "NONE");
@@ -139,7 +202,7 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements SwipeRef
         obj1.addProperty("FilterPemutus", "NONE");
         obj1.addProperty("FilterReasonAksesBrankas", "Uji Stock Opname");
         obj1.addProperty("FilterConfValidasiPengembalian", "NONE");
-        obj1.addProperty("FilterStatus", "APROVE");
+        obj1.addProperty("FilterStatus", "APPROVE");
         obj1.addProperty("TanggalAksesBrankas", "NONE");
         ReqListGadai req = new ReqListGadai();
         req.setkchannel("Mobile");
@@ -156,7 +219,12 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements SwipeRef
                             Gson gson = new Gson();
                             Type type = new TypeToken<List<ListOpname>>() {}.getType();
                             dataAgunan = gson.fromJson(listDataString, type);
+
+
                             if (dataAgunan.size() > 0){
+                                for (int i = 0; i <dataAgunan.size() ; i++) {
+                                    dataAgunan.get(i).setNamaCabang(namaCabang);
+                                }
                                 binding.llEmptydata.setVisibility(View.GONE);
                                 ListUjiOpnameAdapter = new com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameAdapter(ListUjiOpnameActivity.this,dataAgunan);
                                 binding.rvListOpname.setLayoutManager(new LinearLayoutManager(ListUjiOpnameActivity.this));

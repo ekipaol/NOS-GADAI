@@ -164,7 +164,8 @@ public class FeedbackActivity extends AppCompatActivity {
         req.setKANTOR(appPreferences.getNamaKantor());
         req.setFID_UID(appPreferences.getUid());
         req.setCATATAN(et_catatan_feedback.getText().toString());
-        Call<ParseResponse> call = apiClientAdapter.getApiInterface().simpanFeedback(req);
+//        Call<ParseResponse> call = apiClientAdapter.getApiInterface().simpanFeedback(req);
+        Call<ParseResponse> call=null;
         call.enqueue(new Callback<ParseResponse>() {
             @Override
             public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {

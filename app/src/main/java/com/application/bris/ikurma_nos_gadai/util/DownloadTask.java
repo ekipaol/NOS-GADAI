@@ -20,7 +20,6 @@ import androidx.core.content.FileProvider;
 
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.CustomDialog;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.ConfirmListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.hotprospek.prescreening.PrescreeningActivity;
 
 import java.io.BufferedInputStream;
 import java.io.File;
@@ -51,10 +50,8 @@ public class DownloadTask{
     public void hideLoading(){
         switch (sourceFrom){
             case "hotprospek":
-                ((PrescreeningActivity)context).loading.setVisibility(View.GONE);
                 break;
             case "approved":
-                ((PrescreeningActivity)context).loading.setVisibility(View.GONE);
                 break;
             default:
                 break;

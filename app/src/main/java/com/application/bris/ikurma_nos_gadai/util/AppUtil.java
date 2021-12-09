@@ -340,13 +340,19 @@ public class AppUtil {
 
         switch (fidRole){
             case 76:
-            case 130:
-            case 131:
                 return true;
             default:
                 return false;
+        }
+    }
 
-
+    public static boolean checkIsPemutusArea(int fidRole){
+        switch (fidRole){
+            case 131:
+            case 130:
+                return true;
+            default:
+                return false;
         }
     }
 
@@ -665,10 +671,10 @@ public class AppUtil {
                 .diskCacheStrategy(DiskCacheStrategy.ALL)
                 .priority(Priority.HIGH);
 
-        Glide.with(context)
-                .load(UriApi.Baseurl.URL + UriApi.foto.urlPhotoProfil+idFoto)
-                .apply(options)
-                .into(imageView);
+//        Glide.with(context)
+//                .load(UriApi.Baseurl.URL + UriApi.foto.urlPhotoProfil+idFoto)
+//                .apply(options)
+//                .into(imageView);
     }
 
     public static Bitmap getResizedBitmap(Bitmap image, int maxSize) {

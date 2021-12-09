@@ -8,11 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 
 import com.application.bris.ikurma_nos_gadai.R;
-import com.application.bris.ikurma_nos_gadai.databinding.ActivityDetailSerahTerimaBinding;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityMenuPenjualanGadaiBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.flpp.FollowUpFlppActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.flpp.InputUlangFlppActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.flpp.KonfirmasiFlppActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan.HasilPenjualanActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.serah_terima.ListSerahTerimaActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;

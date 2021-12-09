@@ -57,6 +57,7 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
     private AppPreferences appPreferences;
     private SearchView searchView;
     List<MGenericModel> dataLaci = new ArrayList<>();
+    private String kodeCabang,namaCabang;
 
 
     @Override
@@ -77,6 +78,15 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
         setDropdownData();
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
+        kodeCabang=appPreferences.getKodeCabang();
+        namaCabang=appPreferences.getNamaKantor();
+
+        if(getIntent().hasExtra("kodeCabang")){
+            kodeCabang=getIntent().getStringExtra("kodeCabang");
+        }
+        if(getIntent().hasExtra("namaCabang")){
+            namaCabang=getIntent().getStringExtra("namaCabang");
+        }
 
         setData();
 //            initData();
@@ -179,7 +189,7 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
     private void setData() {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
-        obj1.addProperty("KodeCabang", appPreferences.getKodeCabang());
+        obj1.addProperty("KodeCabang", kodeCabang);
         obj1.addProperty("ReffNoAktifitas", getIntent().getStringExtra("ReffNoAktifitas"));
         obj1.addProperty("seqBrankas", getIntent().getStringExtra("seqBrankas"));
         obj1.addProperty("seqLaci", String.valueOf(getIntent().getIntExtra("isilaci", 0)));

@@ -43,6 +43,7 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
     private ActivityListUjiOpnameBinding binding2;
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
+    private String namaCabang;
     public ListUjiOpnameAdapter(Context context, List<ListOpname> mdata) {
         this.context = context;
         this.data = mdata;
@@ -59,6 +60,7 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
         View view = binding.getRoot();
         apiClientAdapter = new ApiClientAdapter(context);
         appPreferences = new AppPreferences(context);
+        namaCabang=appPreferences.getNamaKantor();
         return new ListUjiOpnameAdapter.MenuViewHolder(view);
     }
 
@@ -120,6 +122,8 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
                         if (holder.btnCapture.getText().toString().equalsIgnoreCase("MULAI")) {
                             Intent intent = new Intent(context, ListBrankasActivity.class);
                             intent.putExtra("ReffNoAktifitas", data.get(currentPosition).getKodeRequest());
+                            intent.putExtra("kodeCabang", data.get(currentPosition).getKodeCabang());
+                            intent.putExtra("namaCabang", data.get(currentPosition).getNamaCabang());
                             context.startActivity(intent);
                             holder.btnCapture.setText("SELESAI");
                         } else {
