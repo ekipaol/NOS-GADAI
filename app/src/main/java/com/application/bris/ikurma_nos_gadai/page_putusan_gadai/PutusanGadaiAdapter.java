@@ -49,7 +49,7 @@ public class PutusanGadaiAdapter extends RecyclerView.Adapter<PutusanGadaiAdapte
         holder.tvNamaGadai.setText(datas.getNamaSesuaiKTP());
         holder.tvNoPermohonan.setText(datas.getNoAplikasi());
         holder.tvTanggalJam.setText(datas.getTanggalCair());
-        holder.tvNominal.setText(AppUtil.parseRupiahTitik(datas.getTotalTaksiran()));
+        holder.tvNominal.setText(AppUtil.parseRupiahTitik(datas.getPinjamanGadaiDiambil()));
 
         holder.btnDetail.setOnClickListener(new View.OnClickListener() {
             @Override

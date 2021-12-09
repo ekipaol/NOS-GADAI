@@ -125,7 +125,11 @@ public class HasilPenjualanActivity extends AppCompatActivity implements SwipeRe
                             } else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
                             }
-                        } else {
+                        }
+                        else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                            binding.llEmptydata.setVisibility(View.VISIBLE);
+                        }
+                        else {
                             AppUtil.notiferror(HasilPenjualanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     } else {

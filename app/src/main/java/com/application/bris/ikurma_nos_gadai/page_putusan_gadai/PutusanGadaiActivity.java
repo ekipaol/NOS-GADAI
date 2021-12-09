@@ -170,6 +170,9 @@ public class PutusanGadaiActivity extends AppCompatActivity implements SwipeRefr
 
                         }
                     }
+                    else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                        binding.llEmptydata.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 

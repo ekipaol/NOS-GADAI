@@ -326,34 +326,22 @@ public class AppUtil {
 //        PAWNING_CS = 139;
 //       PAWNING_SALES_OFFICER = 140;
 //        PAWNING_SUPERVISOR = 141;
-//        BACK_OFFICE = 142;
         switch (fidRole){
             case 137:
             case 138:
             case 139:
-            case 140:
-            case 141:
-            case 142:
                 return true;
             default:
                 return false;
-
-
         }
     }
 
     public static boolean checkIsPemutus(int fidRole){
 
-//     PAWNING_APRAISAL = 137;
-//        PAWNING_TELLER = 138;
-//        PAWNING_CS = 139;
-//       PAWNING_SALES_OFFICER = 140;
-//        PAWNING_SUPERVISOR = 141;
-//        BACK_OFFICE = 142;
         switch (fidRole){
             case 76:
-            case 170:
-            case 171:
+            case 130:
+            case 131:
                 return true;
             default:
                 return false;
@@ -361,6 +349,43 @@ public class AppUtil {
 
         }
     }
+
+    public static boolean checkIsPengusulDanPemutus(int fidRole){
+
+//       PAWNING_SALES_OFFICER = 140;
+//        PAWNING_SUPERVISOR = 141;
+        switch (fidRole){
+            case 140:
+            case 141:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static boolean checkIsReviewer(int fidRole){
+
+//       Region Business Control = 132;
+        switch (fidRole){
+            case 132:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    public static boolean checkIsBos(int fidRole){
+
+//       Region Business Control = 132;
+        switch (fidRole){
+            case 26:
+                return true;
+            default:
+                return false;
+        }
+    }
+
+
 
     public static String parseRupiahNoSymbolWithTitik(String amount){
         Double amountDouble = Double.valueOf(amount);

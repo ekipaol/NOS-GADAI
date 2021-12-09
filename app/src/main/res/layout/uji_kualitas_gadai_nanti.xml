@@ -160,16 +160,6 @@
 
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/muli_b"
-                    android:paddingLeft="10dp"
-                    android:text="Foto Agunan Tersegel"
-                    android:textAlignment="center"
-                    android:textSize="16sp" />
-
                 <!--Upload Foto Agunan Tersegel-->
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -216,6 +206,21 @@
 
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:text="Foto Agunan Tersegel"
+                        android:textAlignment="center"
+                        android:layout_gravity="center"/>
+
                 </LinearLayout>
 
                 <RelativeLayout

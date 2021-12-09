@@ -188,6 +188,9 @@ public class ListSerahTerimaActivity extends AppCompatActivity implements SwipeR
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
                             }
                         }
+                        else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                            binding.llEmptydata.setVisibility(View.VISIBLE);
+                        }
                         else{
                             AppUtil.notiferror(ListSerahTerimaActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }

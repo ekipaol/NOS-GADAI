@@ -19,12 +19,8 @@ public class Menu {
 
     /*************************** Main Menu AO***************************/
     public static void mainMenuAO(Context context, List<ListViewMenu> menu) {
-        menu.add(new ListViewMenu(R.drawable.ic_followup_flpp, context.getString(R.string.menu_ide), 0, 0, 0, 0));
+//        menu.add(new ListViewMenu(R.drawable.ic_followup_flpp, context.getString(R.string.menu_ide), 0, 0, 0, 0));
         menu.add(new ListViewMenu(R.drawable.ico_pipeline, context.getString(R.string.menu_capture_agunan), 0, 0, 0, 0));
-        menu.add(new ListViewMenu(R.drawable.ico_hotprospek, context.getString(R.string.menu_uji_kualitas), 0, 0, 0, 0));
-        menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_uji_acak), 0, 0, 0, 0));
-        menu.add(new ListViewMenu(R.drawable.ico_rejected, context.getString(R.string.menu_opname), 0,0,0, 0));
-
         menu.add(new ListViewMenu(R.drawable.ico_appraisal, context.getString(R.string.menu_penjualan), 0, 0, 0, 0));
 //        menu.add(new ListViewMenu(R.drawable.ic_generalusericon, "Monitoring", 0, 0, 0, 0));
 //        menu.add(new ListViewMenu(R.drawable.ic_feedback, "Feedback", 0,0,0, 0));
@@ -33,14 +29,35 @@ public class Menu {
 
     public static void mainMenuPemutus(Context context, List<ListViewMenu> menu) {
         menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_putusan), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_hotprospek, context.getString(R.string.menu_uji_kualitas), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_uji_acak), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_rejected, context.getString(R.string.menu_opname), 0,0,0, 0));
         menu.add(new ListViewMenu(R.drawable.ic_logout_front, "Logout", 0,0,0, 0));
     }
 
-    public static void mainMenuAONpf(Context context, List<ListViewMenu> menu) {
-        menu.add(new ListViewMenu(R.drawable.ic_generalusericon, "Monitoring", 0, 0, 0, 0));
-        menu.add(new ListViewMenu(R.drawable.ic_feedback, "Feedback", 0,0,0, 0));
+    public static void mainMenuAll(Context context, List<ListViewMenu> menu) {
+        menu.add(new ListViewMenu(R.drawable.ico_pipeline, context.getString(R.string.menu_capture_agunan), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_appraisal, context.getString(R.string.menu_penjualan), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_putusan), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_hotprospek, context.getString(R.string.menu_uji_kualitas), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_uji_acak), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_rejected, context.getString(R.string.menu_opname), 0,0,0, 0));
         menu.add(new ListViewMenu(R.drawable.ic_logout_front, "Logout", 0,0,0, 0));
     }
+
+    public static void mainMenuReview(Context context, List<ListViewMenu> menu) {
+        menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_uji_acak), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_rejected, context.getString(R.string.menu_opname), 0,0,0, 0));
+        menu.add(new ListViewMenu(R.drawable.ic_logout_front, "Logout", 0,0,0, 0));
+    }
+
+    public static void mainMenuBos(Context context, List<ListViewMenu> menu) {
+        menu.add(new ListViewMenu(R.drawable.ico_hotprospek, context.getString(R.string.menu_uji_kualitas), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_uji_acak), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_rejected, context.getString(R.string.menu_opname), 0,0,0, 0));
+        menu.add(new ListViewMenu(R.drawable.ic_logout_front, "Logout", 0,0,0, 0));
+    }
+
 
     /************************** Sub Menu Hotprospek ********************/
     //prapen nos

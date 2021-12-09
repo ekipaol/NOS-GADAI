@@ -132,7 +132,11 @@ public class ListUjiKualitas extends AppCompatActivity implements SwipeRefreshLa
                             } else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
                             }
-                        } else {
+                        }
+                        else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                            binding.llEmptydata.setVisibility(View.VISIBLE);
+                        }
+                        else {
                             AppUtil.notiferror(ListUjiKualitas.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     } else {

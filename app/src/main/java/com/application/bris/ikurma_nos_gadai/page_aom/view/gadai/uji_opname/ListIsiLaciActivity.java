@@ -208,7 +208,11 @@ public class ListIsiLaciActivity extends AppCompatActivity implements SwipeRefre
                             } else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
                             }
-                        } else {
+                        }
+                        else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                            binding.llEmptydata.setVisibility(View.VISIBLE);
+                        }
+                        else {
                             AppUtil.notiferror(ListIsiLaciActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     } else {

@@ -191,6 +191,14 @@ public class DetailPutusanGadaiActivity extends AppCompatActivity implements Vie
                         }.getType();
 
                         dataFotoGadai = gson.fromJson(listDataString, type);
+
+
+//                        for (int i = 0; i <dataFotoGadai.getListFoto().size() ; i++) {
+//                            if(dataFotoGadai.getListFoto().get(i).getImage()==null||dataFotoGadai.getListFoto().get(i).getImage().isEmpty()){
+//                                dataFotoGadai.getListFoto().remove(i);
+//                            }
+//                        }
+
                         AdapterFotoAgunan = new FotoAgunanAdapter(DetailPutusanGadaiActivity.this, dataFotoGadai.getListFoto());
                         binding.rvListFoto.setLayoutManager(new LinearLayoutManager(DetailPutusanGadaiActivity.this));
                         binding.rvListFoto.setItemAnimator(new DefaultItemAnimator());
@@ -208,7 +216,7 @@ public class DetailPutusanGadaiActivity extends AppCompatActivity implements Vie
             public void onFailure(Call<ParseResponseArr> call, Throwable t) {
                 binding.loading.progressbarLoading.setVisibility(View.GONE);
                 AppUtil.notiferror(DetailPutusanGadaiActivity.this, findViewById(android.R.id.content), "Terjadi kesalahan");
-                Log.d("LOG D", t.getMessage());
+               t.printStackTrace();
             }
         });
     }
@@ -375,7 +383,7 @@ public class DetailPutusanGadaiActivity extends AppCompatActivity implements Vie
 
                     dialogConfirm= new SweetAlertDialog(DetailPutusanGadaiActivity.this, SweetAlertDialog.NORMAL_TYPE);
                     dialogConfirm.setTitleText("Konfirmasi")
-                            .setContentText("Dengan menekan tombol approve maka : \n1. Anda telah melakukan pemutusan fasilitas pembiayaan gadai emas diatas sesuai limit kewenangan memutus pembiayaan (LWWP) yang ada miliki.\n2. Sistem akan melakukan proses pencairan gadai ke rekening nasabah secara otomatis.\n\n")
+                            .setContentText("Dengan menekan tombol approve maka : \n1. Anda telah melakukan pemutusan fasilitas pembiayaan gadai emas diatas sesuai limit kewenangan memutus pembiayaan (LWWP) yang ada miliki.\n\n")
                             .setConfirmText("Ya")
                             .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                                 @Override

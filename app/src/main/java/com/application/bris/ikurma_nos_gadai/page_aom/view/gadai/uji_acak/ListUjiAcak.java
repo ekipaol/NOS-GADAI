@@ -125,7 +125,11 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
                             } else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
                             }
-                        } else {
+                        }
+                        else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                            binding.llEmptydata.setVisibility(View.VISIBLE);
+                        }
+                        else {
                             AppUtil.notiferror(ListUjiAcak.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     } else {

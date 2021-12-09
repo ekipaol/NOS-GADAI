@@ -209,10 +209,18 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
             ll_pipeline.setVisibility(View.VISIBLE);
             loadDataCapture();
         }
-        else{
+        else if(AppUtil.checkIsPemutus(appPreferences.getFidRole())){
+
+        }
+        else if(AppUtil.checkIsPengusulDanPemutus(appPreferences.getFidRole())){
             ll_putusan.setVisibility(View.VISIBLE);
-            ll_pipeline.setVisibility(View.GONE);
+            ll_pipeline.setVisibility(View.VISIBLE);
+            loadDataCapture();
             loadDataPutusan();
+        }
+        else{
+            ll_putusan.setVisibility(View.GONE);
+            ll_pipeline.setVisibility(View.GONE);
         }
 
         loadProfil();
@@ -441,6 +449,9 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
                                 ll_emptydata_pipeline.setVisibility(View.VISIBLE);
                             }
                         }
+                        else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                            ll_emptydata_pipeline.setVisibility(View.VISIBLE);
+                        }
                         else{
                             AppUtil.notiferror(getContext(), getActivity().findViewById(android.R.id.content), response.body().getMessage());
                         }
@@ -508,6 +519,9 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 
                         }
                     }
+                    else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                        ll_emptydata_putusan.setVisibility(View.VISIBLE);
+                    }
                 }
             }
 
@@ -532,17 +546,23 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private List<ListViewMenu> getListMenu() {
         List<ListViewMenu> menu = new ArrayList<>();
-
-        //kalau ao NPF, hanya bisa akses menu untuk monitoring saja
-//        Log.d("logfidrole",String.valueOf(appPreferences.getFidRole()));
         if(AppUtil.checkIsPemutus(appPreferences.getFidRole())){
             Menu.mainMenuPemutus(getContext(), menu);
         }
         else if(AppUtil.checkIsPengusul(appPreferences.getFidRole())){
             Menu.mainMenuAO(getContext(), menu);
         }
+        else if(AppUtil.checkIsPengusulDanPemutus(appPreferences.getFidRole())){
+            Menu.mainMenuAll(getContext(), menu);
+        }
+        else if(AppUtil.checkIsReviewer(appPreferences.getFidRole())){
+            Menu.mainMenuReview(getContext(), menu);
+        }
+        else if(AppUtil.checkIsBos(appPreferences.getFidRole())){
+            Menu.mainMenuBos(getContext(), menu);
+        }
         else{
-            Menu.mainMenuAO(getContext(), menu);
+            Menu.mainMenuAll(getContext(), menu);
         }
         return menu;
     }

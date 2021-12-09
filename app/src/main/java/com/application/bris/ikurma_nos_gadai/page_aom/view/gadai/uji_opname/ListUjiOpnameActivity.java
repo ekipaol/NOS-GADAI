@@ -167,6 +167,9 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements SwipeRef
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
                             }
                         }
+                        else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                            binding.llEmptydata.setVisibility(View.VISIBLE);
+                        }
                         else{
                             AppUtil.notiferror(ListUjiOpnameActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
