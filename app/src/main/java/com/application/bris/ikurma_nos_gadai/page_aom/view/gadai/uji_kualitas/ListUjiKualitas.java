@@ -100,7 +100,7 @@ public class ListUjiKualitas extends AppCompatActivity implements SwipeRefreshLa
         obj1.addProperty("FilterNoCif", "NONE");
         obj1.addProperty("FilterSBGE", "NONE");
         obj1.addProperty("FilterKodeAgunan", "NONE");
-        obj1.addProperty("FilterLDNumber", "NONE");
+        obj1.addProperty("FilterLDNumber", "GADAIAKTIF");
         obj1.addProperty("FilterUjiKwalitasKapan", "NONE");
         obj1.addProperty("FilterTanggalPencairan", "NONE");
         obj1.addProperty("FilterTanggalJatuhTempo", "NONE");

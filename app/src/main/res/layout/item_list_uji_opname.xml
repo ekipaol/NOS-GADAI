@@ -26,6 +26,32 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:text="Kode Request"
+                android:layout_weight="1"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_kode_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="{kode}"
+                android:textSize="13sp"
+                android:textColor="@color/colorBlackHeader"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="12dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text="Tanggal Opname"
                 android:layout_weight="1"
                 android:textSize="12sp"/>
@@ -35,6 +61,57 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="{Tanggal Opname}"
+                android:textSize="13sp"
+                android:textColor="@color/colorBlackHeader"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="12dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Inputter"
+                android:layout_weight="1"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_inputter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="{inputter}"
+                android:textSize="13sp"
+                android:textColor="@color/colorBlackHeader"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="12dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Otorisator"
+                android:layout_weight="1"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_otorisator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="{Otorisator}"
                 android:textSize="13sp"
                 android:textColor="@color/colorBlackHeader"
                 android:layout_weight="1"

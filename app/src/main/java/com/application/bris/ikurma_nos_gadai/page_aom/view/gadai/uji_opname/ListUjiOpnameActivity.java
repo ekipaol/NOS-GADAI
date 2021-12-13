@@ -291,6 +291,22 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements SwipeRef
         });
     }
 
+    public void restartActivity(){
+        binding.rvListOpname.setVisibility(View.GONE);
+        try {
+            if(appPreferences.getFidRole()==132){
+                loadDetailBranch();
+            }
+            else{
+                loadData();
+            }
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        initialize();
+    }
+
 
     @Override
     public void onClick(View v) {

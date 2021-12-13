@@ -71,6 +71,9 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
         //NEVER, IT GONNA F UP YOUR DATA ORDER
         final ListOpname datas = datafiltered.get(position);
         holder.tvTglOpname.setText(datas.getTanggalAksesBrankas());
+        holder.tvKodeRequest.setText(datas.getKodeRequest());
+        holder.tvInputter.setText(datas.getInputer());
+        holder.tvOtorisator.setText(datas.getOtorisator());
         onClicks(position, holder);
     }
 
@@ -94,7 +97,7 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
         if (holder.btnCapture.getText().toString().equalsIgnoreCase("MULAI")) {
             obj1.addProperty("UserSubmit", appPreferences.getNik());
             obj1.addProperty("ReffNoAktifitas", data.get(currentPosition).getKodeRequest());
-            obj1.addProperty("KodeCabang", appPreferences.getKodeCabang());
+            obj1.addProperty("KodeCabang", datafiltered.get(currentPosition).getKodeCabang());
 //            obj1.addProperty("KodeCabang", "ID001211");
             obj1.addProperty("KodeAgunan", "");
             obj1.addProperty("Status", "");
@@ -102,7 +105,7 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
         } else {
             obj1.addProperty("UserSubmit", appPreferences.getNik());
             obj1.addProperty("ReffNoAktifitas", data.get(currentPosition).getKodeRequest());
-            obj1.addProperty("KodeCabang", appPreferences.getKodeCabang());
+            obj1.addProperty("KodeCabang", datafiltered.get(currentPosition).getKodeCabang());
 //            obj1.addProperty("KodeCabang", "ID001211");
             obj1.addProperty("KodeAgunan", "");
             obj1.addProperty("Status", "");
@@ -118,7 +121,7 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
                 try {
                     if (response.isSuccessful()) {
                         binding2.loading.progressbarLoading.setVisibility(View.GONE);
-//                        if (response.body().getStatus().equalsIgnoreCase("00")) {
+                        if (response.body().getStatus().equalsIgnoreCase("00")) {
                         if (holder.btnCapture.getText().toString().equalsIgnoreCase("MULAI")) {
                             Intent intent = new Intent(context, ListBrankasActivity.class);
                             intent.putExtra("ReffNoAktifitas", data.get(currentPosition).getKodeRequest());
@@ -127,11 +130,14 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
                             context.startActivity(intent);
                             holder.btnCapture.setText("SELESAI");
                         } else {
-                            holder.btnCapture.setText("MULAI");
+//                            holder.btnCapture.setText("MULAI");
+                            if (context instanceof ListUjiOpnameActivity) {
+                                ((ListUjiOpnameActivity)context).restartActivity();
+                            }
                         }
-//                        } else {
-//                            AppUtil.notiferror(context, view.findViewById(android.R.id.content), response.body().getMessage());
-//                        }
+                        } else {
+                            AppUtil.notiferror(context, view.findViewById(android.R.id.content), response.body().getMessage());
+                        }
 
                     } else {
                         binding2.loading.progressbarLoading.setVisibility(View.GONE);
@@ -192,12 +198,15 @@ public class ListUjiOpnameAdapter extends RecyclerView.Adapter<ListUjiOpnameAdap
     }
 
     public class MenuViewHolder extends RecyclerView.ViewHolder {
-        TextView tvTglOpname;
+        TextView tvTglOpname,tvKodeRequest,tvInputter,tvOtorisator;
         Button btnCapture;
 
         public MenuViewHolder(View itemView) {
             super(itemView);
             tvTglOpname = binding.tvTglOpname;
+            tvKodeRequest = binding.tvKodeRequest;
+            tvInputter = binding.tvInputter;
+            tvOtorisator = binding.tvOtorisator;
             btnCapture = binding.btnListOpname;
         }
 

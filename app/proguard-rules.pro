@@ -28,9 +28,9 @@
 #     public private *;
 # }
 #
-# -keep class cn.pedant.SweetAlert.Rotate3dAnimation {
-#    public <init>(...);
-# }
+ -keep class cn.pedant.SweetAlert.Rotate3dAnimation {
+    public <init>(...);
+ }
 
  # Retrofit
 # -dontwarn retrofit2.**
