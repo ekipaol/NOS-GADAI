@@ -17,6 +17,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import com.application.bris.ikurma_nos_gadai.BuildConfig;
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
@@ -40,7 +41,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import cn.pedant.SweetAlert.BuildConfig;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -70,6 +70,7 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
         allOnclick();
         onClickEndIcon();
         onclickSelectDialog();
+        setData();
 
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
@@ -78,10 +79,11 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
     private void SendData() {
             if (bitmap_agunan == null || bitmap_agunan_tersegel == null || bitmap_pengunjian == null) {
                 AppUtil.notiferror(ActivityUjiAcak.this, findViewById(android.R.id.content), "Foto tidak lengkap, mohon lengkapi terbebih dahulu");
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
             } else {
             binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
             JsonObject obj1 = new JsonObject();
-            obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
+            obj1.addProperty("UserSubmit", appPreferences.getNik());
             obj1.addProperty("NoAplikasi", idAplikasi);
             obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
             obj1.addProperty("FotoAgunan", AppUtil.encodeImageTobase64(bitmap_agunan).toString());
@@ -91,6 +93,8 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
 //        obj1.addProperty("FotoPengujian","");
 //        obj1.addProperty("FotoAgunanTersegel", "");
             obj1.addProperty("StatusAgunan", binding.etJenisAgunan.getText().toString());
+                obj1.addProperty("ReffNoAktifitas", binding.etJenisAgunan.getText().toString());
+
             obj1.addProperty("Description", "OK");
             ReqUjiAcak req = new ReqUjiAcak();
             req.setchannel("Mobile");
@@ -128,6 +132,13 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
 
             });
         }
+    }
+
+    private void setData(){
+        if(getIntent().hasExtra("nama")){
+            binding.etNama.setText(getIntent().getStringExtra("nama"));
+        }
+
     }
 
 
@@ -176,6 +187,7 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
         binding.etJenisAgunan.setOnClickListener(this);
         //disable
         binding.etJenisAgunan.setFocusable(false);
+        binding.etNama.setFocusable(false);
     }
 
     private void setDropdownData() {
@@ -210,6 +222,7 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.btn_uji_kualitas:
             case R.id.ll_btn_uji_kualitas:
+                binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
                 SendData();
                 break;
 

@@ -180,15 +180,15 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         MagicCryptHelper encryptor=new MagicCryptHelper();
         login req;
 
-//        if(et_username.getText().toString().isEmpty()){
+        if(et_password.getText().toString().isEmpty()){
             req = new login(et_username.getText().toString().trim(), encryptor.encrypt("12345678"), getDeviceId(), "NOS_GADAI");
-//        }
-//        else{
-//            //kalo password diisi, maka ga pake password default
-//            req = new login(et_username.getText().toString().trim(), encryptor.encrypt("12345678"), getDeviceId(), "NOS_GADAI");
-//            req.setPassword(encryptor.encrypt(et_password.getText().toString()));
-//        }
-//        req.setPassword(encryptor.encrypt(et_password.getText().toString()));
+        }
+        else{
+            //kalo password diisi, maka ga pake password default
+            req = new login(et_username.getText().toString().trim(), encryptor.encrypt("12345678"), getDeviceId(), "NOS_GADAI");
+            req.setPassword(encryptor.encrypt(et_password.getText().toString()));
+        }
+        req.setPassword(encryptor.encrypt(et_password.getText().toString()));
         Call<ParseResponse> call = apiClientAdapter.getApiInterface().login2(req);
         call.enqueue(new Callback<ParseResponse>() {
             @Override

@@ -71,6 +71,7 @@ public class UjiAcakAdapter extends RecyclerView.Adapter<UjiAcakAdapter.MenuView
             public void onClick(View view) {
                 Intent intent = new Intent(context, ActivityUjiAcak.class);
                 intent.putExtra("idAplikasi",data.get(position).getNomorAplikasiGadai());
+                intent.putExtra("nama",data.get(position).getNamaNasabah());
                 context.startActivity(intent);
 
             }

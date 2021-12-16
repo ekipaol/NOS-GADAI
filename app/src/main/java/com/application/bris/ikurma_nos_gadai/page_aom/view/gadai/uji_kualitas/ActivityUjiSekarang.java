@@ -114,7 +114,7 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        apiClientAdapter = new ApiClientAdapter(this, "https://10.0.116.105/");
+        apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
         binding = UjiKualitasGadaiBinding.inflate(getLayoutInflater());
         idAplikasi = getIntent().getStringExtra("idAplikasi");
@@ -137,7 +137,7 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
         } else {
             binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
             JsonObject obj1 = new JsonObject();
-            obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
+            obj1.addProperty("UserSubmit", appPreferences.getNik());
 //            obj1.addProperty("NoAplikasi", idAplikasi);
             obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
             obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());

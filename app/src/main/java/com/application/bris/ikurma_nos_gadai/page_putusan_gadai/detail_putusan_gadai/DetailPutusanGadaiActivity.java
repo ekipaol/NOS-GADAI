@@ -90,8 +90,8 @@ public class DetailPutusanGadaiActivity extends AppCompatActivity implements Vie
     public void main(){
         bottomSheetBehavior= BottomSheetBehavior.from(binding.bottomSheet.bottomSheet);
         setSupportActionBar(binding.toolbar.tbRegular);
-        if(getIntent().hasExtra("noAplikasi")){
-            noAplikasi=getIntent().getStringExtra("noAplikasi");
+        if(getIntent().hasExtra("NoAplikasi")){
+            noAplikasi=getIntent().getStringExtra("NoAplikasi");
         }
         else {
             noAplikasi="";
@@ -100,7 +100,7 @@ public class DetailPutusanGadaiActivity extends AppCompatActivity implements Vie
         //pantekan no aplikasi, delete this
 //        Toast.makeText(this, "Ada pantekan no aplikasi dan jenis aktifitas foto", Toast.LENGTH_SHORT).show();
 //        noAplikasi="GDE2021102500002";
-        apiClientAdapter=new ApiClientAdapter(DetailPutusanGadaiActivity.this,"https://10.0.116.105/");
+        apiClientAdapter=new ApiClientAdapter(DetailPutusanGadaiActivity.this);
 
         //jangan panggil method ini kalau pake viewbinding
 //        AppUtil.toolbarRegular(this, "Putusan Gadai");

@@ -114,7 +114,7 @@ public class PutusanGadaiActivity extends AppCompatActivity implements SwipeRefr
 
     public void main(){
         setSupportActionBar(binding.toolbar.tbRegular);
-        apiClientAdapter=new ApiClientAdapter(PutusanGadaiActivity.this,"https://10.0.116.105/");
+        apiClientAdapter=new ApiClientAdapter(PutusanGadaiActivity.this);
 
         //jangan panggil method ini kalau pake viewbinding
 //        AppUtil.toolbarRegular(this, "Putusan Gadai");

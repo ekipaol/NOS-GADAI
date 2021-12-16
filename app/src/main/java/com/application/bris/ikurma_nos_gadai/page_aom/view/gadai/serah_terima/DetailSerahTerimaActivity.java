@@ -149,7 +149,7 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
         backgroundStatusBar();
         //Parameter Dropdown
 
-        apiClientAdapter = new ApiClientAdapter(this, "https://10.0.116.105/");
+        apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
     }
 

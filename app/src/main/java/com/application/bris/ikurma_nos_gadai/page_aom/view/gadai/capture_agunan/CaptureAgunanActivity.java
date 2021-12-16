@@ -170,7 +170,7 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //Initialize
-        apiClientAdapter = new ApiClientAdapter(this, "https://10.0.116.105/");
+        apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
         binding = ActivityCaptureAgunanBinding.inflate(getLayoutInflater());
         view = binding.getRoot();

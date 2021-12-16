@@ -69,6 +69,6 @@ public class ParseResponseUjiAcak {
     }
 
     public String getMessage() {
-        return null;
+        return statusMsg;
     }
 }

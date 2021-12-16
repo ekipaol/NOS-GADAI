@@ -74,7 +74,7 @@ public class ActivityUjiNanti extends AppCompatActivity implements View.OnClickL
         } else {
             binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
             JsonObject obj1 = new JsonObject();
-            obj1.addProperty("UserSubmit", Integer.toString(appPreferences.getUid()));
+            obj1.addProperty("UserSubmit", appPreferences.getNik());
             obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
             obj1.addProperty("kodeCabang", appPreferences.getKodeCabang());
             obj1.addProperty("UjiKwalitasHariIni", "NANTI");
@@ -123,7 +123,7 @@ public class ActivityUjiNanti extends AppCompatActivity implements View.OnClickL
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        apiClientAdapter = new ApiClientAdapter(this, "https://10.0.116.105/");
+        apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
         binding = UjiKualitasGadaiNantiBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
