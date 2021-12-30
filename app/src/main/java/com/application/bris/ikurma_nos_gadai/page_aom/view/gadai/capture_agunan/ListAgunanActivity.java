@@ -85,6 +85,7 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
         AppPreferences appPreferences=new AppPreferences(this);
             JsonObject obj1 = new JsonObject();
             obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
+//        obj1.addProperty("FilterKodeCabang", "NONE");
             obj1.addProperty("FilterNoAplikasi", "NONE");
             obj1.addProperty("FilterNoKTP", "NONE");
             obj1.addProperty("FilterPengusul", "NONE");

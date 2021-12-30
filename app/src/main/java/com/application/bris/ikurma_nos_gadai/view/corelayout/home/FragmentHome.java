@@ -282,6 +282,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
                                rv_capture_agunan.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
                                 rv_capture_agunan.setItemAnimator(new DefaultItemAnimator());
                                 rv_capture_agunan.setAdapter(adapterListAplikasi);
+                                adapterListAplikasi.notifyDataSetChanged();
                                 ViewCompat.setNestedScrollingEnabled(rv_capture_agunan, false);
                             }
                             else {
@@ -348,6 +349,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
                         rv_putusan.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
                         rv_putusan.setItemAnimator(new DefaultItemAnimator());
                         rv_putusan.setAdapter(adapterListAplikasi);
+                        adapterListAplikasi.notifyDataSetChanged();
 
 
                         if (dataGadai.size() == 0) {
