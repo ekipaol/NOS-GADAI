@@ -55,7 +55,7 @@ public class PutusanGadaiAdapter extends RecyclerView.Adapter<PutusanGadaiAdapte
             @Override
             public void onClick(View v) {
                 Intent intent=new Intent(context, DetailPutusanGadaiActivity.class);
-                intent.putExtra("noAplikasi",datas.getNoAplikasi());
+                intent.putExtra("NoAplikasi",datas.getNoAplikasi());
                 context.startActivity(intent);
 
             }

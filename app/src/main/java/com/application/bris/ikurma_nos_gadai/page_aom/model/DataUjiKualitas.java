@@ -15,6 +15,11 @@ public class DataUjiKualitas {
     private String TanggalTransaksi;
     @SerializedName("TanggalJatuhTempo")
     private String TanggalJatuhTempo;
+    @SerializedName("LDNumber")
+    private String LDNumber;
+
+    public String getLDNumber() {return LDNumber;}
+    public void setLDNumber(String LDNumber) {this.LDNumber = LDNumber;}
 
     public String getCabang() {
         return Cabang ;

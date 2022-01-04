@@ -10,13 +10,26 @@ public class DataUjiAcak {
     @SerializedName("NoAplikasi")
     private String NomorAplikasiGadai;
     @SerializedName("TanggalCair")
-    private String TanggalTransaksi;
+    private String TanggalCair;
+    @SerializedName("TanggalPencairan")
+    private String TanggalPencairan;
     @SerializedName("TanggalJatuhTempo")
     private String TanggalJatuhTempo;
+    @SerializedName("LDNumber")
+    private String LDNumber;
+
+    public String getLDNumber() {
+        return LDNumber;
+    }
+
+    public void setLDNumber(String LDNumber) {
+        this.LDNumber = LDNumber;
+    }
 
     public String getCabang() {
-        return Cabang ;
+        return Cabang;
     }
+
     public void setCabang(String cabang) {
         this.Cabang = cabang;
     }
@@ -24,6 +37,7 @@ public class DataUjiAcak {
     public String getNamaNasabah() {
         return NamaNasabah;
     }
+
     public void setNamaNasabah(String nasabah) {
         this.NamaNasabah = nasabah;
     }
@@ -36,18 +50,28 @@ public class DataUjiAcak {
         this.NomorAplikasiGadai = nomorAplikasiGadai;
     }
 
-    public String getTanggalTransaksi() {
-        return TanggalTransaksi;
-    }
-    public void setTanggalTransaksi(String tanggalTransaksi) {
-        this.TanggalTransaksi = tanggalTransaksi;
-    }
-
-    public String getTanggalJatuhTempo(){
+    public String getTanggalJatuhTempo() {
         return TanggalJatuhTempo;
     }
+
     public void setTanggalJatuhTempo(String tanggalJatuhTempo) {
         this.TanggalJatuhTempo = tanggalJatuhTempo;
     }
 
+
+    public String getTanggalCair() {
+        return TanggalCair;
+    }
+
+    public void setTanggalCair(String tanggalCair) {
+        this.TanggalCair = tanggalCair;
+    }
+
+    public String getTanggalPencairan() {
+        return TanggalPencairan;
+    }
+
+    public void setTanggalPencairan(String tanggalPencairan) {
+        TanggalPencairan = tanggalPencairan;
+    }
 }

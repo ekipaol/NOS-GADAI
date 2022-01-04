@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListUjiAcakBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiAcak;
+import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,12 +40,12 @@ public class UjiAcakAdapter extends RecyclerView.Adapter<UjiAcakAdapter.MenuView
 
     @NonNull
     @Override
-    public UjiAcakAdapter.MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         binding = ItemListUjiAcakBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
         appPreferences = new AppPreferences(context);
-        return new UjiAcakAdapter.MenuViewHolder(view);
+        return new MenuViewHolder(view);
     }
 
     @Override
@@ -56,7 +57,7 @@ public class UjiAcakAdapter extends RecyclerView.Adapter<UjiAcakAdapter.MenuView
         holder.tvCabang.setText(appPreferences.getNamaKantor());
         holder.tvNamaNasabah.setText(data.getNamaNasabah());
         holder.tvNomorApplikasi.setText(data.getNomorAplikasiGadai());
-        holder.tvTanggalTransaksi.setText(data.getTanggalTransaksi());
+        holder.tvTanggalTransaksi.setText(data.getTanggalCair());
         holder.tvTanggalJatohTempo.setText(data.getTanggalJatuhTempo());
 
         onClicks(position,holder);
@@ -66,14 +67,14 @@ public class UjiAcakAdapter extends RecyclerView.Adapter<UjiAcakAdapter.MenuView
     }
 
     private void onClicks(int position, MenuViewHolder holder) {
-        binding.btnUjiAcak.setOnClickListener(new View.OnClickListener() {
+        AppUtil.logSecure("logM", holder.tvNomorApplikasi.getText().toString());
+        holder.btnUjiAcak.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ActivityUjiAcak.class);
-                intent.putExtra("idAplikasi",data.get(position).getNomorAplikasiGadai());
-                intent.putExtra("nama",data.get(position).getNamaNasabah());
+                intent.putExtra("NoAplikasi", holder.tvNomorApplikasi.getText().toString());
+                intent.putExtra("TanggalCair",data.get(position).getTanggalCair());
                 context.startActivity(intent);
-
             }
         });
     }

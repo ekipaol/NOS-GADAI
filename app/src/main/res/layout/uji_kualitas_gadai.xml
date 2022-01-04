@@ -108,6 +108,32 @@
 
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
 
+                <!--LD Number-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_nomer_LD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Nomor LD"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_nomer_ld"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
                 <!--Tanggal Transaksi-->
                 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
                     android:id="@+id/tf_tgl_transaksi"
@@ -395,30 +421,24 @@
                 </LinearLayout>
 
                 <LinearLayout
-                    android:id="@+id/ll_btn_uji_kualitas"
+                    android:id="@+id/ll_btn_send"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:layout_height="48dp"
+                    android:layout_marginLeft="6dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="6dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/colorWhite">
 
                     <Button
-                        android:id="@+id/btn_uji_kualitas"
+                        android:id="@+id/btn_send"
+                        style="@style/Bordered.Button.Custom"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="15dp"
-                        android:layout_marginRight="10dp"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/button_primary"
-                        android:text="SAVE"
-                        android:textAllCaps="false"
-                        android:textColor="@color/colorWhite"
-                        android:textSize="18dp" />
-
+                        android:layout_height="wrap_content"
+                        android:layout_weight="6"
+                        android:padding="8dp"
+                        android:text="Simpan" />
                 </LinearLayout>
-
-
-
 
             </LinearLayout>
         </FrameLayout>

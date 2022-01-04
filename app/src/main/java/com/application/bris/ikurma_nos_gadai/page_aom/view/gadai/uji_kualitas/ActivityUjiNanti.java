@@ -160,6 +160,7 @@ public class ActivityUjiNanti extends AppCompatActivity implements View.OnClickL
                             binding.etNomerApplikasi.setText(dataUjiKualitas.getNomorAplikasiGadai());
                             binding.etCabang.setText(dataUjiKualitas.getCabang());
                             binding.etNamaNasabah.setText(dataUjiKualitas.getNamaNasabah());
+                            binding.etNomerLd.setText(dataUjiKualitas.getLDNumber());
                             binding.etTglTransaksi.setText(AppUtil.parseTanggalGeneral(dataUjiKualitas.getTanggalPencairan(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
                             binding.etTglJatohTempo.setText(AppUtil.parseTanggalGeneral(dataUjiKualitas.getTanggalJatuhTempo(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
                         } else {
@@ -198,13 +199,14 @@ public class ActivityUjiNanti extends AppCompatActivity implements View.OnClickL
         binding.rlAgunanTersegel.setOnClickListener(this);
         binding.ivAgunanTersegel.setOnClickListener(this);
         binding.btnAgunanTersegel.setOnClickListener(this);
-        binding.btnSegelAgunan.setOnClickListener(this);
-        binding.llBtnSegelAgunan.setOnClickListener(this);
+        binding.btnSend.setOnClickListener(this);
+        binding.llBtnSend.setOnClickListener(this);
         //disable
         binding.etNamaNasabah.setFocusable(false);
         binding.etTglJatohTempo.setFocusable(false);
         binding.etCabang.setFocusable(false);
         binding.etNomerApplikasi.setFocusable(false);
+        binding.etNomerLd.setFocusable(false);
         binding.etTglTransaksi.setFocusable(false);
     }
 
@@ -218,7 +220,7 @@ public class ActivityUjiNanti extends AppCompatActivity implements View.OnClickL
                 clicker = "agunantersegel";
                 BSBottomCamera.displayWithTitle(ActivityUjiNanti.this.getSupportFragmentManager(), this, "Upload Segel Agunan");
                 break;
-            case R.id.btn_segel_agunan:
+            case R.id.btn_send:
                 SendData();
                 break;
         }

@@ -3,37 +3,6 @@ package com.application.bris.ikurma_nos_gadai.view.corelayout.home;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-
-import androidx.annotation.Nullable;
-
-import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseArr;
-import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
-import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
-import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqAplikasiGadai;
-import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqChannelAplikasiGadai;
-import com.application.bris.ikurma_nos_gadai.model.gadai.DataGadai;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.HotprospekKpr;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.PipelineKpr;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.feedback.FeedbackActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.menu_penjualan.MenuPenjualanActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_acak.ListUjiAcak;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ListUjiKualitas;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListAreaActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameActivity;
-import com.application.bris.ikurma_nos_gadai.page_putusan_gadai.PutusanGadaiActivity;
-import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity2;
-import com.google.android.material.appbar.AppBarLayout;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import androidx.fragment.app.Fragment;
-import androidx.core.view.ViewCompat;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.GridLayoutManager;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-import androidx.appcompat.widget.Toolbar;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -45,21 +14,49 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.application.bris.ikurma_nos_gadai.R;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.ViewCompat;
+import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.application.bris.ikurma_nos_gadai.R;
+import com.application.bris.ikurma_nos_gadai.adapter.menu.MenuAdapter;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseArr;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
+import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
+import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqAplikasiGadai;
+import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqChannelAplikasiGadai;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.config.menu.Menu;
-import com.application.bris.ikurma_nos_gadai.adapter.menu.MenuAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.listener.menu.MenuClickListener;
+import com.application.bris.ikurma_nos_gadai.model.gadai.DataGadai;
 import com.application.bris.ikurma_nos_gadai.model.menu.ListViewMenu;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.HotprospekListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.PipelineListener;
+import com.application.bris.ikurma_nos_gadai.page_aom.model.HotprospekKpr;
+import com.application.bris.ikurma_nos_gadai.page_aom.model.PipelineKpr;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.feedback.FeedbackActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.menu_penjualan.MenuPenjualanActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_acak.ListUjiAcak;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ListUjiKualitas;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListAreaActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameActivity;
+import com.application.bris.ikurma_nos_gadai.page_putusan_gadai.PutusanGadaiActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppBarStateChangedListener;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
+import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity2;
 import com.facebook.shimmer.ShimmerFrameLayout;
+import com.google.android.material.appbar.AppBarLayout;
+import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
@@ -182,8 +179,8 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 
 
 
-            iv_morepipeline.setOnClickListener(this);
-            iv_morehotprospek.setOnClickListener(this);
+        iv_morepipeline.setOnClickListener(this);
+        iv_morehotprospek.setOnClickListener(this);
         iv_moreputusan.setOnClickListener(this);
 
 
@@ -220,7 +217,9 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 
         //di hide dulu di on resume karena berat bro
 
-//        loadProfil();
+        loadProfil();
+        loadDataPutusan();
+        loadDataCapture();
 //        loadDataTop();
 //        initializeMenu();
 //        initializePipelineHome();
@@ -241,6 +240,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 
     private void loadDataCapture() {
         rv_capture_agunan.setVisibility(View.GONE);
+        sm_placeholder_pipeline.setVisibility(View.VISIBLE);
         sm_placeholder_pipeline.startShimmer();
         JsonObject obj1 = new JsonObject();
         obj1.addProperty("FilterKodeCabang", appPreferences.getKodeKantor());
@@ -269,8 +269,9 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
             public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
                 try {
                     if(response.isSuccessful()){
-                      sm_placeholder_pipeline.setVisibility(View.GONE);
-                       rv_capture_agunan.setVisibility(View.VISIBLE);
+                        sm_placeholder_pipeline.setVisibility(View.GONE);
+                        sm_placeholder_pipeline.stopShimmer();
+                        rv_capture_agunan.setVisibility(View.VISIBLE);
                         if(response.body().getStatus().equalsIgnoreCase("00")){
                             String listDataString = response.body().getData().toString();
                             Gson gson = new Gson();
@@ -279,7 +280,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
                             if (dataGadai.size() > 0){
                                 ll_emptydata_pipeline.setVisibility(View.GONE);
                                 adapterListAplikasi = new CaptureAgunanFrontAdapter(getActivity(),dataGadai,true);
-                               rv_capture_agunan.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
+                                rv_capture_agunan.setLayoutManager(new LinearLayoutManager(getContext(),LinearLayoutManager.HORIZONTAL,false));
                                 rv_capture_agunan.setItemAnimator(new DefaultItemAnimator());
                                 rv_capture_agunan.setAdapter(adapterListAplikasi);
                                 adapterListAplikasi.notifyDataSetChanged();
@@ -297,7 +298,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
                         }
                     }
                     else{
-                       sm_placeholder_pipeline.setVisibility(View.GONE);
+                        sm_placeholder_pipeline.setVisibility(View.GONE);
                         Error error = ParseResponseError.confirmEror(response.errorBody());
                         AppUtil.notiferror(getContext(), getActivity().findViewById(android.R.id.content), error.getMessage());
                     }
@@ -308,7 +309,8 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
             }
             @Override
             public void onFailure(Call<ParseResponseGadai> call, Throwable t) {
-               sm_placeholder_pipeline.setVisibility(View.GONE);
+                sm_placeholder_pipeline.setVisibility(View.GONE);
+                sm_placeholder_pipeline.stopShimmer();
                 AppUtil.notiferror(getContext(), getActivity().findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
         });
@@ -317,7 +319,9 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 
     public void loadDataPutusan() {
         //  dataUser = getListUser();
+        rv_putusan.setVisibility(View.GONE);
         sm_placeholder_putusan.setVisibility(View.VISIBLE);
+        sm_placeholder_putusan.startShimmer();
         ReqAplikasiGadai reqGadai=new ReqAplikasiGadai();
         ReqChannelAplikasiGadai req = new ReqChannelAplikasiGadai();
 
@@ -335,8 +339,9 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
         call.enqueue(new Callback<ParseResponseArr>() {
             @Override
             public void onResponse(Call<ParseResponseArr> call, Response<ParseResponseArr> response) {
-              sm_placeholder_putusan.setVisibility(View.GONE);
-               rv_putusan.setVisibility(View.VISIBLE);
+                sm_placeholder_putusan.setVisibility(View.GONE);
+                sm_placeholder_putusan.stopShimmer();
+                rv_putusan.setVisibility(View.VISIBLE);
                 if (response.isSuccessful()) {
                     if (response.body().getStatus().equalsIgnoreCase("00")) {
                         String listDataString = response.body().getData().toString();
@@ -353,22 +358,23 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 
 
                         if (dataGadai.size() == 0) {
-                          ll_emptydata_putusan.setVisibility(View.VISIBLE);
+                            ll_emptydata_putusan.setVisibility(View.VISIBLE);
 
                         } else {
-                         ll_emptydata_putusan.setVisibility(View.GONE);
+                            ll_emptydata_putusan.setVisibility(View.GONE);
 
                         }
                     }
                     else if (response.body().getStatus().equalsIgnoreCase("14")) {
-                        ll_emptydata_putusan.setVisibility(View.VISIBLE);
+                        ll_putusan.setVisibility(View.GONE);
                     }
                 }
             }
 
             @Override
             public void onFailure(Call<ParseResponseArr> call, Throwable t) {
-               sm_placeholder_putusan.setVisibility(View.GONE);
+                sm_placeholder_putusan.stopShimmer();
+                sm_placeholder_putusan.setVisibility(View.GONE);
                 AppUtil.notiferror(getContext(), getActivity().findViewById(android.R.id.content), "Terjadi kesalahan");
                 Log.d("LOG D", t.getMessage());
             }
@@ -474,10 +480,10 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
                     logout.dismissWithAnimation();
 //                    getActivity().finish();
 //                    if(appPreferences.getNama().equalsIgnoreCase("developer")){
-                        Intent intent=new Intent(getContext(), LoginActivity2.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    Intent intent=new Intent(getContext(), LoginActivity2.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
-                        startActivity(intent);
+                    startActivity(intent);
 //                    }
 //                    else{
 //                        Intent intent=new Intent(getContext(), LoginActivity.class);
@@ -527,17 +533,17 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
         window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             window.getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR);
-                if (state.equalsIgnoreCase("COLLAPSED") || state.equalsIgnoreCase("IDLE")){
-                    window.setStatusBarColor(getActivity().getResources().getColor(R.color.colorWhite));
-                }
-                else {
-                    window.setStatusBarColor(getActivity().getResources().getColor(R.color.colorBackgroundTransparent));
-                    swipeRefreshLayout.setEnabled(true);
-                    swipeRefreshLayout.setDistanceToTriggerSync(220);
-                }
+            if (state.equalsIgnoreCase("COLLAPSED") || state.equalsIgnoreCase("IDLE")){
+                window.setStatusBarColor(getActivity().getResources().getColor(R.color.colorWhite));
             }
-
+            else {
+                window.setStatusBarColor(getActivity().getResources().getColor(R.color.colorBackgroundTransparent));
+                swipeRefreshLayout.setEnabled(true);
+                swipeRefreshLayout.setDistanceToTriggerSync(220);
+            }
         }
+
+    }
 
 
     @Override
@@ -576,8 +582,11 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
         initializeMenu();
         swipeRefreshLayout.setRefreshing(false);
 //        sm_placeholder_hotprospek.setVisibility(View.VISIBLE);
-//        sm_placeholder_pipeline.setVisibility(View.VISIBLE);
-        rv_hotprospek.setVisibility(View.GONE);
+        sm_placeholder_pipeline.setVisibility(View.VISIBLE);
+        sm_placeholder_putusan.setVisibility(View.VISIBLE);
+//        rv_putusan.setVisibility(View.GONE);
+//        rv_hotprospek.setVisibility(View.GONE);
+        rv_putusan.setVisibility(View.GONE);
         rv_capture_agunan.setVisibility(View.GONE);
         checkCollapse();
         loadProfil();

@@ -29,15 +29,12 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.UjiKualitasGadaiBinding;
-import com.application.bris.ikurma_nos_gadai.model.gadai.DetailCaptureAgunan;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.BSBottomCamera;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFromService;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.CameraListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.DataSerahTerima;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.CaptureAgunanActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -103,8 +100,8 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
                 clicker = "agunantersegel";
                 BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this, "Foto Segel Agunan");
                 break;
-            case R.id.btn_uji_kualitas:
-            case R.id.ll_btn_uji_kualitas:
+            case R.id.btn_send:
+            case R.id.ll_btn_send:
                 SendData();
                 break;
 
@@ -147,7 +144,7 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
             obj1.addProperty("FotoAgunanTersegel", AppUtil.encodeImageTobase64(bitmap_agunan_tersegel).toString());
 //        obj1.addProperty("FotoAgunan", "");
 //        obj1.addProperty("FotoPengujian","");
-//        obj1.addProperty("FotoAgunanTersegel", "");
+//        obj1.addProperty("FotoAgunadasdfnTersegel", "");
             obj1.addProperty("StatusAgunan", binding.etJenisAgunan.getText().toString());
             if (binding.etJenisAgunan.getText().toString().equalsIgnoreCase("Tidak Sesuai")){
                 obj1.addProperty("Description", binding.etCatatanPensesuaian.getText().toString());
@@ -217,6 +214,7 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
                             binding.etNomerApplikasi.setText(dataUjiKualitas.getNomorAplikasiGadai());
                             binding.etCabang.setText(dataUjiKualitas.getCabang());
                             binding.etNamaNasabah.setText(dataUjiKualitas.getNamaNasabah());
+                            binding.etNomerLd.setText(dataUjiKualitas.getLDNumber());
                             binding.etTglTransaksi.setText(AppUtil.parseTanggalGeneral(dataUjiKualitas.getTanggalPencairan(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
                             binding.etTglJatohTempo.setText(AppUtil.parseTanggalGeneral(dataUjiKualitas.getTanggalJatuhTempo(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
                         } else {
@@ -267,8 +265,8 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
         binding.btnAgunanTersegel.setOnClickListener(this);
         binding.btnPengunjian.setOnClickListener(this);
 
-        binding.btnUjiKualitas.setOnClickListener(this);
-        binding.llBtnUjiKualitas.setOnClickListener(this);
+        binding.btnSend.setOnClickListener(this);
+        binding.llBtnSend.setOnClickListener(this);
     }
 
     private void onClickEndIcon() {
@@ -287,6 +285,7 @@ public class ActivityUjiSekarang extends AppCompatActivity implements View.OnCli
         binding.etCabang.setFocusable(false);
         binding.etNamaNasabah.setFocusable(false);
         binding.etNomerApplikasi.setFocusable(false);
+        binding.etNomerLd.setFocusable(false);
         binding.etTglJatohTempo.setFocusable(false);
         binding.etTglTransaksi.setFocusable(false);
         binding.etJenisAgunan.setFocusable(false);

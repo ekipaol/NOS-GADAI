@@ -26,7 +26,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="678dp"
+                android:layout_height="wrap_content"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
                 android:paddingTop="10dp">
@@ -107,6 +107,33 @@
                         android:text=" " />
 
                 </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
+                <!--LD Number-->
+                <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                    android:id="@+id/tf_nomer_LD"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:paddingLeft="20dp"
+                    android:paddingRight="20dp"
+                    app:iconSignifier="@drawable/ic_segmen"
+                    app:isResponsiveIconColor="true"
+                    app:labelText="Nomor LD"
+                    app:panelBackgroundColor="@color/colorDisableEdit"
+                    app:primaryColor="@color/colorPrimary"
+                    app:secondaryColor="@color/colorPrimary"
+                    app:useDenseSpacing="true">
+
+                    <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                        android:id="@+id/et_nomer_ld"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType=""
+                        android:maxLength="50"
+                        android:text=" " />
+
+                </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+
 
                 <!--Tanggal Transaksi-->
                 <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
@@ -228,25 +255,23 @@
                     android:layout_height="match_parent">
 
                     <LinearLayout
-                        android:id="@+id/ll_btn_segel_agunan"
+                        android:id="@+id/ll_btn_send"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:layout_marginLeft="6dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="6dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@color/colorWhite">
+
+                    <Button
+                        android:id="@+id/btn_send"
+                        style="@style/Bordered.Button.Custom"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true">
-
-                        <Button
-                            android:id="@+id/btn_segel_agunan"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:layout_gravity="center_vertical"
-                            android:layout_marginLeft="15dp"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginRight="15dp"
-                            android:layout_marginBottom="8dp"
-                            android:background="@drawable/button_primary"
-                            android:text="SAVE"
-                            android:textAllCaps="false"
-                            android:textColor="@color/colorWhite"
-                            android:textSize="18dp" />
+                        android:layout_weight="6"
+                        android:padding="8dp"
+                        android:text="Simpan" />
                     </LinearLayout>
                 </RelativeLayout>
 
