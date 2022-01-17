@@ -214,12 +214,10 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
     public void onResume() {
         super.onResume();
         swipeRefreshLayout.setOnRefreshListener(this);
-
-        //di hide dulu di on resume karena berat bro
-
-        loadProfil();
         loadDataPutusan();
         loadDataCapture();
+        //di hide dulu di on resume karena berat bro
+//        loadProfil();
 //        loadDataTop();
 //        initializeMenu();
 //        initializePipelineHome();
@@ -366,7 +364,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
                         }
                     }
                     else if (response.body().getStatus().equalsIgnoreCase("14")) {
-                        ll_putusan.setVisibility(View.GONE);
+                        ll_emptydata_putusan.setVisibility(View.VISIBLE);
                     }
                 }
             }
@@ -584,8 +582,8 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
 //        sm_placeholder_hotprospek.setVisibility(View.VISIBLE);
         sm_placeholder_pipeline.setVisibility(View.VISIBLE);
         sm_placeholder_putusan.setVisibility(View.VISIBLE);
-//        rv_putusan.setVisibility(View.GONE);
-//        rv_hotprospek.setVisibility(View.GONE);
+        ll_emptydata_putusan.setVisibility(View.GONE);
+        ll_emptydata_pipeline.setVisibility(View.GONE);
         rv_putusan.setVisibility(View.GONE);
         rv_capture_agunan.setVisibility(View.GONE);
         checkCollapse();

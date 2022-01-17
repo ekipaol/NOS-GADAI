@@ -146,8 +146,9 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
 //        obj1.addProperty("FotoAgunan", "");
 //        obj1.addProperty("FotoPengujian","");
 //        obj1.addProperty("FotoAgunanTersegel", "");
+            obj1.addProperty("ReffNoAktifitas", "NONE");
             obj1.addProperty("StatusAgunan", binding.etJenisAgunan.getText().toString());
-            obj1.addProperty("ReffNoAktifitas", binding.etJenisAgunan.getText().toString());
+//            obj1.addProperty("ReffNoAktifitas", binding.etJenisAgunan.getText().toString());
             if (binding.etJenisAgunan.getText().toString().equalsIgnoreCase("Tidak Sesuai")){
                 obj1.addProperty("Description", binding.etCatatanPensesuaian.getText().toString());
             }else{
