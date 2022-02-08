@@ -13,24 +13,6 @@ import android.media.FaceDetector;
 import android.net.Uri;
 import android.os.Build;
 import android.provider.Settings;
-
-import com.application.bris.ikurma_nos_gadai.BuildConfig;
-import com.application.bris.ikurma_nos_gadai.api.config.UriApi;
-import com.application.bris.ikurma_nos_gadai.database.pojo.PesanDashboardPojo;
-import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFromService;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.Priority;
-import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.bumptech.glide.request.RequestOptions;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.FragmentManager;
-
 import android.telephony.TelephonyManager;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -46,10 +28,25 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+
+import com.application.bris.ikurma_nos_gadai.BuildConfig;
 import com.application.bris.ikurma_nos_gadai.R;
+import com.application.bris.ikurma_nos_gadai.database.pojo.PesanDashboardPojo;
+import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFromService;
+import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
+import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
 import com.application.bris.ikurma_nos_gadai.util.magiccrypt.MagicCrypt;
+import com.bumptech.glide.Priority;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
+import com.bumptech.glide.request.RequestOptions;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -374,6 +371,7 @@ public class AppUtil {
 //       Region Business Control = 132;
         switch (fidRole){
             case 132:
+            case 144:
                 return true;
             default:
                 return false;

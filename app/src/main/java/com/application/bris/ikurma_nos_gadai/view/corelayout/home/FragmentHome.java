@@ -183,7 +183,6 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
         iv_morehotprospek.setOnClickListener(this);
         iv_moreputusan.setOnClickListener(this);
 
-
         if(AppUtil.checkIsPengusul(appPreferences.getFidRole())){
             ll_putusan.setVisibility(View.GONE);
             ll_pipeline.setVisibility(View.VISIBLE);
@@ -428,6 +427,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
             startActivity(intent);
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_uji_acak))){
+            AppUtil.logSecure("fidrole",String.valueOf(appPreferences.getFidRole()));
             if(AppUtil.checkIsReviewer(appPreferences.getFidRole())){
                 Intent intent=new Intent(getContext(), ListAreaActivity.class);
                 appPreferences.setMenuClick("uji acak");
