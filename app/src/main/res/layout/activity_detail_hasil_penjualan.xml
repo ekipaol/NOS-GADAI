@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/content"
@@ -14,9 +15,7 @@
 
     <include android:id="@+id/loading" layout="@layout/loading" />
 
-    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="50dp"
@@ -31,7 +30,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:background="@color/colorWhite"
                 android:orientation="vertical"
                 android:paddingTop="10dp">
@@ -144,6 +143,7 @@
 
                 <!--Title Foto Dokumen Penjualan-->
                 <TextView
+                    android:id="@+id/et_dokumen"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dp"
@@ -201,29 +201,27 @@
                         </androidx.constraintlayout.widget.ConstraintLayout>
                     </RelativeLayout>
                 </LinearLayout>
-
-                <!--Button Simpan-->
-                <LinearLayout
-                    android:id="@+id/ll_btn_send"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginLeft="6dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="6dp"
-                    android:layout_marginBottom="10dp"
-                    android:background="@color/colorWhite">
-
-                    <Button
-                        android:id="@+id/btn_send"
-                        style="@style/Bordered.Button.Custom"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="6"
-                        android:padding="8dp"
-                        android:text="Simpan" />
                 </LinearLayout>
-            </LinearLayout>
         </FrameLayout>
     </ScrollView>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <!--Button Simpan-->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_send"
+        style="@style/Bordered.Button.Custom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="8dp"
+        android:layout_alignParentBottom="true"
+        android:text="Simpan" />
+    </RelativeLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

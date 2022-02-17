@@ -110,7 +110,7 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
         binding.ivDokumen.setOnClickListener(this);
         //Button Click
         binding.btnSend.setOnClickListener(this);
-        binding.llBtnSend.setOnClickListener(this);
+//        binding.llBtnSend.setOnClickListener(this);
         //Textediting Click
         binding.etStatusPenjualan.setOnClickListener(this);
         binding.tfStatusPenjualan.setOnClickListener(this);
@@ -156,10 +156,20 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
     }
 
     public void onSelect(String title, MGenericModel data) {
-        if (title.equalsIgnoreCase(binding.tfStatusPenjualan.getLabelText())) {
+        title.equalsIgnoreCase(binding.tfStatusPenjualan.getLabelText());
+        {
             binding.etStatusPenjualan.setText(data.getDESC());
         }
+         if (data.getDESC().equalsIgnoreCase("Tidak Terjual")) {
+            {
+                binding.etDokumen.setVisibility(View.GONE);
+                binding.ivDokumen.setVisibility(View.GONE);
+                binding.btnDokumen.setVisibility(View.GONE);
+                binding.rlDokumen.setVisibility(View.GONE);
+            }
+        }
     }
+
 
     private void endIconClick() {
         binding.tfStatusPenjualan.getEndIconImageButton().setOnClickListener(v -> DialogGenericDataFromService.display(getSupportFragmentManager(), binding.tfStatusPenjualan.getLabelText(), dataDropdownPenjualan, this));

@@ -24,20 +24,15 @@ import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseAgunan;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
-import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseListSerahTerima;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
-import com.application.bris.ikurma_nos_gadai.api.model.request.ReqSerahTerima;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityDetailSerahTerimaBinding;
-import com.application.bris.ikurma_nos_gadai.model.gadai.DetailCaptureAgunan;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.BSBottomCamera;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.CameraListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataSerahTerima;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.CaptureAgunanActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ActivityUjiNanti;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
@@ -180,6 +175,7 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
                             binding.etCabang.setText(dataSerahTerima.getKodeCabang());
                             binding.etNamaNasabah.setText(dataSerahTerima.getNamaSesuaiKTP());
                             binding.etNomerLd.setText(dataSerahTerima.getlDNumber());
+                            binding.etStatusSerahTerima.setText(dataSerahTerima.getHasilUjiKualitas());
                             binding.etTglAktifitas.setText(AppUtil.parseTanggalGeneral(dataSerahTerima.getTanggalJatuhTempo(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
                         } else {
                             AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), response.body().getMessage());
