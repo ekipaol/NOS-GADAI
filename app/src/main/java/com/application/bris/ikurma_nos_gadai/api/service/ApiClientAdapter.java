@@ -12,15 +12,11 @@ import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.application.bris.ikurma_nos_gadai.util.NullOnEmptyConverterFactory;
 import com.application.bris.ikurma_nos_gadai.util.service_encrypt.DESHelper;
-import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.login.LoginActivity2;
 import com.google.gson.Gson;
 
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
-
-import javax.net.ssl.HostnameVerifier;
-import javax.net.ssl.SSLSession;
 
 import okhttp3.CertificatePinner;
 import okhttp3.Interceptor;
@@ -285,7 +281,7 @@ public class ApiClientAdapter {
 
 
         if(BuildConfig.IS_PRODUCTION){
-            String hostname = "10.0.116.105";
+            String hostname = "103.23.117.26";
             CertificatePinner certificatePinner = new CertificatePinner.Builder()
                     .add(hostname, "sha256/m3gxkDjPV2og4oSnEPSz1OTeKeh1tYQV53hcji7/KDY=")
                     .build();
@@ -310,7 +306,8 @@ public class ApiClientAdapter {
         }
 
 
-//        OkHttpClient httpClient = clientBuilder
+
+//         httpClient = clientBuilder
 //                .connectTimeout(timeOut, timeUnit)
 //                .readTimeout(timeOut, timeUnit)
 //                // TODO: 19/04/21 comment this, uncomment above
@@ -322,17 +319,17 @@ public class ApiClientAdapter {
 //                })
 //                .build();
 
-        OkHttpClient httpClientNoSSL = clientBuilder
-                .connectTimeout(timeOut, timeUnit)
-                // TODO: 08/06/21 create a proper ssl checking
-                .hostnameVerifier(new HostnameVerifier() {
-                    @Override
-                    public boolean verify(String s, SSLSession sslSession) {
-                        return true;
-                    }
-                })
-                .readTimeout(timeOut, timeUnit)
-                .build();
+//        OkHttpClient httpClientNoSSL = clientBuilder
+//                .connectTimeout(timeOut, timeUnit)
+//                // TODO: 08/06/21 create a proper ssl checking
+//                .hostnameVerifier(new HostnameVerifier() {
+//                    @Override
+//                    public boolean verify(String s, SSLSession sslSession) {
+//                        return true;
+//                    }
+//                })
+//                .readTimeout(timeOut, timeUnit)
+//                .build();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -341,7 +338,7 @@ public class ApiClientAdapter {
 
                 //pake yang non ssl untuk development, karena certificatenya gak valid
 //                .client(httpClient)
-                .client(httpClientNoSSL)
+                .client(httpClient)
                 .build();
 
         apiInterface = retrofit.create(ApiInterface.class);
