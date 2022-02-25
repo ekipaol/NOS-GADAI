@@ -85,14 +85,14 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
     }
 
     private void initialize() {
-        binding.etStatusPenjualan.setText("Terjual");
+        binding.etStatusPenjualan.setText("Sudah Terjual");
         binding.etCabang.setText(getIntent().getStringExtra("KodeCabang"));
         binding.etNamaNasabah.setText(getIntent().getStringExtra("NamaNasabah"));
         binding.etNomerApplikasi.setText(getIntent().getStringExtra("NoAplikasi"));
     }
 
     private void setParameterDropdown() {
-        dataDropdownPenjualan.add(new MGenericModel("1", "Terjual"));
+        dataDropdownPenjualan.add(new MGenericModel("1", "Sudah Terjual"));
         dataDropdownPenjualan.add(new MGenericModel("2", "Tidak Terjual"));
     }
 
@@ -142,7 +142,7 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
             case R.id.rl_dokumen:
             case R.id.iv_dokumen:
                 clicker = "agunan";
-                BSBottomCamera.display(this.getSupportFragmentManager(), this);
+                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this,"Foto Dokumen");
                 break;
             case R.id.btn_send:
             case R.id.ll_btn_send:
@@ -160,13 +160,16 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
         {
             binding.etStatusPenjualan.setText(data.getDESC());
         }
-         if (data.getDESC().equalsIgnoreCase("Tidak Terjual")) {
-            {
-                binding.etDokumen.setVisibility(View.GONE);
-                binding.ivDokumen.setVisibility(View.GONE);
-                binding.btnDokumen.setVisibility(View.GONE);
-                binding.rlDokumen.setVisibility(View.GONE);
-            }
+        if (data.getDESC().equalsIgnoreCase("Tidak Terjual")) {
+            binding.etDokumen.setVisibility(View.GONE);
+            binding.ivDokumen.setVisibility(View.GONE);
+            binding.btnDokumen.setVisibility(View.GONE);
+            binding.rlDokumen.setVisibility(View.GONE);
+        } else if (data.getDESC().equalsIgnoreCase("Sudah Terjual")) {
+            binding.etDokumen.setVisibility(View.VISIBLE);
+            binding.ivDokumen.setVisibility(View.VISIBLE);
+            binding.btnDokumen.setVisibility(View.VISIBLE);
+            binding.rlDokumen.setVisibility(View.VISIBLE);
         }
     }
 
@@ -222,7 +225,7 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
     public void onSelectMenuCamera(String idMenu) {
         switch (idMenu) {
             case "Take Photo":
-                openCamera(TAKE_PICTURE_NASABAH, "Nasabah");
+                openCamera(TAKE_PICTURE_NASABAH, "Dokumen");
                 break;
             case "Pick Photo":
                 openGalery(PICK_PICTURE_NASABAH);
@@ -266,7 +269,7 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
         switch (requestCode) {
             case TAKE_PICTURE_NASABAH:
             case PICK_PICTURE_NASABAH:
-                setDataImage(uri_dokumen, bitmap_dokumen, binding.ivDokumen, imageReturnedIntent, "dokumen-penjualan");
+                setDataImage(uri_dokumen, bitmap_dokumen, binding.ivDokumen, imageReturnedIntent, "dokumen");
         }
     }
 

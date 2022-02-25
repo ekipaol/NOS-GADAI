@@ -7,14 +7,13 @@ import com.application.bris.ikurma_nos_gadai.BuildConfig;
  */
 
 public class UriApi {
-    
+
     public static class Baseurl{
 //        public static final String URLDEV = "http://10.1.25.55:8080/MobileBRISIAPI-EKI/webresources/"; //DEV
 //        public static final String URLDEV = "https://10.0.116.105/"; //DEV
-//        public static final String URLDEV = "http://10.0.116.37:8054/nos-gadai/"; //DEV lewat middle tier
-        public static final String URLDEV = "https://103.23.117.26/nos-gadai/"; //IP public NOS GADAI
+        public static final String URLDEV = "http://10.0.116.37:8054/nos-gadai/"; //DEV lewat middle tier
+        public static final String URLPROD = "https://nos-api.bankbsi.co.id/nos-gadai/"; //IP public NOS GADAI
 
-        public static final String URLPROD = "https://intel.brisyariah.co.id:55056/MobileBRISIAPI/webresources/"; //PROD
 //        public static final String URLPROD = "https://intel.brisyariah.co.id:55056/MobileBRISIAPI-EKI/webresources/"; //PROD EKI
 
         public static String URL = (BuildConfig.IS_PRODUCTION) ? URLPROD : URLDEV ; //ENV BASED URI SELECTOR
@@ -24,9 +23,9 @@ public class UriApi {
 
     public class general {
         public static final String searchAddress = "generic/pencarianKodePos";
-        public static final String login = "https://103.23.117.26/user-service/logins";
+        public static final String login = "https://nos-api.bankbsi.co.id/user-service/logins";
         public static final String simpanFeedback = "generic/simpanFeedback";
-        public static final String login2 =  "https://103.23.117.26/user-service/logins";
+        public static final String login2 =  "https://nos-api.bankbsi.co.id/user-service/logins";
         public static final String home = "generic/dashboardKmg";
         public static final String getProduct = "generic/getProduk";
         public static final String getKategSektorEkonomii = "generic/mikro/hotprospek/datapembiayaan/kategoriSektorEkonomi";

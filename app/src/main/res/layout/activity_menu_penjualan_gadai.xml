@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:android="http://schemas.android.com/apk/res/android">
@@ -10,9 +10,7 @@
         android:layout_marginTop="60dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorBackgroundCore"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        >
+        android:background="@color/colorBackgroundCore">
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -55,10 +53,10 @@
                                     android:id="@+id/icUser"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
-                                    android:layout_marginLeft="4dp"
-                                    android:layout_centerInParent="true"
                                     android:layout_alignParentLeft="true"
-                                    android:src="@drawable/ic_followup_flpp"/>
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="4dp"
+                                    android:src="@drawable/ic_followup_flpp" />
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -114,10 +112,10 @@
                                     android:id="@+id/icStatus"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
-                                    android:layout_marginLeft="3dp"
-                                    android:layout_centerInParent="true"
                                     android:layout_alignParentLeft="true"
-                                    android:src="@drawable/ic_konfirmasi_flpp"/>
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="3dp"
+                                    android:src="@drawable/ic_konfirmasi_flpp" />
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
