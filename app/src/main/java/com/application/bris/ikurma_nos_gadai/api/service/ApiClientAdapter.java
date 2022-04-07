@@ -271,20 +271,20 @@ public class ApiClientAdapter {
 
 
 
-//        if (!BuildConfig.IS_PRODUCTION) {
-//            clientBuilder.addInterceptor(loggingInterceptor);
-//        }
-//        else{
-//            if(BuildConfig.IS_BD){
-//                clientBuilder.addInterceptor(loggingInterceptor);
-//            }
-//        }
+        if (!BuildConfig.IS_PRODUCTION) {
+            clientBuilder.addInterceptor(loggingInterceptor);
+        }
+        else{
+            if(BuildConfig.IS_BD){
+                clientBuilder.addInterceptor(loggingInterceptor);
+            }
+        }
 
         OkHttpClient httpClient;
 
 
         if(BuildConfig.IS_PRODUCTION){
-            String hostname = "103.23.117.26";
+            String hostname = "https://nos-api.bankbsi.co.id";
             CertificatePinner certificatePinner = new CertificatePinner.Builder()
                     .add(hostname, "sha256/m3gxkDjPV2og4oSnEPSz1OTeOkh1tYQV53hcji7/KDY=")
                     .build();

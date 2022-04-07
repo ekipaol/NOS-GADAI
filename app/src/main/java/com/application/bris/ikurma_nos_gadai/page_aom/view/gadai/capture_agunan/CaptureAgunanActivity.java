@@ -77,32 +77,32 @@ public class CaptureAgunanActivity extends AppCompatActivity implements View.OnC
             case R.id.btn_additional1:
             case R.id.rl_additional1:
             case R.id.iv_additional1:
-                BSBottomCamera.display(this.getSupportFragmentManager(), this);
+                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this, "Foto Tambahan");
                 clicker = "additional1";
                 break;
             case R.id.btn_additional2:
             case R.id.rl_additional2:
             case R.id.iv_additional2:
                 clicker = "additional2";
-                BSBottomCamera.display(this.getSupportFragmentManager(), this);
+                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this,"Foto Tambahan");
                 break;
             case R.id.btn_foto_agunan:
             case R.id.rl_foto_agunan:
             case R.id.iv_foto_agunan:
                 clicker = "agunan";
-                BSBottomCamera.display(this.getSupportFragmentManager(), this);
+                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this,"Foto Agunan");
                 break;
             case R.id.btn_bersama_nasabah:
             case R.id.rl_bersama_nasabah:
             case R.id.iv_bersama_nasabah:
                 clicker = "nasabah";
-                BSBottomCamera.display(this.getSupportFragmentManager(), this);
+                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this,"Foto Bersama Nasabah");
                 break;
             case R.id.btn_foto_ktp:
             case R.id.rl_foto_ktp:
             case R.id.iv_foto_ktp:
                 clicker = "ktp";
-                BSBottomCamera.display(this.getSupportFragmentManager(), this);
+                BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this," Foto KTP");
                 break;
             case R.id.btn_send:
             case R.id.ll_btn_send:

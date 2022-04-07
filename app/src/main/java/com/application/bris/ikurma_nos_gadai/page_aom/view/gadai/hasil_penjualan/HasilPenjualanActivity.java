@@ -89,7 +89,7 @@ public class HasilPenjualanActivity extends AppCompatActivity implements SwipeRe
         obj1.addProperty("FilterReviewer", "NONE");
         obj1.addProperty("FilterPemutus", "NONE");
         obj1.addProperty("FilterAOPembiayaan", "NONE");
-            obj1.addProperty("FilterWorkFlowStatus", "Dalam Proses Penjualan");
+        obj1.addProperty("FilterWorkFlowStatus", "Dalam Proses Penjualan");
 //        obj1.addProperty("FilterWorkFlowStatus", "LOLOS IDE");
         obj1.addProperty("FilterNoCif", "NONE");
         obj1.addProperty("FilterSBGE", "NONE");
@@ -184,7 +184,7 @@ public class HasilPenjualanActivity extends AppCompatActivity implements SwipeRe
     }
 
     public void customToolbar() {
-        binding.toolbarReguler.tvPageTitle.setText("LIST HASIL PENJUALAN");
+        binding.toolbarReguler.tvPageTitle.setText("List Hasil Penjualan");
         binding.toolbarReguler.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
