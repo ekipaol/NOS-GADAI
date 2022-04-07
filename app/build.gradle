@@ -12,7 +12,7 @@ android {
         versionCode 1
         versionName "0.3.11"
         multiDexEnabled true
-        buildConfigField("Boolean", "IS_PRODUCTION", "false")
+        buildConfigField("Boolean", "IS_PRODUCTION", "true")
         buildConfigField ("Boolean","IS_BD", "true")
         buildConfigField ("Boolean","SHOW_LOG", "true")
         buildConfigField ("Boolean","ROOT_DETECTION", "true")
