@@ -29,6 +29,7 @@ import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityDetailSerahTerimaBinding;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.BSBottomCamera;
+import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFromService;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.CameraListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataSerahTerima;
@@ -40,6 +41,9 @@ import com.google.gson.reflect.TypeToken;
 
 import java.io.File;
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,7 +52,10 @@ import retrofit2.Response;
 public class DetailSerahTerimaActivity extends AppCompatActivity implements View.OnClickListener, CameraListener, GenericListenerOnSelect {
 
     ActivityDetailSerahTerimaBinding binding;
+    List<MGenericModel> dataDropdownSerahTerima = new ArrayList<>();
     Call<ParseResponseAgunan> call;
+    SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss.SSS'Z'");
+    SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
     String clicker;
     private Uri uri_nasabah;
     private Bitmap bitmap_nasabah;
@@ -65,6 +72,10 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
                 clicker = "nasabah";
                 BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this, "Foto Nasabah");
                 break;
+            case R.id.tf_status_serah_terima:
+            case R.id.et_status_serah_terima:
+                DialogGenericDataFromService.display(getSupportFragmentManager(),binding.tfStatusSerahTerima.getLabelText(),dataDropdownSerahTerima, DetailSerahTerimaActivity.this);
+                break;
             case R.id.btn_send:
             case R.id.ll_btn_send:
                 SendData();
@@ -79,7 +90,7 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
             JsonObject obj1 = new JsonObject();
             obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
             obj1.addProperty("kodeCabang", appPreferences.getKodeKantor());
-            obj1.addProperty("konfirmasi", "YA");
+            obj1.addProperty("konfirmasi", binding.etStatusSerahTerima.getText().toString());
             obj1.addProperty("Pemberi", getIntent().getStringExtra("IDPemberi"));
             obj1.addProperty("Penerima", getIntent().getStringExtra("IDPenerima"));
             obj1.addProperty("Description", binding.etDeskripsi.getText().toString());
@@ -143,12 +154,15 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
         //Sdk untuk background toolbar
         backgroundStatusBar();
         //Parameter Dropdown
+        setDropdownData();
+        onClickEndIcon();
 
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
     }
 
     private void initilize() {
+        binding.etStatusSerahTerima.setText("Ya");
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         JsonObject obj1 = new JsonObject();
         obj1.addProperty("FilterNoAplikasi", getIntent().getStringExtra("NoAplikasi"));
@@ -175,8 +189,8 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
                             binding.etCabang.setText(dataSerahTerima.getKodeCabang());
                             binding.etNamaNasabah.setText(dataSerahTerima.getNamaSesuaiKTP());
                             binding.etNomerLd.setText(dataSerahTerima.getlDNumber());
-                            binding.etStatusSerahTerima.setText(dataSerahTerima.getHasilUjiKualitas());
-                            binding.etTglAktifitas.setText(AppUtil.parseTanggalGeneral(dataSerahTerima.getTanggalJatuhTempo(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
+                            binding.etTglAktifitas.setText(AppUtil.parseTanggalGeneral(dataSerahTerima.getTanggalPelunasan(), "yyyy-MM-dd'T'HH:mm:ss'Z'", "dd-MMM-YYYY"));
+//                            binding.etTglAktifitas.setText(AppUtil.parseTanggalGeneral(dataSerahTerima.getTanggalJatuhTempo(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
                         } else {
                             AppUtil.notiferror(DetailSerahTerimaActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
@@ -204,6 +218,7 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
         binding.etNomerApplikasi.setFocusable(false);
         binding.etTglAktifitas.setFocusable(false);
         binding.etNomerLd.setFocusable(false);
+        binding.etStatusSerahTerima.setFocusable(false);
 //        binding.etNamaPemberi.setFocusable(false);
 //        binding.etNamaPenerima.setFocusable(false);
     }
@@ -214,9 +229,27 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
         binding.rlBersamaNasabah.setOnClickListener(this);
         binding.ivBersamaNasabah.setOnClickListener(this);
         //Button Click
+        binding.tfStatusSerahTerima.setOnClickListener(this);
+        binding.etStatusSerahTerima.setOnClickListener(this);
+        binding.etDeskripsi.setOnClickListener(this);
         binding.btnSend.setOnClickListener(this);
         binding.llBtnSend.setOnClickListener(this);
     }
+
+    private void setDropdownData() {
+        dataDropdownSerahTerima.add(new MGenericModel("Ya", "Ya"));
+        dataDropdownSerahTerima.add(new MGenericModel("Tidak", "Tidak"));
+    }
+
+    private void onClickEndIcon() {
+        binding.tfStatusSerahTerima.getEndIconImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DialogGenericDataFromService.display(getSupportFragmentManager(), binding.tfStatusSerahTerima.getLabelText(), dataDropdownSerahTerima, DetailSerahTerimaActivity.this);
+            }
+        });
+    }
+
 
     private void backgroundStatusBar() {
         Window window = getWindow();
@@ -234,11 +267,12 @@ public class DetailSerahTerimaActivity extends AppCompatActivity implements View
             }
         });
     }
+        @Override
+        public void onSelect(String title, MGenericModel data) {
+            title.equalsIgnoreCase(binding.tfStatusSerahTerima.getLabelText());
+                binding.etStatusSerahTerima.setText(data.getDESC());
+        }
 
-
-    public void onSelect(String title, MGenericModel data) {
-
-    }
 
     @Override
     public void onSelectMenuCamera(String idMenu) {

@@ -283,12 +283,14 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
                                 rv_capture_agunan.setAdapter(adapterListAplikasi);
                                 adapterListAplikasi.notifyDataSetChanged();
                                 ViewCompat.setNestedScrollingEnabled(rv_capture_agunan, false);
-                            }
-                            else {
+
+                            } else  {
                                 ll_emptydata_pipeline.setVisibility(View.VISIBLE);
                             }
+
                         }
                         else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                            rv_capture_agunan.setVisibility(View.GONE);
                             ll_emptydata_pipeline.setVisibility(View.VISIBLE);
                         }
                         else{
@@ -364,6 +366,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
                         }
                     }
                     else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                        rv_putusan.setVisibility(View.GONE);
                         ll_emptydata_putusan.setVisibility(View.VISIBLE);
                     }
                 }

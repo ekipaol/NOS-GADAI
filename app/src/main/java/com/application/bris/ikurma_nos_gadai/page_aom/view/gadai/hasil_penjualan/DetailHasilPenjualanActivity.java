@@ -124,7 +124,7 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
     }
 
     public void customToolbar() {
-        binding.toolbarNosearch.tvPageTitle.setText("HASIL PENJUALAN");
+        binding.toolbarNosearch.tvPageTitle.setText("Hasil Penjualan");
         binding.toolbarNosearch.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -145,6 +145,7 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
                 BSBottomCamera.displayWithTitle(this.getSupportFragmentManager(), this,"Foto Dokumen");
                 break;
             case R.id.btn_send:
+            case R.id.rl_btn_send:
             case R.id.ll_btn_send:
                 SendData();
                 break;
@@ -179,48 +180,53 @@ public class DetailHasilPenjualanActivity extends AppCompatActivity implements V
     }
 
     private void SendData() {
-        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        JsonObject obj1 = new JsonObject();
-        obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
+        if (bitmap_dokumen == null && binding.etStatusPenjualan.getText().toString().equalsIgnoreCase("Sudah Terjual"))
+            AppUtil.notiferror(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), "Foto Tidak Lengkap, Mohon Lengkapi Terbebih Dahulu");
+        else {
+            binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+            JsonObject obj1 = new JsonObject();
+            obj1.addProperty("NoAplikasi", getIntent().getStringExtra("NoAplikasi"));
 //        obj1.addProperty("NoAplikasi", "GDE2021092800002");
-        obj1.addProperty("kodeCabang", binding.etCabang.getText().toString());
-        obj1.addProperty("FotoDokumentPenjualan", AppUtil.encodeImageTobase64(bitmap_dokumen).toString());
-        obj1.addProperty("StatusPenjualan", binding.etStatusPenjualan.getText().toString());
-        obj1.addProperty("UserSubmit", appPreferences.getKodeAo());
-        ReqListGadai req = new ReqListGadai();
-        req.setkchannel("Mobile");
-        req.setdata(obj1);
-        call = apiClientAdapter.getApiInterface().UpdatehasilPenjualan(req);
-        call.enqueue(new Callback<ParseResponse>() {
-            @Override
-            public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {
-                try {
-                    if (response.isSuccessful()) {
-                        binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        if (response.body().getStatus().equalsIgnoreCase("00")) {
-                            AppUtil.notifsuccess(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), "Berhasil Update");
-                            Toast.makeText(DetailHasilPenjualanActivity.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
-                            finish();
+            obj1.addProperty("kodeCabang", binding.etCabang.getText().toString());
+            if (bitmap_dokumen != null) {
+                obj1.addProperty("FotoDokumentPenjualan", AppUtil.encodeImageTobase64(bitmap_dokumen).toString());
+            }
+            obj1.addProperty("StatusPenjualan", binding.etStatusPenjualan.getText().toString());
+            obj1.addProperty("UserSubmit", appPreferences.getKodeAo());
+            ReqListGadai req = new ReqListGadai();
+            req.setkchannel("Mobile");
+            req.setdata(obj1);
+            call = apiClientAdapter.getApiInterface().UpdatehasilPenjualan(req);
+            call.enqueue(new Callback<ParseResponse>() {
+                @Override
+                public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {
+                    try {
+                        if (response.isSuccessful()) {
+                            binding.loading.progressbarLoading.setVisibility(View.GONE);
+                            if (response.body().getStatus().equalsIgnoreCase("00")) {
+                                AppUtil.notifsuccess(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), "Berhasil Update");
+                                Toast.makeText(DetailHasilPenjualanActivity.this, "Berhasil capture", Toast.LENGTH_SHORT).show();
+                                finish();
+                            } else {
+                                AppUtil.notiferror(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                            }
                         } else {
-                            AppUtil.notiferror(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                            Error error = ParseResponseError.confirmEror(response.errorBody());
+                            AppUtil.notiferror(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), error.getMessage());
                         }
-                    } else {
-                        Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), error.getMessage());
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
-            }
 
-            @Override
-            public void onFailure(Call<ParseResponse> call, Throwable t) {
-                binding.loading.progressbarLoading.setVisibility(View.GONE);
-                AppUtil.notiferror(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
-            }
-        });
+                @Override
+                public void onFailure(Call<ParseResponse> call, Throwable t) {
+                    binding.loading.progressbarLoading.setVisibility(View.GONE);
+                    AppUtil.notiferror(DetailHasilPenjualanActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                }
+            });
+        }
     }
-
     @Override
     public void onSelectMenuCamera(String idMenu) {
         switch (idMenu) {

@@ -40,6 +40,9 @@ public class DataSerahTerima {
     @SerializedName("TanggalJatuhTempo")
     @Expose
     private String tanggalJatuhTempo;
+    @SerializedName("DateTimePelunasan")
+    @Expose
+    private String tanggalPelunasan;
     @SerializedName("TotalTaksiran")
     @Expose
     private String totalTaksiran;
@@ -186,6 +189,14 @@ public class DataSerahTerima {
 
     public void setTanggalJatuhTempo(String tanggalJatuhTempo) {
         this.tanggalJatuhTempo = tanggalJatuhTempo;
+    }
+
+    public String getTanggalPelunasan() {
+        return tanggalPelunasan;
+    }
+
+    public void setTanggalPelunasan(String tanggalPelunasan) {
+        this.tanggalPelunasan = tanggalPelunasan;
     }
 
     public String getTotalTaksiran() {

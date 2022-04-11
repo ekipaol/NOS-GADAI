@@ -286,9 +286,8 @@ public class ActivityUjiAcak extends AppCompatActivity implements View.OnClickLi
     }
 
     private void allOnclick() {
-        binding.tfJenisAgunan.setOnClickListener(this);
-        binding.etJenisAgunan.setOnClickListener(this);
-        //disable
+        binding.tfJenisAgunan.setFocusable(false);
+        binding.etJenisAgunan.setFocusable(false);
         binding.etNomerLd.setFocusable(false);
         binding.etCabang.setFocusable(false);
         binding.etNamaNasabah.setFocusable(false);
