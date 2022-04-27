@@ -4,6 +4,8 @@ import android.app.SearchManager;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -59,7 +61,6 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
         super.onCreate(savedInstanceState);
         //binding View
         binding = ActivityListAgunanBinding.inflate(getLayoutInflater());
-        setSupportActionBar(binding.toolbarReguler.tbRegular);
         setContentView(binding.getRoot());
         //Button Click
         setclickable();
@@ -164,8 +165,22 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
         binding.rvListAgunan.setAdapter(listAgunanAdapter);
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
+        binding.toolbarReguler.etSearchTool.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                listAgunanAdapter.getFilter().filter(s);
+            }
 
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                listAgunanAdapter.getFilter().filter(s);
+            }
 
+            @Override
+            public void afterTextChanged(Editable s) {
+                listAgunanAdapter.getFilter().filter(s);
+            }
+        });
     }
 
     @Override
