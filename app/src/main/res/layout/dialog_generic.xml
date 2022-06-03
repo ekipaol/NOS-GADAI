@@ -28,19 +28,20 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
-            <SearchView
-                android:id="@+id/searchView"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:queryHint="Search Here"
-                android:iconifiedByDefault="false"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:layout_marginLeft="20dp"
-                android:layout_marginRight="20dp"
-                android:queryBackground="@color/colorBackgroundTransparent"
-                android:background="@drawable/forminput_cardwhite"
-                android:layout_below="@+id/divider_search"/>
+
+<!--            <SearchView-->
+<!--                android:id="@+id/searchView"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:queryHint="Search Here"-->
+<!--                android:iconifiedByDefault="false"-->
+<!--                android:layout_marginTop="16dp"-->
+<!--                android:layout_marginBottom="16dp"-->
+<!--                android:layout_marginLeft="20dp"-->
+<!--                android:layout_marginRight="20dp"-->
+<!--                android:queryBackground="@color/colorBackgroundTransparent"-->
+<!--                android:background="@drawable/forminput_cardwhite"-->
+<!--                android:layout_below="@+id/divider_search"/>-->
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rv_generic"

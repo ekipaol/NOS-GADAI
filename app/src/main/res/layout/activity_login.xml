@@ -28,7 +28,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="24sp"
-                android:fontFamily="@font/muli_b"
+                android:fontFamily="@font/manrope_b"
                 android:text="{Hi Developer}"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
@@ -40,7 +40,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:textSize="14sp"
-                android:fontFamily="@font/muli_r"
+                android:fontFamily="@font/manrope_r"
                 android:text="{Hi Developer}"
                 android:paddingRight="20dp"
                 android:paddingLeft="20dp"
@@ -95,7 +95,7 @@
                             android:padding="4dp"
                             android:textSize="18sp"
                             android:layout_marginTop="4dp"
-                            android:fontFamily="@font/muli_b"
+                            android:fontFamily="@font/manrope_b"
                             android:text="Login NOS Gadai"
                             android:gravity="center"/>
 
@@ -148,7 +148,7 @@
                 android:elevation="15dp"
                 android:background="@drawable/shapelogin"
                 android:text="LOGIN"
-                android:fontFamily="@font/muli_b"
+                android:fontFamily="@font/manrope_b"
                 android:textColor="@color/colorPrimary"
                 android:layout_marginTop="-43dp"/>
 

@@ -36,6 +36,17 @@ public class AppPreferences {
 
     }
 
+    public void setKodeArea (String data){
+        spEditor.putString(Constants.Login.KODE_AREA, data);
+        spEditor.commit();
+    }
+
+    public int getKodeArea(){
+        String data = AppUtil.decrypt(sharedPref.getString(Constants.Login.KODE_AREA, "0"));
+        return AppUtil.parseIntWithDefault(data, 0);
+
+    }
+
     public void setJabatan (String data){
         spEditor.putString(Constants.Login.JABATAN, data);
         spEditor.commit();

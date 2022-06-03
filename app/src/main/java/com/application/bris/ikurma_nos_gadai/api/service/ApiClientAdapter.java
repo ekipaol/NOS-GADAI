@@ -18,6 +18,9 @@ import com.google.gson.Gson;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import javax.net.ssl.HostnameVerifier;
+import javax.net.ssl.SSLSession;
+
 import okhttp3.CertificatePinner;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
@@ -319,17 +322,17 @@ public class ApiClientAdapter {
 //                })
 //                .build();
 
-//        OkHttpClient httpClientNoSSL = clientBuilder
-//                .connectTimeout(timeOut, timeUnit)
-//                // TODO: 08/06/21 create a proper ssl checking
-//                .hostnameVerifier(new HostnameVerifier() {
-//                    @Override
-//                    public boolean verify(String s, SSLSession sslSession) {
-//                        return true;
-//                    }
-//                })
-//                .readTimeout(timeOut, timeUnit)
-//                .build();
+        OkHttpClient httpClientNoSSL = clientBuilder
+                .connectTimeout(timeOut, timeUnit)
+                // TODO: 08/06/21 create a proper ssl checking
+                .hostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    public boolean verify(String s, SSLSession sslSession) {
+                        return true;
+                    }
+                })
+                .readTimeout(timeOut, timeUnit)
+                .build();
 
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
@@ -338,7 +341,7 @@ public class ApiClientAdapter {
 
                 //pake yang non ssl untuk development, karena certificatenya gak valid
 //                .client(httpClient)
-                .client(httpClient)
+                .client(httpClientNoSSL)
                 .build();
 
         apiInterface = retrofit.create(ApiInterface.class);

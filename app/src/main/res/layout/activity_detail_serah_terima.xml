@@ -243,7 +243,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:background="@drawable/photo_rounded_blue"
                                 android:padding="8dp"
-                                android:src="@mipmap/ico_upload"
+                                android:src="@drawable/ic_add_camera"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toRightOf="parent" />
 

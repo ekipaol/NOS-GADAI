@@ -116,7 +116,7 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Tanggal Aktifitas"
+                android:text="Tanggal Pencairan"
                 android:layout_weight="1"
                 android:textSize="12sp"/>
 
@@ -124,7 +124,7 @@
                 android:id="@+id/tv_tanggal_jatuh_tempo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="{Tanggal Jatuh Tempo}"
+                android:text="{Tanggal Pencairan}"
                 android:textSize="13sp"
                 android:textColor="@color/colorBlackHeader"
                 android:layout_weight="1"

@@ -50,6 +50,7 @@ import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.serah_terima.Li
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_acak.ListUjiAcak;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ListUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListAreaActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListCabangActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameActivity;
 import com.application.bris.ikurma_nos_gadai.page_putusan_gadai.PutusanGadaiActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppBarStateChangedListener;
@@ -466,8 +467,16 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
             startActivity(it);
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_putusan))){
-            Intent it = new Intent(getContext(), PutusanGadaiActivity.class);
-            startActivity(it);
+            if(AppUtil.checkIsPemutusArea(appPreferences.getFidRole())){
+                Intent it = new Intent(getContext(), ListCabangActivity.class);
+                it.putExtra("fidArea",appPreferences.getKodeArea());
+                it.putExtra("asalmenu","putusan");
+                startActivity(it);
+            }
+            else{
+                Intent it = new Intent(getContext(), PutusanGadaiActivity.class);
+                startActivity(it);
+            }
         }
         else if (menu.equalsIgnoreCase("feedback")){
             Intent it = new Intent(getContext(), FeedbackActivity.class);

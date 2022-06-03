@@ -21,6 +21,7 @@
         <TextView
             android:id="@+id/tv_nama"
             android:text="{Nama}"
+            android:fontFamily="@font/manrope_b"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="6dp"
@@ -58,6 +59,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="{ID Aplikasi}"
+                    android:fontFamily="@font/manrope_b"
                     android:padding="2dp"
                     android:textSize="13dp"
                     android:textStyle="bold"/>
@@ -67,6 +69,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="{Plafond}"
+                    android:fontFamily="@font/manrope_m"
                     android:padding="2dp"
                     android:textSize="11dp"/>
 
@@ -75,6 +78,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="{Tanggal}"
+                    android:fontFamily="@font/manrope_m"
                     android:padding="2dp"
                     android:textSize="11dp"/>
             </LinearLayout>

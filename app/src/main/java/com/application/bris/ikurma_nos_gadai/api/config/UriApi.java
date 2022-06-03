@@ -10,9 +10,9 @@ public class UriApi {
 
     public static class Baseurl{
 //        public static final String URLDEV = "http://10.1.25.55:8080/MobileBRISIAPI-EKI/webresources/"; //DEV
-//        public static final String URLDEV = "https://10.0.116.105/"; //DEV
+        public static final String URLDEV = "https://10.0.116.109/"; //DEV lewat outsystem QA
 //        public static final String URLDEV = "http://10.0.116.37:8054/nos-gadai/"; //DEV lewat middle tier
-        public static final String URLDEV = "http://10.0.116.37:8051/"; //DEV lewat middle tier
+//        public static final String URLDEV = "http://10.0.116.37:8054/"; //DEV lewat middle tier
         public static final String URLPROD = "https://nos-api.bankbsi.co.id/"; //IP public NOS GADAI
 
 //        public static final String URLPROD = "https://intel.brisyariah.co.id:55056/MobileBRISIAPI-EKI/webresources/"; //PROD EKI
@@ -24,9 +24,10 @@ public class UriApi {
 
     public class general {
         public static final String searchAddress = "generic/pencarianKodePos";
-        public static final String login = "user-service/logins";
+        public static final String login = "http://10.0.116.37:8051/user-service/logins";
         public static final String simpanFeedback = "generic/simpanFeedback";
-        public static final String login2 =  "user-service/logins";
+//        public static final String login2 =  "http://10.0.116.37:8051/user-service/logins";
+        public static final String login2 =  "https://nos-api.bankbsi.co.id/user-service/logins";
         public static final String home = "generic/dashboardKmg";
         public static final String getProduct = "generic/getProduk";
         public static final String getKategSektorEkonomii = "generic/mikro/hotprospek/datapembiayaan/kategoriSektorEkonomi";
@@ -61,33 +62,62 @@ public class UriApi {
         public static final String savePipelineHotprospekKonsumer = "generic/konsumer/pipeline/simpanDanKirimHotProspek";
 
     }
+//KALAU NEMBAK KE MIDDLETIER, PAKAI INI
+//    public class gadaiNOS{
+//        //Gadai
+//        public static final String listAplikasiGadai = "nos-gadai/GadaiEmasService/rest/Gadai/ListAplikasiGadai";
+//        //Activity
+//        public static final String sendAplikasiGadai = "nos-gadai/GadaiEmasService/rest/Activity/SubmitFotoAgunanEmas";
+//        public static final String updateIsiLaci = "nos-gadai/GadaiEmasService/rest/Activity/ujiStockOpname";
+//        public static final String ujiAcak = "nos-gadai/GadaiEmasService/rest/Activity/UjiAcak";
+//        public static final String ujiKualitas = "nos-gadai/GadaiEmasService/rest/Activity/UjiKualitas";
+//        public static final String sendSerahTerima= "nos-gadai/GadaiEmasService/rest/Activity/SubmitTandaTerima";
+//        public static final String listTandaTerima= "nos-gadai/GadaiEmasService/rest/Activity/ListTandaTerima";
+//
+//        //Disburse
+//        public static final String detailAplikasiGadai = "nos-gadai/GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
+//        //Inquiry
+//        public static final String listIsiLaci = "nos-gadai/GadaiEmasService/rest/Vault/InquiryListBrankasOpname";
+//        public static final String sendBrankasInfo = "nos-gadai/GadaiEmasService/rest/Vault/BrankasInfo";
+//        public static final String listTanggalOpname = "nos-gadai/GadaiEmasService/rest/Vault/ListRequestAksesBrankas";
+//        //Lunas
+//        public static final String updatehasilpenjualan = "nos-gadai/GadaiEmasService/rest/Lunas/KonfirmasiPenjualanAgunan";
+//
+//    }
+//    public class GadaiPutusan {
+//        public static final String listAplikasiGadai = "nos-gadai/GadaiEmasService/rest/Gadai/ListAplikasiGadai";
+//        public static final String detailAplikasiGadai = "nos-gadai/GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
+//        public static final String inquiryListFoto = "nos-gadai/GadaiEmasService/rest/Gadai/InquiryListFoto";
+//        public static final String submitTaksiranPemutus = "nos-gadai/GadaiEmasService/rest/Disburse/SubmitSimulasiTaksiranPemutus";
+//    }
 
+    //KALAU NEMBAK DIRECT KE NOS PAKAI INI
     public class gadaiNOS{
         //Gadai
-        public static final String listAplikasiGadai = "nos-gadai/GadaiEmasService/rest/Gadai/ListAplikasiGadai";
+        public static final String listAplikasiGadai = "GadaiEmasService/rest/Gadai/ListAplikasiGadai";
         //Activity
-        public static final String sendAplikasiGadai = "nos-gadai/GadaiEmasService/rest/Activity/SubmitFotoAgunanEmas";
-        public static final String updateIsiLaci = "nos-gadai/GadaiEmasService/rest/Activity/ujiStockOpname";
-        public static final String ujiAcak = "nos-gadai/GadaiEmasService/rest/Activity/UjiAcak";
-        public static final String ujiKualitas = "nos-gadai/GadaiEmasService/rest/Activity/UjiKualitas";
-        public static final String sendSerahTerima= "nos-gadai/GadaiEmasService/rest/Activity/SubmitTandaTerima";
-        public static final String listTandaTerima= "nos-gadai/GadaiEmasService/rest/Activity/ListTandaTerima";
+        public static final String sendAplikasiGadai = "GadaiEmasService/rest/Activity/SubmitFotoAgunanEmas";
+        public static final String updateIsiLaci = "GadaiEmasService/rest/Activity/ujiStockOpname";
+        public static final String ujiAcak = "GadaiEmasService/rest/Activity/UjiAcak";
+        public static final String ujiKualitas = "GadaiEmasService/rest/Activity/UjiKualitas";
+        public static final String sendSerahTerima= "GadaiEmasService/rest/Activity/SubmitTandaTerima";
+        public static final String listTandaTerima= "GadaiEmasService/rest/Activity/ListTandaTerima";
 
         //Disburse
-        public static final String detailAplikasiGadai = "nos-gadai/GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
+        public static final String detailAplikasiGadai = "GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
         //Inquiry
-        public static final String listIsiLaci = "nos-gadai/GadaiEmasService/rest/Vault/InquiryListBrankasOpname";
-        public static final String sendBrankasInfo = "nos-gadai/GadaiEmasService/rest/Vault/BrankasInfo";
-        public static final String listTanggalOpname = "nos-gadai/GadaiEmasService/rest/Vault/ListRequestAksesBrankas";
+        public static final String listIsiLaci = "GadaiEmasService/rest/Vault/InquiryListBrankasOpname";
+        public static final String sendBrankasInfo = "GadaiEmasService/rest/Vault/BrankasInfo";
+        public static final String listTanggalOpname = "GadaiEmasService/rest/Vault/ListRequestAksesBrankas";
         //Lunas
-        public static final String updatehasilpenjualan = "nos-gadai/GadaiEmasService/rest/Lunas/KonfirmasiPenjualanAgunan";
+        public static final String updatehasilpenjualan = "GadaiEmasService/rest/Lunas/KonfirmasiPenjualanAgunan";
 
     }
     public class GadaiPutusan {
-        public static final String listAplikasiGadai = "nos-gadai/GadaiEmasService/rest/Gadai/ListAplikasiGadai";
-        public static final String detailAplikasiGadai = "nos-gadai/GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
-        public static final String inquiryListFoto = "nos-gadai/GadaiEmasService/rest/Gadai/InquiryListFoto";
-        public static final String submitTaksiranPemutus = "nos-gadai/GadaiEmasService/rest/Disburse/SubmitSimulasiTaksiranPemutus";
+        public static final String listAplikasiGadai = "GadaiEmasService/rest/Gadai/ListAplikasiGadai";
+        public static final String detailAplikasiGadai = "GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
+        public static final String inquiryListFoto = "GadaiEmasService/rest/Gadai/InquiryListFoto";
+        public static final String submitTaksiranPemutus = "GadaiEmasService/rest/Disburse/SubmitSimulasiTaksiranPemutus";
     }
 }
 

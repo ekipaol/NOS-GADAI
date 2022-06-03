@@ -15,10 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListSerahTerimaBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.DataSerahTerima;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanAdapter;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
 import java.util.ArrayList;
@@ -58,7 +55,7 @@ public class SerahTerimaAdapter extends RecyclerView.Adapter<SerahTerimaAdapter.
         holder.tvNamaNasabah.setText(data.getNamaSesuaiKTP());
         holder.tvNomorAplikasi.setText(data.getNoAplikasi());
         holder.tvNomorLd.setText(data.getlDNumber());
-        holder.tvTanggalJatuhTempo.setText(data.getTanggalJatuhTempo());
+        holder.tvTanggalJatuhTempo.setText(data.getTanggalCair());
 //        holder.tvTanggalJatuhTempo.setText(data.getTanggalAktifitas());
         onClicks(holder);
 

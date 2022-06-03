@@ -1,11 +1,5 @@
 package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
-import androidx.recyclerview.widget.DefaultItemAnimator;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import android.app.SearchManager;
 import android.content.Context;
 import android.os.Build;
@@ -15,6 +9,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
+import androidx.recyclerview.widget.DefaultItemAnimator;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponse;
@@ -22,7 +22,6 @@ import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListAreaBinding;
-import com.application.bris.ikurma_nos_gadai.model.gadai.DataArea;
 import com.application.bris.ikurma_nos_gadai.model.gadai.DataCabang;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.google.gson.Gson;
@@ -47,6 +46,7 @@ public class ListCabangActivity extends AppCompatActivity implements SwipeRefres
     private ApiClientAdapter apiClientAdapter;
     private AppPreferences appPreferences;
     private String fidArea="1";
+    private String menuasal = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +57,10 @@ public class ListCabangActivity extends AppCompatActivity implements SwipeRefres
 
         if(getIntent().hasExtra("fidArea")){
             fidArea=getIntent().getStringExtra("fidArea");
+        }
+
+        if(getIntent().hasExtra("asalmenu")){
+            menuasal=getIntent().getStringExtra("asalmenu");
         }
         customToolbar();
         backgroundStatusBar();
@@ -90,7 +94,7 @@ public class ListCabangActivity extends AppCompatActivity implements SwipeRefres
                             dataCabang = gson.fromJson(listDataString, type);
                             if (dataCabang.size() > 0){
                                 binding.llEmptydata.setVisibility(View.GONE);
-                                listAreaAdapter = new ListCabangAdapter(ListCabangActivity.this, dataCabang);
+                                listAreaAdapter = new ListCabangAdapter(ListCabangActivity.this, dataCabang, menuasal);
                                 binding.rvListArea.setLayoutManager(new LinearLayoutManager(ListCabangActivity.this));
                                 binding.rvListArea.setItemAnimator(new DefaultItemAnimator());
                                 binding.rvListArea.setAdapter(listAreaAdapter);
@@ -128,7 +132,7 @@ public class ListCabangActivity extends AppCompatActivity implements SwipeRefres
     public void initialize() {
         binding.rvListArea.setVisibility(View.VISIBLE);
         binding.rvListArea.setHasFixedSize(true);
-        listAreaAdapter = new ListCabangAdapter(ListCabangActivity.this, dataCabang);
+        listAreaAdapter = new ListCabangAdapter(ListCabangActivity.this, dataCabang, menuasal);
         binding.rvListArea.setLayoutManager(new LinearLayoutManager(ListCabangActivity.this));
         binding.rvListArea.setItemAnimator(new DefaultItemAnimator());
         binding.rvListArea.setAdapter(listAreaAdapter);

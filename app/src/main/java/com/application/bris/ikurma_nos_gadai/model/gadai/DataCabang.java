@@ -19,6 +19,17 @@ public class DataCabang {
     @SerializedName("branch_name")
     @Expose
     private String branchName;
+    @SerializedName("branch_code")
+    @Expose
+    private String kodeCabang;
+
+    public String getKodeCabang() {
+        return kodeCabang;
+    }
+
+    public void setKodeCabang(String kodeCabang) {
+        this.kodeCabang = kodeCabang;
+    }
 
     public String getId() {
         return id;
