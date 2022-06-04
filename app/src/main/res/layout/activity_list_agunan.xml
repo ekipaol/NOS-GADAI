@@ -9,27 +9,37 @@
     <include android:id="@+id/toolbar_reguler" layout="@layout/toolbar_regular" />
     <include android:id="@+id/loading" layout="@layout/loading" />
 
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginTop="64dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-        <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-            android:id="@+id/refresh"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clickable="true">
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list_agunan"
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refresh"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical" />
+                android:layout_height="match_parent"
+                android:clickable="true">
 
-        </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_list_agunan"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
+        </LinearLayout>
+
+
 
     </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/ll_emptydata"
@@ -55,4 +65,6 @@
             android:paddingLeft="40dp"
             android:gravity="center"/>
     </LinearLayout>
+
+
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

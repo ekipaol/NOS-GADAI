@@ -9,16 +9,15 @@ import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListAreaBinding;
-import com.application.bris.ikurma_nos_gadai.model.gadai.DataArea;
 import com.application.bris.ikurma_nos_gadai.model.gadai.DataCabang;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_acak.ListUjiAcak;
+import com.application.bris.ikurma_nos_gadai.page_putusan_gadai.PutusanGadaiActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,14 +27,16 @@ public class ListCabangAdapter extends RecyclerView.Adapter<ListCabangAdapter.Me
     private List<DataCabang> datafiltered;
     private Context context;
     private ItemListAreaBinding binding;
+    private String asalmenu;
 
 
     private AppPreferences appPreferences;
 
-    public ListCabangAdapter(Context context, List<DataCabang> mdata) {
+    public ListCabangAdapter(Context context, List<DataCabang> mdata, String asalmenu) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
+        this.asalmenu = asalmenu;
     }
 
 
@@ -64,18 +65,23 @@ public class ListCabangAdapter extends RecyclerView.Adapter<ListCabangAdapter.Me
         holder.btnPilih.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(appPreferences.getMenuClick().equalsIgnoreCase("uji opname")){
-                    Intent intent = new Intent(context, ListUjiOpnameActivity.class);
-                    intent.putExtra("idCabang", datafiltered.get(position).getFidBranch());
+                if (asalmenu.equalsIgnoreCase("putusan")){
+                    Intent intent = new Intent(context, PutusanGadaiActivity.class);
+                    intent.putExtra("idCabang", datafiltered.get(position).getKodeCabang());
                     context.startActivity(intent);
                 }
-                else    if(appPreferences.getMenuClick().equalsIgnoreCase("uji acak")){
-                    Intent intent = new Intent(context, ListUjiAcak.class);
-                    intent.putExtra("idCabang", datafiltered.get(position).getFidBranch());
-                    context.startActivity(intent);
+                else {
+                    if(appPreferences.getMenuClick().equalsIgnoreCase("uji opname")){
+                        Intent intent = new Intent(context, ListUjiOpnameActivity.class);
+                        intent.putExtra("idCabang", datafiltered.get(position).getFidBranch());
+                        context.startActivity(intent);
+                    }
+                    else    if(appPreferences.getMenuClick().equalsIgnoreCase("uji acak")){
+                        Intent intent = new Intent(context, ListUjiAcak.class);
+                        intent.putExtra("idCabang", datafiltered.get(position).getFidBranch());
+                        context.startActivity(intent);
+                    }
                 }
-
-
             }
         });
     }

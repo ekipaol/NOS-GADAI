@@ -4,7 +4,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.appcompat.app.AppCompatActivity;
 import android.text.Html;
 import android.view.View;
 import android.view.Window;
@@ -13,6 +12,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
@@ -35,8 +36,6 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-
-import org.w3c.dom.Text;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
@@ -280,6 +279,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         appPreferences.setKodeCabang(AppUtil.encrypt(String.valueOf(dataLoginBsi.getBranch().getBranch_code())));
         appPreferences.setToken((dataLoginBsi.getToken()));
         appPreferences.setIdCabang(AppUtil.encrypt(String.valueOf(dataLoginBsi.getBranch().getId())));
+        appPreferences.setKodeArea(AppUtil.encrypt(String.valueOf(dataLoginBsi.getArea().getIdArea())));
     }
 
     @Override

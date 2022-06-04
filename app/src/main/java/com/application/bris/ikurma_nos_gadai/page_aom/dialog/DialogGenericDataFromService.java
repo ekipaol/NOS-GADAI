@@ -146,33 +146,33 @@ public class DialogGenericDataFromService extends DialogFragment  {
         rv_generic.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
         rv_generic.setAdapter(genericAdapter);
 
-        if (dataKeyvalue.size() > 0)
-        {
-            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                @Override
-                public boolean onQueryTextSubmit(String query) {
-                    try {
-                        genericAdapter.getFilter().filter(query);
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                    }
-                    return false;
-                }
+//        if (dataKeyvalue.size() > 0)
+//        {
+//            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+//                @Override
+//                public boolean onQueryTextSubmit(String query) {
+//                    try {
+//                        genericAdapter.getFilter().filter(query);
+//                    }
+//                    catch (Exception e){
+//                        e.printStackTrace();
+//                    }
+//                    return false;
+//                }
+//
+//                @Override
+//                public boolean onQueryTextChange(String query) {
+//                    try {
+//                        genericAdapter.getFilter().filter(query);
+//                        return false;
+//                    }
+//                    catch (Exception e){
+//                        e.printStackTrace();
+//                        return false;
+//                    }
+//                }
+//            });
 
-                @Override
-                public boolean onQueryTextChange(String query) {
-                    try {
-                        genericAdapter.getFilter().filter(query);
-                        return false;
-                    }
-                    catch (Exception e){
-                        e.printStackTrace();
-                        return false;
-                    }
-                }
-            });
-        }
     }
 
 

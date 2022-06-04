@@ -23,6 +23,16 @@ public class DataLoginBsi {
     private DataLoginRole role;
     @SerializedName("nik")
     private String nik;
+    @SerializedName("area")
+    private DataLoginArea area;
+
+    public DataLoginArea getArea() {
+        return area;
+    }
+
+    public void setArea(DataLoginArea area) {
+        this.area = area;
+    }
 
     public String getNik() {
         return nik;

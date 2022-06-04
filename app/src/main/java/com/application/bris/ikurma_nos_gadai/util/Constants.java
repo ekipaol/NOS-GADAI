@@ -26,6 +26,7 @@ public class Constants {
 		public static final String KODE_AO = "kode_ao";
 		public static final String CB_AMANAH = "cb_amanah";
 		public static final String ID_CABANG = "id_cabang";
+		public static final String KODE_AREA = "kode_area";
 	}
 
 	public static class Preferences{

@@ -40,6 +40,7 @@ public class PutusanGadaiActivity extends AppCompatActivity implements SwipeRefr
 
 
     private SearchView searchView;
+    private String kodeCabang="";
     List<DataGadai> dataPutusanGadai;
     PutusanGadaiAdapter AdapterGadai;
     ApiClientAdapter apiClientAdapter;
@@ -53,8 +54,19 @@ public class PutusanGadaiActivity extends AppCompatActivity implements SwipeRefr
         super.onCreate(savedInstanceState);
         binding=GadaiPutusanActivityBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        main();
         backgroundStatusBar();
+
+        if(getIntent().hasExtra("idCabang")){
+            kodeCabang=getIntent().getStringExtra("idCabang");
+        }
+        else {
+            kodeCabang = "NONE";
+        }
+
+        main();
+
+
+
 
         ImageView backToolbar=findViewById(R.id.btn_back);
         backToolbar.setOnClickListener(new View.OnClickListener() {
@@ -134,9 +146,11 @@ public class PutusanGadaiActivity extends AppCompatActivity implements SwipeRefr
 
 
         //pantekan kode cabang
-        reqGadai.setFilterKodeCabang(appPreferences.getKodeKantor());
+//        reqGadai.setFilterKodeCabang(appPreferences.getKodeKantor());
+//        reqGadai.setFilterKodeCabang();
 
-        //reqGadai.setFilterKodeCabang(appPreferences.getKodeCabang());
+//        AppUtil.logSecure("banyu",kodeCabang);
+        reqGadai.setFilterKodeCabang(kodeCabang);
         reqGadai.setFilterWorkFlowStatus("Waiting Review Pemutus");
         reqGadai.setFilterPemutus(appPreferences.getNik());
         reqGadai.setPemutusBeradaDiTempat("Tidak");

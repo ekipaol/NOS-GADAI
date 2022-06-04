@@ -24,7 +24,6 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListAgunanBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.listener.DropdownRecyclerListener;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.CaptureAgunan;
@@ -59,7 +58,6 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
         super.onCreate(savedInstanceState);
         //binding View
         binding = ActivityListAgunanBinding.inflate(getLayoutInflater());
-        setSupportActionBar(binding.toolbarReguler.tbRegular);
         setContentView(binding.getRoot());
         //Button Click
         setclickable();
@@ -164,8 +162,22 @@ public class ListAgunanActivity extends AppCompatActivity implements GenericList
         binding.rvListAgunan.setAdapter(listAgunanAdapter);
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
-
-
+//        binding.toolbarReguler.etSearchTool.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                listAgunanAdapter.getFilter().filter(s);
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                listAgunanAdapter.getFilter().filter(s);
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                listAgunanAdapter.getFilter().filter(s);
+//            }
+//        });
     }
 
     @Override

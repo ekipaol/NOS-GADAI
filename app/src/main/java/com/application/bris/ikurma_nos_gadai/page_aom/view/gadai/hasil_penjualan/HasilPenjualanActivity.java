@@ -9,7 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.recyclerview.widget.DefaultItemAnimator;
@@ -51,7 +50,7 @@ public class HasilPenjualanActivity extends AppCompatActivity implements SwipeRe
     private AppPreferences appPreferences;
 
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //binding View
         binding = ActivityListHasilPenjualanBinding.inflate(getLayoutInflater());
@@ -78,6 +77,7 @@ public class HasilPenjualanActivity extends AppCompatActivity implements SwipeRe
     }
 
     private void setData() throws JSONException {
+        binding.rvListPenjualan.setVisibility(View.GONE);
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         AppPreferences appPreferences = new AppPreferences(this);
         JsonObject obj1 = new JsonObject();
@@ -110,6 +110,7 @@ public class HasilPenjualanActivity extends AppCompatActivity implements SwipeRe
                 try {
                     if (response.isSuccessful()) {
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
+                        binding.rvListPenjualan.setVisibility(View.VISIBLE);
                         if (response.body().getStatus().equalsIgnoreCase("00")) {
                             String listDataString = response.body().getData().toString();
                             Gson gson = new Gson();
@@ -125,11 +126,9 @@ public class HasilPenjualanActivity extends AppCompatActivity implements SwipeRe
                             } else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
                             }
-                        }
-                        else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                        } else if (response.body().getStatus().equalsIgnoreCase("14")) {
                             binding.llEmptydata.setVisibility(View.VISIBLE);
-                        }
-                        else {
+                        } else {
                             AppUtil.notiferror(HasilPenjualanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     } else {
@@ -158,9 +157,9 @@ public class HasilPenjualanActivity extends AppCompatActivity implements SwipeRe
         binding.rvListPenjualan.setLayoutManager(new LinearLayoutManager(HasilPenjualanActivity.this));
         binding.rvListPenjualan.setItemAnimator(new DefaultItemAnimator());
         binding.rvListPenjualan.setAdapter(listAgunanAdapter);
+
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
-        binding.refresh.setEnabled(false);
     }
 
     @Override
@@ -242,6 +241,24 @@ public class HasilPenjualanActivity extends AppCompatActivity implements SwipeRe
 
     @Override
     public void onRefresh() {
-
+        binding.refresh.setRefreshing(false);
+        binding.rvListPenjualan.setVisibility(View.VISIBLE);
+        try {
+            setData();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
+
+    public void refreshData() throws JSONException {
+        setData();
+    }
+
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        HasilPenjualanActivity.this.recreate();
+    }
+
 }

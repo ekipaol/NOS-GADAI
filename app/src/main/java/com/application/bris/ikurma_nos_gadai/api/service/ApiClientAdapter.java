@@ -286,7 +286,7 @@ public class ApiClientAdapter {
         if(BuildConfig.IS_PRODUCTION){
             String hostname = "https://nos-api.bankbsi.co.id";
             CertificatePinner certificatePinner = new CertificatePinner.Builder()
-                    .add(hostname, "sha256/m3gxkDjPV2og4oSnEPSz1OTeOkh1tYQV53hcji7/KDY=")
+                    .add(hostname, "sha256/m3gxkDjPV2og4oSnEPSz1OTeKeh1tYQV53hcji7/KDY=")
                     .build();
 
             httpClient = clientBuilder
@@ -298,33 +298,19 @@ public class ApiClientAdapter {
         else{
             String hostname = "10.0.116.105";
             CertificatePinner certificatePinner = new CertificatePinner.Builder()
-                    .add(hostname, "sha256/m3gxkDjPV2og4oSnEPSz1OTeOkh1tYQV53hcji7/KDY=")
+                    .add(hostname, "sha256/m3gxkDjPV2og4oSnEPSz1OTeKeh1tYQV53hcji7/KDY=")
                     .build();
 
             httpClient = clientBuilder
                     .connectTimeout(timeOut, timeUnit)
-//                    .certificatePinner(certificatePinner)
+                    .certificatePinner(certificatePinner)
                     .readTimeout(timeOut, timeUnit)
                     .build();
         }
 
 
 
-//        OkHttpClient httpClientNoSSL = clientBuilder
-//                .connectTimeout(timeOut, timeUnit)
-//                // TODO: 08/06/21 create a proper ssl checking
-//                .hostnameVerifier(new HostnameVerifier() {
-//                    @Override
-//                    public boolean verify(String s, SSLSession sslSession) {
-//                        return true;
-//                    }
-//                })
-//                .readTimeout(timeOut, timeUnit)
-//                .build();
-
-
-        //bypass ssl
-//        httpClient = clientBuilder
+//         httpClient = clientBuilder
 //                .connectTimeout(timeOut, timeUnit)
 //                .readTimeout(timeOut, timeUnit)
 //                // TODO: 19/04/21 comment this, uncomment above
@@ -336,14 +322,27 @@ public class ApiClientAdapter {
 //                })
 //                .build();
 
+        OkHttpClient httpClientNoSSL = clientBuilder
+                .connectTimeout(timeOut, timeUnit)
+                // TODO: 08/06/21 create a proper ssl checking
+                .hostnameVerifier(new HostnameVerifier() {
+                    @Override
+                    public boolean verify(String s, SSLSession sslSession) {
+                        return true;
+                    }
+                })
+                .readTimeout(timeOut, timeUnit)
+                .build();
+
         retrofit = new Retrofit.Builder()
                 .baseUrl(baseUrl)
                 .addConverterFactory(new NullOnEmptyConverterFactory())
                 .addConverterFactory(gson)
-                .client(httpClient)
+
+                //pake yang non ssl untuk development, karena certificatenya gak valid
+//                .client(httpClient)
+                .client(httpClientNoSSL)
                 .build();
-
-
 
         apiInterface = retrofit.create(ApiInterface.class);
     }

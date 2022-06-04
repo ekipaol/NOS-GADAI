@@ -173,9 +173,10 @@
                     android:layout_marginTop="10dp"
                     android:paddingLeft="20dp"
                     android:paddingRight="20dp"
+                    app:endIcon="@drawable/ic_keyboard_arrow_down_black_24dp"
                     app:iconSignifier="@drawable/ic_segmen"
                     app:isResponsiveIconColor="true"
-                    app:labelText="Status Serah Terima"
+                    app:labelText="Apakah Sudah Sesuai ?"
                     app:panelBackgroundColor="@color/colorBgEdittext"
                     app:primaryColor="@color/colorPrimary"
                     app:secondaryColor="@color/colorPrimary"
@@ -195,10 +196,10 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:fontFamily="@font/muli_b"
+                    android:layout_marginTop="20dp"
                     android:paddingLeft="10dp"
-                    android:paddingBottom="10dp"
+                    android:gravity="center"
+                    android:fontFamily="@font/muli_b"
                     android:text="Foto Serah Terima"
                     android:textAlignment="center"
                     android:textSize="16sp" />
@@ -213,7 +214,6 @@
                         android:id="@+id/rl_bersama_nasabah"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginTop="10dp"
                         android:layout_weight="1"
                         android:padding="10dp">
 
@@ -243,7 +243,7 @@
                                 android:layout_marginBottom="10dp"
                                 android:background="@drawable/photo_rounded_blue"
                                 android:padding="8dp"
-                                android:src="@mipmap/ico_upload"
+                                android:src="@drawable/ic_add_camera"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintRight_toRightOf="parent" />
 

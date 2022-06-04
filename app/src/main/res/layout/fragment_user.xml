@@ -33,7 +33,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="220dp"
                     android:fitsSystemWindows="true"
-                    android:src="@drawable/bg_topblue"
+                    android:src="@drawable/bg_top_green"
                     android:contentDescription="{header image}"
                     android:scaleType="centerCrop"
                     app:layout_collapseMode="parallax"
@@ -53,7 +53,7 @@
                         android:gravity="center"
                         android:textColor="#555"
                         android:textSize="18sp"
-                        android:fontFamily="@font/muli_b"
+                        android:fontFamily="@font/manrope_b"
                         android:elevation="4dp"
                         android:layout_marginRight="16dp"/>
                 </androidx.appcompat.widget.Toolbar>
@@ -102,6 +102,7 @@
                         android:layout_marginTop="8dp"
                         android:elevation="10dp"
                         android:text="{Nama Lengkap}"
+                        android:fontFamily="@font/manrope_b"
                         android:textSize="22sp"
                         android:textStyle="bold"/>
 
@@ -114,6 +115,7 @@
                         android:padding="3dp"
                         android:elevation="10dp"
                         android:text="{Jabatan}, {Nama Kantor}"
+                        android:fontFamily="@font/manrope_r"
                         android:textColor="@color/colorPrimary"
                         android:textSize="14sp"/>
 
@@ -138,6 +140,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="NIK"
+                                android:fontFamily="@font/manrope_m"
                                 android:textSize="12sp"
                                 android:paddingBottom="2dp"/>
                             <TextView
@@ -145,6 +148,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="{NIK}"
+                                android:fontFamily="@font/manrope_m"
                                 android:textSize="12sp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
@@ -162,6 +166,7 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Kode AO"
+                                android:fontFamily="@font/manrope_m"
                                 android:textSize="12sp"
                                 android:paddingBottom="2dp"/>
                             <TextView
@@ -169,22 +174,24 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="{Kode AO}"
+                                android:fontFamily="@font/manrope_m"
                                 android:textSize="12sp"
                                 android:textStyle="bold"/>
                         </LinearLayout>
                     </LinearLayout>
+
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView"
                         android:layout_width="match_parent"
                         android:layout_height="200dp"
                         android:layout_alignParentBottom="true"
-                        app:cardCornerRadius="12dp"
-                        android:paddingBottom="10dp"
                         android:layout_marginBottom="10dp"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                        android:paddingBottom="10dp"
+                        app:cardCornerRadius="12dp"
                         app:cardElevation="2dp"
                         app:cardPreventCornerOverlap="false"
-                        app:cardUseCompatPadding="true">
+                        app:cardUseCompatPadding="true"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
                     </androidx.cardview.widget.CardView>
 
