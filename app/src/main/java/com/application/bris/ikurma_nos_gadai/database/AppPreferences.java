@@ -41,9 +41,8 @@ public class AppPreferences {
         spEditor.commit();
     }
 
-    public int getKodeArea(){
-        String data = AppUtil.decrypt(sharedPref.getString(Constants.Login.KODE_AREA, "0"));
-        return AppUtil.parseIntWithDefault(data, 0);
+    public String getKodeArea(){
+        return AppUtil.decrypt(sharedPref.getString(Constants.Login.KODE_AREA, "kodearea"));
 
     }
 

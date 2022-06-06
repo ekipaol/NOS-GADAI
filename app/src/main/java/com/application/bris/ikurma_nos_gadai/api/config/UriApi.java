@@ -13,7 +13,7 @@ public class UriApi {
         public static final String URLDEV = "https://10.0.116.109/"; //DEV lewat outsystem QA
 //        public static final String URLDEV = "http://10.0.116.37:8054/nos-gadai/"; //DEV lewat middle tier
 //        public static final String URLDEV = "http://10.0.116.37:8054/"; //DEV lewat middle tier
-        public static final String URLPROD = "https://nos-api.bankbsi.co.id/"; //IP public NOS GADAI
+        public static final String URLPROD = "https://nos-api.bankbsi.co.id/nos-gadai/"; //IP public NOS GADAI
 
 //        public static final String URLPROD = "https://intel.brisyariah.co.id:55056/MobileBRISIAPI-EKI/webresources/"; //PROD EKI
 
@@ -25,6 +25,17 @@ public class UriApi {
     public class general {
         public static final String searchAddress = "generic/pencarianKodePos";
         public static final String login = "http://10.0.116.37:8051/user-service/logins";
+
+        //dev
+//        public static final String getAreaByKodeRegion = "http://10.0.116.37:8054/user-service/mapping-regions";
+//        public static final String getBranchByKodeArea = "http://10.0.116.37:8054/user-service/mapping_area";
+//        public static final String getDetailBranch = "http://10.0.116.37:8054/user-service/branches/{branch_id}";
+
+        //prod
+                public static final String getAreaByKodeRegion = "https://nos-api.bankbsi.co.id/user-service/mapping-regions";
+        public static final String getBranchByKodeArea = "https://nos-api.bankbsi.co.id/user-service/mapping_area";
+        public static final String getDetailBranch = "https://nos-api.bankbsi.co.id/user-service/branches/{branch_id}";
+
         public static final String simpanFeedback = "generic/simpanFeedback";
 //        public static final String login2 =  "http://10.0.116.37:8051/user-service/logins";
         public static final String login2 =  "https://nos-api.bankbsi.co.id/user-service/logins";
@@ -38,9 +49,8 @@ public class UriApi {
         public static final String geocoding = "geocode/v1/google-v3-json?";
         public static final String updateFirebase = "generic/aktivasi/updateFirebaseMessagingID";
         public static final String brisnotifRegister = "generic/brisnotifRegister";
-        public static final String getAreaByKodeRegion = "http://10.0.116.37:8054/user-service/mapping-regions";
-        public static final String getBranchByKodeArea = "http://10.0.116.37:8054/user-service/mapping_area";
-        public static final String getDetailBranch = "http://10.0.116.37:8054/user-service/branches/{branch_id}";
+
+
     }
 
     public class pipeline {

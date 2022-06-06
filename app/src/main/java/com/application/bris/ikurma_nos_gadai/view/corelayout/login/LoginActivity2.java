@@ -279,7 +279,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         appPreferences.setKodeCabang(AppUtil.encrypt(String.valueOf(dataLoginBsi.getBranch().getBranch_code())));
         appPreferences.setToken((dataLoginBsi.getToken()));
         appPreferences.setIdCabang(AppUtil.encrypt(String.valueOf(dataLoginBsi.getBranch().getId())));
-        appPreferences.setKodeArea(AppUtil.encrypt(String.valueOf(dataLoginBsi.getArea().getIdArea())));
+        appPreferences.setKodeArea(AppUtil.encrypt(Integer.toString(dataLoginBsi.getArea().getIdArea())));
     }
 
     @Override

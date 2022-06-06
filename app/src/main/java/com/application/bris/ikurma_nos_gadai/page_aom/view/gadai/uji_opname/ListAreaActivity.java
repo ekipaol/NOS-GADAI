@@ -72,7 +72,7 @@ public class ListAreaActivity extends AppCompatActivity implements SwipeRefreshL
     private void loadData() throws JSONException {
         binding.rvListArea.setVisibility(View.GONE);
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        Call<ParseResponse> call = apiClientAdapter.getApiInterface().getAreaByKodeRegion(appPreferences.getIdCabang());
+        Call<ParseResponse> call = apiClientAdapter.getApiInterface().getAreaByKodeRegion(appPreferences.getIdCabang(),getString(R.string.limit_page_area_gadai));
         call.enqueue(new Callback<ParseResponse>() {
             @Override
             public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {

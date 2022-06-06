@@ -193,10 +193,10 @@ public interface ApiInterface {
     Call<ParseResponse> submitTaksiranPemutus (@Body ReqChannelDataApprove ReqChannelDataApprove);
 
     @GET(UriApi.general.getAreaByKodeRegion)
-    Call<ParseResponse> getAreaByKodeRegion (@Query(value="fid_region", encoded=true) String fidRegion);
+    Call<ParseResponse> getAreaByKodeRegion (@Query(value="fid_region", encoded=true) String fidRegion,@Query(value="limit", encoded=true) String limit);
 
     @GET(UriApi.general.getBranchByKodeArea)
-    Call<ParseResponse> getBranchByKodeArea (@Query(value="fid_area", encoded=true) String fidArea);
+    Call<ParseResponse> getBranchByKodeArea (@Query(value="fid_area", encoded=true) String fidArea,@Query(value="limit", encoded=true) String limit);
 
     @GET(UriApi.general.getDetailBranch)
     Call<ParseResponse> getDetailBranch(@Path(value = "branch_id", encoded = true) String branchId);

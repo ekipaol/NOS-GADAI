@@ -55,6 +55,9 @@ public class ListCabangActivity extends AppCompatActivity implements SwipeRefres
         setSupportActionBar(binding.toolbarReguler.tbRegular);
         setContentView(binding.getRoot());
 
+        apiClientAdapter = new ApiClientAdapter(this);
+        appPreferences = new AppPreferences(this);
+
         if(getIntent().hasExtra("fidArea")){
             fidArea=getIntent().getStringExtra("fidArea");
         }
@@ -62,11 +65,14 @@ public class ListCabangActivity extends AppCompatActivity implements SwipeRefres
         if(getIntent().hasExtra("asalmenu")){
             menuasal=getIntent().getStringExtra("asalmenu");
         }
+
+        if(menuasal.equalsIgnoreCase("putusan")){
+            fidArea=appPreferences.getKodeArea();
+        }
+
         customToolbar();
         backgroundStatusBar();
 
-        apiClientAdapter = new ApiClientAdapter(this);
-        appPreferences = new AppPreferences(this);
 
         try {
             loadData();
@@ -79,7 +85,8 @@ public class ListCabangActivity extends AppCompatActivity implements SwipeRefres
     private void loadData() throws JSONException {
         binding.rvListArea.setVisibility(View.GONE);
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        Call<ParseResponse> call = apiClientAdapter.getApiInterface().getBranchByKodeArea(fidArea);
+        Call<ParseResponse> call = apiClientAdapter.getApiInterface().getBranchByKodeArea(fidArea,getString(R.string.limit_page_branch_gadai));
+        AppUtil.logSecure("lontong",fidArea);
         call.enqueue(new Callback<ParseResponse>() {
             @Override
             public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {

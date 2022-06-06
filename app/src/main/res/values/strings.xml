@@ -110,6 +110,10 @@
     <string name="menu_pelunasan">Pelunasan</string>
     <string name="menu_putusan">Putusan</string>
 
+    <!--Limit GADAI-->
+    <string name="limit_page_area_gadai">100</string>
+    <string name="limit_page_branch_gadai">100</string>
+
     <!--String Sub Menu Hotprospek-->
     <string name="submenu_hotprospek_prescreening">Prescreening</string>
     <string name="submenu_hotprospek_datalengkap">Data Lengkap</string>
