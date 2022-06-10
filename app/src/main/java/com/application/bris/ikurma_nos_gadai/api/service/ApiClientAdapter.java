@@ -306,30 +306,30 @@ public class ApiClientAdapter {
         OkHttpClient httpClient;
 
 
-        if(BuildConfig.IS_PRODUCTION){
-            String hostname = "https://nos-api.bankbsi.co.id";
-            CertificatePinner certificatePinner = new CertificatePinner.Builder()
-                    .add(hostname, "sha256/m3gxkDjPV2og4oSnEPSz1OTeKeh1tYQV53hcji7/KDY=")
-                    .build();
-
-            httpClient = clientBuilder
-                    .connectTimeout(timeOut, timeUnit)
-                    .certificatePinner(certificatePinner)
-                    .readTimeout(timeOut, timeUnit)
-                    .build();
-        }
-        else{
-            String hostname = "10.0.116.105";
-            CertificatePinner certificatePinner = new CertificatePinner.Builder()
-                    .add(hostname, "sha256/m3gxkDjPV2og4oSnEPSz1OTeKeh1tYQV53hcji7/KDY=")
-                    .build();
-
-            httpClient = clientBuilder
-                    .connectTimeout(timeOut, timeUnit)
-                    .certificatePinner(certificatePinner)
-                    .readTimeout(timeOut, timeUnit)
-                    .build();
-        }
+//        if(BuildConfig.IS_PRODUCTION){
+//            String hostname = "https://nos-api.bankbsi.co.id";
+//            CertificatePinner certificatePinner = new CertificatePinner.Builder()
+//                    .add(hostname, "sha256/m3gxkDjPV2og4oSnEPSz1OTeKeh1tYQV53hcji7/KDY=")
+//                    .build();
+//
+//            httpClient = clientBuilder
+//                    .connectTimeout(timeOut, timeUnit)
+//                    .certificatePinner(certificatePinner)
+//                    .readTimeout(timeOut, timeUnit)
+//                    .build();
+//        }
+//        else{
+//            String hostname = "10.0.116.105";
+//            CertificatePinner certificatePinner = new CertificatePinner.Builder()
+//                    .add(hostname, "sha256/m3gxkDjPV2og4oSnEPSz1OTeKeh1tYQV53hcji7/KDY=")
+//                    .build();
+//
+//            httpClient = clientBuilder
+//                    .connectTimeout(timeOut, timeUnit)
+//                    .certificatePinner(certificatePinner)
+//                    .readTimeout(timeOut, timeUnit)
+//                    .build();
+//        }
 
 
 

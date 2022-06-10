@@ -10,7 +10,8 @@ public class UriApi {
 
     public static class Baseurl{
 //        public static final String URLDEV = "http://10.1.25.55:8080/MobileBRISIAPI-EKI/webresources/"; //DEV
-        public static final String URLDEV = "https://10.0.116.109/"; //DEV lewat outsystem QA
+//        public static final String URLDEV = "https://10.0.116.109/"; //DEV lewat outsystem QA
+        public static final String URLDEV = "https://10.0.116.105/"; //DEV lewat outsystem DEV
 //        public static final String URLDEV = "http://10.0.116.37:8054/nos-gadai/"; //DEV lewat middle tier
 //        public static final String URLDEV = "http://10.0.116.37:8054/"; //DEV lewat middle tier
         public static final String URLPROD = "https://nos-api.bankbsi.co.id/nos-gadai/"; //IP public NOS GADAI
