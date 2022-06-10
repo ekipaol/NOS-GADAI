@@ -49,6 +49,7 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements SwipeRef
     public static int idAplikasi=0;
     private List<ListOpname> dataAgunan =new ArrayList<>();
     private ApiClientAdapter apiClientAdapter;
+    private ApiClientAdapter apiClientAdapterIkurma;
     private AppPreferences appPreferences;
     private SearchView searchView;
     private String idCabang="0";
@@ -69,6 +70,7 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements SwipeRef
         backgroundStatusBar();
         //initialize List
         apiClientAdapter = new ApiClientAdapter(this);
+        apiClientAdapterIkurma = new ApiClientAdapter(this,true);
         appPreferences = new AppPreferences(this);
 
         if(getIntent().hasExtra("idCabang")){
@@ -149,7 +151,7 @@ public class ListUjiOpnameActivity extends AppCompatActivity implements SwipeRef
 
     private void loadDetailBranch() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        Call<ParseResponse> call = apiClientAdapter.getApiInterface().getDetailBranch(idCabang);
+        Call<ParseResponse> call = apiClientAdapterIkurma.getApiInterface().getDetailBranch(idCabang);
         call.enqueue(new Callback<ParseResponse>() {
             @Override
             public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {

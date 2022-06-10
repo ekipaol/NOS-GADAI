@@ -51,7 +51,6 @@ public class CaptureAgunanFrontAdapter extends RecyclerView.Adapter<CaptureAguna
 
         holder.tvNama.setText(datas.getNamaSesuaiKTP());
         holder.tvIdAplikasi.setText(datas.getNoAplikasi());
-        holder.tvPlafon.setText(AppUtil.parseRupiah(datas.getTotalPinjamanMaximum()));
         holder.tvTanggal.setText(datas.getTanggalCair());
         holder.cvData.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -72,6 +71,14 @@ public class CaptureAgunanFrontAdapter extends RecyclerView.Adapter<CaptureAguna
 
             }
         });
+
+        try{
+            holder.tvPlafon.setText(AppUtil.parseRupiah(datas.getTotalPinjamanMaximum()));
+        }
+        catch (NullPointerException e){
+            e.printStackTrace();
+        }
+
 
     }
 

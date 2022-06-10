@@ -53,6 +53,7 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
 
     private SearchView searchView;
     private ApiClientAdapter apiClientAdapter;
+    private ApiClientAdapter apiClientAdapterIkurma;
     private AppPreferences appPreferences;
     private String idCabang="0";
     private String kodeCabang;
@@ -68,6 +69,7 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
         customToolbar();
         backgroundStatusBar();
         apiClientAdapter = new ApiClientAdapter(this);
+        apiClientAdapterIkurma=new ApiClientAdapter(this,true);
         appPreferences = new AppPreferences(this);
 
         kodeCabang=appPreferences.getKodeCabang();
@@ -172,7 +174,8 @@ public class ListUjiAcak extends AppCompatActivity implements SwipeRefreshLayout
 
     private void loadDetailBranch() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        Call<ParseResponse> call = apiClientAdapter.getApiInterface().getDetailBranch(idCabang);
+
+        Call<ParseResponse> call = apiClientAdapterIkurma.getApiInterface().getDetailBranch(idCabang);
         call.enqueue(new Callback<ParseResponse>() {
             @Override
             public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {

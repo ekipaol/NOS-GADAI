@@ -69,7 +69,7 @@ public class LoginActivity extends AppCompatActivity implements View.OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        apiClientAdapter = new ApiClientAdapter(this, 0);
+        apiClientAdapter = new ApiClientAdapter(this, 0,true);
         appPreferences = new AppPreferences(this);
         backgroundStatusBar();
         loadProfil();

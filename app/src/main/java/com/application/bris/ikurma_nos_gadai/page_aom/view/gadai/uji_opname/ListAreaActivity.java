@@ -58,7 +58,7 @@ public class ListAreaActivity extends AppCompatActivity implements SwipeRefreshL
         customToolbar();
         backgroundStatusBar();
 
-        apiClientAdapter = new ApiClientAdapter(this);
+        apiClientAdapter = new ApiClientAdapter(this,true);
         appPreferences = new AppPreferences(this);
 
         try {

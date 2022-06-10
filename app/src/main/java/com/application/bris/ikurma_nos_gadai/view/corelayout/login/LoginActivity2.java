@@ -79,7 +79,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
-        apiClientAdapter = new ApiClientAdapter(this);
+        apiClientAdapter = new ApiClientAdapter(this,true);
         appPreferences = new AppPreferences(this);
         appPreferences.setNama(AppUtil.encrypt("Developer"));
         backgroundStatusBar();
@@ -279,7 +279,15 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
         appPreferences.setKodeCabang(AppUtil.encrypt(String.valueOf(dataLoginBsi.getBranch().getBranch_code())));
         appPreferences.setToken((dataLoginBsi.getToken()));
         appPreferences.setIdCabang(AppUtil.encrypt(String.valueOf(dataLoginBsi.getBranch().getId())));
-        appPreferences.setKodeArea(AppUtil.encrypt(Integer.toString(dataLoginBsi.getArea().getIdArea())));
+
+        try{
+            appPreferences.setKodeArea(AppUtil.encrypt(Integer.toString(dataLoginBsi.getArea().getIdArea())));
+        }
+        catch (NullPointerException e){
+           e.printStackTrace();
+            appPreferences.setKodeArea(AppUtil.encrypt("0"));
+        }
+
     }
 
     @Override

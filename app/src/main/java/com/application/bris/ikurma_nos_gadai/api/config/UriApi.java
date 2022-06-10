@@ -15,30 +15,24 @@ public class UriApi {
 //        public static final String URLDEV = "http://10.0.116.37:8054/"; //DEV lewat middle tier
         public static final String URLPROD = "https://nos-api.bankbsi.co.id/nos-gadai/"; //IP public NOS GADAI
 
-//        public static final String URLPROD = "https://intel.brisyariah.co.id:55056/MobileBRISIAPI-EKI/webresources/"; //PROD EKI
+        public static final String URLPRODIKURMA = "https://nos-api.bankbsi.co.id/"; //IP public NOS GADAI
+        public static final String URLDEVIKURMA = "http://10.0.116.37:8054/"; //IP public NOS GADAI
 
         public static String URL = (BuildConfig.IS_PRODUCTION) ? URLPROD : URLDEV ; //ENV BASED URI SELECTOR
+        public static String URLIKURMA = (BuildConfig.IS_PRODUCTION) ? URLPRODIKURMA : URLDEVIKURMA ; //ENV BASED URI SELECTOR
 
         public static final String URL_MAPS = "https://api.opencagedata.com/";
     }
 
     public class general {
         public static final String searchAddress = "generic/pencarianKodePos";
-        public static final String login = "http://10.0.116.37:8051/user-service/logins";
-
-        //dev
-//        public static final String getAreaByKodeRegion = "http://10.0.116.37:8054/user-service/mapping-regions";
-//        public static final String getBranchByKodeArea = "http://10.0.116.37:8054/user-service/mapping_area";
-//        public static final String getDetailBranch = "http://10.0.116.37:8054/user-service/branches/{branch_id}";
-
-        //prod
-                public static final String getAreaByKodeRegion = "https://nos-api.bankbsi.co.id/user-service/mapping-regions";
-        public static final String getBranchByKodeArea = "https://nos-api.bankbsi.co.id/user-service/mapping_area";
-        public static final String getDetailBranch = "https://nos-api.bankbsi.co.id/user-service/branches/{branch_id}";
+        public static final String login = "user-service/logins";
+        public static final String getAreaByKodeRegion = "user-service/mapping-regions";
+        public static final String getBranchByKodeArea = "user-service/mapping_area";
+        public static final String getDetailBranch = "user-service/branches/{branch_id}";
 
         public static final String simpanFeedback = "generic/simpanFeedback";
-//        public static final String login2 =  "http://10.0.116.37:8051/user-service/logins";
-        public static final String login2 =  "https://nos-api.bankbsi.co.id/user-service/logins";
+        public static final String login2 =  "user-service/logins";
         public static final String home = "generic/dashboardKmg";
         public static final String getProduct = "generic/getProduk";
         public static final String getKategSektorEkonomii = "generic/mikro/hotprospek/datapembiayaan/kategoriSektorEkonomi";

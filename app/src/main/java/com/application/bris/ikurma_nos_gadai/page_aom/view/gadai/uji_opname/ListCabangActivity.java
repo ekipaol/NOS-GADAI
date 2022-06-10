@@ -55,7 +55,7 @@ public class ListCabangActivity extends AppCompatActivity implements SwipeRefres
         setSupportActionBar(binding.toolbarReguler.tbRegular);
         setContentView(binding.getRoot());
 
-        apiClientAdapter = new ApiClientAdapter(this);
+        apiClientAdapter = new ApiClientAdapter(this,true);
         appPreferences = new AppPreferences(this);
 
         if(getIntent().hasExtra("fidArea")){
