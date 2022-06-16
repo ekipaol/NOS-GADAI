@@ -16,6 +16,8 @@
         tools:replace="android:icon,android:allowBackup">
         <activity android:name=".page_aom.view.gadai.uji_opname.ListCabangActivity"></activity>
         <activity android:name=".page_aom.view.gadai.uji_opname.ListAreaActivity" />
+        <activity android:name=".page_aom.view.dashboard_gadai.TopUpGagal.ListPerpanjanganGagalActivity" />
+        <activity android:name=".page_aom.view.dashboard_gadai.PerpanjanganGagal.ListDashboardTopUpActivity" />
         <activity android:name=".page_putusan_gadai.detail_putusan_gadai.DetailPutusanGadaiActivity" />
         <activity android:name=".page_putusan_gadai.PutusanGadaiActivity" />
         <activity android:name=".page_aom.view.gadai.menu_penjualan.MenuPenjualanActivity" />

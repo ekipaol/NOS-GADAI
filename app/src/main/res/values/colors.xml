@@ -39,7 +39,7 @@
 
     <color name="colorBackgroundGrey3">#EFF0F1</color>
     <color name="colorBackgroundCore">#ECECEC</color>
-    <color name="colorTextGrey">#524549</color>
+    <color name="colorTextGrey">#757575</color>
     <color name="color2">#7e455e</color>
     <color name="color3">#796e25</color>
     <color name="color4">#59717c</color>
@@ -62,4 +62,15 @@
     <color name="softBlue">#e3eef6</color>
 
     <color name="purpleIcon">#555185</color>
+
+    <color name="colorOnNewBackground">#E5E5E5</color>
+    <color name="colorTopCard">#FDFCFC</color>
+    <color name="colorPurple">#515DC4</color>
+    <color name="colorLightBlue">#E6F2FD</color>
+    <color name="colorTextFrame">#F5F5F5</color>
+    <color name="startColorPrimary02">#005298</color>
+    <color name="endColorPrimary02">#188BA9</color>
+    <color name="frameColor">#EDEDED
+
+    </color>
 </resources>

@@ -8,19 +8,19 @@ import com.application.bris.ikurma_nos_gadai.BuildConfig;
 
 public class UriApi {
 
-    public static class Baseurl{
-//        public static final String URLDEV = "http://10.1.25.55:8080/MobileBRISIAPI-EKI/webresources/"; //DEV
+    public static class Baseurl {
+        //        public static final String URLDEV = "http://10.1.25.55:8080/MobileBRISIAPI-EKI/webresources/"; //DEV
 //        public static final String URLDEV = "https://10.0.116.109/"; //DEV lewat outsystem QA
         public static final String URLDEV = "https://10.0.116.105/"; //DEV lewat outsystem DEV
-//        public static final String URLDEV = "http://10.0.116.37:8054/nos-gadai/"; //DEV lewat middle tier
+        //        public static final String URLDEV = "http://10.0.116.37:8054/nos-gadai/"; //DEV lewat middle tier
 //        public static final String URLDEV = "http://10.0.116.37:8054/"; //DEV lewat middle tier
         public static final String URLPROD = "https://nos-api.bankbsi.co.id/nos-gadai/"; //IP public NOS GADAI
 
         public static final String URLPRODIKURMA = "https://nos-api.bankbsi.co.id/"; //IP public NOS GADAI
         public static final String URLDEVIKURMA = "http://10.0.116.37:8054/"; //IP public NOS GADAI
 
-        public static String URL = (BuildConfig.IS_PRODUCTION) ? URLPROD : URLDEV ; //ENV BASED URI SELECTOR
-        public static String URLIKURMA = (BuildConfig.IS_PRODUCTION) ? URLPRODIKURMA : URLDEVIKURMA ; //ENV BASED URI SELECTOR
+        public static String URL = (BuildConfig.IS_PRODUCTION) ? URLPROD : URLDEV; //ENV BASED URI SELECTOR
+        public static String URLIKURMA = (BuildConfig.IS_PRODUCTION) ? URLPRODIKURMA : URLDEVIKURMA; //ENV BASED URI SELECTOR
 
         public static final String URL_MAPS = "https://api.opencagedata.com/";
     }
@@ -33,7 +33,7 @@ public class UriApi {
         public static final String getDetailBranch = "user-service/branches/{branch_id}";
 
         public static final String simpanFeedback = "generic/simpanFeedback";
-        public static final String login2 =  "user-service/logins";
+        public static final String login2 = "user-service/logins";
         public static final String home = "generic/dashboardKmg";
         public static final String getProduct = "generic/getProduk";
         public static final String getKategSektorEkonomii = "generic/mikro/hotprospek/datapembiayaan/kategoriSektorEkonomi";
@@ -97,7 +97,7 @@ public class UriApi {
 //    }
 
     //KALAU NEMBAK DIRECT KE NOS PAKAI INI
-    public class gadaiNOS{
+    public class gadaiNOS {
         //Gadai
         public static final String listAplikasiGadai = "GadaiEmasService/rest/Gadai/ListAplikasiGadai";
         //Activity
@@ -105,8 +105,8 @@ public class UriApi {
         public static final String updateIsiLaci = "GadaiEmasService/rest/Activity/ujiStockOpname";
         public static final String ujiAcak = "GadaiEmasService/rest/Activity/UjiAcak";
         public static final String ujiKualitas = "GadaiEmasService/rest/Activity/UjiKualitas";
-        public static final String sendSerahTerima= "GadaiEmasService/rest/Activity/SubmitTandaTerima";
-        public static final String listTandaTerima= "GadaiEmasService/rest/Activity/ListTandaTerima";
+        public static final String sendSerahTerima = "GadaiEmasService/rest/Activity/SubmitTandaTerima";
+        public static final String listTandaTerima = "GadaiEmasService/rest/Activity/ListTandaTerima";
 
         //Disburse
         public static final String detailAplikasiGadai = "GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
@@ -118,11 +118,20 @@ public class UriApi {
         public static final String updatehasilpenjualan = "GadaiEmasService/rest/Lunas/KonfirmasiPenjualanAgunan";
 
     }
+
     public class GadaiPutusan {
         public static final String listAplikasiGadai = "GadaiEmasService/rest/Gadai/ListAplikasiGadai";
         public static final String detailAplikasiGadai = "GadaiEmasService/rest/Disburse/DetailAplikasiGadai";
         public static final String inquiryListFoto = "GadaiEmasService/rest/Gadai/InquiryListFoto";
         public static final String submitTaksiranPemutus = "GadaiEmasService/rest/Disburse/SubmitSimulasiTaksiranPemutus";
+    }
+
+    //Dashboard Gadai
+    public class DashboardGadai {
+        public static final String listPerpanjanganGadaiGagal = "GadaiEmasService/rest/Dashboard/ListGadaiGagal";
+        public static final String listDashboardTopUpGadai = "GadaiEmasService/rest/Dashboard/SumGadaiGagal";
+
+
     }
 }
 

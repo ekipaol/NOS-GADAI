@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_data_hutang"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="8dp"
+    android:layout_margin="10dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@color/colorWhite">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingVertical="16dp">
+
+        <LinearLayout
+            android:id="@+id/ll_laci"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:paddingLeft="20dp"
+            android:paddingRight="60dp">
+
+            <ImageView
+                android:layout_width="42dp"
+                android:layout_height="43.59dp"
+                android:layout_weight="0"
+                android:background="@drawable/shapeborderlightblue"
+                android:padding="8dp"
+                android:src="@drawable/ic_laci_brankas" />
+
+                <TextView
+                    android:id="@+id/tv_laci"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:paddingLeft="10dp"
+                    android:text="Brankas 1"
+                    android:layout_gravity="center"
+                    android:textColor="@color/ms_black"
+                    android:fontFamily="@font/manrope_b"
+                    android:textSize="16sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

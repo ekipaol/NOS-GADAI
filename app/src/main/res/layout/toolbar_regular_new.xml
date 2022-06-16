@@ -19,13 +19,13 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
-            android:background="@color/colorBackgroundGrey1"
+            android:background="@color/colorWhite"
             android:theme="@style/AppTheme.AppBarOverlay">
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="226dp"
+                android:layout_height="170dp"
                 app:contentScrim="@color/colorBackgroundTransparent"
                 app:expandedTitleMarginStart="48dp"
                 app:expandedTitleMarginEnd="64dp">
@@ -76,23 +76,6 @@
                             app:layout_constraintEnd_toEndOf="parent"
                             app:layout_constraintLeft_toRightOf="@+id/btn_back"
                             app:layout_constraintTop_toTopOf="parent" />
-
-                        <EditText
-                            android:id="@+id/et_search_tool"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_marginTop="12dp"
-                            android:background="@drawable/rounded_textfield"
-                            android:drawableLeft="@drawable/ic_search"
-                            android:drawablePadding="8dp"
-                            android:focusable="true"
-                            android:hint="Nama Nasabah, Nomor Aplikasi, dll .."
-                            android:inputType="text"
-                            android:paddingHorizontal="10dp"
-                            android:textColor="@color/colorBlackHeader"
-                            android:textColorHighlight="@color/colorBlackHeader"
-                            android:textColorHint="@color/fontFormHint"
-                            android:textSize="14sp" />
 
                     </LinearLayout>
                 </LinearLayout>

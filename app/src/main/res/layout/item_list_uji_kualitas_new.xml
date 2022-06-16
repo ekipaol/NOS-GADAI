@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_data_hutang"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="8dp"
+    app:cardElevation="3dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="17dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:id="@+id/tv_nama_nasabah"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="{Nama Nasabah}"
+                android:textSize="14sp"
+                android:lineSpacingExtra="2sp"
+                android:textColor="@color/colorBlackHeader"
+                android:fontFamily="@font/manrope_m"
+                android:layout_weight="2"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:id="@+id/tv_cabang"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="0dp"
+                android:layout_marginLeft="80dp"
+                android:padding="2dp"
+                android:paddingTop="2dp"
+                android:paddingBottom="2dp"
+                android:layout_weight="2"
+                android:background="@drawable/shapeborderlightblue"
+                android:text="{Nama Cabang}"
+                android:lineSpacingExtra="0sp"
+                android:textAlignment="center"
+                android:fontFamily="@font/manrope_r"
+                android:textColor="@color/startColorPrimary02"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="10dp"/>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/manrope_m"
+                android:text="ID Aplikasi"
+                android:drawableStart="@drawable/ic_new_document"
+                android:textSize="12sp"
+                android:textStyle="normal" />
+
+            <TextView
+                android:id="@+id/tv_nomor_applikasi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="{Nomor Aplikasi Gadai}"
+                android:gravity="end"
+                android:textSize="13sp"
+                android:textColor="@color/colorBlackHeader"
+                android:fontFamily="@font/manrope_m"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="Tanggal Transaksi"
+                android:drawableStart="@drawable/ic_calendar"
+                android:fontFamily="@font/manrope_m"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tv_tanggal_transaksi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="{Tanggal Transaksi}"
+                android:gravity="end"
+                android:textSize="13sp"
+                android:textColor="@color/colorBlackHeader"
+                android:fontFamily="@font/manrope_m"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Jatuh Tempo"
+                android:fontFamily="@font/manrope_m"
+                android:drawableStart="@drawable/ic_due_date"
+                android:layout_weight="1"
+                android:textSize="12sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintRight_toLeftOf="parent"
+                app:layout_constraintRight_toRightOf="@id/tv_tanggal_jatuh_tempo"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+            <TextView
+                android:id="@+id/tv_tanggal_jatuh_tempo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="{Tanggal Jatuh Tempo}"
+                android:textSize="13sp"
+                android:gravity="end"
+                android:textColor="@color/colorBlackHeader"
+                android:fontFamily="@font/manrope_m"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp">
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/round_grey"
+            android:orientation="horizontal"
+            android:paddingLeft="16dp"
+            android:paddingRight="5dp"
+            android:paddingTop="14dp"
+            android:paddingBottom="14dp">
+
+            <TextView
+                android:id="@+id/btn_nanti"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="10dp"
+                android:layout_weight="4"
+                android:background="@drawable/round_grey"
+                android:fontFamily="@font/manrope_m"
+                android:lineSpacingExtra="4dp"
+                android:textAlignment="textEnd"
+                android:text="Proses Nanti"
+                android:textColor="@color/colorTextGrey"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/btn_sekarang"
+                android:layout_width="273dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="4"
+                android:textAlignment="center"
+                android:background="@drawable/round_grey"
+                android:fontFamily="@font/manrope_m"
+                android:lineSpacingExtra="4dp"
+                android:text="Proses Sekarang"
+                android:textColor="@color/startColorPrimary02"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.cardview.widget.CardView>

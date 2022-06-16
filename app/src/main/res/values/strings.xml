@@ -108,6 +108,7 @@
     <string name="menu_opname">Uji Opname</string>
     <string name="menu_penjualan">Penjualan</string>
     <string name="menu_pelunasan">Pelunasan</string>
+    <string name="menu_dashboard">Dashboard</string>
     <string name="menu_putusan">Putusan</string>
 
     <!--Limit GADAI-->

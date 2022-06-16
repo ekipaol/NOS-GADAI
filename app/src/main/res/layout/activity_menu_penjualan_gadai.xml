@@ -2,12 +2,13 @@
 <androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/colorBackgroundCore">
 
-    <include layout="@layout/toolbar_nosearch" />
+    <include layout="@layout/toolbar_regular_new" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="60dp"
+        android:layout_marginTop="170dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/colorBackgroundCore">
@@ -19,9 +20,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical"
-
-                >
+                android:layout_marginTop="10dp"
+                android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -32,49 +32,49 @@
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
+                        android:layout_height="match_parent">
+
                         <ImageView
-                            android:id="@+id/bt_serah_terima"
+                            android:id="@+id/bt_sum_pencairan"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            />
+                            android:scaleType="centerCrop" />
+
                         <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            >
+                            android:layout_height="match_parent">
+
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
 
                                 <ImageView
-                                    android:id="@+id/icUser"
+                                    android:id="@+id/icPencairan"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
                                     android:layout_alignParentLeft="true"
                                     android:layout_centerInParent="true"
-                                    android:layout_marginLeft="4dp"
-                                    android:src="@drawable/ic_followup_flpp" />
+                                    android:layout_marginLeft="4dp"/>
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_toRightOf="@id/icUser"
-                                    android:text="Serah Terima"
-                                    android:layout_marginLeft="10dp"
-                                    android:textStyle="bold"
-                                    android:textSize="20dp"
                                     android:layout_centerInParent="true"
-                                    android:textColor="@color/colorBlackHeader"/>
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_toRightOf="@id/icPencairan"
+                                    android:text="Summary Pencairan"
+                                    android:textColor="@color/colorBlackHeader"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
 
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginRight="20dp"
-                                    android:layout_centerInParent="true"
                                     android:layout_alignParentRight="true"
-                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginRight="20dp"
+                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
                             </RelativeLayout>
 
                         </FrameLayout>
@@ -92,40 +92,40 @@
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
+                        android:layout_height="match_parent">
+
                         <ImageView
-                            android:id="@+id/bt_hasil_penjualan"
+                            android:id="@+id/bt_sum_perpanjangan"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            />
+                            android:scaleType="centerCrop" />
+
                         <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            >
+                            android:layout_height="match_parent">
+
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
                                 <ImageView
-                                    android:id="@+id/icStatus"
+                                    android:id="@+id/icPerpanjangan"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
                                     android:layout_alignParentLeft="true"
                                     android:layout_centerInParent="true"
-                                    android:layout_marginLeft="3dp"
-                                    android:src="@drawable/ic_konfirmasi_flpp" />
+                                    android:layout_marginLeft="3dp"/>
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Hasil Penjualan"
-                                    android:textStyle="bold"
-                                    android:layout_marginLeft="10dp"
-                                    android:textSize="20dp"
                                     android:layout_centerInParent="true"
-                                    android:layout_toRightOf="@id/icStatus"
-                                    android:textColor="@color/colorBlackHeader"/>
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_toRightOf="@id/icPerpanjangan"
+                                    android:text="Summary Perpanjangan"
+                                    android:textColor="@color/colorBlackHeader"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -134,71 +134,53 @@
                                     android:layout_alignParentRight="true"
                                     android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
                             </RelativeLayout>
-
                         </FrameLayout>
-
                     </FrameLayout>
-
-
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:layout_margin="7dp"
-                    android:visibility="gone"
                     app:cardCornerRadius="10dp">
 
                     <FrameLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        >
+                        android:layout_height="match_parent">
+
                         <ImageView
-                            android:id="@+id/bt_maintain_id_lokasi"
+                            android:id="@+id/bt_sum_pelunasan"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop"
-                            />
+                            android:scaleType="centerCrop" />
+
                         <FrameLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            >
+                            android:layout_height="match_parent">
+
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent">
 
-                                <TextView
-                                    android:id="@+id/tv_maintain_id_lokasi"
-                                    android:layout_marginLeft="4dp"
-                                    android:layout_marginTop="4dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:elevation="5dp"
-                                    android:visibility="gone"
-                                    android:textColor="#fff"
-                                    android:textSize="10sp"
-                                    android:fontFamily="@font/ml"
-                                    android:textStyle="bold"
-                                    android:padding="4dp"
-                                    android:background="@drawable/roundbadge"/>
                                 <ImageView
-                                    android:id="@+id/icMaintainIdRumah"
+                                    android:id="@+id/icPelunasan"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
-                                    android:layout_marginLeft="3dp"
-                                    android:layout_centerInParent="true"
                                     android:layout_alignParentLeft="true"
-                                    android:src="@drawable/ic_maintenance_id_rumah"/>
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="3dp"/>
+
                                 <TextView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:text="Maintain ID Lokasi"
-                                    android:textStyle="bold"
-                                    android:layout_marginLeft="10dp"
-                                    android:textSize="20dp"
                                     android:layout_centerInParent="true"
-                                    android:layout_toRightOf="@id/icMaintainIdRumah"
-                                    android:textColor="@color/colorBlackHeader"/>
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_toRightOf="@id/icPelunasan"
+                                    android:text="Summary Pelunasan"
+                                    android:textColor="@color/colorBlackHeader"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -207,13 +189,230 @@
                                     android:layout_alignParentRight="true"
                                     android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
                             </RelativeLayout>
-
                         </FrameLayout>
-
                     </FrameLayout>
-
-
                 </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_margin="7dp"
+                    app:cardCornerRadius="10dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/bt_pastdue"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:id="@+id/icPastdue"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="3dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_toRightOf="@id/icPastdue"
+                                    android:text="Pastdue"
+                                    android:textColor="@color/colorBlackHeader"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="20dp"
+                                    android:layout_centerInParent="true"
+                                    android:layout_alignParentRight="true"
+                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+                            </RelativeLayout>
+                        </FrameLayout>
+                    </FrameLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_margin="7dp"
+                    app:cardCornerRadius="10dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/bt_sum_program"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:id="@+id/icSumProgram"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_toRightOf="@id/icSumProgram"
+                                    android:text="Summary Program"
+                                    android:textColor="@color/colorBlackHeader"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="20dp"
+                                    android:layout_centerInParent="true"
+                                    android:layout_alignParentRight="true"
+                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+                            </RelativeLayout>
+                        </FrameLayout>
+                    </FrameLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_margin="7dp"
+                    app:cardCornerRadius="10dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/ic_blm_uji_kualitas"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:id="@+id/icBlmUjiKualitas"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_toRightOf="@id/icBlmUjiKualitas"
+                                    android:text="Belum Uji Kualitas"
+                                    android:textColor="@color/colorBlackHeader"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="20dp"
+                                    android:layout_centerInParent="true"
+                                    android:layout_alignParentRight="true"
+                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+                            </RelativeLayout>
+                        </FrameLayout>
+                    </FrameLayout>
+                </androidx.cardview.widget.CardView>
+
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_margin="7dp"
+                    app:cardCornerRadius="10dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/bt_uji_kualitas_ts"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:id="@+id/icKualitasTS"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="3dp" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_toRightOf="@id/icKualitasTS"
+                                    android:text="Uji Kualitas Tidak Sesuai"
+                                    android:textColor="@color/colorBlackHeader"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="20dp"
+                                    android:layout_centerInParent="true"
+                                    android:layout_alignParentRight="true"
+                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+                            </RelativeLayout>
+                        </FrameLayout>
+                    </FrameLayout>
+                </androidx.cardview.widget.CardView>
+
+
 
 
 

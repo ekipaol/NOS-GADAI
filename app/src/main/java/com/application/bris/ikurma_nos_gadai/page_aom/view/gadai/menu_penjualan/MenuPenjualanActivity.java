@@ -3,13 +3,17 @@ package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.menu_penjualan
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
 
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityMenuPenjualanGadaiBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan.HasilPenjualanActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.PerpanjanganGagal.ListDashboardTopUpActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.TopUpGagal.ListPerpanjanganGagalActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.serah_terima.ListSerahTerimaActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.CoreLayoutActivity;
@@ -23,7 +27,8 @@ public class MenuPenjualanActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMenuPenjualanGadaiBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        AppUtil.toolbarRegular(this, "Menu Penjualan");
+        backgroundStatusBar();
+        AppUtil.toolbarRegular(this, "Dashboard");
 
         //toolbar back configuration, hard to explain, just ask to mr eki. In short, this is needed so the activity flows as eki wants
         ImageView backToolbar=findViewById(R.id.btn_back);
@@ -41,25 +46,35 @@ public class MenuPenjualanActivity extends AppCompatActivity {
         });
 
 
-        binding.btHasilPenjualan.setOnClickListener(new View.OnClickListener() {
+        binding.btSumPencairan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MenuPenjualanActivity.this, HasilPenjualanActivity.class);
+                Intent intent=new Intent(MenuPenjualanActivity.this, ListPerpanjanganGagalActivity.class);
                 startActivity(intent);
 
             }
         });
 
-        binding.btSerahTerima.setOnClickListener(new View.OnClickListener() {
+        binding.btSumPerpanjangan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MenuPenjualanActivity.this, ListSerahTerimaActivity.class);
+                Intent intent=new Intent(MenuPenjualanActivity.this, ListDashboardTopUpActivity.class);
                 startActivity(intent);
 
             }
         });
 
     }
+
+    private void backgroundStatusBar() {
+        Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.setStatusBarColor(getResources().getColor(R.color.colorBackgroundTransparent));
+        }
+    }
+
 
     @Override
     public void onBackPressed() {

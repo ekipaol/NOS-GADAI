@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cv_data_hutang"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="6dp"
+    android:layout_margin="12dp"
+    app:cardElevation="3dp"
+    app:cardBackgroundColor="@color/colorWhite">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="@drawable/shapeborderline">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="12dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Kode Request"
+                android:layout_weight="1"
+                android:fontFamily="@font/manrope_r"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_kode_request"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="{kode}"
+                android:textSize="14sp"
+                android:textColor="@color/colorBlackHeader"
+                android:fontFamily="@font/manrope_b"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="12dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Tanggal Opname"
+                android:layout_weight="1"
+                android:fontFamily="@font/manrope_r"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_tgl_opname"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="{Tanggal Opname}"
+                android:textSize="14sp"
+                android:textColor="@color/colorBlackHeader"
+                android:layout_weight="1"
+                android:fontFamily="@font/manrope_b"
+                android:textStyle="bold"/>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="12dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Inputter"
+                android:layout_weight="1"
+                android:fontFamily="@font/manrope_r"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_inputter"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="{inputter}"
+                android:textSize="14sp"
+                android:textColor="@color/colorBlackHeader"
+                android:fontFamily="@font/manrope_b"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingTop="12dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Otorisator"
+                android:layout_weight="1"
+                android:fontFamily="@font/manrope_r"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:id="@+id/tv_otorisator"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="{Otorisator}"
+                android:textSize="14sp"
+                android:textColor="@color/colorBlackHeader"
+                android:fontFamily="@font/manrope_b"
+                android:layout_weight="1"
+                android:textStyle="bold"/>
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="3dp"
+            android:background="@drawable/straight_line"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginLeft="16dp"
+            android:layerType="software"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="10dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp">
+            <Button
+                android:id="@+id/btn_list_opname"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="6"
+                android:text="Mulai"
+                android:textStyle="bold"
+                android:padding="8dp"
+                android:textColor="@color/colorWhite"
+                android:textAllCaps="true"
+                android:background="@drawable/shapeborderpurple"
+                />
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
