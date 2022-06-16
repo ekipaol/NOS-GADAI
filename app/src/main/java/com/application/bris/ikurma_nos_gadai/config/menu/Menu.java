@@ -50,6 +50,7 @@ public class Menu {
         menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_putusan), 0, 0, 0, 0));
         menu.add(new ListViewMenu(R.drawable.ico_hotprospek, context.getString(R.string.menu_uji_kualitas), 0, 0, 0, 0));
         menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_uji_acak), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_pipeline, context.getString(R.string.menu_dashboard), 0, 0, 0, 0));
         menu.add(new ListViewMenu(R.drawable.ico_rejected, context.getString(R.string.menu_opname), 0,0,0, 0));
         menu.add(new ListViewMenu(R.drawable.ic_logout_front, "Logout", 0,0,0, 0));
     }
