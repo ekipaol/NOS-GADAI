@@ -46,6 +46,7 @@ import com.application.bris.ikurma_nos_gadai.page_aom.model.PipelineKpr;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.feedback.FeedbackActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.ListAgunanActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.hasil_penjualan.HasilPenjualanActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.menu_penjualan.MenuPenjualanActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.serah_terima.ListSerahTerimaActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_acak.ListUjiAcak;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.ListUjiKualitas;
@@ -231,7 +232,7 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
     }
 
     private void loadProfil() {
-        tv_nama.setText(appPreferences.getNama());
+        tv_nama.setText("Hi, "+appPreferences.getNama());
         tv_username.setText(appPreferences.getJabatan()+", "+appPreferences.getNamaKantor());
     }
 
@@ -464,6 +465,10 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_pelunasan))){
             Intent it = new Intent(getContext(), ListSerahTerimaActivity.class);
+            startActivity(it);
+        }
+        else if (menu.equalsIgnoreCase(getString(R.string.menu_dashboard))){
+            Intent it = new Intent(getContext(), MenuPenjualanActivity.class);
             startActivity(it);
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_putusan))){
