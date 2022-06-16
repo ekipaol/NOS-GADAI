@@ -12,9 +12,8 @@ import android.widget.ImageView;
 
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityMenuPenjualanGadaiBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.PerpanjanganGagal.ListDashboardTopUpActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.TopUpGagal.ListPerpanjanganGagalActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.serah_terima.ListSerahTerimaActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.SummaryTopUp.ListDashboardTopUpActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.SummaryPerpanjangan.ListSummaryPerpanjanganActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.CoreLayoutActivity;
 
@@ -49,7 +48,7 @@ public class MenuPenjualanActivity extends AppCompatActivity {
         binding.btSumPencairan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MenuPenjualanActivity.this, ListPerpanjanganGagalActivity.class);
+                Intent intent=new Intent(MenuPenjualanActivity.this, ListSummaryPerpanjanganActivity.class);
                 startActivity(intent);
 
             }

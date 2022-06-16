@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.TopUpGagal;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.SummaryPerpanjangan;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,21 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListPerpanjanganGagalBinding;
-import com.application.bris.ikurma_nos_gadai.model.gadai.PerpanjanganGadaiGagal;
+import com.application.bris.ikurma_nos_gadai.model.gadai.SummaryPerpanjanganGadai;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganGagalAdapter.MenuViewHolder> implements Filterable {
+public class SummaryPerpanjanganAdapter extends RecyclerView.Adapter<SummaryPerpanjanganAdapter.MenuViewHolder> implements Filterable {
 
-    private List<PerpanjanganGadaiGagal> data;
+    private List<SummaryPerpanjanganGadai> data;
     private Context context;
     private ItemListPerpanjanganGagalBinding binding;
-    private List<PerpanjanganGadaiGagal> datafiltered;
+    private List<SummaryPerpanjanganGadai> datafiltered;
     private AppPreferences appPreferences;
 
-    public PerpanjanganGagalAdapter(Context context, List<PerpanjanganGadaiGagal>mdata) {
+    public SummaryPerpanjanganAdapter(Context context, List<SummaryPerpanjanganGadai>mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
@@ -48,15 +48,17 @@ public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganG
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
         //never user BINDING ON ON BIND VIEW HOLDER DUDE!!!, USE HOLDER INSTEAD
         //NEVER, IT GONNA F UP YOUR DATA ORDER
-        final PerpanjanganGadaiGagal datas = datafiltered.get(position);
+        final SummaryPerpanjanganGadai datas = datafiltered.get(position);
 
-        holder.tvNamaNasabah.setText(datas.getNamaNasabah());
-        holder.tvNomorAplikasi.setText(datas.getNoAplikasi());
-        holder.tvNomorCIF.setText(datas.getNomorCIF());
-        holder.tvNomorLoan.setText(datas.getNoLoan());
-        holder.tvTotalPembiayaan.setText(dataTotalProcesesor(datas.getOSPembiayaan()));
-        holder.tvTanggalTransaksi.setText(AppUtil.parseTanggalGeneral(datas.getTanggalPencairan(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
-        onClicks(holder);
+        holder.tvBelumDireview.setText(datas.getBelumDireview());
+        holder.tvBelumOtorisasi.setText(datas.getBelumOtorisasi());
+        holder.tvBelumPemutusan.setText(datas.getBelumPemutusan());
+        holder.tvBelumSimulasi.setText(datas.getBelumSimulasi());
+        holder.tvBlokirSaldoRekening.setText(datas.getBlokirSaldoRekening());
+        holder.tvPelunasan.setText(datas.getPelunasan());
+        holder.tvPencairan.setText(datas.getPencairan());
+        holder.tvPengembalianAgunan.setText(datas.getPengembalianAgunan());
+        holder.tvReleaseSaldoRekening.setText(datas.getReleaseSaldoRekening());
 
 
     }
@@ -75,6 +77,8 @@ public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganG
         }
     }
 
+
+    //ini filternya lupakan dlu, soalnya datanya kayaknya masi 1
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -84,12 +88,10 @@ public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganG
                 if (charString.isEmpty()) {
                     datafiltered = data;
                 } else {
-                    List<PerpanjanganGadaiGagal> filteredList = new ArrayList<>();
-                    for (PerpanjanganGadaiGagal row : data) {
-                        if (row.getNamaNasabah().toLowerCase().contains(charString.toLowerCase())
-                                || row.getNoAplikasi().toLowerCase().contains(charString.toLowerCase())
-                                || row.getTanggalPencairan().toLowerCase().contains(charString.toLowerCase())
-                                || row.getNoLoan().toLowerCase().contains(charString.toLowerCase())) {
+                    List<SummaryPerpanjanganGadai> filteredList = new ArrayList<>();
+                    for (SummaryPerpanjanganGadai row : data) {
+                        if (row.getBelumDireview().toLowerCase().contains(charString.toLowerCase())
+                                || row.getBelumOtorisasi().toLowerCase().contains(charString.toLowerCase())) {
 
                                 filteredList.add(row);
                         }
@@ -103,7 +105,7 @@ public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganG
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults filterResults) {
-                datafiltered = (ArrayList<PerpanjanganGadaiGagal>) filterResults.values;
+                datafiltered = (ArrayList<SummaryPerpanjanganGadai>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
@@ -149,16 +151,19 @@ public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganG
 
 
     public class MenuViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNamaNasabah,tvNomorAplikasi,tvNomorLoan,tvNomorCIF,tvTanggalTransaksi,tvTotalPembiayaan;
+        TextView tvBelumSimulasi,tvBelumDireview,tvBelumPemutusan,tvPengembalianAgunan,tvBelumOtorisasi,tvBlokirSaldoRekening,tvPencairan,tvPelunasan,tvReleaseSaldoRekening;
 
         public MenuViewHolder(View itemView) {
             super(itemView);
-            tvNamaNasabah = binding.tvNamaNasabah;
-            tvNomorAplikasi = binding.tvNomorAplikasi;
-            tvNomorLoan = binding.tvNomorLoan;
-            tvNomorCIF = binding.tvNomorCif;
-            tvTanggalTransaksi = binding.tvTanggalTransaksi;
-            tvTotalPembiayaan = binding.tvTotalPembiayaan;
+            tvBelumSimulasi = binding.tvBelumSimulasi;
+            tvBelumDireview = binding.tvBelumDireview;
+            tvBelumPemutusan = binding.tvBelumPemutusan;
+            tvPengembalianAgunan = binding.tvPengembalianAgunan;
+            tvBelumOtorisasi = binding.tvBelumOtorisasi;
+            tvBlokirSaldoRekening = binding.tvBlokirSaldoRekening;
+            tvPencairan = binding.tvPencairan;
+            tvPelunasan = binding.tvPelunasan;
+            tvReleaseSaldoRekening = binding.tvReleaseSaldoRekening;
 
         }
 

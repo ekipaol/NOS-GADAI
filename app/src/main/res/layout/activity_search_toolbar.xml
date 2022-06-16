@@ -86,7 +86,7 @@
                             android:drawableLeft="@drawable/ic_search"
                             android:drawablePadding="8dp"
                             android:focusable="true"
-                            android:hint="Nama Nasabah, Nomor Aplikasi, dll .."
+                            android:hint="Cari.."
                             android:inputType="text"
                             android:paddingHorizontal="10dp"
                             android:textColor="@color/colorBlackHeader"

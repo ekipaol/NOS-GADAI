@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.TopUpGagal;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.SummaryPerpanjangan;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -25,7 +25,7 @@ import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityListPerpanjanganGagalBinding;
 import com.application.bris.ikurma_nos_gadai.model.gadai.DataCabang;
-import com.application.bris.ikurma_nos_gadai.model.gadai.PerpanjanganGadaiGagal;
+import com.application.bris.ikurma_nos_gadai.model.gadai.SummaryPerpanjanganGadai;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
@@ -43,13 +43,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListPerpanjanganGagalActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, GenericListenerOnSelectRecycler {
+public class ListSummaryPerpanjanganActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, GenericListenerOnSelectRecycler {
 
-    private PerpanjanganGagalAdapter perpanjanganGagalAdapter;
+    private SummaryPerpanjanganAdapter summaryPerpanjanganAdapter;
     ActivityListPerpanjanganGagalBinding binding;
     View view;
 
-    private List<PerpanjanganGadaiGagal> dataTopUpGagal = new ArrayList<>();
+    private List<SummaryPerpanjanganGadai> dataSummaryPerpanjangan = new ArrayList<>();
     private DataCabang dataCabang;
     public static int idAplikasi = 0;
     private String fidArea="1";
@@ -80,9 +80,11 @@ public class ListPerpanjanganGagalActivity extends AppCompatActivity implements 
 //        loadData();
 
         try {
-            loadData();
-            setData();
-        } catch (JSONException e) {
+//            loadData();
+//            setData();
+//
+            setDataDummy();
+        } catch (Exception e) {
             e.printStackTrace();
         }
         initialize();
@@ -124,14 +126,14 @@ public class ListPerpanjanganGagalActivity extends AppCompatActivity implements 
                         if(response.body().getStatus().equalsIgnoreCase("00")){
                             String listDataString = response.body().getData().toString();
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<PerpanjanganGadaiGagal>>() {}.getType();
-                            dataTopUpGagal = gson.fromJson(listDataString, type);
-                            if (dataTopUpGagal.size() > 0){
+                            Type type = new TypeToken<List<SummaryPerpanjanganGadai>>() {}.getType();
+                            dataSummaryPerpanjangan = gson.fromJson(listDataString, type);
+                            if (dataSummaryPerpanjangan.size() > 0){
                                 binding.llEmptydata.setVisibility(View.GONE);
-                                perpanjanganGagalAdapter = new PerpanjanganGagalAdapter(ListPerpanjanganGagalActivity.this,dataTopUpGagal);
-                                binding.rvListPerpanjanganGagal.setLayoutManager(new LinearLayoutManager(ListPerpanjanganGagalActivity.this));
+                                summaryPerpanjanganAdapter = new SummaryPerpanjanganAdapter(ListSummaryPerpanjanganActivity.this, dataSummaryPerpanjangan);
+                                binding.rvListPerpanjanganGagal.setLayoutManager(new LinearLayoutManager(ListSummaryPerpanjanganActivity.this));
                                 binding.rvListPerpanjanganGagal.setItemAnimator(new DefaultItemAnimator());
-                                binding.rvListPerpanjanganGagal.setAdapter(perpanjanganGagalAdapter);
+                                binding.rvListPerpanjanganGagal.setAdapter(summaryPerpanjanganAdapter);
                             }
                             else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
@@ -141,13 +143,13 @@ public class ListPerpanjanganGagalActivity extends AppCompatActivity implements 
                             binding.llEmptydata.setVisibility(View.VISIBLE);
                         }
                         else{
-                            AppUtil.notiferror(ListPerpanjanganGagalActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                            AppUtil.notiferror(ListSummaryPerpanjanganActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     }
                     else{
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
                         Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(ListPerpanjanganGagalActivity.this, findViewById(android.R.id.content), error.getMessage());
+                        AppUtil.notiferror(ListSummaryPerpanjanganActivity.this, findViewById(android.R.id.content), error.getMessage());
                     }
                 }
                 catch (Exception e){
@@ -157,9 +159,40 @@ public class ListPerpanjanganGagalActivity extends AppCompatActivity implements 
             @Override
             public void onFailure(Call<ParseResponseGadai> call, Throwable t) {
                 binding.loading.progressbarLoading.setVisibility(View.GONE);
-                AppUtil.notiferror(ListPerpanjanganGagalActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                AppUtil.notiferror(ListSummaryPerpanjanganActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
         });
+    }
+
+    private void setDataDummy(){
+        SummaryPerpanjanganGadai data1=new SummaryPerpanjanganGadai();
+        SummaryPerpanjanganGadai data2=new SummaryPerpanjanganGadai();
+        SummaryPerpanjanganGadai data3=new SummaryPerpanjanganGadai();
+
+        data1.setBelumDireview("25");
+        data1.setBelumOtorisasi("12");
+        data1.setBelumPemutusan("30");
+        data1.setBelumSimulasi("99");
+        data1.setBlokirSaldoRekening("139");
+        data1.setReleaseSaldoRekening("448");
+        data1.setPelunasan("991");
+        data1.setPencairan("11");
+        data1.setPengembalianAgunan("6");
+
+        dataSummaryPerpanjangan.add(data1);
+
+        if (dataSummaryPerpanjangan.size() > 0){
+            binding.llEmptydata.setVisibility(View.GONE);
+            summaryPerpanjanganAdapter = new SummaryPerpanjanganAdapter(ListSummaryPerpanjanganActivity.this, dataSummaryPerpanjangan);
+            binding.rvListPerpanjanganGagal.setLayoutManager(new LinearLayoutManager(ListSummaryPerpanjanganActivity.this));
+            binding.rvListPerpanjanganGagal.setItemAnimator(new DefaultItemAnimator());
+            binding.rvListPerpanjanganGagal.setAdapter(summaryPerpanjanganAdapter);
+        }
+        else {
+            binding.llEmptydata.setVisibility(View.VISIBLE);
+        }
+
+
     }
 
 
@@ -185,12 +218,12 @@ public class ListPerpanjanganGagalActivity extends AppCompatActivity implements 
                         else if (response.body().getStatus().equalsIgnoreCase("14")) {
                         }
                         else{
-                            AppUtil.notiferror(ListPerpanjanganGagalActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                            AppUtil.notiferror(ListSummaryPerpanjanganActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     }
                     else{
                         Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(ListPerpanjanganGagalActivity.this, findViewById(android.R.id.content), error.getMessage());
+                        AppUtil.notiferror(ListSummaryPerpanjanganActivity.this, findViewById(android.R.id.content), error.getMessage());
                     }
                 }
                 catch (Exception e){
@@ -199,7 +232,7 @@ public class ListPerpanjanganGagalActivity extends AppCompatActivity implements 
             }
             @Override
             public void onFailure(Call<ParseResponse> call, Throwable t) {
-                AppUtil.notiferror(ListPerpanjanganGagalActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                AppUtil.notiferror(ListSummaryPerpanjanganActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
         });
 
@@ -209,26 +242,26 @@ public class ListPerpanjanganGagalActivity extends AppCompatActivity implements 
     public void initialize(){
         binding.rvListPerpanjanganGagal.setVisibility(View.VISIBLE);
         binding.rvListPerpanjanganGagal.setHasFixedSize(true);
-        perpanjanganGagalAdapter = new PerpanjanganGagalAdapter(ListPerpanjanganGagalActivity.this, dataTopUpGagal);
-        binding.rvListPerpanjanganGagal.setLayoutManager(new LinearLayoutManager(ListPerpanjanganGagalActivity.this));
+        summaryPerpanjanganAdapter = new SummaryPerpanjanganAdapter(ListSummaryPerpanjanganActivity.this, dataSummaryPerpanjangan);
+        binding.rvListPerpanjanganGagal.setLayoutManager(new LinearLayoutManager(ListSummaryPerpanjanganActivity.this));
         binding.rvListPerpanjanganGagal.setItemAnimator(new DefaultItemAnimator());
-        binding.rvListPerpanjanganGagal.setAdapter(perpanjanganGagalAdapter);
+        binding.rvListPerpanjanganGagal.setAdapter(summaryPerpanjanganAdapter);
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
         binding.toolbarReguler.etSearchTool.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                perpanjanganGagalAdapter.getFilter().filter(s);
+                summaryPerpanjanganAdapter.getFilter().filter(s);
             }
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                perpanjanganGagalAdapter.getFilter().filter(s);
+                summaryPerpanjanganAdapter.getFilter().filter(s);
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-                perpanjanganGagalAdapter.getFilter().filter(s);
+                summaryPerpanjanganAdapter.getFilter().filter(s);
             }
         });
     }
@@ -251,7 +284,7 @@ public class ListPerpanjanganGagalActivity extends AppCompatActivity implements 
     }
 
     public void customToolbar() {
-        binding.toolbarReguler.tvPageTitle.setText("Top UP Gagal");
+        binding.toolbarReguler.tvPageTitle.setText("Dashboard Summary Perpanjangan");
         binding.toolbarReguler.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -264,13 +297,13 @@ public class ListPerpanjanganGagalActivity extends AppCompatActivity implements 
 
     public void onRefresh() {
         binding.refresh.setRefreshing(false);
-        binding.rvListPerpanjanganGagal.setVisibility(View.VISIBLE);
-        try {
-            setData();
-        } catch (JSONException e) {
-            e.printStackTrace();
-
-        }
+//        binding.rvListPerpanjanganGagal.setVisibility(View.VISIBLE);
+//        try {
+//            setData();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//
+//        }
     }
 
 

@@ -1,12 +1,10 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.PerpanjanganGagal;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.SummaryTopUp;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -16,7 +14,6 @@ import com.application.bris.ikurma_nos_gadai.databinding.ItemListTopUpDashboardB
 import com.application.bris.ikurma_nos_gadai.model.gadai.DashboardTopUpGadai;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText;

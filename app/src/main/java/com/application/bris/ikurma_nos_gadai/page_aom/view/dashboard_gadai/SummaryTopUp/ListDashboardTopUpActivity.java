@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.PerpanjanganGagal;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.SummaryTopUp;
 
 import android.app.DatePickerDialog;
 import android.os.Build;
@@ -8,7 +8,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Filter;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -47,7 +46,6 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
 
 public class ListDashboardTopUpActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, GenericListenerOnSelectRecycler {
 
