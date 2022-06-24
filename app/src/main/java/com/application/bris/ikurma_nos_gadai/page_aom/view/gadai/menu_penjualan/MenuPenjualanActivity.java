@@ -45,7 +45,7 @@ public class MenuPenjualanActivity extends AppCompatActivity {
         });
 
 
-        binding.btSumPencairan.setOnClickListener(new View.OnClickListener() {
+        binding.btSumPerpanjangan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MenuPenjualanActivity.this, ListSummaryPerpanjanganActivity.class);
@@ -54,14 +54,14 @@ public class MenuPenjualanActivity extends AppCompatActivity {
             }
         });
 
-        binding.btSumPerpanjangan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent=new Intent(MenuPenjualanActivity.this, ListDashboardTopUpActivity.class);
-                startActivity(intent);
-
-            }
-        });
+//        binding.btSumPerpanjangan.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent=new Intent(MenuPenjualanActivity.this, ListDashboardTopUpActivity.class);
+//                startActivity(intent);
+//
+//            }
+//        });
 
     }
 

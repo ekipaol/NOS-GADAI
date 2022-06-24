@@ -15,8 +15,10 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUidLong;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiAcak;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqTopUpDashboard;
+import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqBranch;
 import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqChannelAplikasiGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqChannelDataApprove;
+import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqRetryGadaiGagal;
 import com.application.bris.ikurma_nos_gadai.api.model.request.general.Activation;
 import com.application.bris.ikurma_nos_gadai.api.model.request.general.Checkupdate;
 import com.application.bris.ikurma_nos_gadai.api.model.request.general.ListDeviasi;
@@ -207,6 +209,10 @@ public interface ApiInterface {
     Call<ParseResponseGadai> listPerpanjanganGadaiGagal (@Body ReqDashboard ReqDashboard);
     @POST(UriApi.DashboardGadai.listDashboardTopUpGadai)
     Call<ParseResponseGadai> listDashboardTopUpGadai (@Body ReqTopUpDashboard ReqTopUpDashboard);
+    @POST(UriApi.DashboardGadai.listGadaiGagal)
+    Call<ParseResponseArr> listGadaiGagal (@Body ReqBranch ReqBranch);
+    @POST(UriApi.DashboardGadai.retryGadaiGagal)
+    Call<ParseResponse> retryGadaiGagal (@Body ReqRetryGadaiGagal ReqRetryGadaiGagal);
 
 }
 

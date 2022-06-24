@@ -53,6 +53,7 @@ import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_kualitas.Li
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListAreaActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListCabangActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.uji_opname.ListUjiOpnameActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.resubmit.ResubmitActivity;
 import com.application.bris.ikurma_nos_gadai.page_putusan_gadai.PutusanGadaiActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppBarStateChangedListener;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
@@ -469,6 +470,10 @@ public class FragmentHome extends Fragment implements SwipeRefreshLayout.OnRefre
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_dashboard))){
             Intent it = new Intent(getContext(), MenuPenjualanActivity.class);
+            startActivity(it);
+        }
+        else if (menu.equalsIgnoreCase(getString(R.string.menu_resubmit))){
+            Intent it = new Intent(getContext(), ResubmitActivity.class);
             startActivity(it);
         }
         else if (menu.equalsIgnoreCase(getString(R.string.menu_putusan))){

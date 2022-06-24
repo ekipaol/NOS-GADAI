@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:replace="android:icon,android:allowBackup">
-        <activity android:name=".page_aom.view.gadai.uji_opname.ListCabangActivity"></activity>
+        <activity android:name=".page_aom.view.resubmit.ResubmitActivity"></activity>
+        <activity android:name=".page_aom.view.gadai.uji_opname.ListCabangActivity" />
         <activity android:name=".page_aom.view.gadai.uji_opname.ListAreaActivity" />
         <activity android:name=".page_aom.view.dashboard_gadai.SummaryPerpanjangan.ListSummaryPerpanjanganActivity" />
         <activity android:name=".page_aom.view.dashboard_gadai.SummaryTopUp.ListDashboardTopUpActivity" />
@@ -83,14 +84,14 @@
             </intent-filter>
         </service>
     </application>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.CAMERA" />
+
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
 </manifest>
