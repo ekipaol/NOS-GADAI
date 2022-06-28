@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ItemListPerpanjanganGagalBinding;
+import com.application.bris.ikurma_nos_gadai.databinding.ItemSumProgramGadaiBinding;
 import com.application.bris.ikurma_nos_gadai.model.gadai.SumProgramGadai;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
@@ -24,11 +24,11 @@ public class SumProgramGadaiAdapter extends RecyclerView.Adapter<SumProgramGadai
 
     private List<SumProgramGadai> data;
     private Context context;
-    private ItemListPerpanjanganGagalBinding binding;
+    private ItemSumProgramGadaiBinding binding;
     private List<SumProgramGadai> datafiltered;
     private AppPreferences appPreferences;
 
-    public SumProgramGadaiAdapter(Context context, List<SumProgramGadai>mdata) {
+    public SumProgramGadaiAdapter(Context context, List<SumProgramGadai> mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
@@ -38,7 +38,7 @@ public class SumProgramGadaiAdapter extends RecyclerView.Adapter<SumProgramGadai
     @Override
     public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        binding = ItemListPerpanjanganGagalBinding.inflate(layoutInflater, parent, false);
+        binding = ItemSumProgramGadaiBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
         appPreferences = new AppPreferences(context);
         return new MenuViewHolder(view);
@@ -107,60 +107,54 @@ public class SumProgramGadaiAdapter extends RecyclerView.Adapter<SumProgramGadai
         };
     }
 
-    private String dataTotalProcesesor(String nominal){
-        String formattedString="";
-        String removeComma=nominal.substring(0,nominal.length()-3);
+    private String dataTotalProcesesor(String nominal) {
+        String formattedString = "";
+        String removeComma = nominal.substring(0, nominal.length() - 3);
         String[] stringCutter;
 
-        Log.d("nominalString",removeComma);
+        Log.d("nominalString", removeComma);
 
-        if(removeComma.length()<=9){
-            formattedString=AppUtil.parseRupiahNoSymbol(removeComma);
+        if (removeComma.length() <= 9) {
+            formattedString = AppUtil.parseRupiahNoSymbol(removeComma);
 //            formattedString=formattedString.substring(0,formattedString.length()-3);
 
-            if(formattedString.substring(0,4).contains(",")){
-                stringCutter=formattedString.split(",");
-            }
-            else{
-                stringCutter=formattedString.split("\\.");
+            if (formattedString.substring(0, 4).contains(",")) {
+                stringCutter = formattedString.split(",");
+            } else {
+                stringCutter = formattedString.split("\\.");
             }
 
-            Log.d("formattedstring",formattedString);
-            return stringCutter[0]+","+stringCutter[1].substring(0,2)+" JT";
-        }
-        else if(removeComma.length()<=12){
-            formattedString=AppUtil.parseRupiahNoSymbol(removeComma);
+            Log.d("formattedstring", formattedString);
+            return stringCutter[0] + "," + stringCutter[1].substring(0, 2) + " JT";
+        } else if (removeComma.length() <= 12) {
+            formattedString = AppUtil.parseRupiahNoSymbol(removeComma);
 //            formattedString=formattedString.substring(0,formattedString.length()-3);
 
-            if(formattedString.substring(0,4).contains(",")){
-                stringCutter=formattedString.split(",");
+            if (formattedString.substring(0, 4).contains(",")) {
+                stringCutter = formattedString.split(",");
+            } else {
+                stringCutter = formattedString.split("\\.");
             }
-            else{
-                stringCutter=formattedString.split("\\.");
-            }
-            Log.d("formattedstring",formattedString);
-            return stringCutter[0]+","+stringCutter[1].substring(0,2)+" M";
-        }
-        else if(removeComma.length()<=15){
-            formattedString=AppUtil.parseRupiahNoSymbol(removeComma);
+            Log.d("formattedstring", formattedString);
+            return stringCutter[0] + "," + stringCutter[1].substring(0, 2) + " M";
+        } else if (removeComma.length() <= 15) {
+            formattedString = AppUtil.parseRupiahNoSymbol(removeComma);
 //            formattedString=formattedString.substring(0,formattedString.length()-3);
 
-            if(formattedString.substring(0,4).contains(",")){
-                stringCutter=formattedString.split(",");
+            if (formattedString.substring(0, 4).contains(",")) {
+                stringCutter = formattedString.split(",");
+            } else {
+                stringCutter = formattedString.split("\\.");
             }
-            else{
-                stringCutter=formattedString.split("\\.");
-            }
-            Log.d("formattedstring",formattedString);
-            return stringCutter[0]+","+stringCutter[1].substring(0,2)+" T";
-        }
-        else{
+            Log.d("formattedstring", formattedString);
+            return stringCutter[0] + "," + stringCutter[1].substring(0, 2) + " T";
+        } else {
             return AppUtil.parseRupiahNoSymbol(removeComma);
         }
     }
 
     public class MenuViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNamaNasabah,etJumlahCIF,etJumlahLoan,etTotalStading;
+        TextView tvNamaNasabah, etJumlahCIF, etJumlahLoan, etTotalStading;
 
         public MenuViewHolder(View itemView) {
             super(itemView);

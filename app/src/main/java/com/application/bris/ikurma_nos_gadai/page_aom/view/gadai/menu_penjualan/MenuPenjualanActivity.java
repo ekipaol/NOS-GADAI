@@ -45,7 +45,7 @@ public class MenuPenjualanActivity extends AppCompatActivity {
         });
 
 
-        binding.btSumProgram.setOnClickListener(new View.OnClickListener() {
+        binding.tvSummaryProgram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MenuPenjualanActivity.this, ListSumProgramGadai.class);
@@ -54,7 +54,7 @@ public class MenuPenjualanActivity extends AppCompatActivity {
             }
         });
 
-        binding.btTopUp.setOnClickListener(new View.OnClickListener() {
+        binding.tvSummaryTopupBsim.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MenuPenjualanActivity.this, ListSumTopUpBSIM.class);
