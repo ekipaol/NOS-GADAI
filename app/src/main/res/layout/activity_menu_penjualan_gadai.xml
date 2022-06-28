@@ -1,17 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android"
     android:background="@color/colorBackgroundCore">
 
     <include layout="@layout/toolbar_regular_new" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_marginTop="170dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="170dp"
         android:background="@color/colorBackgroundCore">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -25,396 +27,308 @@
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="7dp"
-
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/ms_white"
+                    android:layout_margin="10dp"
                     app:cardCornerRadius="10dp">
 
-                    <FrameLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/bt_sum_pencairan"
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:gravity="start"
+                            android:padding="12dp"
+                            android:text="Performance"
+                            android:textColor="@color/colorBlackHeader"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                        <FrameLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="100"
+                            android:orientation="horizontal">
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/tv_summary_pencairan"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:textColorHint="@color/ms_black_87_opacity"
+                                android:background="@drawable/shapegrey"
+                                android:hint="Summary\nPencairan"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp"
+                                tools:ignore="NestedWeights" />
 
 
-                                <ImageView
-                                    android:id="@+id/icPencairan"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="4dp"/>
+                            <TextView
+                                android:id="@+id/tv_summary_perpanjangan"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:textColorHint="@color/ms_black_87_opacity"
+                                android:background="@drawable/shapegrey"
+                                android:hint="Summary\nPerpanjangan"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icPencairan"
-                                    android:text="Summary Pencairan"
-                                    android:textColor="@color/colorBlackHeader"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_alignParentRight="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginRight="20dp"
-                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp" />
-                            </RelativeLayout>
+                            <TextView
+                                android:id="@+id/tv_summary_pelunasan"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:textColorHint="@color/ms_black_87_opacity"
+                                android:background="@drawable/shapegrey"
+                                android:hint="Summary\nPelunasan"
+                                android:inputType="text"
+                                android:fontFamily="@font/manrope_r"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
 
-                        </FrameLayout>
+                        </LinearLayout>
 
-                    </FrameLayout>
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="100"
+                            android:layout_marginBottom="10dp"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_summary_program"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:textColorHint="@color/ms_black_87_opacity"
+                                android:background="@drawable/shapegrey"
+                                android:hint="Summary\nProgram"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp"
+                                tools:ignore="NestedWeights" />
+
+
+                            <TextView
+                                android:id="@+id/tv_summary_topup_bsim"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:textColorHint="@color/ms_black_87_opacity"
+                                android:background="@drawable/shapegrey"
+                                android:hint="Summary \nTop Up BSIM"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
+
+
+                            <TextView
+                                android:id="@+id/tv_kosong"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:inputType="text"
+                                android:fontFamily="@font/manrope_r"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
 
 
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="7dp"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/ms_white"
+                    android:layout_margin="10dp"
                     app:cardCornerRadius="10dp">
 
-                    <FrameLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:paddingHorizontal="10dp"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/bt_sum_perpanjangan"
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:gravity="start"
+                            android:padding="12dp"
+                            android:text="Postdue"
+                            android:textColor="@color/colorBlackHeader"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                        <FrameLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_weight="100"
+                            android:orientation="horizontal">
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/tv_postdue"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:textColorHint="@color/ms_black_87_opacity"
+                                android:background="@drawable/shapegrey"
+                                android:hint="Postdue"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp"
+                                tools:ignore="NestedWeights" />
+                            <TextView
+                                android:id="@+id/tv_kosong2"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:inputType="text"
+                                android:fontFamily="@font/manrope_r"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
+                            <TextView
+                                android:id="@+id/tv_kosong3"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:inputType="text"
+                                android:fontFamily="@font/manrope_r"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
 
-                                <ImageView
-                                    android:id="@+id/icPerpanjangan"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="3dp"/>
+                        </LinearLayout>
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icPerpanjangan"
-                                    android:text="Summary Perpanjangan"
-                                    android:textColor="@color/colorBlackHeader"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="20dp"
-                                    android:layout_centerInParent="true"
-                                    android:layout_alignParentRight="true"
-                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
-                            </RelativeLayout>
-                        </FrameLayout>
-                    </FrameLayout>
+                    </LinearLayout>
+
+
                 </androidx.cardview.widget.CardView>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="7dp"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/ms_white"
+                    android:layout_margin="10dp"
                     app:cardCornerRadius="10dp">
 
-                    <FrameLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:paddingHorizontal="10dp"
+                        android:orientation="vertical">
 
-                        <ImageView
-                            android:id="@+id/bt_sum_pelunasan"
+
+                        <TextView
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:gravity="start"
+                            android:padding="12dp"
+                            android:text="Uji Kualitas"
+                            android:textColor="@color/colorBlackHeader"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
 
-                        <FrameLayout
+                        <LinearLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="wrap_content"
+                            android:layout_weight="100"
+                            android:orientation="horizontal">
 
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
+                            <TextView
+                                android:id="@+id/tv_belum_uji_kualitas"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:textColorHint="@color/ms_black_87_opacity"
+                                android:background="@drawable/shapegrey"
+                                android:hint="Belum Uji\nKualiatas"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp"
+                                tools:ignore="NestedWeights" />
 
-                                <ImageView
-                                    android:id="@+id/icPelunasan"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="3dp"/>
 
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icPelunasan"
-                                    android:text="Summary Pelunasan"
-                                    android:textColor="@color/colorBlackHeader"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
+                            <TextView
+                                android:id="@+id/tv_uji_kualitas_tidak_sesuai"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:textColorHint="@color/ms_black_87_opacity"
+                                android:background="@drawable/shapegrey"
+                                android:hint="Uji Kualitas \nTidak Sesuai"
+                                android:inputType="text"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
 
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="20dp"
-                                    android:layout_centerInParent="true"
-                                    android:layout_alignParentRight="true"
-                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
-                            </RelativeLayout>
-                        </FrameLayout>
-                    </FrameLayout>
+
+                            <TextView
+                                android:id="@+id/tv_kosong4"
+                                android:layout_width="0dp"
+                                android:layout_weight="30"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:inputType="text"
+                                android:fontFamily="@font/manrope_r"
+                                android:padding="10dp"
+                                android:textColor="#000"
+                                android:textSize="15sp" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
                 </androidx.cardview.widget.CardView>
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="7dp"
-                    app:cardCornerRadius="10dp">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/bt_pastdue"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <ImageView
-                                    android:id="@+id/icPastdue"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="3dp"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icPastdue"
-                                    android:text="Pastdue"
-                                    android:textColor="@color/colorBlackHeader"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="20dp"
-                                    android:layout_centerInParent="true"
-                                    android:layout_alignParentRight="true"
-                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
-                            </RelativeLayout>
-                        </FrameLayout>
-                    </FrameLayout>
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="7dp"
-                    app:cardCornerRadius="10dp">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/bt_sum_program"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <ImageView
-                                    android:id="@+id/icSumProgram"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="3dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icSumProgram"
-                                    android:text="Summary Program"
-                                    android:textColor="@color/colorBlackHeader"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="20dp"
-                                    android:layout_centerInParent="true"
-                                    android:layout_alignParentRight="true"
-                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
-                            </RelativeLayout>
-                        </FrameLayout>
-                    </FrameLayout>
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="7dp"
-                    app:cardCornerRadius="10dp">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/ic_blm_uji_kualitas"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <ImageView
-                                    android:id="@+id/icBlmUjiKualitas"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="3dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icBlmUjiKualitas"
-                                    android:text="Belum Uji Kualitas"
-                                    android:textColor="@color/colorBlackHeader"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="20dp"
-                                    android:layout_centerInParent="true"
-                                    android:layout_alignParentRight="true"
-                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
-                            </RelativeLayout>
-                        </FrameLayout>
-                    </FrameLayout>
-                </androidx.cardview.widget.CardView>
-
-
-                <androidx.cardview.widget.CardView
-                    android:layout_width="match_parent"
-                    android:layout_height="70dp"
-                    android:layout_margin="7dp"
-                    app:cardCornerRadius="10dp">
-
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/bt_uji_kualitas_ts"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
-
-                        <FrameLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent">
-
-                            <RelativeLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="match_parent">
-
-                                <ImageView
-                                    android:id="@+id/icKualitasTS"
-                                    android:layout_width="50dp"
-                                    android:layout_height="50dp"
-                                    android:layout_alignParentLeft="true"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="3dp" />
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_centerInParent="true"
-                                    android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icKualitasTS"
-                                    android:text="Uji Kualitas Tidak Sesuai"
-                                    android:textColor="@color/colorBlackHeader"
-                                    android:textSize="20dp"
-                                    android:textStyle="bold" />
-                                <ImageView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginRight="20dp"
-                                    android:layout_centerInParent="true"
-                                    android:layout_alignParentRight="true"
-                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
-                            </RelativeLayout>
-                        </FrameLayout>
-                    </FrameLayout>
-                </androidx.cardview.widget.CardView>
-
-
-
-
 
             </LinearLayout>
         </ScrollView>

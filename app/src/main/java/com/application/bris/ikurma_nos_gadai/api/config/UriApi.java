@@ -129,7 +129,7 @@ public class UriApi {
 
     //Dashboard Gadai
     public class DashboardGadai {
-        public static final String listPerpanjanganGadaiGagal = "GadaiEmasService/rest/Dashboard/ListGadaiGagal";
+        public static final String sumProgramGadai = "GadaiEmasService/rest/Dashboard/SumProgramGadai";
         public static final String listDashboardTopUpGadai = "GadaiEmasService/rest/Dashboard/SumGadaiGagal";
         public static final String listGadaiGagal = "GadaiEmasService/rest/Dashboard/listGadaiGagal";
         public static final String retryGadaiGagal = "GadaiEmasService/rest/Dashboard/RetryGadaiGagal";

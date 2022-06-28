@@ -2,7 +2,7 @@ package com.application.bris.ikurma_nos_gadai.model.gadai;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DashboardTopUpGadai{
+public class SumTopUpGadai {
 
 	@SerializedName("totalOutstanding")
 	private Integer totalOutstanding;
