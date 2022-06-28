@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <include android:id="@+id/toolbar_reguler" layout="@layout/toolbar_regular_new" />
+
+    <include android:id="@+id/loading" layout="@layout/loading"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="190dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/tf_start_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:isResponsiveIconColor="true"
+            app:endIcon="@drawable/ic_calendar"
+            app:secondaryColor="@color/endColorPrimary02"
+            app:primaryColor="@color/endColorPrimary02"
+            app:labelText="Start Date"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            app:useDenseSpacing="true">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/et_start_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textColor="@color/colorTextGrey"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/tf_end_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isResponsiveIconColor="true"
+                app:endIcon="@drawable/ic_calendar"
+                app:secondaryColor="@color/endColorPrimary02"
+                app:primaryColor="@color/endColorPrimary02"
+                app:labelText="End Date"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:useDenseSpacing="true">
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/et_end_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=" "
+                    android:textColor="@color/colorTextGrey"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+    </LinearLayout>
+    </LinearLayout>
+
+                <LinearLayout
+                android:id="@+id/ll_btn_send"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="270dp"
+                android:orientation="horizontal">
+
+                <Button
+                    android:id="@+id/btn_cari"
+                    style="@style/Bordered.Button.Custom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:background="@drawable/shapeborderpurple"
+                    android:layout_weight="1"
+                    android:padding="1dp"
+                    android:textColor="@color/ms_white"
+                    android:fontFamily="@font/manrope_b"
+                    android:text="Cari" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="190dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="140dp"
+            android:background="#F8FAFC"
+            android:elevation="5dp"
+            android:orientation="vertical"
+            android:paddingTop="10dp">
+
+            <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+                android:id="@+id/refresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:clickable="true">
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_sum_top_up_cair"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:scrollbars="vertical" />
+
+
+            </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+        </LinearLayout>
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_emptydata"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="300dp"
+            android:layout_height="228dp"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:layout_marginTop="270dp"
+            android:src="@drawable/ic_no_data_illustrator" />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Oops..."
+            android:textSize="20sp"
+            android:textColor="@color/colorBlackHeader"
+            android:textStyle="bold"
+            android:fontFamily="@font/manrope_b"
+            android:paddingTop="12dp"
+            android:paddingBottom="6dp"
+            android:gravity="center"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/title_nodata"
+            android:fontFamily="@font/manrope_r"
+            android:textSize="16sp"
+            android:paddingBottom="6dp"
+            android:gravity="center"/>
+    </LinearLayout>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

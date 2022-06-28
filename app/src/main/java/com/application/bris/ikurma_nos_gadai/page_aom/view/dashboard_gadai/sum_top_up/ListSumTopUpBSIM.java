@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.PerpanjanganGagal;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_top_up;
 
 import android.app.DatePickerDialog;
 import android.os.Build;
@@ -8,7 +8,6 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Filter;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,9 +24,9 @@ import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqTopUpDashboard;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ActivityListTopUpDashboardBinding;
-import com.application.bris.ikurma_nos_gadai.model.gadai.DashboardTopUpGadai;
+import com.application.bris.ikurma_nos_gadai.databinding.ActivityListTopUpBsimBinding;
 import com.application.bris.ikurma_nos_gadai.model.gadai.DataCabang;
+import com.application.bris.ikurma_nos_gadai.model.gadai.SumTopUpGadai;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelectRecycler;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
@@ -47,12 +46,11 @@ import java.util.Locale;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
 
-public class ListDashboardTopUpActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, GenericListenerOnSelectRecycler {
+public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, GenericListenerOnSelectRecycler {
 
-    private TopUpDashboardGagalAdapter topUpDashboardGagalAdapter;
-    ActivityListTopUpDashboardBinding binding;
+    private SumTopUpAdapter sumTopUpAdapter;
+    ActivityListTopUpBsimBinding binding;
     View view;
 
     private DatePickerDialog dpEndDate;
@@ -61,8 +59,9 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
     private Calendar calEndDate;
     public static SimpleDateFormat dateClient = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
-    private List<DashboardTopUpGadai> dataDashboardTopUpGagal = new ArrayList<>();
-    private DataCabang dataCabang;
+    private List<SumTopUpGadai> dataDashboardTopUpGagal = new ArrayList<>();
+    private List <DataCabang> dataCabang= new ArrayList<>() ;
+    private List<String> listCabang = new ArrayList<>();
     public static int idAplikasi = 0;
     private String fidArea="1";
     private String branchCode = " ";
@@ -74,13 +73,18 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //binding View
-        binding = ActivityListTopUpDashboardBinding.inflate(getLayoutInflater());
+        binding = ActivityListTopUpBsimBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
+
+        apiClientAdapter = new ApiClientAdapter(this,true);
+        apiClientAdapter = new ApiClientAdapter(this);
+        appPreferences = new AppPreferences(this);
+
         setContentView(binding.getRoot());
-//        binding.collapsingToolbar.setStatusBarScrimColor(getResources().getColor(R.color.colorBackgroundTransparent));
         customToolbar();
         backgroundStatusBar();
         onClickSelectDialog();
+
         apiClientAdapter = new ApiClientAdapter(this);
         appPreferences = new AppPreferences(this);
         apiClientAdapter = new ApiClientAdapter(this,true);
@@ -89,65 +93,40 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
             fidArea = getIntent().getStringExtra("fidArea");
         }
 
-//        loadData();
-
-        try {
-            loadData();
-            setData();
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        loadData();
         initialize();
         return;
     }
 
-
-//    private void setData() throws JSONException {
-//        CaptureAgunan dd = new CaptureAgunan();
-//        dd.setCabang ("KCP SUNTER");
-//        dd.setNomorAplikasiGadai ("1430000000000");
-//        dd.setNomorAplikasiGadai("123000000000");
-//        dd.setTanggalTransaksi("20000000000000000");
-//
-//        CaptureAgunan dd2 = new CaptureAgunan();
-//        dd2.setCabang ("KCP SUNTER");
-//        dd2.setNomorAplikasiGadai ("123000000000");
-//        dd2.setNomorAplikasiGadai("1430000000000");
-//        dd2.setTanggalTransaksi("20000000000000000");
-//
-//        dataAgunan.add(dd);
-//        dataAgunan.add(dd2);
-//    }
 
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         AppPreferences appPreferences=new AppPreferences(this);
         apiClientAdapter = new ApiClientAdapter(this);
         ReqTopUpDashboard req = new ReqTopUpDashboard();
-//        req.setStartDate(binding.etStartDate.getText().toString().trim());
-//        req.setEndDate(binding.etEndDate.getText().toString().trim());
-        req.setStartDate("");
-        req.setEndDate("");
-        req.setListBranch("");
-        Call<ParseResponseGadai> call = apiClientAdapter.getApiInterface().listDashboardTopUpGadai(req);
+        req.setStartDate(binding.etStartDate.getText().toString());
+        req.setEndDate(binding.etEndDate.getText().toString());
+        req.setSumSelindo(false);
+        req.setListBranch(listCabang);
+        Call<ParseResponseGadai> call = apiClientAdapter.getApiInterface().sumTopUpGadai(req);
         call.enqueue(new Callback<ParseResponseGadai>() {
             @Override
             public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
                 try {
                     if(response.isSuccessful()){
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        binding.rvListTopUpDashboard.setVisibility(View.VISIBLE);
+                        binding.rvSumTopUpCair.setVisibility(View.VISIBLE);
                         if(response.body().getStatus().equalsIgnoreCase("00")){
                             String listDataString = response.body().getData().toString();
                             Gson gson = new Gson();
-                            Type type = new TypeToken<List<DashboardTopUpGadai>>() {}.getType();
+                            Type type = new TypeToken<List<SumTopUpGadai>>() {}.getType();
                             dataDashboardTopUpGagal = gson.fromJson(listDataString, type);
                             if (dataDashboardTopUpGagal.size() > 0){
                                 binding.llEmptydata.setVisibility(View.GONE);
-                                topUpDashboardGagalAdapter = new TopUpDashboardGagalAdapter(ListDashboardTopUpActivity.this,dataDashboardTopUpGagal);
-                                binding.rvListTopUpDashboard.setLayoutManager(new LinearLayoutManager(ListDashboardTopUpActivity.this));
-                                binding.rvListTopUpDashboard.setItemAnimator(new DefaultItemAnimator());
-                                binding.rvListTopUpDashboard.setAdapter(topUpDashboardGagalAdapter);
+                                sumTopUpAdapter = new SumTopUpAdapter(ListSumTopUpBSIM.this,dataDashboardTopUpGagal);
+                                binding.rvSumTopUpCair.setLayoutManager(new LinearLayoutManager(ListSumTopUpBSIM.this));
+                                binding.rvSumTopUpCair.setItemAnimator(new DefaultItemAnimator());
+                                binding.rvSumTopUpCair.setAdapter(sumTopUpAdapter);
                             }
                             else {
                                 binding.llEmptydata.setVisibility(View.VISIBLE);
@@ -157,13 +136,13 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
                             binding.llEmptydata.setVisibility(View.VISIBLE);
                         }
                         else{
-                            AppUtil.notiferror(ListDashboardTopUpActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                            AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     }
                     else{
                         binding.loading.progressbarLoading.setVisibility(View.GONE);
                         Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(ListDashboardTopUpActivity.this, findViewById(android.R.id.content), error.getMessage());
+                        AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), error.getMessage());
                     }
                 }
                 catch (Exception e){
@@ -173,7 +152,7 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
             @Override
             public void onFailure(Call<ParseResponseGadai> call, Throwable t) {
                 binding.loading.progressbarLoading.setVisibility(View.GONE);
-                AppUtil.notiferror(ListDashboardTopUpActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
         });
     }
@@ -187,14 +166,13 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
                 calStartDate.set(Calendar.YEAR, year);
                 calStartDate.set(Calendar.MONTH, month);
                 calStartDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                String calLahirString = ListDashboardTopUpActivity.dateClient.format(calStartDate.getTime());
+                String calLahirString = ListSumTopUpBSIM.dateClient.format(calStartDate.getTime());
                 binding.etStartDate.setText(calLahirString);
             }
         };
 
-        dpStartDate = new DatePickerDialog(ListDashboardTopUpActivity.this,R.style.AppTheme_TimePickerTheme, ds_star_date, calStartDate.get(Calendar.YEAR),
+        dpStartDate = new DatePickerDialog(ListSumTopUpBSIM.this,R.style.AppTheme_TimePickerTheme, ds_star_date, calStartDate.get(Calendar.YEAR),
                 calStartDate.get(Calendar.MONTH), calStartDate.get(Calendar.DAY_OF_MONTH));
-        dpStartDate.getDatePicker().setMaxDate(calStartDate.getTimeInMillis());
         dpStartDate.show();
     }
 
@@ -212,9 +190,8 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
             }
         };
 
-        dpEndDate = new DatePickerDialog(ListDashboardTopUpActivity.this,R.style.AppTheme_TimePickerTheme, ds_end_date, calEndDate.get(Calendar.YEAR),
+        dpEndDate = new DatePickerDialog(ListSumTopUpBSIM.this,R.style.AppTheme_TimePickerTheme, ds_end_date, calEndDate.get(Calendar.YEAR),
                 calEndDate.get(Calendar.MONTH), calEndDate.get(Calendar.DAY_OF_MONTH));
-        dpEndDate.getDatePicker().setMaxDate(calEndDate.getTimeInMillis());
         dpEndDate.show();
     }
 
@@ -235,17 +212,21 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
                             Type type = new TypeToken<List<DataCabang>>() {}.getType();
                             dataCabang = gson.fromJson(listDataString, type);{
                             }
+                            for (int i = 0; i < dataCabang.size(); i++) {
+                                listCabang.add(dataCabang.get(i).getKodeCabang());
+                            }
+                            setData();
 
                         }
                         else if (response.body().getStatus().equalsIgnoreCase("14")) {
                         }
                         else{
-                            AppUtil.notiferror(ListDashboardTopUpActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                            AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     }
                     else{
                         Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(ListDashboardTopUpActivity.this, findViewById(android.R.id.content), error.getMessage());
+                        AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), error.getMessage());
                     }
                 }
                 catch (Exception e){
@@ -254,7 +235,7 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
             }
             @Override
             public void onFailure(Call<ParseResponse> call, Throwable t) {
-                AppUtil.notiferror(ListDashboardTopUpActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
         });
 
@@ -262,12 +243,12 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
 
 
     public void initialize(){
-        binding.rvListTopUpDashboard.setVisibility(View.VISIBLE);
-        binding.rvListTopUpDashboard.setHasFixedSize(true);
-        topUpDashboardGagalAdapter = new TopUpDashboardGagalAdapter(ListDashboardTopUpActivity.this, dataDashboardTopUpGagal);
-        binding.rvListTopUpDashboard.setLayoutManager(new LinearLayoutManager(ListDashboardTopUpActivity.this));
-        binding.rvListTopUpDashboard.setItemAnimator(new DefaultItemAnimator());
-        binding.rvListTopUpDashboard.setAdapter(topUpDashboardGagalAdapter);
+        binding.rvSumTopUpCair.setVisibility(View.VISIBLE);
+        binding.rvSumTopUpCair.setHasFixedSize(true);
+        sumTopUpAdapter = new SumTopUpAdapter(ListSumTopUpBSIM.this, dataDashboardTopUpGagal);
+        binding.rvSumTopUpCair.setLayoutManager(new LinearLayoutManager(ListSumTopUpBSIM.this));
+        binding.rvSumTopUpCair.setItemAnimator(new DefaultItemAnimator());
+        binding.rvSumTopUpCair.setAdapter(sumTopUpAdapter);
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
 //        binding.toolbarReguler.etSearchTool.addTextChangedListener(new TextWatcher() {
@@ -289,34 +270,6 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
 
     }
 
-    private void onClickSelectDialog(){
-        binding.tfStartDate.setOnClickListener(this);
-        binding.etStartDate.setOnClickListener(this);
-        binding.tfStartDate.getEndIconImageButton().setOnClickListener(v -> dpStartDate(binding.etStartDate));
-        binding.tfEndDate.setOnClickListener(this);
-        binding.etEndDate.setOnClickListener(this);
-        binding.tfEndDate.getEndIconImageButton().setOnClickListener(v -> dpEndDate(binding.etStartDate));
-        binding.ivCari.setOnClickListener(this);
-
-    }
-
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()){
-            case R.id.et_start_date:
-            case R.id.tf_start_date:
-                dpStartDate(binding.etStartDate);
-            case R.id.et_end_date:
-            case R.id.tf_end_date:
-                dpEndDate(binding.etEndDate);
-            case R.id.iv_cari:
-                searchSerahTerima();
-                validateSearch();
-
-
-        }
-    }
 
     private void backgroundStatusBar() {
         Window window = getWindow();
@@ -329,7 +282,7 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
     }
 
     public void customToolbar() {
-        binding.toolbarReguler.tvPageTitle.setText("Top UP Gagal");
+        binding.toolbarReguler.tvPageTitle.setText("Summary Top Up BSIM");
         binding.toolbarReguler.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -338,56 +291,66 @@ public class ListDashboardTopUpActivity extends AppCompatActivity implements Gen
         });
     }
 
+    private void onClickSelectDialog(){
+        binding.btnCari.setOnClickListener(this);
+        binding.tfStartDate.setOnClickListener(this);
+        binding.etStartDate.setOnClickListener(this);
+        binding.tfStartDate.getEndIconImageButton().setOnClickListener(v -> dpStartDate(binding.etStartDate));
+        binding.tfEndDate.setOnClickListener(this);
+        binding.etEndDate.setOnClickListener(this);
+        binding.tfEndDate.getEndIconImageButton().setOnClickListener(v -> dpEndDate(binding.etStartDate));
 
-    private void searchSerahTerima(){
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-            @Override
-            public boolean onQueryTextSubmit(String query) {
-                try {
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                }
-                return false;
-            }
-
-            @Override
-            public boolean onQueryTextChange(String query) {
-                try {
-                    return false;
-                }
-                catch (Exception e){
-                    e.printStackTrace();
-                    return false;
-                }
-            }
-        });
     }
 
-    private boolean validateSearch() {
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.et_start_date:
+            case R.id.tf_start_date:
+                dpStartDate(binding.etStartDate);
+                break;
+            case R.id.et_end_date:
+            case R.id.tf_end_date:
+                dpEndDate(binding.etEndDate);
+                break;
+            case R.id.btn_cari:
+                try {
+                    setData();
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                validasi();
+                break;
+        }
+    }
+
+    private boolean validasi() {
         if (binding.etStartDate.getText().toString().trim().isEmpty() || binding.etStartDate.getText().toString().trim().equalsIgnoreCase(" ")) {
-            binding.tfStartDate.setError(binding.tfStartDate.getLabelText() + " " + getString(R.string.title_validate_field), true);
-            AppUtil.notiferror(ListDashboardTopUpActivity.this, findViewById(android.R.id.content), binding.tfStartDate.getLabelText() + " " + getString(R.string.title_validate_field));
+            binding.tfStartDate.setError(binding.tfStartDate.getLabelText() + " " + "is required", true);
+            AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), binding.tfStartDate.getLabelText() + " " + getString(R.string.title_validate_field));
             return false;
 
         } else if (binding.etEndDate.getText().toString().trim().isEmpty() || binding.etEndDate.getText().toString().trim().equalsIgnoreCase(" ")) {
-            binding.tfStartDate.setError(binding.tfEndDate.getLabelText() + " " + getString(R.string.title_validate_field), true);
-            AppUtil.notiferror(ListDashboardTopUpActivity.this, findViewById(android.R.id.content), binding.tfStartDate.getLabelText() + " " + getString(R.string.title_validate_field));
+            binding.tfEndDate.setError(binding.tfEndDate.getLabelText() + " " + "is required", true);
+            AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), binding.tfEndDate.getLabelText() + " " + getString(R.string.title_validate_field));
             return false;
         }
-        return false;
+        else {
+            return false;
+        }
     }
 
     @Override
     public void onRefresh() {
         binding.refresh.setRefreshing(false);
-        binding.rvListTopUpDashboard.setVisibility(View.VISIBLE);
+        binding.rvSumTopUpCair.setVisibility(View.VISIBLE);
         try {
             setData();
         } catch (JSONException e) {
             e.printStackTrace();
-
         }
+        loadData();
     }
 
 

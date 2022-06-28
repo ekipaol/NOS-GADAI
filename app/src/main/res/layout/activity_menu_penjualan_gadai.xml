@@ -50,7 +50,7 @@
 
 
                                 <ImageView
-                                    android:id="@+id/icPencairan"
+                                    android:id="@+id/iv_pencairan"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
                                     android:layout_alignParentLeft="true"
@@ -62,7 +62,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icPencairan"
+                                    android:layout_toRightOf="@id/iv_pencairan"
                                     android:text="Summary Pencairan"
                                     android:textColor="@color/colorBlackHeader"
                                     android:textSize="20dp"
@@ -109,7 +109,7 @@
                                 android:layout_height="match_parent">
 
                                 <ImageView
-                                    android:id="@+id/icPerpanjangan"
+                                    android:id="@+id/iv_perpanjangan"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
                                     android:layout_alignParentLeft="true"
@@ -121,7 +121,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icPerpanjangan"
+                                    android:layout_toRightOf="@id/iv_perpanjangan"
                                     android:text="Summary Perpanjangan"
                                     android:textColor="@color/colorBlackHeader"
                                     android:textSize="20dp"
@@ -163,7 +163,7 @@
                                 android:layout_height="match_parent">
 
                                 <ImageView
-                                    android:id="@+id/icPelunasan"
+                                    android:id="@+id/iv_pelunasan"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
                                     android:layout_alignParentLeft="true"
@@ -175,8 +175,63 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icPelunasan"
+                                    android:layout_toRightOf="@id/iv_pelunasan"
                                     android:text="Summary Pelunasan"
+                                    android:textColor="@color/colorBlackHeader"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="20dp"
+                                    android:layout_centerInParent="true"
+                                    android:layout_alignParentRight="true"
+                                    android:src="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+                            </RelativeLayout>
+                        </FrameLayout>
+                    </FrameLayout>
+                </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:layout_margin="7dp"
+                    app:cardCornerRadius="10dp">
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <ImageView
+                            android:id="@+id/bt_top_up"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:scaleType="centerCrop" />
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent">
+
+                                <ImageView
+                                    android:id="@+id/iv_top_up"
+                                    android:layout_width="50dp"
+                                    android:layout_height="50dp"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="3dp"/>
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_centerInParent="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_toRightOf="@id/iv_top_up"
+                                    android:text="Summary Top Up BSIM"
                                     android:textColor="@color/colorBlackHeader"
                                     android:textSize="20dp"
                                     android:textStyle="bold" />
@@ -218,7 +273,7 @@
                                 android:layout_height="match_parent">
 
                                 <ImageView
-                                    android:id="@+id/icPastdue"
+                                    android:id="@+id/iv_past_due"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
                                     android:layout_alignParentLeft="true"
@@ -230,7 +285,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icPastdue"
+                                    android:layout_toRightOf="@id/iv_past_due"
                                     android:text="Pastdue"
                                     android:textColor="@color/colorBlackHeader"
                                     android:textSize="20dp"
@@ -273,7 +328,7 @@
                                 android:layout_height="match_parent">
 
                                 <ImageView
-                                    android:id="@+id/icSumProgram"
+                                    android:id="@+id/iv_sum_program"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
                                     android:layout_alignParentLeft="true"
@@ -285,7 +340,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icSumProgram"
+                                    android:layout_toRightOf="@id/iv_sum_program"
                                     android:text="Summary Program"
                                     android:textColor="@color/colorBlackHeader"
                                     android:textSize="20dp"
@@ -314,7 +369,7 @@
                         android:layout_height="match_parent">
 
                         <ImageView
-                            android:id="@+id/ic_blm_uji_kualitas"
+                            android:id="@+id/bt_blm_uji_kualitas"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:scaleType="centerCrop" />
@@ -328,7 +383,7 @@
                                 android:layout_height="match_parent">
 
                                 <ImageView
-                                    android:id="@+id/icBlmUjiKualitas"
+                                    android:id="@+id/iv_blm_uji_kualitas"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
                                     android:layout_alignParentLeft="true"
@@ -340,7 +395,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icBlmUjiKualitas"
+                                    android:layout_toRightOf="@id/iv_blm_uji_kualitas"
                                     android:text="Belum Uji Kualitas"
                                     android:textColor="@color/colorBlackHeader"
                                     android:textSize="20dp"
@@ -383,7 +438,7 @@
                                 android:layout_height="match_parent">
 
                                 <ImageView
-                                    android:id="@+id/icKualitasTS"
+                                    android:id="@+id/iv_uji_kualitas_ts"
                                     android:layout_width="50dp"
                                     android:layout_height="50dp"
                                     android:layout_alignParentLeft="true"
@@ -395,7 +450,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerInParent="true"
                                     android:layout_marginLeft="10dp"
-                                    android:layout_toRightOf="@id/icKualitasTS"
+                                    android:layout_toRightOf="@id/iv_uji_kualitas_ts"
                                     android:text="Uji Kualitas Tidak Sesuai"
                                     android:textColor="@color/colorBlackHeader"
                                     android:textSize="20dp"

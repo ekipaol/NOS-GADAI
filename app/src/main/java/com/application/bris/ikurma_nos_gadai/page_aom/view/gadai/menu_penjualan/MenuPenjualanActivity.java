@@ -1,7 +1,5 @@
 package com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.menu_penjualan;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -10,11 +8,12 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityMenuPenjualanGadaiBinding;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.PerpanjanganGagal.ListDashboardTopUpActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.TopUpGagal.ListPerpanjanganGagalActivity;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.serah_terima.ListSerahTerimaActivity;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_program_gadai.ListSumProgramGadai;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_top_up.ListSumTopUpBSIM;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.CoreLayoutActivity;
 
@@ -46,19 +45,19 @@ public class MenuPenjualanActivity extends AppCompatActivity {
         });
 
 
-        binding.btSumPencairan.setOnClickListener(new View.OnClickListener() {
+        binding.btSumProgram.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MenuPenjualanActivity.this, ListPerpanjanganGagalActivity.class);
+                Intent intent=new Intent(MenuPenjualanActivity.this, ListSumProgramGadai.class);
                 startActivity(intent);
 
             }
         });
 
-        binding.btSumPerpanjangan.setOnClickListener(new View.OnClickListener() {
+        binding.btTopUp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent=new Intent(MenuPenjualanActivity.this, ListDashboardTopUpActivity.class);
+                Intent intent=new Intent(MenuPenjualanActivity.this, ListSumTopUpBSIM.class);
                 startActivity(intent);
 
             }

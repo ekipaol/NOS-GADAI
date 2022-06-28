@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.TopUpGagal;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_program_gadai;
 
 import android.content.Context;
 import android.util.Log;
@@ -14,21 +14,21 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListPerpanjanganGagalBinding;
-import com.application.bris.ikurma_nos_gadai.model.gadai.PerpanjanganGadaiGagal;
+import com.application.bris.ikurma_nos_gadai.model.gadai.SumProgramGadai;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganGagalAdapter.MenuViewHolder> implements Filterable {
+public class SumProgramGadaiAdapter extends RecyclerView.Adapter<SumProgramGadaiAdapter.MenuViewHolder> implements Filterable {
 
-    private List<PerpanjanganGadaiGagal> data;
+    private List<SumProgramGadai> data;
     private Context context;
     private ItemListPerpanjanganGagalBinding binding;
-    private List<PerpanjanganGadaiGagal> datafiltered;
+    private List<SumProgramGadai> datafiltered;
     private AppPreferences appPreferences;
 
-    public PerpanjanganGagalAdapter(Context context, List<PerpanjanganGadaiGagal>mdata) {
+    public SumProgramGadaiAdapter(Context context, List<SumProgramGadai>mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
@@ -48,14 +48,16 @@ public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganG
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
         //never user BINDING ON ON BIND VIEW HOLDER DUDE!!!, USE HOLDER INSTEAD
         //NEVER, IT GONNA F UP YOUR DATA ORDER
-        final PerpanjanganGadaiGagal datas = datafiltered.get(position);
+        final SumProgramGadai datas = datafiltered.get(position);
 
-        holder.tvNamaNasabah.setText(datas.getNamaNasabah());
-        holder.tvNomorAplikasi.setText(datas.getNoAplikasi());
-        holder.tvNomorCIF.setText(datas.getNomorCIF());
-        holder.tvNomorLoan.setText(datas.getNoLoan());
-        holder.tvTotalPembiayaan.setText(dataTotalProcesesor(datas.getOSPembiayaan()));
-        holder.tvTanggalTransaksi.setText(AppUtil.parseTanggalGeneral(datas.getTanggalPencairan(), "yyyy-MM-dd hh:mm:ss", "dd-MMM-YYYY"));
+        holder.tvNamaNasabah.setText(datas.getProgramGadai());
+//        holder.etJumlahLoan.setText(dataTotalProcesesor(datas.getJumlahLoan()));
+//        holder.etJumlahCIF.setText(dataTotalProcesesor(datas.getJumlahCIF()));
+        holder.etTotalStading.setText(datas.getTotalOutstanding());
+//        holder.tvNamaNasabah.setText(datas.getProgramGadai());
+        holder.etJumlahLoan.setText(datas.getJumlahLoan());
+        holder.etJumlahCIF.setText(datas.getJumlahCIF());
+//        holder.etTotalStading.setText(datas.getTotalOutstanding());
         onClicks(holder);
 
 
@@ -84,14 +86,10 @@ public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganG
                 if (charString.isEmpty()) {
                     datafiltered = data;
                 } else {
-                    List<PerpanjanganGadaiGagal> filteredList = new ArrayList<>();
-                    for (PerpanjanganGadaiGagal row : data) {
-                        if (row.getNamaNasabah().toLowerCase().contains(charString.toLowerCase())
-                                || row.getNoAplikasi().toLowerCase().contains(charString.toLowerCase())
-                                || row.getTanggalPencairan().toLowerCase().contains(charString.toLowerCase())
-                                || row.getNoLoan().toLowerCase().contains(charString.toLowerCase())) {
-
-                                filteredList.add(row);
+                    List<SumProgramGadai> filteredList = new ArrayList<>();
+                    for (SumProgramGadai row : data) {
+                        if (row.getProgramGadai().toLowerCase().contains(charString.toLowerCase())) {
+                            filteredList.add(row);
                         }
                     }
                     datafiltered = filteredList;
@@ -103,7 +101,7 @@ public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganG
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults filterResults) {
-                datafiltered = (ArrayList<PerpanjanganGadaiGagal>) filterResults.values;
+                datafiltered = (ArrayList<SumProgramGadai>) filterResults.values;
                 notifyDataSetChanged();
             }
         };
@@ -116,8 +114,22 @@ public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganG
 
         Log.d("nominalString",removeComma);
 
-        if(removeComma.length()<=12){
-            formattedString=AppUtil.parseRupiahNoSymbolWithTitik(removeComma);
+        if(removeComma.length()<=9){
+            formattedString=AppUtil.parseRupiahNoSymbol(removeComma);
+//            formattedString=formattedString.substring(0,formattedString.length()-3);
+
+            if(formattedString.substring(0,4).contains(",")){
+                stringCutter=formattedString.split(",");
+            }
+            else{
+                stringCutter=formattedString.split("\\.");
+            }
+
+            Log.d("formattedstring",formattedString);
+            return stringCutter[0]+","+stringCutter[1].substring(0,2)+" JT";
+        }
+        else if(removeComma.length()<=12){
+            formattedString=AppUtil.parseRupiahNoSymbol(removeComma);
 //            formattedString=formattedString.substring(0,formattedString.length()-3);
 
             if(formattedString.substring(0,4).contains(",")){
@@ -130,7 +142,7 @@ public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganG
             return stringCutter[0]+","+stringCutter[1].substring(0,2)+" M";
         }
         else if(removeComma.length()<=15){
-            formattedString=AppUtil.parseRupiahNoSymbolWithTitik(removeComma);
+            formattedString=AppUtil.parseRupiahNoSymbol(removeComma);
 //            formattedString=formattedString.substring(0,formattedString.length()-3);
 
             if(formattedString.substring(0,4).contains(",")){
@@ -143,22 +155,19 @@ public class PerpanjanganGagalAdapter extends RecyclerView.Adapter<PerpanjanganG
             return stringCutter[0]+","+stringCutter[1].substring(0,2)+" T";
         }
         else{
-            return AppUtil.parseRupiahNoSymbolWithTitik(removeComma);
+            return AppUtil.parseRupiahNoSymbol(removeComma);
         }
     }
 
-
     public class MenuViewHolder extends RecyclerView.ViewHolder {
-        TextView tvNamaNasabah,tvNomorAplikasi,tvNomorLoan,tvNomorCIF,tvTanggalTransaksi,tvTotalPembiayaan;
+        TextView tvNamaNasabah,etJumlahCIF,etJumlahLoan,etTotalStading;
 
         public MenuViewHolder(View itemView) {
             super(itemView);
-            tvNamaNasabah = binding.tvNamaNasabah;
-            tvNomorAplikasi = binding.tvNomorAplikasi;
-            tvNomorLoan = binding.tvNomorLoan;
-            tvNomorCIF = binding.tvNomorCif;
-            tvTanggalTransaksi = binding.tvTanggalTransaksi;
-            tvTotalPembiayaan = binding.tvTotalPembiayaan;
+            tvNamaNasabah = binding.tvNamaProgram;
+            etJumlahCIF = binding.etJumlahCif;
+            etJumlahLoan = binding.etJumlahLoan;
+            etTotalStading = binding.etTotalStanding;
 
         }
 

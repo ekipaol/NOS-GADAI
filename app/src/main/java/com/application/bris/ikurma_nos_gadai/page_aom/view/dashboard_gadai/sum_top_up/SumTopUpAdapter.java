@@ -1,35 +1,32 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.PerpanjanganGagal;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_top_up;
 
 import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Filter;
-import android.widget.Filterable;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
 import com.application.bris.ikurma_nos_gadai.databinding.ItemListTopUpDashboardBinding;
-import com.application.bris.ikurma_nos_gadai.model.gadai.DashboardTopUpGadai;
+import com.application.bris.ikurma_nos_gadai.model.gadai.SumTopUpGadai;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
 
-public class TopUpDashboardGagalAdapter extends RecyclerView.Adapter<TopUpDashboardGagalAdapter.MenuViewHolder> /*implements*/ /*Filterable*/ {
+public class SumTopUpAdapter extends RecyclerView.Adapter<SumTopUpAdapter.MenuViewHolder> /*implements*/ /*Filterable*/ {
 
-    private List<DashboardTopUpGadai> data;
+    private List<SumTopUpGadai> data;
     private Context context;
     private ItemListTopUpDashboardBinding binding;
-    private List<DashboardTopUpGadai> datafiltered;
+    private List<SumTopUpGadai> datafiltered;
     private AppPreferences appPreferences;
 
-    public TopUpDashboardGagalAdapter(Context context, List<DashboardTopUpGadai>mdata) {
+    public SumTopUpAdapter(Context context, List<SumTopUpGadai>mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
@@ -49,7 +46,7 @@ public class TopUpDashboardGagalAdapter extends RecyclerView.Adapter<TopUpDashbo
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
         //never user BINDING ON ON BIND VIEW HOLDER DUDE!!!, USE HOLDER INSTEAD
         //NEVER, IT GONNA F UP YOUR DATA ORDER
-        final DashboardTopUpGadai datas = datafiltered.get(position);
+        final SumTopUpGadai datas = datafiltered.get(position);
 
         holder.etJumlahCIF.setText(String.valueOf(datas.getJumlahLoan()));
         holder.etJumlahLoan.setText(String.valueOf(datas.getJumlahCIF()));

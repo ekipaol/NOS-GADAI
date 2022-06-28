@@ -8,12 +8,12 @@ import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGmapsV3;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseUjiAcak;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseUjiKualitas;
-import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqDashboard;
 import com.application.bris.ikurma_nos_gadai.api.model.request.EmptyRequest;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUidLong;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiAcak;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiKualitas;
+import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqSumProgram;
 import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqTopUpDashboard;
 import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqChannelAplikasiGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqChannelDataApprove;
@@ -27,7 +27,6 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.general.login;
 import com.application.bris.ikurma_nos_gadai.api.model.request.general.searchAddress;
 import com.application.bris.ikurma_nos_gadai.api.model.request.general.searchListSektorEkonomi;
 import com.application.bris.ikurma_nos_gadai.api.model.request.general.searchSektorEkonomi;
-
 import com.application.bris.ikurma_nos_gadai.api.model.request.pipeline.KonsumerKMGInputPipeline;
 import com.application.bris.ikurma_nos_gadai.api.model.request.pipeline.KonsumerKMGInquiryPipeline;
 import com.application.bris.ikurma_nos_gadai.api.model.request.pipeline.inputPipeline;
@@ -203,10 +202,10 @@ public interface ApiInterface {
     Call<ParseResponse> getDetailBranch(@Path(value = "branch_id", encoded = true) String branchId);
 
     //Dashboard Gadai
-    @POST(UriApi.DashboardGadai.listPerpanjanganGadaiGagal)
-    Call<ParseResponseGadai> listPerpanjanganGadaiGagal (@Body ReqDashboard ReqDashboard);
+    @POST(UriApi.DashboardGadai.sumProgramGadai)
+    Call<ParseResponseGadai> sumProgramGadai (@Body ReqSumProgram ReqSumProgram);
     @POST(UriApi.DashboardGadai.listDashboardTopUpGadai)
-    Call<ParseResponseGadai> listDashboardTopUpGadai (@Body ReqTopUpDashboard ReqTopUpDashboard);
+    Call<ParseResponseGadai> sumTopUpGadai (@Body ReqTopUpDashboard ReqTopUpDashboard);
 
 }
 
