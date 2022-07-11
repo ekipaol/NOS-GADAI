@@ -8,75 +8,76 @@
     <include android:id="@+id/toolbar_reguler" layout="@layout/toolbar_regular_new" />
     <include android:id="@+id/loading" layout="@layout/loading"/>
 
-        <LinearLayout
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="200dp"
+        android:layout_weight="1"
+        android:elevation="10dp"
+        android:orientation="vertical">
+
+        <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+            android:id="@+id/tf_pilih_tahun"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="185dp"
+            app:isResponsiveIconColor="true"
+            app:endIcon="@drawable/ic_keyboard_arrow_down_black_24dp"
+            app:secondaryColor="@color/endColorPrimary02"
+            app:primaryColor="@color/endColorPrimary02"
+            app:labelText="Pilih Tahun"
+            android:paddingLeft="16dp"
+            android:paddingRight="16dp"
+            app:useDenseSpacing="true">
+
+            <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                android:id="@+id/et_pilih_tahun"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text=" "
+                android:textColor="@color/colorTextGrey"
+                android:clickable="true"
+                android:cursorVisible="false"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                tools:ignore="SpeakableTextPresentCheck" />
+
+        </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ll_btn_send"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="275dp">
+
+        <Button
+            android:id="@+id/btn_cari"
+            style="@style/Bordered.Button.Custom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:background="@drawable/shapeborderpurple"
             android:layout_weight="1"
-            android:elevation="10dp"
-            android:orientation="vertical">
-
-            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                android:id="@+id/tf_pilih_tahun"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:isResponsiveIconColor="true"
-                app:endIcon="@drawable/ic_keyboard_arrow_down_black_24dp"
-                app:secondaryColor="@color/endColorPrimary02"
-                app:primaryColor="@color/endColorPrimary02"
-                app:labelText="Pilih Tahun"
-                android:paddingLeft="16dp"
-                android:paddingRight="16dp"
-                app:useDenseSpacing="true">
-
-                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                    android:id="@+id/et_pilih_tahun"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text=" "
-                    android:textColor="@color/colorTextGrey"
-                    android:clickable="true"
-                    android:cursorVisible="false"
-                    android:focusable="false"
-                    android:focusableInTouchMode="false"
-                    tools:ignore="SpeakableTextPresentCheck" />
-
-            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
-        </LinearLayout>
-
-
-        <LinearLayout
-            android:id="@+id/ll_btn_send"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="265dp">
-
-            <Button
-                android:id="@+id/btn_cari"
-                style="@style/Bordered.Button.Custom"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="16dp"
-                android:layout_marginRight="16dp"
-                android:background="@drawable/shapeborderpurple"
-                android:layout_weight="1"
-                android:padding="1dp"
-                android:textColor="@color/ms_white"
-                android:fontFamily="@font/manrope_b"
-                android:text="Cari" />
-        </LinearLayout>
+            android:padding="1dp"
+            android:textColor="@color/ms_white"
+            android:fontFamily="@font/manrope_b"
+            android:text="Cari" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="330dp"
+        android:layout_marginTop="180dp"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="160dp"
             android:background="#F8FAFC"
-            android:elevation="5dp"
+            android:elevation="10dp"
             android:orientation="vertical"
             android:paddingTop="10dp">
 

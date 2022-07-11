@@ -4,37 +4,35 @@ import com.google.gson.annotations.SerializedName;
 
 public class SumTopUpGadai {
 
-	@SerializedName("totalOutstanding")
-	private Integer totalOutstanding;
-	@SerializedName("jumlahLoan")
-	private Integer jumlahLoan;
-	@SerializedName("jumlahCIF")
-	private Integer jumlahCIF;
+	@SerializedName("TotalOutstanding")
+	private Long totalOutstanding;
+	@SerializedName("JumlahLoan")
+	private Long jumlahLoan;
+	@SerializedName("JumlahCIF")
+	private Long jumlahCIF;
 
-	public int getTotalOutstanding() {
+	public Long getTotalOutstanding() {
 		return totalOutstanding;
 	}
 
-	public void setTotalOutstanding(int totalOutstanding) {
+	public void setTotalOutstanding(Long totalOutstanding) {
 		this.totalOutstanding = totalOutstanding;
 	}
 
-	public int getJumlahLoan() {
+	public Long getJumlahLoan() {
 		return jumlahLoan;
 	}
 
-	public void setJumlahLoan(int jumlahLoan) {
+	public void setJumlahLoan(Long jumlahLoan) {
 		this.jumlahLoan = jumlahLoan;
 	}
 
-	public int getJumlahCIF() {
+	public Long getJumlahCIF() {
 		return jumlahCIF;
 	}
 
-	public void setJumlahCIF(int jumlahCIF) {
+	public void setJumlahCIF(Long jumlahCIF) {
 		this.jumlahCIF = jumlahCIF;
 	}
-
-
 }
 

@@ -48,15 +48,16 @@ public class Menu {
     }
 
     public static void mainMenuAll(Context context, List<ListViewMenu> menu) {
-        menu.add(new ListViewMenu(R.drawable.ico_pipeline, context.getString(R.string.menu_capture_agunan), 0, 0, 0, 0));
-        menu.add(new ListViewMenu(R.drawable.ico_sales, context.getString(R.string.menu_penjualan), 0, 0, 0, 0));
-        menu.add(new ListViewMenu(R.drawable.ico_repayment, context.getString(R.string.menu_pelunasan), 0, 0, 0, 0));
-        menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_putusan), 0, 0, 0, 0));
-        menu.add(new ListViewMenu(R.drawable.ico_hotprospek, context.getString(R.string.menu_uji_kualitas), 0, 0, 0, 0));
-        menu.add(new ListViewMenu(R.drawable.ico_approved, context.getString(R.string.menu_uji_acak), 0, 0, 0, 0));
-        menu.add(new ListViewMenu(R.drawable.ico_pipeline, context.getString(R.string.menu_dashboard), 0, 0, 0, 0));
-        menu.add(new ListViewMenu(R.drawable.ico_rejected, context.getString(R.string.menu_opname), 0,0,0, 0));
-        menu.add(new ListViewMenu(R.drawable.ic_logout_front, "Logout", 0,0,0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_capture_agunan, context.getString(R.string.menu_capture_agunan), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_penjualan, context.getString(R.string.menu_penjualan), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_pelunasan, context.getString(R.string.menu_pelunasan), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_putusan, context.getString(R.string.menu_putusan), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_uji_kualitas, context.getString(R.string.menu_uji_kualitas), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_uji_acak, context.getString(R.string.menu_uji_acak), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_opname, context.getString(R.string.menu_opname), 0,0,0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_dashboard, context.getString(R.string.menu_dashboard), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ico_resubmit, context.getString(R.string.menu_resubmit), 0, 0, 0, 0));
+        menu.add(new ListViewMenu(R.drawable.ic_log_out, "Logout", 0,0,0, 0));
     }
 
     public static void mainMenuReview(Context context, List<ListViewMenu> menu) {

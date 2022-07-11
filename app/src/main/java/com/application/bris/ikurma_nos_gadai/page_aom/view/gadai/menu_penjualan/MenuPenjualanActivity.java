@@ -12,8 +12,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.databinding.ActivityMenuPenjualanGadaiBinding;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_pastdue.SumPastdueActivity;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_program_gadai.ListSumProgramGadai;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_top_up.ListSumTopUpBSIM;
+import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_uji_tidak_sesuai.ListSumBelumUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.application.bris.ikurma_nos_gadai.view.corelayout.CoreLayoutActivity;
 
@@ -58,6 +60,24 @@ public class MenuPenjualanActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent=new Intent(MenuPenjualanActivity.this, ListSumTopUpBSIM.class);
+                startActivity(intent);
+
+            }
+        });
+
+        binding.tvBelumUjiKualitas.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MenuPenjualanActivity.this, ListSumBelumUjiKualitas.class);
+                startActivity(intent);
+
+            }
+        });
+
+        binding.tvPostdue.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(MenuPenjualanActivity.this, SumPastdueActivity.class);
                 startActivity(intent);
 
             }

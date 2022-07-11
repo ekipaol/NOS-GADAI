@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorBackgroundCore">
+    android:background="#F8FAFC">
 
     <include layout="@layout/toolbar_regular_new" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="170dp"
-        android:background="@color/colorBackgroundCore">
+        android:layout_marginTop="182dp"
+        android:background="#F8FAFC">
 
         <ScrollView
             android:layout_width="match_parent"
@@ -22,7 +22,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <androidx.cardview.widget.CardView
@@ -30,12 +30,13 @@
                     android:layout_height="wrap_content"
                     app:cardBackgroundColor="@color/ms_white"
                     android:layout_margin="10dp"
+                    app:cardElevation="1dp"
                     app:cardCornerRadius="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
+                        android:paddingHorizontal="5dp"
                         android:orientation="vertical">
 
 
@@ -46,6 +47,7 @@
                             android:gravity="start"
                             android:padding="12dp"
                             android:text="Performance"
+                            android:fontFamily="@font/manrope_b"
                             android:textColor="@color/colorBlackHeader"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -59,51 +61,53 @@
                             <TextView
                                 android:id="@+id/tv_summary_pencairan"
                                 android:layout_width="0dp"
-                                android:layout_weight="30"
+                                android:layout_weight="33"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="5dp"
                                 android:layout_marginVertical="5dp"
                                 android:textColorHint="@color/ms_black_87_opacity"
-                                android:background="@drawable/shapegrey"
+                                android:background="@drawable/rounded_textfield"
                                 android:hint="Summary\nPencairan"
+                                android:fontFamily="@font/manrope_r"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textColor="#000"
-                                android:textSize="15sp"
+                                android:textSize="14sp"
                                 tools:ignore="NestedWeights" />
 
 
                             <TextView
                                 android:id="@+id/tv_summary_perpanjangan"
                                 android:layout_width="0dp"
-                                android:layout_weight="30"
+                                android:layout_weight="34"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="5dp"
                                 android:layout_marginVertical="5dp"
                                 android:textColorHint="@color/ms_black_87_opacity"
-                                android:background="@drawable/shapegrey"
+                                android:background="@drawable/rounded_textfield"
                                 android:hint="Summary\nPerpanjangan"
+                                android:fontFamily="@font/manrope_r"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textColor="#000"
-                                android:textSize="15sp" />
+                                android:textSize="14sp" />
 
 
                             <TextView
                                 android:id="@+id/tv_summary_pelunasan"
                                 android:layout_width="0dp"
-                                android:layout_weight="30"
+                                android:layout_weight="33"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="5dp"
                                 android:layout_marginVertical="5dp"
                                 android:textColorHint="@color/ms_black_87_opacity"
-                                android:background="@drawable/shapegrey"
+                                android:background="@drawable/rounded_textfield"
                                 android:hint="Summary\nPelunasan"
                                 android:inputType="text"
                                 android:fontFamily="@font/manrope_r"
                                 android:padding="10dp"
                                 android:textColor="#000"
-                                android:textSize="15sp" />
+                                android:textSize="14sp" />
 
                         </LinearLayout>
 
@@ -117,40 +121,42 @@
                             <TextView
                                 android:id="@+id/tv_summary_program"
                                 android:layout_width="0dp"
-                                android:layout_weight="30"
+                                android:layout_weight="33"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="5dp"
                                 android:layout_marginVertical="5dp"
                                 android:textColorHint="@color/ms_black_87_opacity"
-                                android:background="@drawable/shapegrey"
+                                android:background="@drawable/rounded_textfield"
                                 android:hint="Summary\nProgram"
+                                android:fontFamily="@font/manrope_r"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textColor="#000"
-                                android:textSize="15sp"
+                                android:textSize="14sp"
                                 tools:ignore="NestedWeights" />
 
 
                             <TextView
                                 android:id="@+id/tv_summary_topup_bsim"
                                 android:layout_width="0dp"
-                                android:layout_weight="30"
+                                android:layout_weight="34"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="5dp"
                                 android:layout_marginVertical="5dp"
                                 android:textColorHint="@color/ms_black_87_opacity"
-                                android:background="@drawable/shapegrey"
+                                android:background="@drawable/rounded_textfield"
                                 android:hint="Summary \nTop Up BSIM"
+                                android:fontFamily="@font/manrope_r"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textColor="#000"
-                                android:textSize="15sp" />
+                                android:textSize="14sp" />
 
 
                             <TextView
                                 android:id="@+id/tv_kosong"
                                 android:layout_width="0dp"
-                                android:layout_weight="30"
+                                android:layout_weight="33"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="5dp"
                                 android:layout_marginVertical="5dp"
@@ -158,7 +164,7 @@
                                 android:fontFamily="@font/manrope_r"
                                 android:padding="10dp"
                                 android:textColor="#000"
-                                android:textSize="15sp" />
+                                android:textSize="14sp" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -166,27 +172,32 @@
 
                 </androidx.cardview.widget.CardView>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     app:cardBackgroundColor="@color/ms_white"
-                    android:layout_margin="10dp"
-                    app:cardCornerRadius="10dp">
+                    app:cardCornerRadius="10dp"
+                    android:layout_margin="10dp">
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingHorizontal="10dp"
                         android:orientation="vertical">
-
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@color/colorWhite"
+                            android:fontFamily="@font/manrope_b"
                             android:gravity="start"
                             android:padding="12dp"
-                            android:text="Postdue"
+                            android:text="Pastdue"
                             android:textColor="@color/colorBlackHeader"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -195,55 +206,83 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
-                            android:layout_weight="100"
+                            android:layout_weight="1"
                             android:orientation="horizontal">
 
                             <TextView
                                 android:id="@+id/tv_postdue"
-                                android:layout_width="0dp"
-                                android:layout_weight="30"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="5dp"
                                 android:layout_marginVertical="5dp"
+                                android:background="@drawable/rounded_textfield"
+                                android:fontFamily="@font/manrope_r"
+                                android:hint="Pastdue"
+                                android:inputType="text"
+                                android:padding="15dp"
+                                android:textColor="#000"
                                 android:textColorHint="@color/ms_black_87_opacity"
-                                android:background="@drawable/shapegrey"
-                                android:hint="Postdue"
-                                android:inputType="text"
-                                android:padding="10dp"
-                                android:textColor="#000"
-                                android:textSize="15sp"
+                                android:textSize="14sp"
                                 tools:ignore="NestedWeights" />
-                            <TextView
-                                android:id="@+id/tv_kosong2"
-                                android:layout_width="0dp"
-                                android:layout_weight="30"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="5dp"
-                                android:layout_marginVertical="5dp"
-                                android:inputType="text"
-                                android:fontFamily="@font/manrope_r"
-                                android:padding="10dp"
-                                android:textColor="#000"
-                                android:textSize="15sp" />
-                            <TextView
-                                android:id="@+id/tv_kosong3"
-                                android:layout_width="0dp"
-                                android:layout_weight="30"
-                                android:layout_height="wrap_content"
-                                android:layout_marginHorizontal="5dp"
-                                android:layout_marginVertical="5dp"
-                                android:inputType="text"
-                                android:fontFamily="@font/manrope_r"
-                                android:padding="10dp"
-                                android:textColor="#000"
-                                android:textSize="15sp" />
-
                         </LinearLayout>
 
                     </LinearLayout>
-
-
                 </androidx.cardview.widget.CardView>
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:cardBackgroundColor="@color/ms_white"
+                    android:layout_weight="1"
+                    app:cardCornerRadius="10dp"
+                    android:layout_margin="10dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@color/colorWhite"
+                            android:fontFamily="@font/manrope_b"
+                            android:gravity="start"
+                            android:padding="12dp"
+                            android:text="H+7 Jatuh Tempo"
+                            android:textColor="@color/colorBlackHeader"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_weight="1"
+                            android:orientation="horizontal">
+
+                            <TextView
+                                android:id="@+id/tv_jatuh_tempo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginHorizontal="5dp"
+                                android:layout_marginVertical="5dp"
+                                android:background="@drawable/rounded_textfield"
+                                android:fontFamily="@font/manrope_r"
+                                android:hint="Akan Jatuh Tempo"
+                                android:inputType="text"
+                                android:padding="15dp"
+                                android:textColor="#000"
+                                android:textColorHint="@color/ms_black_87_opacity"
+                                android:textSize="14sp"
+                                tools:ignore="NestedWeights" />
+                        </LinearLayout>
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+            </LinearLayout>
 
                 <androidx.cardview.widget.CardView
                     android:layout_width="match_parent"
@@ -256,7 +295,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:paddingHorizontal="10dp"
+                        android:paddingHorizontal="5dp"
                         android:orientation="vertical">
 
 
@@ -267,6 +306,7 @@
                             android:gravity="start"
                             android:padding="12dp"
                             android:text="Uji Kualitas"
+                            android:fontFamily="@font/manrope_b"
                             android:textColor="@color/colorBlackHeader"
                             android:textSize="14sp"
                             android:textStyle="bold" />
@@ -280,40 +320,42 @@
                             <TextView
                                 android:id="@+id/tv_belum_uji_kualitas"
                                 android:layout_width="0dp"
-                                android:layout_weight="30"
+                                android:layout_weight="33"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="5dp"
                                 android:layout_marginVertical="5dp"
                                 android:textColorHint="@color/ms_black_87_opacity"
-                                android:background="@drawable/shapegrey"
+                                android:background="@drawable/rounded_textfield"
                                 android:hint="Belum Uji\nKualiatas"
+                                android:fontFamily="@font/manrope_r"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textColor="#000"
-                                android:textSize="15sp"
+                                android:textSize="14sp"
                                 tools:ignore="NestedWeights" />
 
 
                             <TextView
                                 android:id="@+id/tv_uji_kualitas_tidak_sesuai"
                                 android:layout_width="0dp"
-                                android:layout_weight="30"
+                                android:layout_weight="34"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="5dp"
                                 android:layout_marginVertical="5dp"
                                 android:textColorHint="@color/ms_black_87_opacity"
-                                android:background="@drawable/shapegrey"
+                                android:background="@drawable/rounded_textfield"
                                 android:hint="Uji Kualitas \nTidak Sesuai"
+                                android:fontFamily="@font/manrope_r"
                                 android:inputType="text"
                                 android:padding="10dp"
                                 android:textColor="#000"
-                                android:textSize="15sp" />
+                                android:textSize="14sp" />
 
 
                             <TextView
                                 android:id="@+id/tv_kosong4"
                                 android:layout_width="0dp"
-                                android:layout_weight="30"
+                                android:layout_weight="33"
                                 android:layout_height="wrap_content"
                                 android:layout_marginHorizontal="5dp"
                                 android:layout_marginVertical="5dp"
@@ -321,7 +363,7 @@
                                 android:fontFamily="@font/manrope_r"
                                 android:padding="10dp"
                                 android:textColor="#000"
-                                android:textSize="15sp" />
+                                android:textSize="14sp" />
 
                         </LinearLayout>
 

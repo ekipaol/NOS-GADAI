@@ -1,7 +1,9 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_program_gadai;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_pastdue;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -19,13 +21,12 @@ import com.application.bris.ikurma_nos_gadai.api.model.Error;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponse;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
-import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqSumProgram;
+import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqDashboard;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ActivityListSumProgramBinding;
+import com.application.bris.ikurma_nos_gadai.databinding.ActivityListSumPastdueBinding;
 import com.application.bris.ikurma_nos_gadai.model.gadai.DataCabang;
-import com.application.bris.ikurma_nos_gadai.model.gadai.SumProgramGadai;
-import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFromService;
+import com.application.bris.ikurma_nos_gadai.model.gadai.SumPastDue;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
@@ -37,7 +38,6 @@ import org.json.JSONException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,14 +45,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListSumProgramGadai extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener{
+public class SumPastdueActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener{
 
-    private SumProgramGadaiAdapter sumProgramGadaiAdapter;
-    ActivityListSumProgramBinding binding;
+    private SumPastdueAdapter sumPastdueAdapter;
+    ActivityListSumPastdueBinding binding;
     View view;
     public static SimpleDateFormat dateClient = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
-    private List<SumProgramGadai> dataSumProgram = new ArrayList<>();
+    private List<SumPastDue> dataSumPastdue = new ArrayList<>();
     private List <DataCabang> dataCabang= new ArrayList<>() ;
     private List<String> listCabang = new ArrayList<>();
     public static int idAplikasi = 0;
@@ -66,7 +66,7 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //binding View
-        binding = ActivityListSumProgramBinding.inflate(getLayoutInflater());
+        binding = ActivityListSumPastdueBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
 
         apiClientAdapter = new ApiClientAdapter(this,true);
@@ -74,12 +74,8 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
         appPreferences = new AppPreferences(this);
 
         setContentView(binding.getRoot());
-        binding.etPilihTahun.setFocusable(false);
         customToolbar();
         backgroundStatusBar();
-        isiDropdown();
-        allEndOnClick();
-        allOnClick();
 
         if (getIntent().hasExtra("fidArea")) {
             fidArea = getIntent().getStringExtra("fidArea");
@@ -115,12 +111,12 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
                         else if (response.body().getStatus().equalsIgnoreCase("14")) {
                         }
                         else{
-                            AppUtil.notiferror(ListSumProgramGadai.this, findViewById(android.R.id.content), response.body().getMessage());
+                            AppUtil.notiferror(SumPastdueActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     }
                     else{
                         Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(ListSumProgramGadai.this, findViewById(android.R.id.content), error.getMessage());
+                        AppUtil.notiferror(SumPastdueActivity.this, findViewById(android.R.id.content), error.getMessage());
                     }
                 }
                 catch (Exception e){
@@ -129,7 +125,7 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
             }
             @Override
             public void onFailure(Call<ParseResponse> call, Throwable t) {
-                AppUtil.notiferror(ListSumProgramGadai.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                AppUtil.notiferror(SumPastdueActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
         });
 
@@ -140,15 +136,14 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         AppPreferences appPreferences=new AppPreferences(this);
         apiClientAdapter = new ApiClientAdapter(this);
-        ReqSumProgram req = new ReqSumProgram();
-        req.setListCabang(listCabang);
-        req.setTahun(binding.etPilihTahun.getText().toString());
-        Call<ParseResponseGadai> call = apiClientAdapter.getApiInterface().sumProgramGadai(req);
+        ReqDashboard req = new ReqDashboard();
+        req.setListBranch(listCabang);
+        Call<ParseResponseGadai> call = apiClientAdapter.getApiInterface().sumPastdue(req);
         call.enqueue(new Callback<ParseResponseGadai>() {
             @Override
             public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
                 binding.loading.progressbarLoading.setVisibility(View.GONE);
-                binding.rvSumProgramGadai.setVisibility(View.VISIBLE);
+                binding.rvListSumPastdue.setVisibility(View.VISIBLE);
                 if (response.isSuccessful()) {
                     String listDataString;
                     if (response.body().getStatus().equalsIgnoreCase("00")) {
@@ -160,16 +155,16 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
                         }
 
                         Gson gson = new Gson();
-                        Type type = new TypeToken<List<SumProgramGadai>>() {
+                        Type type = new TypeToken<List<SumPastDue>>() {
                         }.getType();
-                        dataSumProgram = gson.fromJson(listDataString, type);
+                        dataSumPastdue = gson.fromJson(listDataString, type);
 
-                        sumProgramGadaiAdapter = new SumProgramGadaiAdapter(ListSumProgramGadai.this, dataSumProgram);
-                        binding.rvSumProgramGadai.setLayoutManager(new LinearLayoutManager(ListSumProgramGadai.this));
-                        binding.rvSumProgramGadai.setItemAnimator(new DefaultItemAnimator());
-                        binding.rvSumProgramGadai.setAdapter(sumProgramGadaiAdapter);
+                        sumPastdueAdapter = new SumPastdueAdapter(SumPastdueActivity.this, dataSumPastdue);
+                        binding.rvListSumPastdue.setLayoutManager(new LinearLayoutManager(SumPastdueActivity.this));
+                        binding.rvListSumPastdue.setItemAnimator(new DefaultItemAnimator());
+                        binding.rvListSumPastdue.setAdapter(sumPastdueAdapter);
 
-                    if (dataSumProgram.size() == 0) {
+                    if (dataSumPastdue.size() == 0) {
                         binding.llEmptydata.setVisibility(View.VISIBLE);
 
                     } else {
@@ -185,7 +180,7 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
         @Override
         public void onFailure(Call<ParseResponseGadai> call, Throwable t) {
             binding.loading.progressbarLoading.setVisibility(View.GONE);
-            AppUtil.notiferror(ListSumProgramGadai.this, findViewById(android.R.id.content), "Terjadi kesalahan");
+            AppUtil.notiferror(SumPastdueActivity.this, findViewById(android.R.id.content), "Terjadi kesalahan");
             Log.d("LOG D", t.getMessage());
         }
     });
@@ -209,58 +204,37 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
 //    }
 
     public void initialize(){
-        binding.rvSumProgramGadai.setVisibility(View.VISIBLE);
-        binding.rvSumProgramGadai.setHasFixedSize(true);
-        sumProgramGadaiAdapter = new SumProgramGadaiAdapter(ListSumProgramGadai.this, dataSumProgram);
-        binding.rvSumProgramGadai.setLayoutManager(new LinearLayoutManager(ListSumProgramGadai.this));
-        binding.rvSumProgramGadai.setItemAnimator(new DefaultItemAnimator());
-        binding.rvSumProgramGadai.setAdapter(sumProgramGadaiAdapter);
+        binding.rvListSumPastdue.setVisibility(View.VISIBLE);
+        binding.rvListSumPastdue.setHasFixedSize(true);
+        sumPastdueAdapter = new SumPastdueAdapter(SumPastdueActivity.this, dataSumPastdue);
+        binding.rvListSumPastdue.setLayoutManager(new LinearLayoutManager(SumPastdueActivity.this));
+        binding.rvListSumPastdue.setItemAnimator(new DefaultItemAnimator());
+        binding.rvListSumPastdue.setAdapter(sumPastdueAdapter);
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
-//        binding.toolbarReguler.etSearchTool.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-//                perpanjanganGagalAdapter.getFilter().filter(s);
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence s, int start, int before, int count) {
-//                perpanjanganGagalAdapter.getFilter().filter(s);
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable s) {
-//                perpanjanganGagalAdapter.getFilter().filter(s);
-//            }
-//        });
+        binding.toolbarReguler.etSearchTool.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                sumPastdueAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                sumPastdueAdapter.getFilter().filter(s);
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                sumPastdueAdapter.getFilter().filter(s);
+            }
+        });
     }
 
 
     @Override
 
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.tf_pilih_tahun:
-            case R.id.et_pilih_tahun:
-                DialogGenericDataFromService.display(getSupportFragmentManager(), "tahun", dropdownTahun, ListSumProgramGadai.this);
-                break;
-            case R.id.btn_cari:
-                validasi();
-                try {
-                    setData();
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                break;
-        }
-    }
 
-    private boolean validasi() {
-        if (binding.etPilihTahun.getText().toString().trim().isEmpty() || binding.etPilihTahun.getText().toString().trim().equalsIgnoreCase(" ")) {
-            binding.tfPilihTahun.setError(binding.tfPilihTahun.getLabelText() + " " + "is required", true);
-            AppUtil.notiferror(ListSumProgramGadai.this, findViewById(android.R.id.content), binding.tfPilihTahun.getLabelText() + " " + getString(R.string.title_validate_field));
-        }
-        return false;
     }
 
     private void backgroundStatusBar() {
@@ -273,8 +247,8 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
     }
 
     public void customToolbar() {
-        binding.toolbarReguler.tvSecondTitle.setVisibility(View.VISIBLE);
-        binding.toolbarReguler.tvSecondTitle.setText("Dashboard");
+//        binding.toolbarReguler.tvSecondTitle.setVisibility(View.VISIBLE);
+//        binding.toolbarReguler.tvSecondTitle.setText("Dashboard");
         binding.toolbarReguler.tvPageTitle.setText("Laporan Summary Program Gadai");
         binding.toolbarReguler.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -287,7 +261,7 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
     @Override
     public void onRefresh() {
         binding.refresh.setRefreshing(false);
-        binding.rvSumProgramGadai.setVisibility(View.VISIBLE);
+        binding.rvListSumPastdue.setVisibility(View.VISIBLE);
         loadData();
         try {
             setData();
@@ -305,35 +279,8 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
 
     }
 
-    private void allOnClick(){
-        binding.tfPilihTahun.setOnClickListener(this);
-        binding.etPilihTahun.setOnClickListener(this);
-        binding.btnCari.setOnClickListener(this);
-    }
-
-    private void allEndOnClick(){
-        binding.tfPilihTahun.getEndIconImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogGenericDataFromService.display(getSupportFragmentManager(), "tahun", dropdownTahun, ListSumProgramGadai.this);
-            }
-        });
-    }
-
-    private void isiDropdown(){
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int baseYear = 2020;
-        for (int i = baseYear; i <= year; i++) {
-            dropdownTahun.add(new MGenericModel(Integer.toString(i),Integer.toString(i)));
-        }
-    }
-
     @Override
     public void onSelect(String title, MGenericModel data) {
-        if (title.equalsIgnoreCase("tahun")){
-            binding.etPilihTahun.setText(data.getDESC());
-        }
 
     }
 

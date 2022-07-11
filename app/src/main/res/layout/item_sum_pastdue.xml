@@ -24,26 +24,27 @@
             android:paddingLeft="16dp">
 
             <TextView
+                android:id="@+id/tv_nama_program"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:paddingTop="7dp"
                 android:fontFamily="@font/manrope_r"
                 android:lineSpacingExtra="2sp"
-                android:text="Program Gadai"
+                android:text="{Nama Program}"
                 android:textColor="@color/colorBlackHeader"
                 android:textSize="14sp"
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tv_nama_program"
+                android:id="@+id/tv_nama_nasabah"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="2"
                 android:paddingTop="5dp"
                 android:fontFamily="@font/manrope_b"
                 android:lineSpacingExtra="2sp"
-                android:text="{Nama Program}"
+                android:text="{Nama Nasabah}"
                 android:textColor="@color/colorBlackHeader"
                 android:textSize="14sp"
                 android:textStyle="bold" />
@@ -94,18 +95,22 @@
                             android:layout_height="wrap_content"
                             android:fontFamily="@font/manrope_r"
                             android:paddingBottom="2dp"
-                            android:text="Jumlah CIF"
+                            android:text="Pokok"
                             android:textColor="@color/colorWhite"
                             android:textSize="14sp"/>
 
-                        <TextView
-                            android:id="@+id/et_jumlah_cif"
+                        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                            android:id="@+id/et_biaya_pokok"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/manrope_b"
-                            android:text=""
-                            android:textColor="@color/colorWhite"
-                            android:textSize="14sp"/>
+                            android:background="@color/endColorPrimary02"
+                            app:prefix="Rp. "
+                            app:prefixTextColor="@color/ms_white"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:textColor="@color/ms_white"
+                            android:fontFamily="@font/manrope_r"
+                            android:inputType="number" />
 
                     </LinearLayout>
 
@@ -125,18 +130,22 @@
                             android:layout_height="wrap_content"
                             android:paddingBottom="2dp"
                             android:fontFamily="@font/manrope_r"
-                            android:text="Jumlah Loan"
+                            android:text="Biaya Pemiliharaan"
                             android:textColor="@color/colorWhite"
                             android:textSize="14sp"/>
 
-                        <TextView
-                            android:id="@+id/et_jumlah_loan"
+                        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                            android:id="@+id/et_biaya_pemeliharaan"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/manrope_b"
-                            android:text=""
-                            android:textColor="@color/colorWhite"
-                            android:textSize="14sp"/>
+                            android:background="@color/endColorPrimary02"
+                            app:prefix="Rp. "
+                            app:prefixTextColor="@color/ms_white"
+                            android:textStyle="bold"
+                            android:textSize="14sp"
+                            android:textColor="@color/ms_white"
+                            android:fontFamily="@font/manrope_r"
+                            android:inputType="number" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -162,23 +171,19 @@
                             android:layout_weight="2"
                             android:paddingBottom="2dp"
                             android:lineSpacingExtra="2sp"
-                            android:text="Total Standing"
+                            android:text="Tanggal Jatuh Tempo"
                             android:textSize="14sp"
                             android:fontFamily="@font/manrope_r"
                             android:textColor="@color/colorWhite"/>
 
-                        <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                            android:id="@+id/et_total_standing"
+                        <TextView
+                            android:id="@+id/tv_tanggal_jatuh_tempo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:background="@color/endColorPrimary02"
-                            app:prefix="Rp "
-                            app:prefixTextColor="@color/ms_white"
-                            android:textStyle="bold"
-                            android:textSize="14sp"
-                            android:textColor="@color/ms_white"
-                            android:fontFamily="@font/manrope_r"
-                            android:inputType="number" />
+                            android:fontFamily="@font/manrope_b"
+                            android:text=""
+                            android:textColor="@color/colorWhite"
+                            android:textSize="14sp"/>
 
                     </LinearLayout>
                 </LinearLayout>

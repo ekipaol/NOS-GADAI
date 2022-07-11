@@ -8,13 +8,14 @@ import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGmapsV3;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseUjiAcak;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseUjiKualitas;
-import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqDashboard;
 import com.application.bris.ikurma_nos_gadai.api.model.request.EmptyRequest;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqListGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUidLong;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiAcak;
 import com.application.bris.ikurma_nos_gadai.api.model.request.ReqUjiKualitas;
+import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqDashboard;
 import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqSumProgram;
+import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqSumTSUjikualitas;
 import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqTopUpDashboard;
 import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqBranch;
 import com.application.bris.ikurma_nos_gadai.api.model.request.gadai.ReqChannelAplikasiGadai;
@@ -208,12 +209,16 @@ public interface ApiInterface {
     @POST(UriApi.DashboardGadai.sumProgramGadai)
     Call<ParseResponseGadai> sumProgramGadai (@Body ReqSumProgram ReqSumProgram);
     @POST(UriApi.DashboardGadai.listDashboardTopUpGadai)
-    Call<ParseResponseGadai> listDashboardTopUpGadai (@Body ReqTopUpDashboard ReqTopUpDashboard);
+    Call<ParseResponse> sumTopUpGadai (@Body ReqTopUpDashboard ReqTopUpDashboard);
     @POST(UriApi.DashboardGadai.listGadaiGagal)
     Call<ParseResponseArr> listGadaiGagal (@Body ReqBranch ReqBranch);
     @POST(UriApi.DashboardGadai.retryGadaiGagal)
     Call<ParseResponse> retryGadaiGagal (@Body ReqRetryGadaiGagal ReqRetryGadaiGagal);
-    Call<ParseResponseGadai> sumTopUpGadai (@Body ReqTopUpDashboard ReqTopUpDashboard);
-
+    @POST(UriApi.DashboardGadai.sumTSUjiKualitas)
+    Call<ParseResponseGadai> sumUjiKualitasTS (@Body ReqSumTSUjikualitas ReqSumTSUjikualitas);
+    @POST(UriApi.DashboardGadai.sumPastdue)
+    Call<ParseResponseGadai> sumPastdue (@Body ReqDashboard ReqDashboard);
+    @POST(UriApi.DashboardGadai.sumJatuhTempo)
+    Call<ParseResponseGadai> sumJatuhTempo (@Body ReqDashboard ReqDashboard);
 }
 

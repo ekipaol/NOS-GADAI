@@ -133,6 +133,9 @@ public class UriApi {
         public static final String listDashboardTopUpGadai = "GadaiEmasService/rest/Dashboard/SumGadaiGagal";
         public static final String listGadaiGagal = "GadaiEmasService/rest/Dashboard/listGadaiGagal";
         public static final String retryGadaiGagal = "GadaiEmasService/rest/Dashboard/RetryGadaiGagal";
+        public static final String sumTSUjiKualitas = "GadaiEmasService/rest/Dashboard/SumUjiKualitasGadaiTidakSesuai";
+        public static final String sumPastdue = "GadaiEmasService/rest/Dashboard/ListGadaiPastDue";
+        public static final String sumJatuhTempo = "GadaiEmasService/rest/Dashboard/ListGadaiPastDueHMin7";
 
     }
 }

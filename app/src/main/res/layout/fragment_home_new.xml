@@ -32,67 +32,70 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:contentScrim="@color/colorWhite"
-                    app:expandedTitleMarginStart="48dp"
-                    app:expandedTitleMarginEnd="64dp"
+                    app:expandedTitleMarginEnd="54dp"
+                    app:expandedTitleMarginStart="38dp"
                     app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:fitsSystemWindows="true"
-                        android:src="@drawable/round_primary02"
+                        android:alpha=".90"
                         android:contentDescription="{header image}"
+                        android:fitsSystemWindows="true"
                         android:scaleType="centerCrop"
-                        app:layout_collapseMode="parallax"
-                        android:alpha=".80"/>
+                        android:src="@drawable/round_primary02"
+                        app:layout_collapseMode="parallax" />
 
                     <androidx.appcompat.widget.Toolbar
                         android:id="@+id/toolbar"
                         android:layout_width="match_parent"
                         android:layout_height="?attr/actionBarSize"
-                        app:layout_scrollFlags="scroll|enterAlways"
                         app:layout_collapseMode="pin"
+                        app:layout_scrollFlags="scroll|enterAlways"
                         app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
                         <TextView
                             android:id="@+id/tv_toolbartitle"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:gravity="center"
-                            android:textColor="#555"
-                            android:textSize="18sp"
+                            android:layout_marginRight="16dp"
                             android:elevation="4dp"
                             android:fontFamily="@font/muli_b"
-                            android:layout_marginRight="16dp"/>
+                            android:gravity="center"
+                            android:textColor="#555"
+                            android:textSize="18sp" />
                     </androidx.appcompat.widget.Toolbar>
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingLeft="14dp"
-                        android:paddingBottom="40dp">
+                        android:layout_gravity="bottom"
+                        android:paddingHorizontal="20dp"
+                        android:paddingVertical="35dp">
+
                         <com.makeramen.roundedimageview.RoundedImageView
                             android:id="@+id/iv_profilpicture"
                             android:layout_width="56dp"
                             android:layout_height="56dp"
                             android:layout_marginLeft="16dp"
                             android:layout_marginTop="20dp"
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/banner_placeholder"
+                            android:visibility="gone"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent"
-                            android:visibility="gone"
-                            android:src="@drawable/banner_placeholder"
-                            android:scaleType="centerCrop"
-                            app:riv_corner_radius="100dip"
+                            app:riv_border_color="@color/colorWhite"
                             app:riv_border_width="3dp"
-                            app:riv_border_color="@color/colorWhite"/>
+                            app:riv_corner_radius="100dip" />
+
                         <TextView
                             android:id="@+id/tv_nama"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
                             android:layout_marginTop="15dp"
+                            android:fontFamily="@font/manrope_b"
                             android:text="{Full Name}"
                             android:textColor="#fff"
-                            android:fontFamily="@font/manrope_b"
                             android:textSize="18sp"
                             android:textStyle="bold"
                             app:layout_constraintStart_toEndOf="@+id/iv_profilpicture"
@@ -102,9 +105,8 @@
                             android:id="@+id/tv_username"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginLeft="12dp"
-                            android:text="{Username}"
                             android:fontFamily="@font/manrope_m"
+                            android:text="{Username}"
                             android:textColor="#fff"
                             android:textSize="13sp"
                             app:layout_constraintStart_toEndOf="@+id/iv_profilpicture"
@@ -113,16 +115,14 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:paddingTop="40dp"
-                            android:paddingLeft="14dp"
-                            android:text="Selamat datang di aplikasi NOS Gadai"
                             android:fontFamily="@font/manrope_m"
+                            android:paddingTop="40dp"
+                            android:text="Selamat datang di aplikasi NOS Gadai"
                             android:textColor="#fff"
                             android:textSize="13sp"
                             app:layout_constraintStart_toEndOf="@+id/iv_profilpicture"
                             app:layout_constraintTop_toBottomOf="@+id/tv_nama" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
                 </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -133,13 +133,13 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scrollbars="none"
-                app:behavior_overlapTop="15dp"
+                app:behavior_overlapTop="0dp"
                 app:layout_behavior="com.google.android.material.appbar.AppBarLayout$ScrollingViewBehavior">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:paddingTop="30dp">
+                    android:paddingVertical="0dp">
 
                     <androidx.cardview.widget.CardView
                         android:id="@+id/cardView"
@@ -259,12 +259,16 @@
                                 app:layout_constraintTop_toTopOf="parent"
                                 tools:layout_editor_absoluteX="8dp" />
 
-                            <ImageView
+                            <TextView
                                 android:id="@+id/iv_morepipeline"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="right"
-                                android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingVertical="5dp"
+                                android:paddingHorizontal="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:text="Selengkapnya"
+                                android:textSize="15dp"
+                                android:fontFamily="@font/manrope_r"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"/>
@@ -303,13 +307,14 @@
                             <ImageView
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:src="@drawable/ico_nodata"
+                                android:src="@drawable/ico_null_data"
                                 android:scaleType="fitCenter"
                                 android:layout_gravity="center"/>
                             <TextView
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:text="Belum Ada Data Capture Agunan Nih"
+                                android:fontFamily="@font/manrope_r"
                                 android:textSize="11sp"
                                 android:paddingTop="12dp"
                                 android:paddingBottom="6dp"
@@ -365,12 +370,16 @@
                                 app:layout_constraintTop_toTopOf="parent"
                                 tools:layout_editor_absoluteX="8dp" />
 
-                            <ImageView
+                            <TextView
                                 android:id="@+id/iv_moreputusan"
-                                android:layout_width="30dp"
-                                android:layout_height="30dp"
-                                android:layout_gravity="right"
-                                android:src="@drawable/ic_keyboard_arrow_right_black_24dp"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:paddingVertical="5dp"
+                                android:paddingHorizontal="10dp"
+                                android:layout_gravity="center_vertical"
+                                android:text="Selengkapnya"
+                                android:textSize="15dp"
+                                android:fontFamily="@font/manrope_r"
                                 app:layout_constraintRight_toRightOf="parent"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintTop_toTopOf="parent"/>
@@ -409,13 +418,14 @@
                             <ImageView
                                 android:layout_width="48dp"
                                 android:layout_height="48dp"
-                                android:src="@drawable/ico_nodata"
+                                android:src="@drawable/ico_null_data"
                                 android:scaleType="fitCenter"
                                 android:layout_gravity="center"/>
                             <TextView
                                 android:layout_width="200dp"
                                 android:layout_height="wrap_content"
                                 android:text="Belum Ada Data Putusan Nih"
+                                android:fontFamily="@font/manrope_r"
                                 android:textSize="11sp"
                                 android:paddingTop="12dp"
                                 android:paddingBottom="6dp"

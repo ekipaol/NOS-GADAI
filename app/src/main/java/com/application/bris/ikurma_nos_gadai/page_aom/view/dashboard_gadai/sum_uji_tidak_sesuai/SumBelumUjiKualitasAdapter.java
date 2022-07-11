@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_top_up;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_uji_tidak_sesuai;
 
 import android.content.Context;
 import android.util.Log;
@@ -10,23 +10,24 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ItemListTopUpDashboardBinding;
+import com.application.bris.ikurma_nos_gadai.databinding.ItemSumTsUjiKualitasBinding;
 import com.application.bris.ikurma_nos_gadai.model.gadai.SumTopUpGadai;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
+import com.application.bris.ikurma_nos_gadai.util.NumberTextWatcherCanNolForThousand;
 
 import java.util.List;
 
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
 
-public class SumTopUpAdapter extends RecyclerView.Adapter<SumTopUpAdapter.MenuViewHolder> /*implements*/ /*Filterable*/ {
+public class SumBelumUjiKualitasAdapter extends RecyclerView.Adapter<SumBelumUjiKualitasAdapter.MenuViewHolder> {
 
     private List<SumTopUpGadai> data;
     private Context context;
-    private ItemListTopUpDashboardBinding binding;
+    private ItemSumTsUjiKualitasBinding binding;
     private List<SumTopUpGadai> datafiltered;
     private AppPreferences appPreferences;
 
-    public SumTopUpAdapter(Context context, List<SumTopUpGadai>mdata) {
+    public SumBelumUjiKualitasAdapter(Context context, List<SumTopUpGadai> mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
@@ -36,27 +37,39 @@ public class SumTopUpAdapter extends RecyclerView.Adapter<SumTopUpAdapter.MenuVi
     @Override
     public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        binding = ItemListTopUpDashboardBinding.inflate(layoutInflater, parent, false);
+        binding = ItemSumTsUjiKualitasBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
         appPreferences = new AppPreferences(context);
         return new MenuViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull SumBelumUjiKualitasAdapter.MenuViewHolder holder, int position) {
         //never user BINDING ON ON BIND VIEW HOLDER DUDE!!!, USE HOLDER INSTEAD
         //NEVER, IT GONNA F UP YOUR DATA ORDER
         final SumTopUpGadai datas = datafiltered.get(position);
 
+            holder.etJumlahCIF.setText(datas.getJumlahLoan().toString());
+
+
+        if (datas.getJumlahCIF()== null){
+            holder.etJumlahCIF.setText("0");
+         }else{
         holder.etJumlahCIF.setText(datas.getJumlahLoan().toString());
-        holder.etJumlahLoan.setText(datas.getJumlahCIF().toString());
-        holder.etTotalStanding.setText(dataTotalProcesesor(datas.getTotalOutstanding().toString()));
+        }
+
+        holder.etTotalStanding.addTextChangedListener(new NumberTextWatcherCanNolForThousand(holder.etTotalStanding));
+        if(datas.getTotalOutstanding() == null){
+            holder.etJumlahLoan.setText("0");
+        }else {
+            holder.etTotalStanding.setText(dataTotalProcesesor(datas.getTotalOutstanding().toString()));
+        }
         onClicks(holder);
-
-
     }
 
-    private void onClicks(@NonNull MenuViewHolder holder) {
+
+
+    private void onClicks(@NonNull SumBelumUjiKualitasAdapter.MenuViewHolder holder) {
 
     }
 

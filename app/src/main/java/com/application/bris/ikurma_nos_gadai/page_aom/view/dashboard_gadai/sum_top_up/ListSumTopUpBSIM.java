@@ -3,6 +3,7 @@ package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_
 import android.app.DatePickerDialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -20,7 +21,6 @@ import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponse;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
-import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
 import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqTopUpDashboard;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
@@ -59,7 +59,7 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
     private Calendar calEndDate;
     public static SimpleDateFormat dateClient = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
-    private List<SumTopUpGadai> dataDashboardTopUpGagal = new ArrayList<>();
+    private List<SumTopUpGadai> dataDashboardTopUpGagal= new ArrayList<>();
     private List <DataCabang> dataCabang= new ArrayList<>() ;
     private List<String> listCabang = new ArrayList<>();
     public static int idAplikasi = 0;
@@ -81,16 +81,19 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
         appPreferences = new AppPreferences(this);
 
         setContentView(binding.getRoot());
+        binding.etEndDate.setFocusable(false);
+        binding.etStartDate.setFocusable(false);
         customToolbar();
         backgroundStatusBar();
         onClickSelectDialog();
 
-        apiClientAdapter = new ApiClientAdapter(this);
-        appPreferences = new AppPreferences(this);
-        apiClientAdapter = new ApiClientAdapter(this,true);
-
         if(getIntent().hasExtra("fidArea")) {
             fidArea = getIntent().getStringExtra("fidArea");
+        }
+        try {
+            setData();
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
 
         loadData();
@@ -99,60 +102,72 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
     }
 
 
+//    private void setData() throws JSONException {
+//        SumTopUpGadai dd = new SumTopUpGadai();
+//        dd.setJumlahCIF (Long.valueOf("121312"));
+//        dd.setJumlahLoan (Long.valueOf("543212"));
+//        dd.setTotalOutstanding(Long.valueOf("123312000000"));
+//
+//        SumTopUpGadai dd2 = new SumTopUpGadai();
+//        dd2.setJumlahCIF (Long.valueOf("121312"));
+//        dd2.setJumlahLoan (Long.valueOf("543212"));
+//        dd2.setTotalOutstanding(Long.valueOf("123312000000"));
+//
+//        dataDashboardTopUpGagal.add(dd);
+//        dataDashboardTopUpGagal.add(dd2);
+//    }
+
     private void setData() throws JSONException {
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         AppPreferences appPreferences=new AppPreferences(this);
         apiClientAdapter = new ApiClientAdapter(this);
         ReqTopUpDashboard req = new ReqTopUpDashboard();
-        req.setStartDate(binding.etStartDate.getText().toString());
-        req.setEndDate(binding.etEndDate.getText().toString());
+        req.setStartDate(AppUtil.parseTanggalGeneral(binding.etStartDate.getText().toString(),"dd-MM-yyyy","yyyy-MM-dd"));
+        req.setEndDate(AppUtil.parseTanggalGeneral(binding.etEndDate.getText().toString(),"dd-MM-yyyy","yyyy-MM-dd"));
         req.setSumSelindo(false);
         req.setListBranch(listCabang);
-        Call<ParseResponseGadai> call = apiClientAdapter.getApiInterface().sumTopUpGadai(req);
-        call.enqueue(new Callback<ParseResponseGadai>() {
+        Call<ParseResponse> call = apiClientAdapter.getApiInterface().sumTopUpGadai(req);
+        call.enqueue(new Callback<ParseResponse>() {
             @Override
-            public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
-                try {
-                    if(response.isSuccessful()){
-                        binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        binding.rvSumTopUpCair.setVisibility(View.VISIBLE);
-                        if(response.body().getStatus().equalsIgnoreCase("00")){
-                            String listDataString = response.body().getData().toString();
-                            Gson gson = new Gson();
-                            Type type = new TypeToken<List<SumTopUpGadai>>() {}.getType();
-                            dataDashboardTopUpGagal = gson.fromJson(listDataString, type);
-                            if (dataDashboardTopUpGagal.size() > 0){
-                                binding.llEmptydata.setVisibility(View.GONE);
-                                sumTopUpAdapter = new SumTopUpAdapter(ListSumTopUpBSIM.this,dataDashboardTopUpGagal);
-                                binding.rvSumTopUpCair.setLayoutManager(new LinearLayoutManager(ListSumTopUpBSIM.this));
-                                binding.rvSumTopUpCair.setItemAnimator(new DefaultItemAnimator());
-                                binding.rvSumTopUpCair.setAdapter(sumTopUpAdapter);
-                            }
-                            else {
-                                binding.llEmptydata.setVisibility(View.VISIBLE);
-                            }
+            public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
+                binding.rvSumTopUpCair.setVisibility(View.VISIBLE);
+                if (response.isSuccessful()) {
+                    String listDataString;
+                    if (response.body().getStatus().equalsIgnoreCase("00")) {
+                        try {
+                            listDataString = response.body().getData().toString();
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                            listDataString = "[]";
                         }
-                        else if (response.body().getStatus().equalsIgnoreCase("14")) {
+
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<List<SumTopUpGadai>>() {
+                        }.getType();
+                        dataDashboardTopUpGagal = gson.fromJson(listDataString, type);
+
+                        sumTopUpAdapter = new SumTopUpAdapter(ListSumTopUpBSIM.this, dataDashboardTopUpGagal);
+                        binding.rvSumTopUpCair.setLayoutManager(new LinearLayoutManager(ListSumTopUpBSIM.this));
+                        binding.rvSumTopUpCair.setItemAnimator(new DefaultItemAnimator());
+                        binding.rvSumTopUpCair.setAdapter(sumTopUpAdapter);
+
+                        if (dataDashboardTopUpGagal.size() == 0) {
                             binding.llEmptydata.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.llEmptydata.setVisibility(View.GONE);
                         }
-                        else{
-                            AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), response.body().getMessage());
-                        }
+                    } else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                        binding.llEmptydata.setVisibility(View.VISIBLE);
                     }
-                    else{
-                        binding.loading.progressbarLoading.setVisibility(View.GONE);
-                        Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), error.getMessage());
-                    }
-                }
-                catch (Exception e){
-                    e.printStackTrace();
                 }
             }
             @Override
-            public void onFailure(Call<ParseResponseGadai> call, Throwable t) {
+            public void onFailure(Call<ParseResponse> call, Throwable t) {
                 binding.loading.progressbarLoading.setVisibility(View.GONE);
-                AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), "Terjadi kesalahan");
+                Log.d("LOG D", t.getMessage());
+
             }
         });
     }
@@ -215,7 +230,7 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
                             for (int i = 0; i < dataCabang.size(); i++) {
                                 listCabang.add(dataCabang.get(i).getKodeCabang());
                             }
-                            setData();
+//                            setData();
 
                         }
                         else if (response.body().getStatus().equalsIgnoreCase("14")) {
@@ -282,6 +297,8 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
     }
 
     public void customToolbar() {
+        binding.toolbarReguler.tvSecondTitle.setVisibility(View.VISIBLE);
+        binding.toolbarReguler.tvSecondTitle.setText("Dashboard");
         binding.toolbarReguler.tvPageTitle.setText("Summary Top Up BSIM");
         binding.toolbarReguler.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -323,6 +340,7 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
                 validasi();
                 break;
         }
+        return;
     }
 
     private boolean validasi() {
@@ -345,12 +363,12 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
     public void onRefresh() {
         binding.refresh.setRefreshing(false);
         binding.rvSumTopUpCair.setVisibility(View.VISIBLE);
+        loadData();
         try {
             setData();
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        loadData();
     }
 
 
