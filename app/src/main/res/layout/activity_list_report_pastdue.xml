@@ -22,7 +22,7 @@
             android:clickable="true">
 
             <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rv_list_sum_pastdue"
+                android:id="@+id/rv_list_jatuh_tempo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:scrollbars="vertical" />
@@ -30,7 +30,6 @@
         </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
     </RelativeLayout>
-
 
     <LinearLayout
         android:id="@+id/ll_emptydata"

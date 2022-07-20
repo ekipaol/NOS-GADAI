@@ -129,13 +129,17 @@ public class UriApi {
 
     //Dashboard Gadai
     public class DashboardGadai {
-        public static final String sumProgramGadai = "GadaiEmasService/rest/Dashboard/SumProgramGadai";
-        public static final String listDashboardTopUpGadai = "GadaiEmasService/rest/Dashboard/SumGadaiGagal";
-        public static final String listGadaiGagal = "GadaiEmasService/rest/Dashboard/listGadaiGagal";
         public static final String retryGadaiGagal = "GadaiEmasService/rest/Dashboard/RetryGadaiGagal";
+        public static final String listGadaiGagal = "GadaiEmasService/rest/Dashboard/listGadaiGagal";
+        public static final String listBelumUjiKualitas = "GadaiEmasService/rest/Dashboard/ListUjiKualitasGadai";
         public static final String sumTSUjiKualitas = "GadaiEmasService/rest/Dashboard/SumUjiKualitasGadaiTidakSesuai";
-        public static final String sumPastdue = "GadaiEmasService/rest/Dashboard/ListGadaiPastDue";
-        public static final String sumJatuhTempo = "GadaiEmasService/rest/Dashboard/ListGadaiPastDueHMin7";
+        public static final String sumProgramGadai = "GadaiEmasService/rest/Dashboard/SumProgramGadai";
+        public static final String sumGadaiGagal = "GadaiEmasService/rest/Dashboard/SumGadaiGagal";
+        public static final String listPastdue = "GadaiEmasService/rest/Dashboard/ListGadaiPastDue";
+        public static final String listReportJatuhTempo = "GadaiEmasService/rest/Dashboard/ListGadaiPastDueHMin7";
+        public static final String sumPencairanGadai = "GadaiEmasService/rest/Dashboard/SumPencairanGadai";
+        public static final String sumPerpanjanganGadai = "GadaiEmasService/rest/Dashboard/SumPerpanjanganGadai";
+        public static final String sumPelunasanGadai = "GadaiEmasService/rest/Dashboard/SumPelunasanGadai";
 
     }
 }

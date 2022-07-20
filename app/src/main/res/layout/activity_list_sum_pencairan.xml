@@ -21,22 +21,56 @@
             android:layout_weight="1"
             android:orientation="vertical">
 
-
             <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
-                android:id="@+id/tf_tanggal_uji_kualitas"
+                android:id="@+id/tf_start_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:isResponsiveIconColor="true"
                 app:endIcon="@drawable/ic_calendar"
                 app:secondaryColor="@color/endColorPrimary02"
                 app:primaryColor="@color/endColorPrimary02"
-                app:labelText="Pilih Tanggal"
+                app:labelText="Start Date"
                 android:paddingLeft="16dp"
                 android:paddingRight="16dp"
                 app:useDenseSpacing="true">
 
                 <studio.carbonylgroup.textfieldboxes.ExtendedEditText
-                    android:id="@+id/et_tanggal_uji_kualitas"
+                    android:id="@+id/et_start_date"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text=""
+                    android:textColor="@color/colorTextGrey"
+                    android:clickable="true"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    tools:ignore="SpeakableTextPresentCheck" />
+
+            </studio.carbonylgroup.textfieldboxes.TextFieldBoxes>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+
+            <studio.carbonylgroup.textfieldboxes.TextFieldBoxes
+                android:id="@+id/tf_end_date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:isResponsiveIconColor="true"
+                app:endIcon="@drawable/ic_calendar"
+                app:secondaryColor="@color/endColorPrimary02"
+                app:primaryColor="@color/endColorPrimary02"
+                app:labelText="End Date"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                app:useDenseSpacing="true">
+
+                <studio.carbonylgroup.textfieldboxes.ExtendedEditText
+                    android:id="@+id/et_end_date"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text=""
@@ -95,7 +129,7 @@
                 android:clickable="true">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_list_ts_uji_kualitas"
+                    android:id="@+id/rv_sum_pencairan"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical" />
@@ -110,7 +144,7 @@
         android:id="@+id/ll_emptydata"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="130dp"
+        android:layout_marginTop="340dp"
         android:orientation="vertical"
         android:gravity="center"
         android:visibility="gone">
@@ -120,7 +154,6 @@
             android:layout_height="228dp"
             android:layout_gravity="center"
             android:scaleType="fitCenter"
-            android:layout_marginTop="270dp"
             android:src="@drawable/ic_no_data_illustrator" />
         <TextView
             android:layout_width="match_parent"

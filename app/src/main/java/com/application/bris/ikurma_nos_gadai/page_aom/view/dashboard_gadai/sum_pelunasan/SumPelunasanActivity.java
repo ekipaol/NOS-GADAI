@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_top_up;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_pelunasan;
 
 import android.app.DatePickerDialog;
 import android.os.Build;
@@ -24,7 +24,7 @@ import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
 import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqTopUpDashboard;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ActivityListTopUpBsimBinding;
+import com.application.bris.ikurma_nos_gadai.databinding.ActivityListSumPelunasanBinding;
 import com.application.bris.ikurma_nos_gadai.model.gadai.DataCabang;
 import com.application.bris.ikurma_nos_gadai.model.gadai.SumPencairanGadai;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
@@ -47,10 +47,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, GenericListenerOnSelectRecycler {
+public class SumPelunasanActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, GenericListenerOnSelectRecycler {
 
-    private SumTopUpAdapter sumTopUpAdapter;
-    ActivityListTopUpBsimBinding binding;
+    SumPelunasanAdapter sumPelunasanAdapter;
+    ActivityListSumPelunasanBinding binding;
     View view;
 
     private DatePickerDialog dpEndDate;
@@ -59,9 +59,9 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
     private Calendar calEndDate;
     public static SimpleDateFormat dateClient = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
 
-    private List<SumPencairanGadai> dataDashboardTopUpGagal= new ArrayList<>();
-    private List <DataCabang> dataCabang= new ArrayList<>() ;
-    private List<String> listCabang = new ArrayList<>();
+    private List <SumPencairanGadai> dataSumPencairan= new ArrayList<>() ;
+    private List <DataCabang> dataCabang= new ArrayList<>();
+    private List <String> listCabang = new ArrayList<>();
     public static int idAplikasi = 0;
     private String fidArea="1";
     private String branchCode = " ";
@@ -73,7 +73,7 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //binding View
-        binding = ActivityListTopUpBsimBinding.inflate(getLayoutInflater());
+        binding = ActivityListSumPelunasanBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
 
         apiClientAdapter = new ApiClientAdapter(this,true);
@@ -90,122 +90,31 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
         if(getIntent().hasExtra("fidArea")) {
             fidArea = getIntent().getStringExtra("fidArea");
         }
-
-
+//        try {
+//            setData();
+//        } catch (JSONException e) {
+//            e.printStackTrace();
+//        }
         loadData();
         initialize();
         return;
     }
 
-
+//
 //    private void setData() throws JSONException {
-//        SumPencairanGadai dd = new SumPencairanGadai();
+//        SumTopUpGadai dd = new SumTopUpGadai();
 //        dd.setJumlahCIF (Long.valueOf("121312"));
 //        dd.setJumlahLoan (Long.valueOf("543212"));
 //        dd.setTotalOutstanding(Long.valueOf("123312000000"));
 //
-//        SumPencairanGadai dd2 = new SumPencairanGadai();
+//        SumTopUpGadai dd2 = new SumTopUpGadai();
 //        dd2.setJumlahCIF (Long.valueOf("121312"));
 //        dd2.setJumlahLoan (Long.valueOf("543212"));
 //        dd2.setTotalOutstanding(Long.valueOf("123312000000"));
 //
-//        dataDashboardTopUpGagal.add(dd);
-//        dataDashboardTopUpGagal.add(dd2);
+//        dataSumPencairan.add(dd);
+//        dataSumPencairan.add(dd2);
 //    }
-
-    private void setData() throws JSONException {
-        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
-        AppPreferences appPreferences=new AppPreferences(this);
-        apiClientAdapter = new ApiClientAdapter(this);
-        ReqTopUpDashboard req = new ReqTopUpDashboard();
-        req.setStartDate(AppUtil.parseTanggalGeneral(binding.etStartDate.getText().toString(),"dd-MM-yyyy","yyyy-MM-dd"));
-        req.setEndDate(AppUtil.parseTanggalGeneral(binding.etEndDate.getText().toString(),"dd-MM-yyyy","yyyy-MM-dd"));
-        req.setSumSelindo(false);
-        req.setListBranch(listCabang);
-        Call<ParseResponse> call = apiClientAdapter.getApiInterface().sumTopUpGadai(req);
-        call.enqueue(new Callback<ParseResponse>() {
-            @Override
-            public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {
-                binding.loading.progressbarLoading.setVisibility(View.GONE);
-                binding.rvSumTopUpCair.setVisibility(View.VISIBLE);
-                if (response.isSuccessful()) {
-                    String listDataString;
-                    if (response.body().getStatus().equalsIgnoreCase("00")) {
-                        try {
-                            listDataString = response.body().getData().toString();
-                        } catch (NullPointerException e) {
-                            e.printStackTrace();
-                            listDataString = "[]";
-                        }
-
-                        Gson gson = new Gson();
-                        Type type = new TypeToken<List<SumPencairanGadai>>() {
-                        }.getType();
-                        dataDashboardTopUpGagal = gson.fromJson(listDataString, type);
-
-                        sumTopUpAdapter = new SumTopUpAdapter(ListSumTopUpBSIM.this, dataDashboardTopUpGagal);
-                        binding.rvSumTopUpCair.setLayoutManager(new LinearLayoutManager(ListSumTopUpBSIM.this));
-                        binding.rvSumTopUpCair.setItemAnimator(new DefaultItemAnimator());
-                        binding.rvSumTopUpCair.setAdapter(sumTopUpAdapter);
-
-                        if (dataDashboardTopUpGagal.size() == 0) {
-                            binding.llEmptydata.setVisibility(View.VISIBLE);
-                        } else {
-                            binding.llEmptydata.setVisibility(View.GONE);
-                        }
-                    } else if (response.body().getStatus().equalsIgnoreCase("14")) {
-                        binding.llEmptydata.setVisibility(View.VISIBLE);
-                    }
-                }
-            }
-            @Override
-            public void onFailure(Call<ParseResponse> call, Throwable t) {
-                binding.loading.progressbarLoading.setVisibility(View.GONE);
-                AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), "Terjadi kesalahan");
-                Log.d("LOG D", t.getMessage());
-
-            }
-        });
-    }
-
-    private void dpStartDate(EditText edit){
-        calStartDate = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener ds_star_date = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calStartDate.set(Calendar.YEAR, year);
-                calStartDate.set(Calendar.MONTH, month);
-                calStartDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                String calLahirString = ListSumTopUpBSIM.dateClient.format(calStartDate.getTime());
-                binding.etStartDate.setText(calLahirString);
-            }
-        };
-
-        dpStartDate = new DatePickerDialog(ListSumTopUpBSIM.this,R.style.AppTheme_TimePickerTheme, ds_star_date, calStartDate.get(Calendar.YEAR),
-                calStartDate.get(Calendar.MONTH), calStartDate.get(Calendar.DAY_OF_MONTH));
-        dpStartDate.show();
-    }
-
-    private void dpEndDate(EditText edit){
-        calEndDate = Calendar.getInstance();
-        DatePickerDialog.OnDateSetListener ds_end_date = new DatePickerDialog.OnDateSetListener() {
-
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                calEndDate.set(Calendar.YEAR, year);
-                calEndDate.set(Calendar.MONTH, month);
-                calEndDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                String calLahirString = dateClient.format(calEndDate.getTime());
-                binding.etEndDate.setText(calLahirString);
-            }
-        };
-
-        dpEndDate = new DatePickerDialog(ListSumTopUpBSIM.this,R.style.AppTheme_TimePickerTheme, ds_end_date, calEndDate.get(Calendar.YEAR),
-                calEndDate.get(Calendar.MONTH), calEndDate.get(Calendar.DAY_OF_MONTH));
-        dpEndDate.show();
-    }
-
 
     private void loadData() {
         apiClientAdapter = new ApiClientAdapter(this,true);
@@ -230,14 +139,15 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
 
                         }
                         else if (response.body().getStatus().equalsIgnoreCase("14")) {
+
                         }
                         else{
-                            AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), response.body().getMessage());
+                            AppUtil.notiferror(SumPelunasanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     }
                     else{
                         Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), error.getMessage());
+                        AppUtil.notiferror(SumPelunasanActivity.this, findViewById(android.R.id.content), error.getMessage());
                     }
                 }
                 catch (Exception e){
@@ -246,20 +156,115 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
             }
             @Override
             public void onFailure(Call<ParseResponse> call, Throwable t) {
-                AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                AppUtil.notiferror(SumPelunasanActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
         });
 
     }
 
+    private void setData() throws JSONException {
+        binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
+        AppPreferences appPreferences=new AppPreferences(this);
+        apiClientAdapter = new ApiClientAdapter(this);
+        ReqTopUpDashboard req = new ReqTopUpDashboard();
+        req.setStartDate(AppUtil.parseTanggalGeneral(binding.etStartDate.getText().toString(),"dd-MM-yyyy","yyyy-MM-dd"));
+        req.setEndDate(AppUtil.parseTanggalGeneral(binding.etEndDate.getText().toString(),"dd-MM-yyyy","yyyy-MM-dd"));
+        req.setSumSelindo(false);
+        req.setListBranch(listCabang);
+        Call<ParseResponse> call = apiClientAdapter.getApiInterface().sumPelunasanGadai(req);
+        call.enqueue(new Callback<ParseResponse>() {
+            @Override
+            public void onResponse(Call<ParseResponse> call, Response<ParseResponse> response) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
+                binding.rvSumPelunasan.setVisibility(View.VISIBLE);
+                if (response.isSuccessful()) {
+                    String listDataString;
+                    if (response.body().getStatus().equalsIgnoreCase("00")) {
+                        try {
+                            listDataString = "["+response.body().getData().toString()+"]" ;
+                        } catch (NullPointerException e) {
+                            e.printStackTrace();
+                            listDataString = "[]";
+                        }
+
+                        Gson gson = new Gson();
+                        Type type = new TypeToken<List<SumPencairanGadai>>() {
+                        }.getType();
+                        dataSumPencairan = gson.fromJson(listDataString, type);
+
+                        sumPelunasanAdapter = new SumPelunasanAdapter(SumPelunasanActivity.this, dataSumPencairan);
+                        binding.rvSumPelunasan.setLayoutManager(new LinearLayoutManager(SumPelunasanActivity.this));
+                        binding.rvSumPelunasan.setItemAnimator(new DefaultItemAnimator());
+                        binding.rvSumPelunasan.setAdapter(sumPelunasanAdapter);
+
+                        if (dataSumPencairan.size() == 0) {
+                            binding.llEmptydata.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.llEmptydata.setVisibility(View.GONE);
+                        }
+                    } else if (response.body().getStatus().equalsIgnoreCase("14")) {
+                        AppUtil.notiferror(SumPelunasanActivity.this, findViewById(android.R.id.content), response.body().getMessage());
+                        binding.llEmptydata.setVisibility(View.VISIBLE);
+                        binding.rvSumPelunasan.setVisibility(View.VISIBLE);
+                    }
+                }
+            }
+            @Override
+            public void onFailure(Call<ParseResponse> call, Throwable t) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
+                AppUtil.notiferror(SumPelunasanActivity.this, findViewById(android.R.id.content), "Terjadi kesalahan");
+                Log.d("LOG D", t.getMessage());
+
+            }
+        });
+    }
+
+
+    private void dpStartDate(EditText edit){
+        calStartDate = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener ds_star_date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calStartDate.set(Calendar.YEAR, year);
+                calStartDate.set(Calendar.MONTH, month);
+                calStartDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                String calLahirString = SumPelunasanActivity.dateClient.format(calStartDate.getTime());
+                binding.etStartDate.setText(calLahirString);
+            }
+        };
+
+        dpStartDate = new DatePickerDialog(SumPelunasanActivity.this,R.style.AppTheme_TimePickerTheme, ds_star_date, calStartDate.get(Calendar.YEAR),
+                calStartDate.get(Calendar.MONTH), calStartDate.get(Calendar.DAY_OF_MONTH));
+        dpStartDate.show();
+    }
+
+    private void dpEndDate(EditText edit){
+        calEndDate = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener ds_end_date = new DatePickerDialog.OnDateSetListener() {
+
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                calEndDate.set(Calendar.YEAR, year);
+                calEndDate.set(Calendar.MONTH, month);
+                calEndDate.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                String calLahirString = dateClient.format(calEndDate.getTime());
+                binding.etEndDate.setText(calLahirString);
+            }
+        };
+
+        dpEndDate = new DatePickerDialog(SumPelunasanActivity.this,R.style.AppTheme_TimePickerTheme, ds_end_date, calEndDate.get(Calendar.YEAR),
+                calEndDate.get(Calendar.MONTH), calEndDate.get(Calendar.DAY_OF_MONTH));
+        dpEndDate.show();
+    }
 
     public void initialize(){
-        binding.rvSumTopUpCair.setVisibility(View.VISIBLE);
-        binding.rvSumTopUpCair.setHasFixedSize(true);
-        sumTopUpAdapter = new SumTopUpAdapter(ListSumTopUpBSIM.this, dataDashboardTopUpGagal);
-        binding.rvSumTopUpCair.setLayoutManager(new LinearLayoutManager(ListSumTopUpBSIM.this));
-        binding.rvSumTopUpCair.setItemAnimator(new DefaultItemAnimator());
-        binding.rvSumTopUpCair.setAdapter(sumTopUpAdapter);
+        binding.rvSumPelunasan.setVisibility(View.VISIBLE);
+        binding.rvSumPelunasan.setHasFixedSize(true);
+        sumPelunasanAdapter = new SumPelunasanAdapter(SumPelunasanActivity.this, dataSumPencairan);
+        binding.rvSumPelunasan.setLayoutManager(new LinearLayoutManager(SumPelunasanActivity.this));
+        binding.rvSumPelunasan.setItemAnimator(new DefaultItemAnimator());
+        binding.rvSumPelunasan.setAdapter(sumPelunasanAdapter);
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
 //        binding.toolbarReguler.etSearchTool.addTextChangedListener(new TextWatcher() {
@@ -295,7 +300,7 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
     public void customToolbar() {
         binding.toolbarReguler.tvSecondTitle.setVisibility(View.VISIBLE);
         binding.toolbarReguler.tvSecondTitle.setText("Dashboard");
-        binding.toolbarReguler.tvPageTitle.setText("Summary Top Up BSIM");
+        binding.toolbarReguler.tvPageTitle.setText("Summary Pelunasan");
         binding.toolbarReguler.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -342,12 +347,12 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
     private boolean validasi() {
         if (binding.etStartDate.getText().toString().trim().isEmpty() || binding.etStartDate.getText().toString().trim().equalsIgnoreCase(" ")) {
             binding.tfStartDate.setError(binding.tfStartDate.getLabelText() + " " + "is required", true);
-            AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), binding.tfStartDate.getLabelText() + " " + getString(R.string.title_validate_field));
+            AppUtil.notiferror(SumPelunasanActivity.this, findViewById(android.R.id.content), binding.tfStartDate.getLabelText() + " " + getString(R.string.title_validate_field));
             return false;
 
         } else if (binding.etEndDate.getText().toString().trim().isEmpty() || binding.etEndDate.getText().toString().trim().equalsIgnoreCase(" ")) {
             binding.tfEndDate.setError(binding.tfEndDate.getLabelText() + " " + "is required", true);
-            AppUtil.notiferror(ListSumTopUpBSIM.this, findViewById(android.R.id.content), binding.tfEndDate.getLabelText() + " " + getString(R.string.title_validate_field));
+            AppUtil.notiferror(SumPelunasanActivity.this, findViewById(android.R.id.content), binding.tfEndDate.getLabelText() + " " + getString(R.string.title_validate_field));
             return false;
         }
         else {
@@ -358,7 +363,7 @@ public class ListSumTopUpBSIM extends AppCompatActivity implements GenericListen
     @Override
     public void onRefresh() {
         binding.refresh.setRefreshing(false);
-        binding.rvSumTopUpCair.setVisibility(View.VISIBLE);
+        binding.rvSumPelunasan.setVisibility(View.VISIBLE);
         loadData();
         try {
             setData();

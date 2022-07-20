@@ -5,29 +5,24 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.Filter;
-import android.widget.Filterable;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.application.bris.ikurma_nos_gadai.databinding.ItemCaptureAgunanFrontBinding;
+import com.application.bris.ikurma_nos_gadai.databinding.ItemCaptureAgunanFrontNewBinding;
 import com.application.bris.ikurma_nos_gadai.model.gadai.DataGadai;
 import com.application.bris.ikurma_nos_gadai.page_aom.view.gadai.capture_agunan.CaptureAgunanActivity;
 import com.application.bris.ikurma_nos_gadai.page_putusan_gadai.detail_putusan_gadai.DetailPutusanGadaiActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CaptureAgunanFrontAdapter extends RecyclerView.Adapter<CaptureAgunanFrontAdapter.MenuViewHolder> {
     private List<DataGadai> data;
     private Context context;
-    private ItemCaptureAgunanFrontBinding binding;
+    private ItemCaptureAgunanFrontNewBinding binding;
     boolean isPengusul;
 
     public CaptureAgunanFrontAdapter(Context context,List<DataGadai> mdata,boolean isPengusul) {
@@ -40,7 +35,7 @@ public class CaptureAgunanFrontAdapter extends RecyclerView.Adapter<CaptureAguna
     @Override
     public CaptureAgunanFrontAdapter.MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        binding= ItemCaptureAgunanFrontBinding.inflate(layoutInflater,parent,false);
+        binding= ItemCaptureAgunanFrontNewBinding.inflate(layoutInflater,parent,false);
         View view = binding.getRoot();
         return new CaptureAgunanFrontAdapter.MenuViewHolder(view);
     }

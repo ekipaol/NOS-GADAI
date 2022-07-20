@@ -206,19 +206,27 @@ public interface ApiInterface {
     Call<ParseResponse> getDetailBranch(@Path(value = "branch_id", encoded = true) String branchId);
 
     //Dashboard Gadai
-    @POST(UriApi.DashboardGadai.sumProgramGadai)
-    Call<ParseResponseGadai> sumProgramGadai (@Body ReqSumProgram ReqSumProgram);
-    @POST(UriApi.DashboardGadai.listDashboardTopUpGadai)
-    Call<ParseResponse> sumTopUpGadai (@Body ReqTopUpDashboard ReqTopUpDashboard);
-    @POST(UriApi.DashboardGadai.listGadaiGagal)
-    Call<ParseResponseArr> listGadaiGagal (@Body ReqBranch ReqBranch);
     @POST(UriApi.DashboardGadai.retryGadaiGagal)
     Call<ParseResponse> retryGadaiGagal (@Body ReqRetryGadaiGagal ReqRetryGadaiGagal);
+    @POST(UriApi.DashboardGadai.listGadaiGagal)
+    Call<ParseResponseArr> listGadaiGagal (@Body ReqBranch ReqBranch);
+    @POST(UriApi.DashboardGadai.listBelumUjiKualitas)
+    Call<ParseResponseArr> listBelumUjiKualitas (@Body ReqSumTSUjikualitas ReqSumTSUjikualitas);
+    @POST(UriApi.DashboardGadai.listPastdue)
+    Call<ParseResponseArr> listPastdue (@Body ReqDashboard ReqDashboard);
+    @POST(UriApi.DashboardGadai.listReportJatuhTempo)
+    Call<ParseResponseArr> listReportJatuhTempo (@Body ReqDashboard ReqDashboard);
+    @POST(UriApi.DashboardGadai.sumProgramGadai)
+    Call<ParseResponseGadai> sumProgramGadai (@Body ReqSumProgram ReqSumProgram);
+    @POST(UriApi.DashboardGadai.sumGadaiGagal)
+    Call<ParseResponse> sumTopUpGadai (@Body ReqTopUpDashboard ReqTopUpDashboard);
     @POST(UriApi.DashboardGadai.sumTSUjiKualitas)
     Call<ParseResponseGadai> sumUjiKualitasTS (@Body ReqSumTSUjikualitas ReqSumTSUjikualitas);
-    @POST(UriApi.DashboardGadai.sumPastdue)
-    Call<ParseResponseGadai> sumPastdue (@Body ReqDashboard ReqDashboard);
-    @POST(UriApi.DashboardGadai.sumJatuhTempo)
-    Call<ParseResponseGadai> sumJatuhTempo (@Body ReqDashboard ReqDashboard);
+    @POST(UriApi.DashboardGadai.sumPencairanGadai)
+    Call<ParseResponse> sumPencairanGadai (@Body ReqTopUpDashboard ReqTopUpDashboard);
+    @POST(UriApi.DashboardGadai.sumPerpanjanganGadai)
+    Call<ParseResponse> sumPerpanjanganGadai (@Body ReqTopUpDashboard ReqTopUpDashboard);
+    @POST(UriApi.DashboardGadai.sumPelunasanGadai)
+    Call<ParseResponse> sumPelunasanGadai (@Body ReqTopUpDashboard ReqTopUpDashboard);
 }
 

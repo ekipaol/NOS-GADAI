@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_pastdue;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.report_jatuh_tempo;
 
 import static com.application.bris.ikurma_nos_gadai.util.AppUtil.parseRupiahNoSymbol;
 
@@ -18,7 +18,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ItemListPastdueBinding;
+import com.application.bris.ikurma_nos_gadai.databinding.ItemListJatuhTempoBinding;
 import com.application.bris.ikurma_nos_gadai.model.gadai.ListPastDue;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 
@@ -27,15 +27,15 @@ import java.util.List;
 
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
 
-public class SumPastdueAdapter extends RecyclerView.Adapter<SumPastdueAdapter.MenuViewHolder> implements Filterable {
+public class JatuhTempoAdapter extends RecyclerView.Adapter<JatuhTempoAdapter.MenuViewHolder> implements Filterable {
 
     private List<ListPastDue> data;
     private Context context;
-    private ItemListPastdueBinding binding;
+    private ItemListJatuhTempoBinding binding;
     private List<ListPastDue> datafiltered;
     private AppPreferences appPreferences;
 
-    public SumPastdueAdapter(Context context, List<ListPastDue> mdata) {
+    public JatuhTempoAdapter(Context context, List<ListPastDue> mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
@@ -45,7 +45,7 @@ public class SumPastdueAdapter extends RecyclerView.Adapter<SumPastdueAdapter.Me
     @Override
     public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        binding = ItemListPastdueBinding.inflate(layoutInflater, parent, false);
+        binding = ItemListJatuhTempoBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
         appPreferences = new AppPreferences(context);
         return new MenuViewHolder(view);
@@ -92,7 +92,7 @@ public class SumPastdueAdapter extends RecyclerView.Adapter<SumPastdueAdapter.Me
         defaultView(holder);
     }
 
-    private void defaultView( SumPastdueAdapter.MenuViewHolder holder){
+    private void defaultView( MenuViewHolder holder){
         holder.llJatuhTempo.setVisibility(View.GONE);
         holder.rlPastdue.setVisibility(View.GONE);
         holder.vPastdue.setVisibility(View.GONE);

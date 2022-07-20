@@ -95,7 +95,7 @@
                 android:clickable="true">
 
                 <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rv_list_ts_uji_kualitas"
+                    android:id="@+id/rv_list_belum_uji_kualitas"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:scrollbars="vertical" />
@@ -110,7 +110,7 @@
         android:id="@+id/ll_emptydata"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="130dp"
+        android:layout_marginTop="130dp"
         android:orientation="vertical"
         android:gravity="center"
         android:visibility="gone">

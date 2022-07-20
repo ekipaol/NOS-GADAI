@@ -2,7 +2,7 @@ package com.application.bris.ikurma_nos_gadai.model.gadai;
 
 import com.google.gson.annotations.SerializedName;
 
-public class SumPastDue {
+public class ListPastDue {
 
     @SerializedName("NoAplikasi")
     private String noAplikasi;

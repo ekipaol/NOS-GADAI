@@ -1,6 +1,5 @@
 package com.application.bris.ikurma_nos_gadai.view.corelayout.login;
 
-import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.os.Build;
@@ -8,6 +7,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.view.View;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,12 +24,10 @@ import com.application.bris.ikurma_nos_gadai.api.model.request.general.login;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.baseapp.RouteApp;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.model.gadai.SummaryPerpanjanganGadai;
 import com.application.bris.ikurma_nos_gadai.model.general.dataLogin;
 import com.application.bris.ikurma_nos_gadai.model.login_bsi.DataLoginBsi;
 import com.application.bris.ikurma_nos_gadai.page_aom.dialog.CustomDialog;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.ConfirmListener;
-import com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.SummaryPerpanjangan.ListSummaryPerpanjanganActivity;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
 import com.application.bris.ikurma_nos_gadai.util.Constants;
 import com.application.bris.ikurma_nos_gadai.util.service_encrypt.MagicCryptHelper;
@@ -118,21 +116,21 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
                 }
             });
         }
-
-        iv_avatarlogin.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                Intent intent = new Intent(LoginActivity2.this, ListSummaryPerpanjanganActivity.class);
-                startActivity(intent);
-                return false;
-            }
-        });
     }
 
-    private void backgroundStatusBar(){
+//    private void backgroundStatusBar(){
+//        Window window = getWindow();
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+//            window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+//        }
+//    }
+
+    private void backgroundStatusBar() {
         Window window = getWindow();
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+        window.clearFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.setStatusBarColor(getResources().getColor(R.color.colorPrimary));
+            window.setStatusBarColor(getResources().getColor(R.color.colorBackgroundTransparent));
         }
     }
 
@@ -143,6 +141,8 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
                 Glide.
                         with(this)
                         .load(R.drawable.ic_generalusericon)
+//                        sementara kalo pakai desain terbaru boleh pakai vector ini dulu....
+//                        .load(R.drawable.ic_front_gadai_vector)
                         .diskCacheStrategy(DiskCacheStrategy.NONE)
                         .skipMemoryCache(true)
                         .into(iv_avatarlogin);
@@ -296,7 +296,7 @@ public class LoginActivity2 extends AppCompatActivity implements View.OnClickLis
             appPreferences.setKodeArea(AppUtil.encrypt(Integer.toString(dataLoginBsi.getArea().getIdArea())));
         }
         catch (NullPointerException e){
-           e.printStackTrace();
+            e.printStackTrace();
             appPreferences.setKodeArea(AppUtil.encrypt("0"));
         }
 

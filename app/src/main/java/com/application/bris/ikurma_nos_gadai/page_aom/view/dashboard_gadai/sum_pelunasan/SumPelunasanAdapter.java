@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_top_up;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_pelunasan;
 
 import static com.application.bris.ikurma_nos_gadai.util.AppUtil.parseRupiahNoSymbol;
 
@@ -12,22 +12,22 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ItemListTopUpDashboardBinding;
+import com.application.bris.ikurma_nos_gadai.databinding.ItemListSumPelunasanBinding;
 import com.application.bris.ikurma_nos_gadai.model.gadai.SumPencairanGadai;
 
 import java.util.List;
 
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
 
-public class SumTopUpAdapter extends RecyclerView.Adapter<SumTopUpAdapter.MenuViewHolder> /*implements*/ /*Filterable*/ {
+public class SumPelunasanAdapter extends RecyclerView.Adapter<SumPelunasanAdapter.MenuViewHolder> {
 
-    private List<SumPencairanGadai> data;
+    private List <SumPencairanGadai> data;
     private Context context;
-    private ItemListTopUpDashboardBinding binding;
-    private List<SumPencairanGadai> datafiltered;
+    private ItemListSumPelunasanBinding binding;
+    private List <SumPencairanGadai> datafiltered;
     private AppPreferences appPreferences;
 
-    public SumTopUpAdapter(Context context, List<SumPencairanGadai>mdata) {
+    public SumPelunasanAdapter(Context context, List <SumPencairanGadai> mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
@@ -37,7 +37,7 @@ public class SumTopUpAdapter extends RecyclerView.Adapter<SumTopUpAdapter.MenuVi
     @Override
     public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        binding = ItemListTopUpDashboardBinding.inflate(layoutInflater, parent, false);
+        binding = ItemListSumPelunasanBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
         appPreferences = new AppPreferences(context);
         return new MenuViewHolder(view);
@@ -64,12 +64,9 @@ public class SumTopUpAdapter extends RecyclerView.Adapter<SumTopUpAdapter.MenuVi
 
     @Override
     public int getItemCount() {
-        if (datafiltered == null) {
-            return 0;
-        } else {
-            return datafiltered.size();
-        }
+        return data.size();
     }
+
 
 //        @Override
 //        public Filter getFilter() {
@@ -103,6 +100,46 @@ public class SumTopUpAdapter extends RecyclerView.Adapter<SumTopUpAdapter.MenuVi
 //                }
 //            };
 //        }
+
+//    private String dataTotalProcesesor(String nominal){
+//
+//        String formattedString="";
+//        String removeComma=nominal.substring(0,nominal.length()-3);
+//        String[] stringCutter;
+//
+//        Log.d("nominalString",removeComma);
+//
+//        if(removeComma.length()<=12){
+//            formattedString=AppUtil.parseRupiahNoSymbol(removeComma);
+////            formattedString=formattedString.substring(0,formattedString.length()-3);
+//
+//            if(formattedString.substring(0,4).contains(",")){
+//                stringCutter=formattedString.split(",");
+//            }
+//            else{
+//                stringCutter=formattedString.split("\\.");
+//            }
+//            Log.d("formattedstring",formattedString);
+//            return stringCutter[0]+","+stringCutter[1].substring(0,2)+" M";
+//        }
+//        else if(removeComma.length()<=15){
+//            formattedString=AppUtil.parseRupiahNoSymbol(removeComma);
+////            formattedString=formattedString.substring(0,formattedString.length()-3);
+//
+//            if(formattedString.substring(0,4).contains(",")){
+//                stringCutter=formattedString.split(",");
+//            }
+//            else{
+//                stringCutter=formattedString.split("\\.");
+//            }
+//            Log.d("formattedstring",formattedString);
+//            return stringCutter[0]+","+stringCutter[1].substring(0,2)+" T";
+//        }
+//        else{
+//            return AppUtil.parseRupiahNoSymbol(removeComma);
+//        }
+//    }
+
 
     private String dataTotalProcesesor(String nominal){
 

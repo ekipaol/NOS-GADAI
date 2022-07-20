@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_program_gadai;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.report_belum_uji_kualitas;
 
 import android.os.Build;
 import android.os.Bundle;
@@ -17,15 +17,14 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.application.bris.ikurma_nos_gadai.R;
 import com.application.bris.ikurma_nos_gadai.api.model.Error;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponse;
+import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseArr;
 import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseError;
-import com.application.bris.ikurma_nos_gadai.api.model.ParseResponseGadai;
-import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqSumProgram;
+import com.application.bris.ikurma_nos_gadai.api.model.request.dashboardgadai.ReqSumTSUjikualitas;
 import com.application.bris.ikurma_nos_gadai.api.service.ApiClientAdapter;
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ActivityListSumProgramBinding;
+import com.application.bris.ikurma_nos_gadai.databinding.ActivityListBelumUjiKualitasBinding;
+import com.application.bris.ikurma_nos_gadai.model.gadai.DataBelumUjiKualitas;
 import com.application.bris.ikurma_nos_gadai.model.gadai.DataCabang;
-import com.application.bris.ikurma_nos_gadai.model.gadai.SumProgramGadai;
-import com.application.bris.ikurma_nos_gadai.page_aom.dialog.DialogGenericDataFromService;
 import com.application.bris.ikurma_nos_gadai.page_aom.listener.GenericListenerOnSelect;
 import com.application.bris.ikurma_nos_gadai.page_aom.model.MGenericModel;
 import com.application.bris.ikurma_nos_gadai.util.AppUtil;
@@ -37,7 +36,6 @@ import org.json.JSONException;
 import java.lang.reflect.Type;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
@@ -45,14 +43,14 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ListSumProgramGadai extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener{
+public class BelumUjiKualitasActivity extends AppCompatActivity implements GenericListenerOnSelect, SwipeRefreshLayout.OnRefreshListener, View.OnClickListener{
 
-    private SumProgramGadaiAdapter sumProgramGadaiAdapter;
-    ActivityListSumProgramBinding binding;
+    private BelumUjiKualitasAdapter belumUjiKualitasAdapter;
+    ActivityListBelumUjiKualitasBinding binding;
     View view;
     public static SimpleDateFormat dateClient = new SimpleDateFormat("dd-MM-yyyy", Locale.US);
-
-    private List<SumProgramGadai> dataSumProgram = new ArrayList<>();
+    private List<MGenericModel> dataDropdownTreatment=new ArrayList<>();
+    private List<DataBelumUjiKualitas> dataSumUjiKualitas = new ArrayList<>();
     private List <DataCabang> dataCabang= new ArrayList<>() ;
     private List<String> listCabang = new ArrayList<>();
     public static int idAplikasi = 0;
@@ -66,7 +64,7 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //binding View
-        binding = ActivityListSumProgramBinding.inflate(getLayoutInflater());
+        binding = ActivityListBelumUjiKualitasBinding.inflate(getLayoutInflater());
         view = binding.getRoot();
 
         apiClientAdapter = new ApiClientAdapter(this,true);
@@ -74,11 +72,10 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
         appPreferences = new AppPreferences(this);
 
         setContentView(binding.getRoot());
-        binding.etPilihTahun.setFocusable(false);
+        binding.etTanggalUjiKualitas.setFocusable(false);
         customToolbar();
         backgroundStatusBar();
-        isiDropdown();
-        allEndOnClick();
+        endIconOnClick();
         allOnClick();
 
         if (getIntent().hasExtra("fidArea")) {
@@ -115,12 +112,12 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
                         else if (response.body().getStatus().equalsIgnoreCase("14")) {
                         }
                         else{
-                            AppUtil.notiferror(ListSumProgramGadai.this, findViewById(android.R.id.content), response.body().getMessage());
+                            AppUtil.notiferror(BelumUjiKualitasActivity.this, findViewById(android.R.id.content), response.body().getMessage());
                         }
                     }
                     else{
                         Error error = ParseResponseError.confirmEror(response.errorBody());
-                        AppUtil.notiferror(ListSumProgramGadai.this, findViewById(android.R.id.content), error.getMessage());
+                        AppUtil.notiferror(BelumUjiKualitasActivity.this, findViewById(android.R.id.content), error.getMessage());
                     }
                 }
                 catch (Exception e){
@@ -129,7 +126,7 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
             }
             @Override
             public void onFailure(Call<ParseResponse> call, Throwable t) {
-                AppUtil.notiferror(ListSumProgramGadai.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
+                AppUtil.notiferror(BelumUjiKualitasActivity.this, findViewById(android.R.id.content), getString(R.string.txt_connection_failure));
             }
         });
 
@@ -140,15 +137,15 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
         binding.loading.progressbarLoading.setVisibility(View.VISIBLE);
         AppPreferences appPreferences=new AppPreferences(this);
         apiClientAdapter = new ApiClientAdapter(this);
-        ReqSumProgram req = new ReqSumProgram();
+        ReqSumTSUjikualitas req = new ReqSumTSUjikualitas();
         req.setListCabang(listCabang);
-        req.setTahun(binding.etPilihTahun.getText().toString());
-        Call<ParseResponseGadai> call = apiClientAdapter.getApiInterface().sumProgramGadai(req);
-        call.enqueue(new Callback<ParseResponseGadai>() {
+        req.setTanggal(AppUtil.parseTanggalGeneral(binding.etTanggalUjiKualitas.getText().toString(),"dd-MM-yyyy","yyyy-MM-dd"));
+        Call<ParseResponseArr> call = apiClientAdapter.getApiInterface().listBelumUjiKualitas(req);
+        call.enqueue(new Callback<ParseResponseArr>() {
             @Override
-            public void onResponse(Call<ParseResponseGadai> call, Response<ParseResponseGadai> response) {
+            public void onResponse(Call<ParseResponseArr> call, Response<ParseResponseArr> response) {
                 binding.loading.progressbarLoading.setVisibility(View.GONE);
-                binding.rvSumProgramGadai.setVisibility(View.VISIBLE);
+                binding.rvListBelumUjiKualitas.setVisibility(View.VISIBLE);
                 if (response.isSuccessful()) {
                     String listDataString;
                     if (response.body().getStatus().equalsIgnoreCase("00")) {
@@ -160,36 +157,35 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
                         }
 
                         Gson gson = new Gson();
-                        Type type = new TypeToken<List<SumProgramGadai>>() {
+                        Type type = new TypeToken<List<DataBelumUjiKualitas>>() {
                         }.getType();
-                        dataSumProgram = gson.fromJson(listDataString, type);
 
-                        sumProgramGadaiAdapter = new SumProgramGadaiAdapter(ListSumProgramGadai.this, dataSumProgram);
-                        binding.rvSumProgramGadai.setLayoutManager(new LinearLayoutManager(ListSumProgramGadai.this));
-                        binding.rvSumProgramGadai.setItemAnimator(new DefaultItemAnimator());
-                        binding.rvSumProgramGadai.setAdapter(sumProgramGadaiAdapter);
+                        dataSumUjiKualitas = gson.fromJson(listDataString, type);
+                        belumUjiKualitasAdapter = new BelumUjiKualitasAdapter(BelumUjiKualitasActivity.this, dataSumUjiKualitas);
+                        binding.rvListBelumUjiKualitas.setLayoutManager(new LinearLayoutManager(BelumUjiKualitasActivity.this));
+                        binding.rvListBelumUjiKualitas.setItemAnimator(new DefaultItemAnimator());
+                        binding.rvListBelumUjiKualitas.setAdapter(belumUjiKualitasAdapter);
 
-                    if (dataSumProgram.size() == 0) {
+                        if (dataSumUjiKualitas.size() == 0) {
+                            binding.llEmptydata.setVisibility(View.VISIBLE);
+                        } else {
+                            binding.llEmptydata.setVisibility(View.GONE);
+                        }
+                    } else if (response.body().getStatus().equalsIgnoreCase("14")) {
                         binding.llEmptydata.setVisibility(View.VISIBLE);
-
-                    } else {
-                        binding.llEmptydata.setVisibility(View.GONE);
-
                     }
-                } else if (response.body().getStatus().equalsIgnoreCase("14")) {
-                    binding.llEmptydata.setVisibility(View.VISIBLE);
                 }
             }
-        }
+            @Override
+            public void onFailure(Call<ParseResponseArr> call, Throwable t) {
+                binding.loading.progressbarLoading.setVisibility(View.GONE);
+                AppUtil.notiferror(BelumUjiKualitasActivity.this, findViewById(android.R.id.content), "Terjadi kesalahan");
+                Log.d("LOG D", t.getMessage());
 
-        @Override
-        public void onFailure(Call<ParseResponseGadai> call, Throwable t) {
-            binding.loading.progressbarLoading.setVisibility(View.GONE);
-            AppUtil.notiferror(ListSumProgramGadai.this, findViewById(android.R.id.content), "Terjadi kesalahan");
-            Log.d("LOG D", t.getMessage());
-        }
-    });
-}
+            }
+        });
+    }
+
 
 //    private void setData() throws JSONException {
 //        CaptureAgunan dd = new CaptureAgunan();
@@ -209,12 +205,12 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
 //    }
 
     public void initialize(){
-        binding.rvSumProgramGadai.setVisibility(View.VISIBLE);
-        binding.rvSumProgramGadai.setHasFixedSize(true);
-        sumProgramGadaiAdapter = new SumProgramGadaiAdapter(ListSumProgramGadai.this, dataSumProgram);
-        binding.rvSumProgramGadai.setLayoutManager(new LinearLayoutManager(ListSumProgramGadai.this));
-        binding.rvSumProgramGadai.setItemAnimator(new DefaultItemAnimator());
-        binding.rvSumProgramGadai.setAdapter(sumProgramGadaiAdapter);
+        binding.rvListBelumUjiKualitas.setVisibility(View.VISIBLE);
+        binding.rvListBelumUjiKualitas.setHasFixedSize(true);
+        belumUjiKualitasAdapter = new BelumUjiKualitasAdapter(BelumUjiKualitasActivity.this, dataSumUjiKualitas);
+        binding.rvListBelumUjiKualitas.setLayoutManager(new LinearLayoutManager(BelumUjiKualitasActivity.this));
+        binding.rvListBelumUjiKualitas.setItemAnimator(new DefaultItemAnimator());
+        binding.rvListBelumUjiKualitas.setAdapter(belumUjiKualitasAdapter);
         binding.refresh.setOnRefreshListener(this);
         binding.refresh.setDistanceToTriggerSync(220);
 //        binding.toolbarReguler.etSearchTool.addTextChangedListener(new TextWatcher() {
@@ -237,12 +233,11 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
 
 
     @Override
-
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.tf_pilih_tahun:
-            case R.id.et_pilih_tahun:
-                DialogGenericDataFromService.display(getSupportFragmentManager(), "tahun", dropdownTahun, ListSumProgramGadai.this);
+            case R.id.tf_tanggal_uji_kualitas:
+            case R.id.et_tanggal_uji_kualitas:
+                AppUtil.genericCalendarDialog(BelumUjiKualitasActivity.this,binding.etTanggalUjiKualitas);
                 break;
             case R.id.btn_cari:
                 validasi();
@@ -256,9 +251,9 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
     }
 
     private boolean validasi() {
-        if (binding.etPilihTahun.getText().toString().trim().isEmpty() || binding.etPilihTahun.getText().toString().trim().equalsIgnoreCase(" ")) {
-            binding.tfPilihTahun.setError(binding.tfPilihTahun.getLabelText() + " " + "is required", true);
-            AppUtil.notiferror(ListSumProgramGadai.this, findViewById(android.R.id.content), binding.tfPilihTahun.getLabelText() + " " + getString(R.string.title_validate_field));
+        if (binding.etTanggalUjiKualitas.getText().toString().trim().isEmpty() || binding.etTanggalUjiKualitas.getText().toString().trim().equalsIgnoreCase(" ")) {
+            binding.tfTanggalUjiKualitas.setError(binding.tfTanggalUjiKualitas.getLabelText() + " " + "is required", true);
+            AppUtil.notiferror(BelumUjiKualitasActivity.this, findViewById(android.R.id.content), binding.tfTanggalUjiKualitas.getLabelText() + " " + getString(R.string.title_validate_field));
         }
         return false;
     }
@@ -275,7 +270,7 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
     public void customToolbar() {
         binding.toolbarReguler.tvSecondTitle.setVisibility(View.VISIBLE);
         binding.toolbarReguler.tvSecondTitle.setText("Dashboard");
-        binding.toolbarReguler.tvPageTitle.setText("Summary Program Gadai");
+        binding.toolbarReguler.tvPageTitle.setText("Laporan Belum Uji Kualitas");
         binding.toolbarReguler.btnBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -284,10 +279,26 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
         });
     }
 
+    private void allOnClick(){
+        binding.tfTanggalUjiKualitas.setOnClickListener(this);
+        binding.etTanggalUjiKualitas.setOnClickListener(this);
+        binding.btnCari.setOnClickListener(this);
+    }
+
+    private void endIconOnClick(){
+        binding.tfTanggalUjiKualitas.getEndIconImageButton().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                AppUtil.genericCalendarDialog(BelumUjiKualitasActivity.this,binding.etTanggalUjiKualitas);
+            }
+        });
+
+    }
+
     @Override
     public void onRefresh() {
         binding.refresh.setRefreshing(false);
-        binding.rvSumProgramGadai.setVisibility(View.VISIBLE);
+        binding.rvListBelumUjiKualitas.setVisibility(View.VISIBLE);
         loadData();
         try {
             setData();
@@ -305,40 +316,13 @@ public class ListSumProgramGadai extends AppCompatActivity implements GenericLis
 
     }
 
-    private void allOnClick(){
-        binding.tfPilihTahun.setOnClickListener(this);
-        binding.etPilihTahun.setOnClickListener(this);
-        binding.btnCari.setOnClickListener(this);
-    }
+        @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
 
-    private void allEndOnClick(){
-        binding.tfPilihTahun.getEndIconImageButton().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DialogGenericDataFromService.display(getSupportFragmentManager(), "tahun", dropdownTahun, ListSumProgramGadai.this);
-            }
-        });
-    }
-
-    private void isiDropdown(){
-        Calendar calendar = Calendar.getInstance();
-        int year = calendar.get(Calendar.YEAR);
-        int baseYear = 2020;
-        for (int i = baseYear; i <= year; i++) {
-            dropdownTahun.add(new MGenericModel(Integer.toString(i),Integer.toString(i)));
-        }
     }
 
     @Override
     public void onSelect(String title, MGenericModel data) {
-        if (title.equalsIgnoreCase("tahun")){
-            binding.etPilihTahun.setText(data.getDESC());
-        }
-
-    }
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
 
     }
 }

@@ -19,8 +19,13 @@
         <activity android:name=".page_aom.view.gadai.uji_opname.ListAreaActivity" />
         <activity android:name=".page_aom.view.dashboard_gadai.sum_program_gadai.ListSumProgramGadai" />
         <activity android:name=".page_aom.view.dashboard_gadai.sum_top_up.ListSumTopUpBSIM" />
-        <activity android:name=".page_aom.view.dashboard_gadai.sum_uji_tidak_sesuai.ListSumBelumUjiKualitas" />
+        <activity android:name=".page_aom.view.dashboard_gadai.report_uji_tidak_sesuai.UjiKualitasTidakSesuaiActivity" />
         <activity android:name=".page_aom.view.dashboard_gadai.sum_pastdue.SumPastdueActivity" />
+        <activity android:name=".page_aom.view.dashboard_gadai.sum_pencairan.SumPencairanActivity" />
+        <activity android:name=".page_aom.view.dashboard_gadai.sum_perpanjangan.SumPerpanjanganActivity" />
+        <activity android:name=".page_aom.view.dashboard_gadai.sum_pelunasan.SumPelunasanActivity" />
+        <activity android:name=".page_aom.view.dashboard_gadai.report_belum_uji_kualitas.BelumUjiKualitasActivity" />
+        <activity android:name=".page_aom.view.dashboard_gadai.report_jatuh_tempo.JatuhTempoActivity" />
         <activity android:name=".page_putusan_gadai.detail_putusan_gadai.DetailPutusanGadaiActivity" />
         <activity android:name=".page_putusan_gadai.PutusanGadaiActivity" />
         <activity android:name=".page_aom.view.gadai.menu_penjualan.MenuPenjualanActivity" />

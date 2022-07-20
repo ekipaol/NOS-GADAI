@@ -1,4 +1,4 @@
-package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.sum_top_up;
+package com.application.bris.ikurma_nos_gadai.page_aom.view.dashboard_gadai.report_belum_uji_kualitas;
 
 import static com.application.bris.ikurma_nos_gadai.util.AppUtil.parseRupiahNoSymbol;
 
@@ -7,27 +7,28 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.application.bris.ikurma_nos_gadai.database.AppPreferences;
-import com.application.bris.ikurma_nos_gadai.databinding.ItemListTopUpDashboardBinding;
-import com.application.bris.ikurma_nos_gadai.model.gadai.SumPencairanGadai;
+import com.application.bris.ikurma_nos_gadai.databinding.ItemListBelumUjiKualitasBinding;
+import com.application.bris.ikurma_nos_gadai.model.gadai.DataBelumUjiKualitas;
 
 import java.util.List;
 
 import studio.carbonylgroup.textfieldboxes.ExtendedEditText;
 
-public class SumTopUpAdapter extends RecyclerView.Adapter<SumTopUpAdapter.MenuViewHolder> /*implements*/ /*Filterable*/ {
+public class BelumUjiKualitasAdapter extends RecyclerView.Adapter<BelumUjiKualitasAdapter.MenuViewHolder> {
 
-    private List<SumPencairanGadai> data;
+    private List<DataBelumUjiKualitas> data;
     private Context context;
-    private ItemListTopUpDashboardBinding binding;
-    private List<SumPencairanGadai> datafiltered;
+    private ItemListBelumUjiKualitasBinding binding;
+    private List<DataBelumUjiKualitas> datafiltered;
     private AppPreferences appPreferences;
 
-    public SumTopUpAdapter(Context context, List<SumPencairanGadai>mdata) {
+    public BelumUjiKualitasAdapter(Context context, List<DataBelumUjiKualitas> mdata) {
         this.context = context;
         this.data = mdata;
         this.datafiltered = mdata;
@@ -37,7 +38,7 @@ public class SumTopUpAdapter extends RecyclerView.Adapter<SumTopUpAdapter.MenuVi
     @Override
     public MenuViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(context);
-        binding = ItemListTopUpDashboardBinding.inflate(layoutInflater, parent, false);
+        binding = ItemListBelumUjiKualitasBinding.inflate(layoutInflater, parent, false);
         View view = binding.getRoot();
         appPreferences = new AppPreferences(context);
         return new MenuViewHolder(view);
@@ -47,15 +48,17 @@ public class SumTopUpAdapter extends RecyclerView.Adapter<SumTopUpAdapter.MenuVi
     public void onBindViewHolder(@NonNull MenuViewHolder holder, int position) {
         //never user BINDING ON ON BIND VIEW HOLDER DUDE!!!, USE HOLDER INSTEAD
         //NEVER, IT GONNA F UP YOUR DATA ORDER
-        final SumPencairanGadai datas = datafiltered.get(position);
+        final DataBelumUjiKualitas datas = datafiltered.get(position);
 
-        holder.etJumlahCIF.setText(datas.getJumlahLoan().toString());
-        holder.etJumlahLoan.setText(datas.getJumlahCIF().toString());
-        holder.etTotalStanding.setText(dataTotalProcesesor(datas.getTotalOutstanding().toString()));
+        holder.tvNamaNasabah.setText(datas.getNama());
+        holder.tvNomorAplikasi.setText(datas.getNoAplikasi());
+        holder.etNilaiPembiyaan.setText(dataTotalProcesesor(datas.getNilaiPembiayaan().toString()));
+        holder.etNilaiTaksiran.setText(dataTotalProcesesor(datas.getNilaiTaksiran().toString()));
+        holder.etNilaiBiayaPemeliharaan.setText(dataTotalProcesesor(datas.getNilaiBiayaPemeliharaan().toString()));
         onClicks(holder);
-
-
     }
+
+
 
     private void onClicks(@NonNull MenuViewHolder holder) {
 
@@ -159,15 +162,17 @@ public class SumTopUpAdapter extends RecyclerView.Adapter<SumTopUpAdapter.MenuVi
         }
     }
 
-
     public class MenuViewHolder extends RecyclerView.ViewHolder {
-        ExtendedEditText etJumlahCIF,etJumlahLoan,etTotalStanding;
+        TextView tvNamaNasabah,tvNomorAplikasi;
+        ExtendedEditText etNilaiPembiyaan,etNilaiTaksiran,etNilaiBiayaPemeliharaan;
 
         public MenuViewHolder(View itemView) {
             super(itemView);
-            etJumlahLoan = binding.etJumlahLoan;
-            etJumlahCIF = binding.etJumlahCif;
-            etTotalStanding = binding.etTotalStanding;
+            tvNamaNasabah = binding.tvNamaNasabah;
+            tvNomorAplikasi = binding.tvNomorAplikasi;
+            etNilaiTaksiran = binding.etNilaiTaksiran;
+            etNilaiBiayaPemeliharaan = binding.etNilaiBiayaPemeliharaan;
+            etNilaiPembiyaan = binding.etNilaiPembiayaan;
         }
 
     }
